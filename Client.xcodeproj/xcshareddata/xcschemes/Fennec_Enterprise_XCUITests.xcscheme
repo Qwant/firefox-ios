@@ -299,6 +299,9 @@
                   Identifier = "ReaderViewTest/testLoadReaderContent()">
                </Test>
                <Test
+                  Identifier = "SaveLoginTest/testSavedLoginAutofilled()">
+               </Test>
+               <Test
                   Identifier = "SaveLoginTest/testSavedLoginSelectUnselect()">
                </Test>
                <Test

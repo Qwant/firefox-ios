@@ -4,8 +4,8 @@
 
 import XCTest
 
-let url_1 = "www.google.com"
-let url_2 = ["url": "www.mozilla.org", "bookmarkLabel": "Internet for people, not profit — Mozilla"]
+let url_1 = "test-example.html"
+let url_2 = ["url": "test-mozilla-org.html", "bookmarkLabel": "Internet for people, not profit — Mozilla"]
 
 class BookmarkingTests: BaseTestCase {
     private func bookmark() {
@@ -46,21 +46,19 @@ class BookmarkingTests: BaseTestCase {
 
     func testBookmarkingUI() {
         // Go to a webpage, and add to bookmarks, check it's added
-        navigator.createNewTab()
-        loadWebPage(url_1)
+        navigator.openURL(path(forTestPage: url_1))
         navigator.nowAt(BrowserTab)
         bookmark()
         checkBookmarked()
 
         // Load a different page on a new tab, check it's not bookmarked
-        navigator.createNewTab()
-        loadWebPage(url_2["url"]!)
+        navigator.openNewURL(urlString: path(forTestPage: url_2["url"]!))
         navigator.nowAt(BrowserTab)
         checkUnbookmarked()
 
         // Go back, check it's still bookmarked, check it's on bookmarks home panel
         navigator.goto(TabTray)
-        app.collectionViews.cells["Google"].tap()
+        app.collectionViews.cells["Example Domain"].tap()
         navigator.nowAt(BrowserTab)
         checkBookmarked()
 
@@ -81,14 +79,8 @@ class BookmarkingTests: BaseTestCase {
     }
 
     func testAccessBookmarksFromContextMenu() {
-        //First time there is not any bookmark
-        navigator.browserPerformAction(.openBookMarksOption)
-        checkEmptyBookmarkList()
-        navigator.nowAt(BrowserTab)
-
         //Add a bookmark
-        navigator.createNewTab()
-        loadWebPage(url_2["url"]!)
+        navigator.openURL(path(forTestPage: url_2["url"]!))
         navigator.nowAt(BrowserTab)
         bookmark()
 
