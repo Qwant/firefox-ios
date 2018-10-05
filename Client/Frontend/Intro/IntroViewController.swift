@@ -403,6 +403,7 @@ class CardView: UIView {
             }
             // When there is a button reduce the spacing to make more room for text
             stackView.spacing = stackView.spacing / 2
+            button.isHidden = true
         }
     }
 
@@ -435,9 +436,10 @@ struct IntroCard: Codable {
     }
 
     static func defaultCards() -> [IntroCard] {
-        let welcome = IntroCard(title: Strings.CardTitleWelcome, text: Strings.CardTextWelcome, imageName: "tour-Welcome")
-        let sync = IntroCard(title: Strings.CardTitleSync, text: Strings.CardTextSync, imageName: "tour-Sync", buttonText: Strings.SignInButtonTitle, buttonSelector: #selector(IntroViewController.login).description)
-        return [welcome, sync]
+        let welcome = IntroCard(title: Strings.CardTitleWelcome2, text: Strings.CardTextWelcome2, imageName: "tour-Welcome2")
+        let privacy = IntroCard(title: Strings.CardTitlePrivacy, text: Strings.CardTextPrivacy, imageName: "tour-Privacy")
+        let efficiency = IntroCard(title: Strings.CardTitleEfficiency, text: Strings.CardTextEfficiency, imageName: "tour-Efficiency", buttonText: Strings.SignInButtonTitle, buttonSelector: #selector(IntroViewController.login).description)
+        return [welcome, privacy, efficiency]
     }
 
     /* Codable doesnt allow quick conversion to a dictonary */
