@@ -745,7 +745,7 @@ class OpenSupportPageSetting: Setting {
 
     override func onClick(_ navigationController: UINavigationController?) {
         navigationController?.dismiss(animated: true) {
-            if let url = URL(string: "https://support.mozilla.org/products/ios") {
+            if let url = URL(string: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser") {
                 self.delegate?.settingsOpenURLInNewTab(url)
             }
         }
@@ -899,7 +899,7 @@ class PrivacyPolicySetting: Setting {
     }
 
     override var url: URL? {
-        return URL(string: "https://www.mozilla.org/privacy/firefox/")
+        return URL(string: "https://about.qwant.com/legal/privacy/?client=qwantbrowser")
     }
 
     override func onClick(_ navigationController: UINavigationController?) {
