@@ -225,7 +225,8 @@ extension ActivityStreamPanel {
                     numItems = numItems - 1
                 }
                 return numItems
-            case .topSites:
+            case .pocket: return 0
+            case .topSites, .highlightIntro:
                 return 1
             }
         }
@@ -408,9 +409,9 @@ extension ActivityStreamPanel {
     }
 
     func configurePocketItemCell(_ cell: UICollectionViewCell, forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
-        let pocketStory = pocketStories[indexPath.row]
+        // let pocketStory = pocketStories[indexPath.row]
         let pocketItemCell = cell as! ActivityStreamHighlightCell
-        pocketItemCell.configureWithPocketStory(pocketStory)
+        // pocketItemCell.configureWithPocketStory(pocketStory)
         return pocketItemCell
     }
 
