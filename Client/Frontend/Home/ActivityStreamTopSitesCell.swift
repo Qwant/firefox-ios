@@ -128,8 +128,8 @@ class TopSiteItemCell: UICollectionViewCell, Themeable {
     func configureWithTopSiteItem(_ site: Site) {
         url = site.tileURL
 
-        if let provider = site.metadata?.providerName {
-            titleLabel.text = provider.lowercased()
+        if site.title.contains("Qwant") {
+            titleLabel.text = site.title
         } else {
             titleLabel.text = site.tileURL.shortDisplayString
         }

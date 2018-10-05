@@ -37,7 +37,7 @@ open class DefaultSuggestedSites {
         "default": [
             SuggestedSiteData(
                 url: "http://www.qwant.com/?client=qwantbrowser",
-                bgColor: "0xFFFFFF",
+                bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwant",
                 faviconUrl: "asset://defaultFavicon",
                 trackingId: 1,
@@ -45,7 +45,7 @@ open class DefaultSuggestedSites {
             ),
             SuggestedSiteData(
                 url: "http://www.qwantjunior.com/?client=qwantbrowser",
-                bgColor: "0xFFFFFF",
+                bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantjunior",
                 faviconUrl: "asset://defaultFavicon",
                 trackingId: 2,
@@ -53,7 +53,7 @@ open class DefaultSuggestedSites {
             ),
             SuggestedSiteData(
                 url: "http://www.qwant.com/music?client=qwantbrowser",
-                bgColor: "0xFFFFFF",
+                bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantmusic",
                 faviconUrl: "asset://defaultFavicon",
                 trackingId: 3,
@@ -61,7 +61,7 @@ open class DefaultSuggestedSites {
             ),
             SuggestedSiteData(
                 url: "https://boards.qwant.com/?client=qwantbrowser",
-                bgColor: "0xFFFFFF",
+                bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantboards",
                 faviconUrl: "asset://defaultFavicon",
                 trackingId: 4,
@@ -69,11 +69,11 @@ open class DefaultSuggestedSites {
             ),
             SuggestedSiteData(
                 url: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser",
-                bgColor: "0xFFFFFF",
+                bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwanthelp",
                 faviconUrl: "asset://defaultFavicon",
                 trackingId: 5,
-                title: NSLocalizedString("Help ", comment: "Tile title for Qwant Help Center")
+                title: NSLocalizedString("Qwant Help", comment: "Tile title for Qwant Help Center")
             )
         ]
     ]

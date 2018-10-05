@@ -525,7 +525,7 @@ extension ActivityStreamPanel: DataObserverDelegate {
             let pinnedSites: [Site] = pinned.map({ PinnedSite(site: $0) })
 
             // Merge default topsites with a user's topsites.
-            let mergedSites = mySites.union(defaultSites, f: unionOnURL)
+            let mergedSites = defaultSites.union(mySites, f: unionOnURL)
             // Merge pinnedSites with sites from the previous step
             let allSites = pinnedSites.union(mergedSites, f: unionOnURL)
 
@@ -534,7 +534,13 @@ extension ActivityStreamPanel: DataObserverDelegate {
                 if let _ = site as? PinnedSite {
                     return site
                 }
-                let domain = URL(string: site.url)?.shortDisplayString
+
+                var domain = URL(string: site.url)?.hostSLD
+                if (domain == "qwant") {
+                    domain = URL(string: site.url)?.host
+                } else {
+                    domain = URL(string: site.url)?.shortDisplayString
+                }
                 return defaultSites.find { $0.title.lowercased() == domain } ?? site
             }
 
