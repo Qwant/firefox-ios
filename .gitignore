@@ -45,7 +45,7 @@ DerivedData
 /fastlane/frames
 /fastlane/scripts
 /fastlane/templates
-
+/ios-l10n-scripts
 #python environment
 python-env/
 
