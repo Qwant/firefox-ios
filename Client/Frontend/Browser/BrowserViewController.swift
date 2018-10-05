@@ -1498,9 +1498,6 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         var actions: [[PhotonActionSheetItem]] = []
 
-        if let syncAction = syncMenuButton(showFxA: presentSignInViewController) {
-            actions.append(syncAction)
-        }
         actions.append(getLibraryActions(vcDelegate: self))
         actions.append(getOtherPanelActions(vcDelegate: self))
         // force a modal if the menu is being displayed in compact split screen
