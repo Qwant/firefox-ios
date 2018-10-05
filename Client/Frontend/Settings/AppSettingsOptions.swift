@@ -706,6 +706,10 @@ class SendFeedbackSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         setUpAndPushSettingsContentViewController(navigationController)
     }
+    
+    override var hidden: Bool {
+        return true
+    }
 }
 
 class SendAnonymousUsageDataSetting: BoolSetting {
@@ -1058,6 +1062,10 @@ class SiriPageSetting: Setting {
         let viewController = SiriSettingsViewController(prefs: profile.prefs)
         viewController.profile = profile
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    override var hidden: Bool {
+        return true
     }
 }
 
