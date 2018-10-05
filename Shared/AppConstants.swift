@@ -76,15 +76,7 @@ public struct AppConstants {
 
     /// Toggle the use of Leanplum.
     public static let MOZ_ENABLE_LEANPLUM: Bool = {
-        #if MOZ_CHANNEL_RELEASE
-            return false
-        #elseif MOZ_CHANNEL_BETA
-            return true
-        #elseif MOZ_CHANNEL_FENNEC
-            return true
-        #else
-            return false
-        #endif
+        return false
     }()
 
     /// The maximum length of a URL stored by Firefox. Shared with Places on desktop.
@@ -98,15 +90,7 @@ public struct AppConstants {
 
     ///  Toggle FxA Leanplum A/B test for prompting push permissions
     public static let MOZ_FXA_LEANPLUM_AB_PUSH_TEST: Bool = {
-        #if MOZ_CHANNEL_RELEASE
-            return true
-        #elseif MOZ_CHANNEL_BETA
-            return true
-        #elseif MOZ_CHANNEL_FENNEC
-            return true
-        #else
-            return false
-        #endif
+        return false
     }()
 
     ///  Toggle use of FxA Messages (Pushbox) for "Send Tab"
