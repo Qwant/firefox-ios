@@ -244,6 +244,9 @@ open class BrowserProfile: Profile {
             self.syncManager.onNewProfile()
             self.removeExistingAuthenticationInfo()
             prefs.clearAll()
+            
+            prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
+            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
         // Always start by needing invalidation.
@@ -261,7 +264,9 @@ open class BrowserProfile: Profile {
         } else {
             // Remove the default homepage. This does not change the user's preference,
             // just the behaviour when there is no homepage.
-            prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
+            // prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
+            prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
+            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
         // Hide the "__leanplum.sqlite" file in the documents directory.
