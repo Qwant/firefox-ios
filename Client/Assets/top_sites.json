@@ -1405,22 +1405,22 @@
  {
  "title": "qwantmusic",
  "url": "http://www.qwant.com/music",
- "image_url": "music-qwant-com.png",
+ "image_url": "qwantmusic-com.png",
  "background_color": "#ffffff",
- "domain": "musicqwant.com"
+ "domain": "qwantmusic.com"
  },
  {
  "title": "qwantboards",
  "url": "http://boards.qwant.com/",
- "image_url": "boards-qwant-com.png",
+ "image_url": "qwantboards-com.png",
  "background_color": "#ffffff",
- "domain": "boardsqwant.com"
+ "domain": "qwantboards.com"
  },
  {
  "title": "qwanthelp",
  "url": "https://help.qwant.com/help/qwant-mobile/",
- "image_url": "help-qwant-com.png",
+ "image_url": "qwanthelp-com.png",
  "background_color": "#ffffff",
- "domain": "helpqwant.com"
+ "domain": "qwanthelp.com"
  }
 ]
