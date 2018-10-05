@@ -643,6 +643,15 @@ extension Strings {
     public static let StartBrowsingButtonTitle = NSLocalizedString("Start Browsing", tableName: "Intro", comment: "See http://mzl.la/1T8gxwo")
 }
 
+extension Strings {
+    public static let CardTitleWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Title", tableName: "Intro", value: "Welcome on Qwant mobile !", comment: "Title for the first panel 'Welcome' in the First Run tour.")
+    public static let CardTitlePrivacy = NSLocalizedString("Intro.Slides.Privacy.Title", tableName: "Intro", value: "Your life stays private", comment: "Title for the second panel 'Privacy' in the First Run tour.")
+    public static let CardTitleEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Title", tableName: "Intro", value: "Fast and efficient searches", comment: "Title for the third panel 'Efficiency' in the First Run tour.")
+    public static let CardTextWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Description", tableName: "Intro", value: "With Qwant mobile, navigate quickly and enjoy the browser which respect your privacy", comment: "Description for the 'Welcome' panel in the First Run tour.")
+    public static let CardTextPrivacy = NSLocalizedString("Intro.Slides.Privacy.Description", tableName: "Intro", value: "Qwant neither look the site you visit nor your researshes. It fight again ad tracking and stays neutral", comment: "Description for the 'Privacy' panel in the First Run tour.")
+    public static let CardTextEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Description", tableName: "Intro", value: "Qwant delivers the best results intantaneously. Search everything, freely", comment: "Description for the 'Efficiency' panel in the First Run tour.")
+}
+
 // Keyboard short cuts
 extension Strings {
     public static let ShowTabTrayFromTabKeyCodeTitle = NSLocalizedString("Tab.ShowTabTray.KeyCodeTitle", value: "Show All Tabs", comment: "Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down.")
