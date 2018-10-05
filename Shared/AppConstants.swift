@@ -27,13 +27,7 @@ public struct AppConstants {
 
     /// Build Channel.
     public static let BuildChannel: AppBuildChannel = {
-        #if MOZ_CHANNEL_RELEASE
             return AppBuildChannel.release
-        #elseif MOZ_CHANNEL_BETA
-            return AppBuildChannel.beta
-        #elseif MOZ_CHANNEL_FENNEC
-            return AppBuildChannel.developer
-        #endif
     }()
 
     public static let scheme: String = {
