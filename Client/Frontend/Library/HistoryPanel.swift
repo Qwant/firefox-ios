@@ -118,9 +118,6 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
         tableView.addGestureRecognizer(longPressRecognizer)
         tableView.accessibilityIdentifier = "History List"
         tableView.prefetchDataSource = self
-        updateSyncedDevicesCount().uponQueue(.main) { result in
-            self.updateNumberOfSyncedDevices(self.currentSyncedDevicesCount)
-        }
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done) { _ in
             self.dismiss(animated: true, completion: nil)
@@ -465,8 +462,8 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // First section is for Sync/recently closed and always has 2 rows.
-        guard section > Section.additionalHistoryActions.rawValue else {
-            return 3
+        guard section > Section.syncAndRecentlyClosed.rawValue else {
+            return 2
         }
 
         return groupedSites.numberOfItemsForSection(section - 1)
