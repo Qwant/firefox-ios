@@ -92,9 +92,6 @@ class HistoryPanel: SiteTableViewController, HomePanel {
         tableView.addGestureRecognizer(longPressRecognizer)
         tableView.accessibilityIdentifier = "History List"
         tableView.prefetchDataSource = self
-        updateSyncedDevicesCount().uponQueue(.main) { result in
-            self.updateNumberOfSyncedDevices(self.currentSyncedDevicesCount)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -361,7 +358,7 @@ class HistoryPanel: SiteTableViewController, HomePanel {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // First section is for Sync/recently closed and always has 2 rows.
         guard section > Section.syncAndRecentlyClosed.rawValue else {
-            return 2
+            return 1
         }
 
         return groupedSites.numberOfItemsForSection(section - 1)
@@ -388,7 +385,7 @@ class HistoryPanel: SiteTableViewController, HomePanel {
         // First section is reserved for Sync/recently closed.
         guard indexPath.section > Section.syncAndRecentlyClosed.rawValue else {
             cell.imageView?.layer.borderWidth = 0
-            return indexPath.row == 0 ? configureRecentlyClosed(cell, for: indexPath) : configureSyncedTabs(cell, for: indexPath)
+            return configureRecentlyClosed(cell, for: indexPath)
         }
 
         return configureSite(cell, for: indexPath)
