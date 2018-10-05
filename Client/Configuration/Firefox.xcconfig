@@ -5,7 +5,9 @@
 MOZ_BUNDLE_DISPLAY_NAME = Qwant
 
 // Bundle Identifier
-MOZ_BUNDLE_ID = org.qwant.ios.qwant
+MOZ_BUNDLE_ID = com.qwant.mobile
+MOZ_BUNDLE_VERSION = 2.1.0
+MOZ_BUNDLE_BUILD_NUMBER = 2
 
 // Flag to indicate if we want to include the debug settings bundle or not
 INCLUDE_SETTINGS_BUNDLE = NO
