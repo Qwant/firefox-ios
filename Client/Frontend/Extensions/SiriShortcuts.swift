@@ -7,7 +7,7 @@ import Intents
 import IntentsUI
 import Shared
 
-@available(iOS 12.0, *)
+/* @available(iOS 12.0, *)
 class SiriShortcuts {
     enum activityType: String {
         case openURL = "org.mozilla.ios.Firefox.newTab"
@@ -62,4 +62,4 @@ class SiriShortcuts {
             }
         }
     }
-}
+} */
