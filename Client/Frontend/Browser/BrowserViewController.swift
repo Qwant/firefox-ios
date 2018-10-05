@@ -539,7 +539,7 @@ class BrowserViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        if shouldShowWhatsNewTab() {
+        /* if shouldShowWhatsNewTab() {
             // Only display if the SUMO topic has been configured in the Info.plist (present and not empty)
             if let whatsNewTopic = AppInfo.whatsNewTopic, whatsNewTopic != "" {
                 if let whatsNewURL = SupportUtils.URLForTopic(whatsNewTopic) {
@@ -547,7 +547,7 @@ class BrowserViewController: UIViewController {
                     profile.prefs.setString(AppInfo.appVersion, forKey: LatestAppVersionProfileKey)
                 }
             }
-        }
+        } */
 
         if let toast = self.pendingToast {
             self.pendingToast = nil
