@@ -51,9 +51,9 @@ class AppSettingsTableViewController: SettingsTableViewController {
                         titleText: NSLocalizedString("Save Logins", comment: "Setting to enable the built-in password manager")),
             ]
 
-        if #available(iOS 12.0, *) {
+        /* if #available(iOS 12.0, *) {
             generalSettings.insert(SiriPageSetting(settings: self), at: 5)
-        }
+        } */
 
         // There is nothing to show in the Customize section if we don't include the compact tab layout
         // setting on iPad. When more options are added that work on both device types, this logic can
@@ -91,14 +91,14 @@ class AppSettingsTableViewController: SettingsTableViewController {
             SettingSection(title: NSAttributedString(string: privacyTitle), children: privacySettings),
             SettingSection(title: NSAttributedString(string: NSLocalizedString("Support", comment: "Support section title")), children: [
                 ShowIntroductionSetting(settings: self),
-                SendFeedbackSetting(),
-                SendAnonymousUsageDataSetting(prefs: prefs, delegate: settingsDelegate),
+                // SendFeedbackSetting(),
+                // SendAnonymousUsageDataSetting(prefs: prefs, delegate: settingsDelegate),
                 OpenSupportPageSetting(delegate: settingsDelegate),
             ]),
             SettingSection(title: NSAttributedString(string: NSLocalizedString("About", comment: "About settings section title")), children: [
                 VersionSetting(settings: self),
                 LicenseAndAcknowledgementsSetting(),
-                YourRightsSetting(),
+                // YourRightsSetting(),
                 ExportBrowserDataSetting(settings: self),
                 ExportLogDataSetting(settings: self),
                 DeleteExportedDataSetting(settings: self),
