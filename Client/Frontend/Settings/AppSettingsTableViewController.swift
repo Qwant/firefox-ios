@@ -53,19 +53,6 @@ class AppSettingsTableViewController: SettingsTableViewController {
             generalSettings.insert(SiriPageSetting(settings: self), at: 5)
         }
 
-        if AppConstants.MOZ_DOCUMENT_SERVICES {
-            generalSettings.insert(TranslationSetting(settings: self), at: 6)
-        }
-
-        let accountChinaSyncSetting: [Setting]
-        if !BrowserProfile.isChinaEdition {
-            accountChinaSyncSetting = []
-        } else {
-            accountChinaSyncSetting = [
-                // Show China sync service setting:
-                ChinaSyncServiceSetting(settings: self)
-            ]
-        }
         // There is nothing to show in the Customize section if we don't include the compact tab layout
         // setting on iPad. When more options are added that work on both device types, this logic can
         // be changed.
@@ -75,19 +62,6 @@ class AppSettingsTableViewController: SettingsTableViewController {
                         titleText: Strings.SettingsOfferClipboardBarTitle,
                         statusText: Strings.SettingsOfferClipboardBarStatus)
         ]
-
-        let accountSectionTitle = NSAttributedString(string: Strings.FxAFirefoxAccount)
-
-        let footerText = !profile.hasAccount() ? NSAttributedString(string: Strings.FxASyncUsageDetails) : nil
-        settings += [
-            SettingSection(title: accountSectionTitle, footerTitle: footerText, children: [
-                // Without a Firefox Account:
-                ConnectSetting(settings: self),
-                AdvanceAccountSetting(settings: self),
-                // With a Firefox Account:
-                AccountStatusSetting(settings: self),
-                SyncNowSetting(settings: self)
-            ] + accountChinaSyncSetting + accountDebugSettings)]
 
         settings += [ SettingSection(title: NSAttributedString(string: Strings.SettingsGeneralSectionTitle), children: generalSettings)]
 
