@@ -282,7 +282,6 @@ open class BrowserProfile: Profile {
             prefs.clearAll()
             
             prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
-            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
         // Always start by needing invalidation.
@@ -309,7 +308,6 @@ open class BrowserProfile: Profile {
             // just the behaviour when there is no homepage.
             // prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
             prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
-            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
         // Hide the "__leanplum.sqlite" file in the documents directory.
