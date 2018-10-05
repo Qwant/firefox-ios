@@ -58,6 +58,7 @@ class ActivityStreamPanel: UICollectionViewController, HomePanel {
     weak var homePanelDelegate: HomePanelDelegate?
     fileprivate let profile: Profile
     fileprivate let telemetry: ActivityStreamTracker
+
     fileprivate let pocketAPI = Pocket()
     fileprivate let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
@@ -168,16 +169,13 @@ extension ActivityStreamPanel {
 
         var title: String? {
             switch self {
-            case .pocket: return Strings.ASPocketTitle
+            case .pocket: return nil
             case .topSites: return nil
             }
         }
 
         var headerHeight: CGSize {
-            switch self {
-            case .pocket: return CGSize(width: 50, height: 40)
-            case .topSites: return .zero
-            }
+            return .zero
         }
 
         var footerHeight: CGSize {
@@ -188,10 +186,7 @@ extension ActivityStreamPanel {
         }
 
         func cellHeight(_ traits: UITraitCollection, width: CGFloat) -> CGFloat {
-            switch self {
-            case .pocket: return ASPanelUX.highlightCellHeight
-            case .topSites: return 0 //calculated dynamically
-            }
+            return 0
         }
 
         /*
@@ -216,7 +211,7 @@ extension ActivityStreamPanel {
 
         func numberOfItemsForRow(_ traits: UITraitCollection) -> CGFloat {
             switch self {
-            case .pocket:
+            case .highlights:
                 var numItems: CGFloat = ASPanelUX.numberOfItemsPerRowForSizeClassIpad[traits.horizontalSizeClass]
                 if UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation) {
                     numItems = numItems - 1
@@ -226,7 +221,7 @@ extension ActivityStreamPanel {
                 }
                 return numItems
             case .pocket: return 0
-            case .topSites, .highlightIntro:
+            case .topSites:
                 return 1
             }
         }
@@ -237,22 +232,14 @@ extension ActivityStreamPanel {
 
             switch self {
             case .pocket:
-                let numItems = numberOfItemsForRow(traits)
-                return CGSize(width: floor(((frameWidth - inset) - (ASPanelUX.MinimumInsets * (numItems - 1))) / numItems), height: height)
+                return .zero
             case .topSites:
                 return CGSize(width: frameWidth - inset, height: height)
             }
         }
 
         var headerView: UIView? {
-            switch self {
-            case .pocket:
-                let view = ASHeaderView()
-                view.title = title
-                return view
-            case .topSites:
-                return nil
-            }
+            return nil
         }
 
         var cellIdentifier: String {
@@ -322,14 +309,14 @@ extension ActivityStreamPanel: UICollectionViewDelegateFlowLayout {
             let estimatedLayout = layout.calculateLayout(for: CGSize(width: cellSize.width, height: 0))
             return CGSize(width: cellSize.width, height: estimatedLayout.size.height)
         case .pocket:
-            return cellSize
+            return .zero
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch Section(section) {
         case .pocket:
-            return pocketStories.isEmpty ? .zero : Section(section).headerHeight
+            return .zero
         case .topSites:
             return Section(section).headerHeight
         }
@@ -383,7 +370,7 @@ extension ActivityStreamPanel {
             return topSitesManager.content.isEmpty ? 0 : 1
         case .pocket:
             // There should always be a full row of pocket stories (numItems) otherwise don't show them
-            return pocketStories.count
+            return 0
         }
     }
 
@@ -414,7 +401,6 @@ extension ActivityStreamPanel {
         // pocketItemCell.configureWithPocketStory(pocketStory)
         return pocketItemCell
     }
-
 }
 
 // MARK: - Data Management
@@ -443,38 +429,12 @@ extension ActivityStreamPanel: DataObserverDelegate {
     func reloadAll() {
         // If the pocket stories are not availible for the Locale the PocketAPI will return nil
         // So it is okay if the default here is true
-
-
-
         self.getTopSites().uponQueue(.main) { _ in
             // If there is no pending cache update and highlights are empty. Show the onboarding screen
             self.collectionView?.reloadData()
-
-            self.getPocketSites().uponQueue(.main) { _ in
-                if !self.pocketStories.isEmpty {
-                    self.collectionView?.reloadData()
-                }
-            }
             // Refresh the AS data in the background so we'll have fresh data next time we show.
             self.profile.panelDataObservers.activityStream.refreshIfNeeded(forceTopSites: false)
         }
-    }
-
-    func getPocketSites() -> Success {
-        let showPocket = (profile.prefs.boolForKey(PrefsKeys.ASPocketStoriesVisible) ?? Pocket.IslocaleSupported(Locale.current.identifier))
-        guard showPocket else {
-            self.pocketStories = []
-            return succeed()
-        }
-
-        return pocketAPI.globalFeed(items: 10).bindQueue(.main) { pStory in
-            self.pocketStories = pStory
-            return succeed()
-        }
-    }
-
-    @objc func showMorePocketStories() {
-        showSiteWithURLHandler(Pocket.MoreStoriesURL)
     }
 
     func getTopSites() -> Success {
@@ -623,12 +583,7 @@ extension ActivityStreamPanel: DataObserverDelegate {
     func selectItemAtIndex(_ index: Int, inSection section: Section) {
         let site: Site?
         switch section {
-        case .pocket:
-            site = Site(url: pocketStories[index].url.absoluteString, title: pocketStories[index].title)
-            telemetry.reportEvent(.Click, source: .Pocket, position: index)
-            let params = ["Source": "Activity Stream", "StoryType": "Article"]
-            LeanPlumClient.shared.track(event: .openedPocketStory, withParameters: params)
-        case .topSites:
+        case .topSites, .pocket:
             return
         }
         if let site = site {
@@ -648,10 +603,10 @@ extension ActivityStreamPanel: HomePanelContextMenu {
 
     func getSiteDetails(for indexPath: IndexPath) -> Site? {
         switch Section(indexPath.section) {
-        case .pocket:
-            return Site(url: pocketStories[indexPath.row].url.absoluteString, title: pocketStories[indexPath.row].title)
         case .topSites:
             return topSitesManager.content[indexPath.item]
+        case .pocket:
+            return nil
         }
     }
 
@@ -670,9 +625,7 @@ extension ActivityStreamPanel: HomePanelContextMenu {
                 sourceView = topSiteCell.collectionView.cellForItem(at: indexPath)
             }
         case .pocket:
-            pingSource = .Pocket
-            index = indexPath.item
-            sourceView = self.collectionView?.cellForItem(at: indexPath)
+            return nil
         }
 
         let openInNewTabAction = PhotonActionSheetItem(title: Strings.OpenInNewTabContextMenuTitle, iconString: "quick_action_new_tab") { action in
