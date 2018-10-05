@@ -446,6 +446,9 @@ extension ActivityStreamPanel: DataObserverDelegate {
 
             // How sites are merged together. We compare against the url's base domain. example m.youtube.com is compared against `youtube.com`
             let unionOnURL = { (site: Site) -> String in
+                if URL(string: site.url)?.hostSLD == "qwant" {
+                    return URL(string: site.url)?.absoluteString ?? ""
+                }
                 return URL(string: site.url)?.normalizedHost ?? ""
             }
 
