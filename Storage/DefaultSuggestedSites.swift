@@ -36,94 +36,44 @@ open class DefaultSuggestedSites {
     public static let sites = [
         "default": [
             SuggestedSiteData(
-                url: "https://m.facebook.com/",
-                bgColor: "0x385185",
-                imageUrl: "asset://suggestedsites_facebook",
+                url: "http://www.qwant.com/?client=qwantbrowser",
+                bgColor: "0xFFFFFF",
+                imageUrl: "asset://suggestedsites_qwant",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 632,
-                title: NSLocalizedString("Facebook", comment: "Tile title for Facebook")
+                trackingId: 1,
+                title: NSLocalizedString("Qwant", comment: "Tile title for Qwant")
             ),
             SuggestedSiteData(
-                url: "https://m.youtube.com/",
-                bgColor: "0xcd201f",
-                imageUrl: "asset://suggestedsites_youtube",
+                url: "http://www.qwantjunior.com/?client=qwantbrowser",
+                bgColor: "0xFFFFFF",
+                imageUrl: "asset://suggestedsites_qwantjunior",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 631,
-                title: NSLocalizedString("YouTube", comment: "Tile title for YouTube")
+                trackingId: 2,
+                title: NSLocalizedString("Qwant Junior", comment: "Tile title for Qwant Junior")
             ),
             SuggestedSiteData(
-                url: "https://www.amazon.com/",
-                bgColor: "0x000000",
-                imageUrl: "asset://suggestedsites_amazon",
+                url: "http://www.qwant.com/music?client=qwantbrowser",
+                bgColor: "0xFFFFFF",
+                imageUrl: "asset://suggestedsites_qwantmusic",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 630,
-                title: NSLocalizedString("Amazon", comment: "Tile title for Amazon")
+                trackingId: 3,
+                title: NSLocalizedString("Qwant Music", comment: "Tile title for Qwant Music")
             ),
             SuggestedSiteData(
-                url: "https://www.wikipedia.org/",
-                bgColor: "0x000000",
-                imageUrl: "asset://suggestedsites_wikipedia",
+                url: "https://boards.qwant.com/?client=qwantbrowser",
+                bgColor: "0xFFFFFF",
+                imageUrl: "asset://suggestedsites_qwantboards",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 629,
-                title: NSLocalizedString("Wikipedia", comment: "Tile title for Wikipedia")
+                trackingId: 4,
+                title: NSLocalizedString("Qwant Boards", comment: "Tile title for Qwant Boards")
             ),
             SuggestedSiteData(
-                url: "https://mobile.twitter.com/",
-                bgColor: "0x55acee",
-                imageUrl: "asset://suggestedsites_twitter",
+                url: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser",
+                bgColor: "0xFFFFFF",
+                imageUrl: "asset://suggestedsites_qwanthelp",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 628,
-                title: NSLocalizedString("Twitter", comment: "Tile title for Twitter")
-            )
-        ],
-        "zh_CN": [
-            SuggestedSiteData(
-                url: "http://mozilla.com.cn",
-                bgColor: "0xbc3326",
-                imageUrl: "asset://suggestedsites_mozchina",
-                faviconUrl: "asset://mozChinaLogo",
-                trackingId: 700,
-                title: "火狐社区"
-            ),
-            SuggestedSiteData(
-                url: "https://m.baidu.com/?from=1000969b",
-                bgColor: "0x00479d",
-                imageUrl: "asset://suggestedsites_baidu",
-                faviconUrl: "asset://baiduLogo",
-                trackingId: 701,
-                title: "百度"
-            ),
-            SuggestedSiteData(
-                url: "http://sina.cn",
-                bgColor: "0xe60012",
-                imageUrl: "asset://suggestedsites_sina",
-                faviconUrl: "asset://sinaLogo",
-                trackingId: 702,
-                title: "新浪"
-            ),
-            SuggestedSiteData(
-                url: "http://info.3g.qq.com/g/s?aid=index&g_f=23946&g_ut=3",
-                bgColor: "0x028cca",
-                imageUrl: "asset://suggestedsites_qq",
-                faviconUrl: "asset://qqLogo",
-                trackingId: 703,
-                title: "腾讯"
-            ),
-            SuggestedSiteData(
-                url: "http://m.taobao.com",
-                bgColor: "0xee5900",
-                imageUrl: "asset://suggestedsites_taobao",
-                faviconUrl: "asset://taobaoLogo",
-                trackingId: 704,
-                title: "淘宝"
-            ),
-            SuggestedSiteData(
-                url: "http://union.click.jd.com/jdc?e=0&p=AyIHVCtaJQMiQwpDBUoyS0IQWlALHE4YDk5ER1xONwdJKVxASgI%2BeDkWfGJ6HEAOUmkbcjUXVyUBEQZRG1IXARQ3VhhaEQETBVweayVkbzcedVolBxIEUBxdFAoQN1UeXRQLGwFXHlsUABs3UisnS0lKWghLWBQCFzdlK2s%3D&t=W1dCFBBFC14NXAAECUte",
-                bgColor: "0xc71622",
-                imageUrl: "asset://suggestedsites_jd",
-                faviconUrl: "asset://jdLogo",
-                trackingId: 705,
-                title: "京东"
+                trackingId: 5,
+                title: NSLocalizedString("Help ", comment: "Tile title for Qwant Help Center")
             )
         ]
     ]
