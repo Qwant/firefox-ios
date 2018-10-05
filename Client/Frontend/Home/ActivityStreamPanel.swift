@@ -227,7 +227,7 @@ extension ActivityStreamPanel {
 
         func numberOfItemsForRow(_ traits: UITraitCollection) -> CGFloat {
             switch self {
-            case .pocket:
+            case .highlights:
                 var numItems: CGFloat = ASPanelUX.numberOfItemsPerRowForSizeClassIpad[traits.horizontalSizeClass]
                 if UIInterfaceOrientationIsPortrait(UIApplication.shared.statusBarOrientation) {
                     numItems = numItems - 1
@@ -358,7 +358,7 @@ extension ActivityStreamPanel: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch Section(section) {
         case .pocket:
-            return pocketStories.isEmpty ? .zero : Section(section).headerHeight
+            return .zero
         case .topSites:
             return Section(section).headerHeight
         case .libraryShortcuts:
@@ -415,8 +415,7 @@ extension ActivityStreamPanel {
         case .topSites:
             return topSitesManager.content.isEmpty ? 0 : 1
         case .pocket:
-            // There should always be a full row of pocket stories (numItems) otherwise don't show them
-            return pocketStories.count
+            return 0
         case .libraryShortcuts:
             // disable the libary shortcuts on the ipad
             return UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1
@@ -463,7 +462,6 @@ extension ActivityStreamPanel {
         // pocketItemCell.configureWithPocketStory(pocketStory)
         return pocketItemCell
     }
-
 }
 
 // MARK: - Data Management
@@ -478,32 +476,9 @@ extension ActivityStreamPanel: DataObserverDelegate {
         self.getTopSites().uponQueue(.main) { _ in
             // If there is no pending cache update and highlights are empty. Show the onboarding screen
             self.collectionView?.reloadData()
-
-            self.getPocketSites().uponQueue(.main) { _ in
-                if !self.pocketStories.isEmpty {
-                    self.collectionView?.reloadData()
-                }
-            }
             // Refresh the AS data in the background so we'll have fresh data next time we show.
             self.profile.panelDataObservers.activityStream.refreshIfNeeded(forceTopSites: false)
         }
-    }
-
-    func getPocketSites() -> Success {
-        let showPocket = (profile.prefs.boolForKey(PrefsKeys.ASPocketStoriesVisible) ?? Pocket.IslocaleSupported(Locale.current.identifier))
-        guard showPocket else {
-            self.pocketStories = []
-            return succeed()
-        }
-
-        return pocketAPI.globalFeed(items: 10).bindQueue(.main) { pStory in
-            self.pocketStories = pStory
-            return succeed()
-        }
-    }
-
-    @objc func showMorePocketStories() {
-        showSiteWithURLHandler(Pocket.MoreStoriesURL)
     }
 
     func getTopSites() -> Success {
@@ -696,8 +671,6 @@ extension ActivityStreamPanel: HomePanelContextMenu {
 
     func getSiteDetails(for indexPath: IndexPath) -> Site? {
         switch Section(indexPath.section) {
-        case .pocket:
-            return Site(url: pocketStories[indexPath.row].url.absoluteString, title: pocketStories[indexPath.row].title)
         case .topSites:
             return topSitesManager.content[indexPath.item]
         case .libraryShortcuts:
