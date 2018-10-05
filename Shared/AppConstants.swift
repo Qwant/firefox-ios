@@ -83,7 +83,7 @@ public struct AppConstants {
     /// Toggle the use of Leanplum.
     public static let MOZ_ENABLE_LEANPLUM: Bool = {
         #if MOZ_CHANNEL_RELEASE
-            return true
+            return false
         #elseif MOZ_CHANNEL_BETA
             return true
         #elseif MOZ_CHANNEL_FENNEC
@@ -131,7 +131,7 @@ public struct AppConstants {
     ///  Toggle use of FxA Messages (Pushbox) for "Send Tab"
     public static let MOZ_FXA_MESSAGES: Bool = {
         #if MOZ_CHANNEL_RELEASE
-            return true
+            return false
         #elseif MOZ_CHANNEL_BETA
             return true
         #elseif MOZ_CHANNEL_FENNEC
