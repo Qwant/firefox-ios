@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>14.0</string>
+	<string>$(MOZ_BUNDLE_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(MOZ_BUNDLE_BUILD_NUMBER)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>
