@@ -23,10 +23,10 @@
 "Intro.Slides.TrailheadSync.Title" = "Machen Sie das Beste aus Firefox";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description" = "Ein moderner Browser für Mobilgeräte von Mozilla, der gemeinnützigen Organisation, die sich für ein freies und offenes Web einsetzt.";
+"Intro.Slides.Welcome.Description" = "Ein moderner Browser für Mobilgeräte von Qwant, der gemeinnützigen Organisation, die sich für ein freies und offenes Web einsetzt.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title" = "Danke, dass Sie sich für Firefox entschieden haben!";
+"Intro.Slides.Welcome.Title" = "Danke, dass Sie sich für Qwant entschieden haben!";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Lossurfen";
@@ -34,3 +34,10 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Sync aktivieren…";
 
+
+"Intro.Slides.Welcome2.Title" = "Willkommen bei Qwant Mobil";
+"Intro.Slides.Welcome2.Description" = "Mit Qwant Mobil durchsuchen Sie das Web effizient mit absolutem Datenschutz.";
+"Intro.Slides.Privacy.Title" = "Ihr Privatleben bleibt privat";
+"Intro.Slides.Privacy.Description" = "Qwant möchte weder Ihre Suchabläufe noch die von Ihnen besuchten Websites sehen. Wir sammeln Ihre Daten nicht und verkaufen sie auch nicht. Wir widersetzen uns klar gegen Ad-Tracking.";
+"Intro.Slides.Efficiency.Title" = "Erleben Sie schnelle und effiziente Suchabläufe";
+"Intro.Slides.Efficiency.Description" = "Qwant vermittelt Ihnen die besten Ergebnisse sofort und absolut neutral. Nachrichten, Musik, soziale Netzwerke oder Videos: Sie können alles in absoluter Freiheit suchen.";

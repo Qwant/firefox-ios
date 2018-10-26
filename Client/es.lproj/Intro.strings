@@ -1,5 +1,5 @@
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Utiliza cualquier aplicación de correo - no solo Correo - con Firefox.";
+"Intro.Slides.Mail.Description" = "Utiliza cualquier aplicación de correo - no solo Correo - con Qwant.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "Tienes nuevas opciones... de correo";
@@ -23,10 +23,10 @@
 "Intro.Slides.TrailheadSync.Title" = "Sácale el máximo provecho a Firefox";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description" = "Un navegador móvil moderno de Mozilla, la organización sin ánimo de lucro comprometida con una web gratuita y abierta.";
+"Intro.Slides.Welcome.Description" = "Un navegador móvil moderno de Qwant, la organización sin ánimo de lucro comprometida con una web gratuita y abierta.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title" = "¡Gracias por elegir Firefox!";
+"Intro.Slides.Welcome.Title" = "¡Gracias por elegir Qwant!";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Empieza a navegar";
@@ -34,3 +34,9 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Activar Sync…";
 
+"Intro.Slides.Welcome2.Title" = "Bienvenido a Qwant móvil";
+"Intro.Slides.Welcome2.Description" = "Con Qwant móvil, buscarás en las web con total privacidad de forma eficiente.";
+"Intro.Slides.Privacy.Title" = "Tu vida privada, seguirá siendo privada";
+"Intro.Slides.Privacy.Description" = "Qwant no mira las búsquedas que haces o las webs que visitas. No recopilamos o vendemos tus datos y estamos totalmente en contra del rastreo publicitario.";
+"Intro.Slides.Efficiency.Title" = "Disfruta de búsquedas rápidas y eficientes";
+"Intro.Slides.Efficiency.Description" = "Qwant te ofrece los mejores resultados instantáneamente y con total neutralidad. Noticias, música, redes sociales o vídeos: busca cualquier cosa con total libertad.";
