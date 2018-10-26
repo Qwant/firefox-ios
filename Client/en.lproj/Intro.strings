@@ -1,5 +1,5 @@
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Use any email app — not just Mail — with Firefox.";
+"Intro.Slides.Mail.Description" = "Use any email app — not just Mail — with Qwant.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "You’ve got mail… options";
@@ -23,10 +23,10 @@
 "Intro.Slides.Search.Title" = "Your search, your way";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description" = "A modern mobile browser from Mozilla, the non-profit committed to a free and open web.";
+"Intro.Slides.Welcome.Description" = "A modern mobile browser from Qwant, the non-profit committed to a free and open web.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title" = "Thanks for choosing Firefox!";
+"Intro.Slides.Welcome.Title" = "Thanks for choosing Qwant!";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Start Browsing";
