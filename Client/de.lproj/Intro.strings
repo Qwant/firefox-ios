@@ -1,3 +1,9 @@
+/* See http://mzl.la/1T8gxwo */
+"Browse multiple Web pages at the same time with tabs." = "Surfen Sie mit Tabs auf mehreren Webseiten gleichzeitig.";
+
+/* See http://mzl.la/1T8gxwo */
+"Connect Firefox everywhere you use it." = "Verbinden Sie Qwant, wo immer Sie ihn verwenden.";
+
 /* Description for the 'Mail' panel in the First Run tour. */
 "Intro.Slides.Mail.Description" = "Nutzen Sie eine beliebige E-Mail-App – nicht nur Mail – mit Firefox.";
 
@@ -17,20 +23,27 @@
 "Intro.Slides.Search.Title" = "Ihre Suche, wie Sie möchten";
 
 /* Description for the 'Sync' panel in the First Run tour. */
-"Intro.Slides.Sync.Description" = "Nutzen Sie Sync, um die Lesezeichen, Passwörter und andere Daten in Firefox auf allen Geräten zu nutzen.";
+"Intro.Slides.Sync.Description" = "Nutzen Sie Sync, um die Lesezeichen, Passwörter und andere Daten in Qwant auf allen Geräten zu nutzen.";
 
 /* Title for the fifth panel 'Sync' in the First Run tour. */
 "Intro.Slides.Sync.Title" = "Machen Sie da weiter, wo Sie aufgehört haben";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description" = "Ein moderner Browser für Mobilgeräte von Mozilla, der gemeinnützigen Organisation, die sich für ein freies und offenes Web einsetzt.";
+"Intro.Slides.Welcome.Description" = "Ein moderner Browser für Mobilgeräte von Qwant, der gemeinnützigen Organisation, die sich für ein freies und offenes Web einsetzt.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title" = "Danke, dass Sie sich für Firefox entschieden haben!";
+"Intro.Slides.Welcome.Title" = "Danke, dass Sie sich für Qwant entschieden haben!";
 
 /* See http://mzl.la/1T8gxwo */
 "Sign in to Firefox" = "Bei Firefox anmelden";
+"Personalize your Firefox just the way you like in Settings." = "Passen Sie Ihren Qwant über die Einstellungen an Ihre persönlichen Wünsche an.";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Lossurfen";
 
+"Intro.Slides.Welcome2.Title" = "Willkommen bei Qwant Mobil";
+"Intro.Slides.Welcome2.Description" = "Mit Qwant Mobil durchsuchen Sie das Web effizient mit absolutem Datenschutz.";
+"Intro.Slides.Privacy.Title" = "Ihr Privatleben bleibt privat";
+"Intro.Slides.Privacy.Description" = "Qwant möchte weder Ihre Suchabläufe noch die von Ihnen besuchten Websites sehen. Wir sammeln Ihre Daten nicht und verkaufen sie auch nicht. Wir widersetzen uns klar gegen Ad-Tracking.";
+"Intro.Slides.Efficiency.Title" = "Erleben Sie schnelle und effiziente Suchabläufe";
+"Intro.Slides.Efficiency.Description" = "Qwant vermittelt Ihnen die besten Ergebnisse sofort und absolut neutral. Nachrichten, Musik, soziale Netzwerke oder Videos: Sie können alles in absoluter Freiheit suchen.";
