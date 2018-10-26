@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tour-Efficiency.png",
+      "filename" : "LOUPE 280.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tour-Efficiency@2x.png",
+      "filename" : "LOUPE 420.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tour-Efficiency@3x.png",
+      "filename" : "LOUPE 560.png",
       "scale" : "3x"
     }
   ],
