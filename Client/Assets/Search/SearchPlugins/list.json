@@ -1,39 +1,8 @@
 {
-  "default": {
-    "searchDefault": "Qwant",
-    "visibleDefaultEngines": [
-      "qwant-en", "qwant-junior-en"
-    ]
-  },
-  "regionOverrides": {},
-  "locales": {
-    "de": {
-      "default": {
+    "default": {
+        "searchDefault": "qwant",
         "visibleDefaultEngines": [
-          "qwant-de", "qwant-junior-de"
+            "qwant", "qwant-junior"
         ]
-      }
-    },
-    "es": {
-      "default": {
-        "visibleDefaultEngines": [
-          "qwant-es", "qwant-junior-es"
-        ]
-      }
-    },
-    "fr": {
-      "default": {
-        "visibleDefaultEngines": [
-          "qwant-fr", "qwant-junior-fr"
-        ]
-      }
-    },
-    "it": {
-      "default": {
-        "visibleDefaultEngines": [
-          "qwant-it", "qwant-junior-it"
-        ]
-      }
     }
-  }
 }
