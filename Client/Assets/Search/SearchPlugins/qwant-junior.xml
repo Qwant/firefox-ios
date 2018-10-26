@@ -1,0 +1,19 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+ - License, v. 2.0. If a copy of the MPL was not distributed with this
+ - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>Qwant Junior</ShortName>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="16" height="16">data:image/png;base64,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</Image>
+    <Url type="application/x-suggestions+json" method="GET" template="https://api.qwantjunior.com/api/suggest/">
+        <Param name="q" value="{searchTerms}"/>
+        <Param name="client" value="opensearch"/>
+    </Url>
+    <Url type="text/html" method="GET" template="https://www.qwantjunior.com/">
+        <Param name="q" value="{searchTerms}"/>
+        <Param name="client" value="qwantbrowser"/>
+    </Url>
+    <SearchForm>https://www.qwantjunior.com/</SearchForm>
+</SearchPlugin>
+
