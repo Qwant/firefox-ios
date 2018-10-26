@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+=======
+/* See http://mzl.la/1T8gxwo */
+"Browse multiple Web pages at the same time with tabs." = "Naviguez sur plusieurs pages web à la fois grâce aux onglets.";
+
+/* See http://mzl.la/1T8gxwo */
+"Connect Firefox everywhere you use it." = "Connectez Qwant partout où vous l’utilisez.";
+
+>>>>>>> 26a9841c7... locales import and patches
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Firefox.";
+"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Qwant.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "Plus de choix pour vos courriels";
@@ -17,20 +26,29 @@
 "Intro.Slides.Search.Title" = "Recherchez à votre manière";
 
 /* Description for the 'Sync' panel in the First Run tour. */
-"Intro.Slides.Sync.Description" = "Utilisez Sync pour accéder aux marque-pages, mots de passe et autres données que vous conservez dans Firefox sur vos autres appareils.";
+"Intro.Slides.Sync.Description" = "Utilisez Sync pour accéder aux marque-pages, mots de passe et autres données que vous conservez dans Qwant sur vos autres appareils.";
 
 /* Title for the fifth panel 'Sync' in the First Run tour. */
 "Intro.Slides.Sync.Title" = "Reprenez là où vous en étiez";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description" = "Un navigateur mobile et moderne par Mozilla, l’organisation à but non lucratif qui s’engage à défendre un Web libre et ouvert.";
+"Intro.Slides.Welcome.Description" = "Un navigateur mobile et moderne par Qwant, l’organisation à but non lucratif qui s’engage à défendre un Web libre et ouvert.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title" = "Merci d’avoir choisi Firefox !";
+"Intro.Slides.Welcome.Title" = "Merci d’avoir choisi Qwant !";
 
 /* See http://mzl.la/1T8gxwo */
-"Sign in to Firefox" = "Se connecter via Firefox";
+"Personalize your Firefox just the way you like in Settings." = "Personnalisez Qwant à votre convenance depuis les paramètres.";
 
 /* See http://mzl.la/1T8gxwo */
-"Start Browsing" = "Commencer la navigation";
+"Sign in to Firefox" = "Se connecter via Qwant";
 
+/* See http://mzl.la/1T8gxwo */
+"Start Browsing" = "C'est parti !";
+
+"Intro.Slides.Welcome2.Title" = "Bienvenue sur Qwant mobile";
+"Intro.Slides.Welcome2.Description" = "Avec Qwant mobile, naviguez rapidement sur le Web et profitez du moteur de recherche qui respecte votre vie privée";
+"Intro.Slides.Privacy.Title" = "Votre vie reste privée";
+"Intro.Slides.Privacy.Description" = "Qwant ne regarde ni les sites que vous visitez, ni les recherches que vous faites. Il lutte contre le tracking publicitaire et reste neutre";
+"Intro.Slides.Efficiency.Title" = "Des recherches rapides et efficaces";
+"Intro.Slides.Efficiency.Description" = "Qwant délivre les meilleurs résultats instantanément. Actu, musique, social, vidéos… recherchez tout, en toute liberté";
