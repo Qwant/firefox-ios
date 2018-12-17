@@ -34,3 +34,10 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Turn on Sync…";
 
+
+"Intro.Slides.Welcome2.Title" = "Welcome to Qwant mobile";
+"Intro.Slides.Welcome2.Description" = "With Qwant mobile, search the web efficiently with total privacy.";
+"Intro.Slides.Privacy.Title" = "Your private life remains private";
+"Intro.Slides.Privacy.Description" = "Qwant doesn't look at your queries or the sites you visit. The search engine you use is neutral and blocks tracking.";
+"Intro.Slides.Efficiency.Title" = "Experience fast & efficient searches";
+"Intro.Slides.Efficiency.Description" = "Qwant gives you the best results instantly in total neutrality. News, music, social network or videos: search everything with total freedom.";
