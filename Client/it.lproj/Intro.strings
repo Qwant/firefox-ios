@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 /* See http://mzl.la/1T8gxwo */
 "Browse multiple Web pages at the same time with tabs." = "Apri più pagine web contemporaneamente grazie alle schede.";
 
 /* See http://mzl.la/1T8gxwo */
 "Connect Firefox everywhere you use it." = "Rimani connesso a Qwant ovunque lo utilizzi.";
 
->>>>>>> 26a9841c7... locales import and patches
 /* Description for the 'Mail' panel in the First Run tour. */
 "Intro.Slides.Mail.Description" = "Leggi le tue email da qualunque app, non solo Mail, con Qwant.";
 
