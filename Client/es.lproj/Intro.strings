@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 /* See http://mzl.la/1T8gxwo */
 "Browse multiple Web pages at the same time with tabs." = "Navega en varias páginas web simultáneamente mediante pestañas.";
 
 /* See http://mzl.la/1T8gxwo */
 "Connect Firefox everywhere you use it." = "Conecta Qwant donde quiera que lo uses.";
 
->>>>>>> 26a9841c7... locales import and patches
 /* Description for the 'Mail' panel in the First Run tour. */
 "Intro.Slides.Mail.Description" = "Utiliza cualquier aplicación de correo - no solo Correo - con Qwant.";
 
