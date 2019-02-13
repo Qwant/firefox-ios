@@ -871,13 +871,13 @@
 "SendTo.NavBar.Title" = "Invia scheda";
 
 /* Error message shown in the remote tabs panel */
-"SendTo.NoDevicesFound.Message" = "Al momento non risultano disponibili per la sincronizzazione ulteriori dispositivi connessi a questo account Firefox.";
+"SendTo.NoDevicesFound.Message" = "Al momento non risultano disponibili per la sincronizzazione ulteriori dispositivi connessi a questo account Qwant.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Apri le impostazioni di Firefox ed effettua l’accesso per continuare.";
+"SendTo.NotSignedIn.Message" = "Apri le impostazioni di Qwant ed effettua l’accesso per continuare.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "Accesso all’account Firefox non effettuato.";
+"SendTo.NotSignedIn.Title" = "Accesso all’account Qwant non effettuato.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Invia";
@@ -1064,10 +1064,10 @@
 "Settings.NewTab.Option.CustomizeFooter" = "Siti più visitati";
 
 /* The title for the section to customize top sites in the new tab settings page. */
-"Settings.NewTab.Option.CustomizeTitle" = "Personalizza pagina iniziale di Firefox";
+"Settings.NewTab.Option.CustomizeTitle" = "Personalizza pagina iniziale di Qwant";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "Pagina iniziale di Firefox";
+"Settings.NewTab.Option.FirefoxHome" = "Pagina iniziale di Qwant";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Segnalibri recenti";
@@ -1127,7 +1127,7 @@
 "Settings.SendUsage.Link" = "Ulteriori informazioni.";
 
 /* A short description that explains why mozilla collects usage data. */
-"Settings.SendUsage.Message" = "Mozilla cerca di raccogliere solo i dati necessari per fornire e migliorare Qwant per tutti gli utenti.";
+"Settings.SendUsage.Message" = "Qwant cerca di raccogliere solo i dati necessari per fornire e migliorare Qwant per tutti gli utenti.";
 
 /* The title for the setting to send usage data. */
 "Settings.SendUsage.Title" = "Invia dati sull’uso";
@@ -1229,7 +1229,7 @@
 "ShareExtension.LoadInBackgroundAction.Title" = "Carica in background";
 
 /* Share extension label shown after user has performed 'Load in Background' action. */
-"ShareExtension.LoadInBackgroundActionDone.Title" = "Caricamento in Firefox";
+"ShareExtension.LoadInBackgroundActionDone.Title" = "Caricamento in Qwant";
 
 /* Action label on share extension to immediately open page in Firefox. */
 "ShareExtension.OpenInFirefoxAction.Title" = "Apri in Qwant";

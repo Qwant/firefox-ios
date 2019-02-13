@@ -874,10 +874,10 @@
 "SendTo.NoDevicesFound.Message" = "Vous n’avez aucun autre appareil prêt à être synchronisé et connecté à ce compte Firefox.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Veuillez ouvrir Firefox, vous rendre dans les paramètres et vous connecter pour continuer.";
+"SendTo.NotSignedIn.Message" = "Veuillez ouvrir Qwant, vous rendre dans les paramètres et vous connecter pour continuer.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "Vous n’êtes pas connecté à votre compte Firefox.";
+"SendTo.NotSignedIn.Title" = "Vous n’êtes pas connecté à votre compte Qwant.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Envoyer";
@@ -1064,10 +1064,10 @@
 "Settings.NewTab.Option.CustomizeFooter" = "Les sites que vous visitez le plus souvent";
 
 /* The title for the section to customize top sites in the new tab settings page. */
-"Settings.NewTab.Option.CustomizeTitle" = "Personnaliser l’accueil de Firefox";
+"Settings.NewTab.Option.CustomizeTitle" = "Personnaliser l’accueil de Qwant";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "La page d’accueil de Firefox";
+"Settings.NewTab.Option.FirefoxHome" = "Accueil de Qwant";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Marque-pages récents";
