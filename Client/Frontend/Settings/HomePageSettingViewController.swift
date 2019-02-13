@@ -58,10 +58,7 @@ class HomePageSettingViewController: SettingsTableViewController {
 
         let topsitesSection = SettingSection(title: NSAttributedString(string: Strings.SettingsTopSitesCustomizeTitle), footerTitle: NSAttributedString(string: Strings.SettingsTopSitesCustomizeFooter), children: [TopSitesSettings(settings: self)])
 
-        let isPocketEnabledDefault = Pocket.IslocaleSupported(Locale.current.identifier)
-        let pocketSetting = BoolSetting(prefs: profile.prefs, prefKey: PrefsKeys.ASPocketStoriesVisible, defaultValue: isPocketEnabledDefault, attributedTitleText: NSAttributedString(string: Strings.SettingsNewTabPocket))
-        let pocketSection = SettingSection(title: NSAttributedString(string: Strings.SettingsNewTabASTitle), footerTitle: NSAttributedString(string: Strings.SettingsNewTabPocketFooter), children: [pocketSetting])
-        return [section, topsitesSection, pocketSection]
+        return [section, topsitesSection]
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,7 +99,7 @@ class HomePageSettingViewController: SettingsTableViewController {
 class TopSitesRowCountSettingsController: SettingsTableViewController {
     let prefs: Prefs
     var numberOfRows: Int32
-    static let defaultNumberOfRows: Int32 = 2
+    static let defaultNumberOfRows: Int32 = 4
 
     init(prefs: Prefs) {
         self.prefs = prefs
