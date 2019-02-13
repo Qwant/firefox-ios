@@ -823,13 +823,13 @@
 "SendTo.NavBar.Title" = "Tab senden";
 
 /* Error message shown in the remote tabs panel */
-"SendTo.NoDevicesFound.Message" = "Derzeit sind keine anderen Geräte mit diesem Firefox-Konto verbunden, die synchronisiert werden könnten.";
+"SendTo.NoDevicesFound.Message" = "Derzeit sind keine anderen Geräte mit diesem Qwant-Konto verbunden, die synchronisiert werden könnten.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Bitte starten Sie Firefox, öffnen Sie die Einstellungen und melden Sie sich an, um fortzufahren.";
+"SendTo.NotSignedIn.Message" = "Bitte starten Sie Qwant, öffnen Sie die Einstellungen und melden Sie sich an, um fortzufahren.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "Sie sind nicht mit Ihrem Firefox-Konto angemeldet.";
+"SendTo.NotSignedIn.Title" = "Sie sind nicht mit Ihrem Qwant-Konto angemeldet.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Senden";
@@ -1012,10 +1012,10 @@
 "Settings.NewTab.Option.CustomizeFooter" = "Die von die Ihnen am meisten besuchten Websites";
 
 /* The title for the section to customize top sites in the new tab settings page. */
-"Settings.NewTab.Option.CustomizeTitle" = "Firefox Home anpassen";
+"Settings.NewTab.Option.CustomizeTitle" = "Qwant Home anpassen";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "Firefox Home";
+"Settings.NewTab.Option.FirefoxHome" = "Qwant Home";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Neue Lesezeichen";
@@ -1072,7 +1072,7 @@
 "Settings.SendUsage.Link" = "Weitere Informationen.";
 
 /* A short description that explains why mozilla collects usage data. */
-"Settings.SendUsage.Message" = "Mozilla ist bestrebt, nur die Informationen zu sammeln, mit denen wir Qwant anbieten und für alle Nutzer verbessern können.";
+"Settings.SendUsage.Message" = "Qwant ist bestrebt, nur die Informationen zu sammeln, mit denen wir Qwant anbieten und für alle Nutzer verbessern können.";
 
 /* The title for the setting to send usage data. */
 "Settings.SendUsage.Title" = "Nutzungsdaten senden";

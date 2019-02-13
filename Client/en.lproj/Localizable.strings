@@ -680,7 +680,7 @@
 "PasswordAutoFill.PasswordsListTitle" = "Available Credentials:";
 
 /* Title of the extension that shows firefox passwords */
-"PasswordAutoFill.SectionTitle" = "Firefox Credentials";
+"PasswordAutoFill.SectionTitle" = "Qwant Credentials";
 
 /* Button for closing the menu action sheet */
 "PhotonMenu.close" = "Close";
@@ -801,7 +801,7 @@
 "Send Report" = "Send Report";
 
 /* Message displayed in the crash dialog above the buttons used to select when sending reports */
-"Send a crash report so Mozilla can fix the problem?" = "Send a crash report so Qwant can fix the problem?";
+"Send a crash report so Qwant can fix the problem?" = "Send a crash report so Qwant can fix the problem?";
 
 /* Button title for cancelling share screen
    Close button in top navigation bar */
@@ -823,13 +823,13 @@
 "SendTo.NavBar.Title" = "Send Tab";
 
 /* Error message shown in the remote tabs panel */
-"SendTo.NoDevicesFound.Message" = "You don’t have any other devices connected to this Firefox Account available to sync.";
+"SendTo.NoDevicesFound.Message" = "You don’t have any other devices connected to this Qwant Account available to sync.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Please open Firefox, go to Settings and sign in to continue.";
+"SendTo.NotSignedIn.Message" = "Please open Qwant, go to Settings and sign in to continue.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "You are not signed in to your Firefox Account.";
+"SendTo.NotSignedIn.Title" = "You are not signed in to your Qwant Account.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Send";
@@ -1015,7 +1015,7 @@
 "Settings.NewTab.Option.CustomizeTitle" = "Customize Firefox Home";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "Firefox Home";
+"Settings.NewTab.Option.FirefoxHome" = "Qwant Home";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Recent Bookmarks";

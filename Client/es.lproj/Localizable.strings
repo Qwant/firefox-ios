@@ -1027,7 +1027,7 @@
 "Settings.SendUsage.Link" = "Descubrir más.";
 
 /* A short description that explains why mozilla collects usage data. */
-"Settings.SendUsage.Message" = "Mozilla se esfuerza para recopilar solo lo que necesita para poder ejecutar y mejorar Qwant para todos.";
+"Settings.SendUsage.Message" = "Qwant se esfuerza para recopilar solo lo que necesita para poder ejecutar y mejorar Qwant para todos.";
 
 /* The title for the setting to send usage data. */
 "Settings.SendUsage.Title" = "Enviar datos de uso";
