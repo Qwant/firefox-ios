@@ -727,7 +727,7 @@
 "PhotoLibrary.FirefoxWouldLikeAccessMessage" = "Esto te permite guardar la imagen en tu Galería.";
 
 /* See http://mzl.la/1G7uHo7 */
-"PhotoLibrary.FirefoxWouldLikeAccessTitle" = "A Firefox le gustaría acceder a tus fotos";
+"PhotoLibrary.FirefoxWouldLikeAccessTitle" = "A Qwant le gustaría acceder a tus fotos";
 
 /* Button for closing the menu action sheet */
 "PhotonMenu.close" = "Cerrar";
@@ -873,13 +873,13 @@
 "SendTo.NavBar.Title" = "Enviar pestaña";
 
 /* Error message shown in the remote tabs panel */
-"SendTo.NoDevicesFound.Message" = "No tienes otros dispositivos conectados a esta cuenta de Firefox que estén disponibles para sincronizarse.";
+"SendTo.NoDevicesFound.Message" = "No tienes otros dispositivos conectados a esta cuenta de Qwant que estén disponibles para sincronizarse.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Abre Firefox, ve a Ajustes e inicia sesión para continuar.";
+"SendTo.NotSignedIn.Message" = "Abre Qwant, ve a Ajustes e inicia sesión para continuar.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "No has iniciado sesión en tu cuenta de Firefox.";
+"SendTo.NotSignedIn.Title" = "No has iniciado sesión en tu cuenta de Qwant.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Enviar";
@@ -1069,10 +1069,10 @@
 "Settings.NewTab.Option.CustomizeFooter" = "Los sitios que más visitas";
 
 /* The title for the section to customize top sites in the new tab settings page. */
-"Settings.NewTab.Option.CustomizeTitle" = "Personalizar Inicio de Firefox";
+"Settings.NewTab.Option.CustomizeTitle" = "Personalizar Inicio de Qwant";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "Inicio de Firefox";
+"Settings.NewTab.Option.FirefoxHome" = "Inicio de Qwant";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Marcadores recientes";
@@ -1132,7 +1132,7 @@
 "Settings.SendUsage.Link" = "Descubrir más.";
 
 /* A short description that explains why mozilla collects usage data. */
-"Settings.SendUsage.Message" = "Mozilla se esfuerza para recopilar solo lo que necesita para poder ejecutar y mejorar Qwant para todos.";
+"Settings.SendUsage.Message" = "Qwant se esfuerza para recopilar solo lo que necesita para poder ejecutar y mejorar Qwant para todos.";
 
 /* The title for the setting to send usage data. */
 "Settings.SendUsage.Title" = "Enviar datos de uso";
