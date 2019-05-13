@@ -1929,14 +1929,14 @@ extension BrowserViewController: IntroViewControllerDelegate {
         return false
     }
 
-    func launchFxAFromDeeplinkURL(_ url: URL) {
+    /* func launchFxAFromDeeplinkURL(_ url: URL) {
         self.profile.prefs.removeObjectForKey("AdjustDeeplinkKey")
         var query = url.getQuery()
         query["entrypoint"] = "adjust_deepklink_ios"
         let fxaParams: FxALaunchParams
         fxaParams = FxALaunchParams(query: query)
         self.presentSignInViewController(fxaParams)
-    }
+    } */
 
     func introViewControllerDidFinish(_ introViewController: IntroViewController, requestToLogin: Bool) {
         self.profile.prefs.setInt(1, forKey: PrefsKeys.IntroSeen)

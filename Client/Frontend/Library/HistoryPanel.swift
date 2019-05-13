@@ -129,20 +129,11 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
 
         // Add a refresh control if the user is logged in and the control was not added before. If the user is not
         // logged in, remove any existing control.
-        if profile.hasSyncableAccount() && refreshControl == nil {
-            addRefreshControl()
-        } else if !profile.hasSyncableAccount() && refreshControl != nil {
+        if refreshControl != nil {
             removeRefreshControl()
         }
 
-        if profile.hasSyncableAccount() {
-            syncDetailText = " "
-            updateSyncedDevicesCount().uponQueue(.main) { result in
-                self.updateNumberOfSyncedDevices(self.currentSyncedDevicesCount)
-            }
-        } else {
-            syncDetailText = ""
-        }
+        syncDetailText = ""
         reloadData()
     }
 
@@ -165,9 +156,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
         refreshControl?.endRefreshing()
 
         // Remove the refresh control if the user has logged out in the meantime
-        if !profile.hasSyncableAccount() {
-            removeRefreshControl()
-        }
+        removeRefreshControl()
     }
 
     // MARK: - Loading data
@@ -215,7 +204,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
         }
     }
 
-    func resyncHistory() {
+    /* func resyncHistory() {
         profile.syncManager.syncHistory().uponQueue(.main) { syncResult in
             self.updateSyncedDevicesCount().uponQueue(.main) { result in
                 self.endRefreshing()
@@ -249,7 +238,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
             self.currentSyncedDevicesCount = tabsAndClients.count
             return succeed()
         }
-    }
+    } */
 
     // MARK: - Actions
 
@@ -416,9 +405,9 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
         case .FirefoxAccountChanged, .PrivateDataClearedHistory:
             reloadData()
 
-            if profile.hasSyncableAccount() {
+            /* if profile.hasSyncableAccount() {
                 resyncHistory()
-            }
+            } */
             break
         case .DynamicFontChanged:
             reloadData()
@@ -427,7 +416,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
                 emptyStateOverlayView.removeFromSuperview()
             }
             emptyStateOverlayView = createEmptyStateOverlayView()
-            resyncHistory()
+            // resyncHistory()
             break
         case .DatabaseWasReopened:
             if let dbName = notification.object as? String, dbName == "browser.db" {
@@ -452,7 +441,7 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
 
     func onRefreshPulled() {
         refreshControl?.beginRefreshing()
-        resyncHistory()
+        // resyncHistory()
     }
 
     // MARK: - UITableViewDataSource
@@ -462,9 +451,9 @@ class HistoryPanel: SiteTableViewController, LibraryPanel {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // First section is for Sync/recently closed and always has 2 rows.
-        guard section > Section.syncAndRecentlyClosed.rawValue else {
-            return 2
-        }
+        // guard section > Section.syncAndRecentlyClosed.rawValue else {
+        //     return 2
+        // }
 
         return groupedSites.numberOfItemsForSection(section - 1)
     }

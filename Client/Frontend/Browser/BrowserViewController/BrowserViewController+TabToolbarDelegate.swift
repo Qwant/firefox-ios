@@ -56,7 +56,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         var actions: [[PhotonActionSheetItem]] = []
 
-        let syncAction = syncMenuButton(showFxA: presentSignInViewController)
+        /* let syncAction = syncMenuButton(showFxA: presentSignInViewController)
         let isLoginsButtonShowing = LoginListViewController.shouldShowAppMenuShortcut(forPrefs: profile.prefs)
         let viewLogins: PhotonActionSheetItem? = !isLoginsButtonShowing ? nil :
             PhotonActionSheetItem(title: Strings.LoginsAndPasswordsTitle, iconString: "key", iconType: .Image, iconAlignment: .left, isEnabled: true) { _ in
@@ -72,7 +72,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         let optionalActions = [syncAction, viewLogins].compactMap { $0 }
         if !optionalActions.isEmpty {
             actions.append(optionalActions)
-        }
+        } */
 
         actions.append(getLibraryActions(vcDelegate: self))
         actions.append(getOtherPanelActions(vcDelegate: self))

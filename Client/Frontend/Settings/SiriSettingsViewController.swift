@@ -7,7 +7,7 @@ import Shared
 import Intents
 import IntentsUI
 
-@available(iOS 12.0, *)
+/* @available(iOS 12.0, *)
 class SiriSettingsViewController: SettingsTableViewController {
     let prefs: Prefs
 
@@ -47,7 +47,7 @@ class SiriOpenURLSetting: Setting {
     }
 }
 
-/* @available(iOS 12.0, *)
+@available(iOS 12.0, *)
 extension SiriSettingsViewController: INUIEditVoiceShortcutViewControllerDelegate {
     func editVoiceShortcutViewController(_ controller: INUIEditVoiceShortcutViewController, didUpdate voiceShortcut: INVoiceShortcut?, error: Error?) {
         controller.dismiss(animated: true, completion: nil)

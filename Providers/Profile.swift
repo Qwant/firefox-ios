@@ -288,26 +288,9 @@ open class BrowserProfile: Profile {
         // This is the same as self.history.setTopSitesNeedsInvalidation, but without the
         // side-effect of instantiating SQLiteHistory (and thus BrowserDB) on the main thread.
         prefs.setBool(false, forKey: PrefsKeys.KeyTopSitesCacheIsValid)
-
-        if BrowserProfile.isChinaEdition {
-
-            // Set the default homepage.
-            prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.KeyDefaultHomePageURL)
-
-            if prefs.stringForKey(PrefsKeys.KeyNewTab) == nil {
-                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.NewTabCustomUrlPrefKey)
-                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.KeyNewTab)
-            }
-
-            if prefs.stringForKey(PrefsKeys.HomePageTab) == nil {
-                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.HomeButtonHomePageURL)
-                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.HomePageTab)
-            }
-        } else {
-            // Remove the default homepage. This does not change the user's preference,
-            // just the behaviour when there is no homepage.
-            prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
-        }
+       
+        prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
+        prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
 
         // Hide the "__leanplum.sqlite" file in the documents directory.
         if var leanplumFile = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("__leanplum.sqlite"), FileManager.default.fileExists(atPath: leanplumFile.path) {
