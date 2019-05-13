@@ -1,5 +1,5 @@
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Nutzen Sie eine beliebige E-Mail-App – nicht nur Mail – mit Firefox.";
+"Intro.Slides.Mail.Description" = "Nutzen Sie eine beliebige E-Mail-App – nicht nur Mail – mit Qwant.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "Einstellungen zu E-Mails";
@@ -8,7 +8,7 @@
 "Intro.Slides.NewSync.Description" = "Nehmen Sie Ihre Lesezeichen, Chronik und Passwörter auf allen Geräten mit.";
 
 /* Title for the fifth panel 'Sync' in the First Run tour. */
-"Intro.Slides.NewSync.Title" = "Firefox für unterwegs";
+"Intro.Slides.NewSync.Title" = "Qwant für unterwegs";
 
 /* Description for the 'Private Browsing' panel in the First Run tour. */
 "Intro.Slides.Private.Description" = "Tippen Sie auf das Maskensymbol, um den privaten Modus zu aktivieren.";

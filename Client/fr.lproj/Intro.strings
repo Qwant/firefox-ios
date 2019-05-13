@@ -8,7 +8,7 @@
 "Intro.Slides.NewSync.Description" = "Accédez à vos marque-pages, à votre historique et à vos mots de passe depuis tous vos appareils.";
 
 /* Title for the fifth panel 'Sync' in the First Run tour. */
-"Intro.Slides.NewSync.Title" = "Emportez Firefox avec vous";
+"Intro.Slides.NewSync.Title" = "Emportez Qwant avec vous";
 
 /* Description for the 'Private Browsing' panel in the First Run tour. */
 "Intro.Slides.Private.Description" = "Appuyez sur l’icône de masque pour passer en mode de navigation privée.";
