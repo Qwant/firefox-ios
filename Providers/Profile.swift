@@ -235,6 +235,9 @@ open class BrowserProfile: Profile {
             log.info("New profile. Removing old Keychain/Prefs data.")
             KeychainWrapper.wipeKeychain()
             prefs.clearAll()
+            
+            prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
+            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
         // Migrate bookmarks from old browser.db to new Rust places.db only
@@ -288,9 +291,6 @@ open class BrowserProfile: Profile {
         // This is the same as self.history.setTopSitesNeedsInvalidation, but without the
         // side-effect of instantiating SQLiteHistory (and thus BrowserDB) on the main thread.
         prefs.setBool(false, forKey: PrefsKeys.KeyTopSitesCacheIsValid)
-       
-        prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
-        prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
 
         // Hide the "__leanplum.sqlite" file in the documents directory.
         if var leanplumFile = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("__leanplum.sqlite"), FileManager.default.fileExists(atPath: leanplumFile.path) {
