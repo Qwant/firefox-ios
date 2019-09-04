@@ -4192,9 +4192,9 @@
 					};
 					F84B21BD1A090F8100AAB793 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 43AQ936H96;
+						DevelopmentTeam = 76Z29F769J;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -6644,7 +6644,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Client/Entitlements/FirefoxApplication.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 43AQ936H96;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76Z29F769J;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6669,9 +6670,10 @@
 					"-lxml2",
 				);
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_RELEASE -DMOZ_TARGET_CLIENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
-				PROVISIONING_PROFILE_SPECIFIER = "Firefox Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Client/Client-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 			};
@@ -7531,7 +7533,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Developer;
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Client/Entitlements/FennecEnterpriseApplication.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 43AQ936H96;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76Z29F769J;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7570,9 +7573,10 @@
 					CoreMedia,
 				);
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_FENNEC -DMOZ_TARGET_CLIENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
-				PROVISIONING_PROFILE_SPECIFIER = "FennecEnterprise Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BUDDYBUILD;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Client/Client-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -8098,7 +8102,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Beta;
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Client/Entitlements/FirefoxBetaApplication.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 43AQ936H96;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76Z29F769J;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8123,9 +8128,10 @@
 					"-lxml2",
 				);
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_BETA -DMOZ_TARGET_CLIENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
-				PROVISIONING_PROFILE_SPECIFIER = "Firefox Beta Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Client/Client-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 			};
@@ -8472,7 +8478,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Developer;
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Client/Entitlements/FennecApplication.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 43AQ936H96;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 76Z29F769J;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8511,9 +8518,10 @@
 					CoreMedia,
 				);
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_FENNEC -DMOZ_TARGET_CLIENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qwant.mobile;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BUDDYBUILD;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Client/Client-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
