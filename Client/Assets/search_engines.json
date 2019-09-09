@@ -37,9 +37,81 @@
  },
  {
     "name": "Yahoo",
-    "domain": "(www\\.)?([a-z]+\\.)+yahoo(\\.[a-z]+)+",
+    "domain": "(www\\.)?([a-z]+\\.)*yahoo(\\.[a-z]+)+",
     "search": "/search",
     "state" : "invalid",
     "use_qjm_parsing" : "true"
+ },
+ {
+ "name" : "Ask.com",
+ "domain" : "(www\\.)?([a-z]+\\.)*ask(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Baidu",
+ "domain" : "(www\\.)?baidu(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Exalead",
+ "domain" : "(www\\.)?exalead(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Startpage",
+ "domain" : "(www\\.)?startpage(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Gigablast",
+ "domain" : "(www\\.)?gigablast(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Kelseek",
+ "domain" : "(www\\.)?kelseek(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Lycos",
+ "domain" : "(www\\.)?lycos(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Mozbot",
+ "domain" : "(www\\.)?mozbot(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Sogou",
+ "domain" : "(www\\.)?sogou(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Sukoga",
+ "domain" : "(www\\.)?sukoga(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Swisscows",
+ "domain" : "(www\\.)?swisscows(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Naver",
+ "domain" : "(www\\.)?naver(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "V9",
+ "domain" : "(www\\.)?v9(\\.[a-z]+)+",
+ "state" : "invalid"
+ },
+ {
+ "name" : "Yandex",
+ "domain" : "(www\\.)?yandex(\\.[a-z]+)+",
+ "state" : "invalid"
  }
+ 
+ 
 ]

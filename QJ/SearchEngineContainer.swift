@@ -14,14 +14,14 @@ struct SearchEngine {
     var name : String
     var domain : String
     var domainRegex : NSRegularExpression
-    var search : String
+    var search : String?
     var safeSearchUrl : String?
     var safeSearchRequestType : String?
     var safeSearchRequestUrl : String?
     var safeSearchRequestBody : String?
     var state : String
     
-    init(name : String, domain : String, search : String, safeSearchUrl : String? = nil, safeSearchRequestType : String? = nil, safeSearchRequestUrl : String? = nil, safeSearchRequestBody : String? = nil, state : String) {
+    init(name : String, domain : String, search : String? = nil, safeSearchUrl : String? = nil, safeSearchRequestType : String? = nil, safeSearchRequestUrl : String? = nil, safeSearchRequestBody : String? = nil, state : String) {
         self.name = name
         self.domain = domain
         self.domainRegex = try! NSRegularExpression(pattern : domain, options: [])
@@ -51,7 +51,7 @@ class SearchEngineContainer {
             let safeSearchRequestUrl = $0.1["safe_search_request_url"].string
             let safeSearchRequestBody = $0.1["safe_search_request_body"].string
             let state = $0.1["state"].string
-            let searchEngine = SearchEngine(name : name!, domain : domain!, search : search!, safeSearchUrl : safeSearchUrl, safeSearchRequestType : safeSearchRequestType, safeSearchRequestUrl : safeSearchRequestUrl, safeSearchRequestBody : safeSearchRequestBody, state : state!)
+            let searchEngine = SearchEngine(name : name!, domain : domain!, search : search, safeSearchUrl : safeSearchUrl, safeSearchRequestType : safeSearchRequestType, safeSearchRequestUrl : safeSearchRequestUrl, safeSearchRequestBody : safeSearchRequestBody, state : state!)
             searchEngines[searchEngine.name] = searchEngine
         })
     }

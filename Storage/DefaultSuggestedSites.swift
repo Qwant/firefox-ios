@@ -36,23 +36,23 @@ open class DefaultSuggestedSites {
     public static let sites = [
         "default": [
             SuggestedSiteData(
-                url: "http://www.qwant.com/?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwant",
-                faviconUrl: "asset://defaultFavicon",
-                trackingId: 1,
-                title: NSLocalizedString("Qwant", comment: "Tile title for Qwant")
-            ),
-            SuggestedSiteData(
-                url: "http://www.qwantjunior.com/?client=qwantbrowser",
+                url: "http://www.qwantjunior.com/?client=qwantjuniorbrowser",
                 bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantjunior",
                 faviconUrl: "asset://defaultFavicon",
-                trackingId: 2,
+                trackingId: 1,
                 title: NSLocalizedString("Qwant Junior", comment: "Tile title for Qwant Junior")
             ),
             SuggestedSiteData(
-                url: "http://www.qwant.com/music?client=qwantbrowser",
+                url: "http://www.qwant.com/?client=qwantjuniorbrowser",
+                bgColor: "#FFF",
+                imageUrl: "asset://suggestedsites_qwant",
+                faviconUrl: "asset://defaultFavicon",
+                trackingId: 2,
+                title: NSLocalizedString("Qwant", comment: "Tile title for Qwant")
+            ),
+            SuggestedSiteData(
+                url: "http://www.qwant.com/music?client=qwantjuniorbrowser",
                 bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantmusic",
                 faviconUrl: "asset://defaultFavicon",
@@ -60,7 +60,7 @@ open class DefaultSuggestedSites {
                 title: NSLocalizedString("Qwant Music", comment: "Tile title for Qwant Music")
             ),
             SuggestedSiteData(
-                url: "https://boards.qwant.com/?client=qwantbrowser",
+                url: "https://boards.qwant.com/?client=qwantjuniorbrowser",
                 bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwantboards",
                 faviconUrl: "asset://defaultFavicon",
@@ -68,7 +68,7 @@ open class DefaultSuggestedSites {
                 title: NSLocalizedString("Qwant Boards", comment: "Tile title for Qwant Boards")
             ),
             SuggestedSiteData(
-                url: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser",
+                url: "https://help.qwant.com/help/qwant-mobile/?client=qwantjuniorbrowser",
                 bgColor: "#FFF",
                 imageUrl: "asset://suggestedsites_qwanthelp",
                 faviconUrl: "asset://defaultFavicon",

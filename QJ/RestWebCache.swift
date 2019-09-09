@@ -362,7 +362,7 @@ class RestWebCache : NSObject {
     public static func searchInSearchEngineIfBlacklistedResult(searchEngineName : String, url: String) -> Bool {
 
         var ret = false
-        RestRequester.makeHTTPGetRequest(path: url, isJsonResponse: false) { (err, res) in
+        RestRequester.makeHTTPGetRequest(path: url, isJsonResponse: false, onCompletion: { (err, res) in
             if (err != nil) {
                 ret = true
                 return
@@ -373,7 +373,9 @@ class RestWebCache : NSObject {
                 return
             }
             ret = true
-        }
+        }, onTimeout: {
+            
+        })
         return ret
     }
     

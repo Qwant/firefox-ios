@@ -32,11 +32,40 @@ public class BlackListSingleton {
         //privacy.trackingprotection.enabled
     }
     
-    public static func isQwantJuniorHost(hostTesting : String) -> Bool {
-        return RestBlacklistManager.isQwantJuniorHost(hostTesting: hostTesting) ||
-            hostTesting == "qwantjunior.com" || hostTesting == "www.qwantjunior.com"
+    public func isQwantJuniorHost(hostTesting : String) -> Bool {
+        return hostTesting == RestBlacklistManager.getQwantJuniorHost() || hostTesting == "qwantjunior.com" || hostTesting == "www.qwantjunior.com"
     }
     
+    public func getWarningUrl() -> String {
+        let pre = Locale.preferredLanguages[0]
+        let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+        return "https://\(RestBlacklistManager.getQwantJuniorHost())/public/index/warning/\(l)"
+    }
+    
+    public func getIpUrl() -> String {
+        let pre = Locale.preferredLanguages[0]
+        let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+        return "https://\(RestBlacklistManager.getQwantJuniorHost())/public/index/ip/\(l)"
+    }
+    
+    public func getWarningSearchEngineUrl() -> String {
+        let pre = Locale.preferredLanguages[0]
+        let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+        return "https://\(RestBlacklistManager.getQwantJuniorHost())/public/index/warning-search-engine/\(l)"
+    }
+    
+    public func getSearchEngineUrl(_ searchEngine : String) -> String {
+        let pre = Locale.preferredLanguages[0]
+        let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+        return "https://\(RestBlacklistManager.getQwantJuniorHost())/public/index/search-engine/\(l)/\(searchEngine)"
+    }
+    
+    public func getTimeoutUrl() -> String {
+        let pre = Locale.preferredLanguages[0]
+        let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+        return "https://\(RestBlacklistManager.getQwantJuniorHost())/public/index/timeout/\(l)"
+    }
+
     private static func MD5(string: String) -> Data {
         let messageData = string.data(using:.utf8)!
         var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
@@ -55,39 +84,40 @@ public class BlackListSingleton {
         print("path : \(path)")
         let path2 = path.replacingOccurrences(of: "https://", with: "").replacingOccurrences(of: "http://", with: "").replacingOccurrences(of: "www.", with: "")
         let url : URL = URL(string: path)!
-        let host = (url.host != nil) ? url.host! : path2
+        let host = (url.host != nil) ? url.host!.replacingOccurrences(of: "www.", with: "") : path2
         let reversedHost : String = host.components(separatedBy: ".").reversed().joined(separator: ".")
-        print("reversedHost : \(reversedHost)")
+        //print("reversedHost : \(reversedHost)")
         let newPath : String = path2.replacingOccurrences(of: host, with: reversedHost)
-        print("newPath : \(newPath)")
+        //print("newPath : \(newPath)")
         let md5Data = MD5(string : newPath)
         let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
-        print("md5Hex: \(md5Hex)")
+        //print("md5Hex: \(md5Hex)")
         return md5Hex
     }
     
     private static func removeParameterInUrl(_ url : String) -> String {
-        print("[REMOVE PARAMETER IN URL]")
-        print("url : \(url)")
+        //print("[REMOVE PARAMETER IN URL]")
+        //print("url : \(url)")
         let rangeParameter = url.range(of: "?")
         if (rangeParameter != nil) {
             let strParameter = url.substring(to : rangeParameter!.lowerBound )
-            print("url without parameter : \(strParameter)")
+            //print("url without parameter : \(strParameter)")
             return strParameter
         }
-        print("url without parameter : \(url)")
+        //print("url without parameter : \(url)")
         return url
     }
     
-    public func isBlackListed(hostTesting: String) -> Bool {
+    public func isBlackListed(hostTesting: String, onResponse: @escaping (Bool) -> Void, onTimeout: @escaping () -> Void) -> Bool {
 
         var ret = false
+        var isTimeout = false
         
         let before = Date.nowMicroseconds()
         let test = db!.getDomainInBlacklist(domain: hostTesting)
         if (test == nil || test!.expires) {
             print("Network")
-            RestBlacklistManager.testPaths(route: "/blacklist/domains/hash", paths: [BlackListSingleton.hashPath(hostTesting)]) { (result : [Bool]) in
+            RestBlacklistManager.testPaths(route: "/blacklist/domains/hash", paths: [BlackListSingleton.hashPath(hostTesting)], onCompletion: { (result : [Bool]) in
                 ret = result[0]
                 do {
                     if (test == nil) {
@@ -108,26 +138,34 @@ public class BlackListSingleton {
                 } catch is Error {
                     print("Other Error")
                 }
-            }
+            }, onTimeout: {
+                isTimeout = true
+            })
         } else {
             print("Local")
             ret = !test!.available
         }
-        if (ret) {
-            print("BLACKLIST !")
-        } else {
-            print("OK GO !")
-        }
         let after = Date.nowMicroseconds()
         let elapsed = after - before
         print("elapsed : " + String(elapsed))
-        
-        return ret
+        if (isTimeout) {
+            onTimeout()
+        } else {
+            if (ret) {
+                print("BLACKLIST !")
+            } else {
+                print("OK GO !")
+            }
+            onResponse(ret)
+            return ret
+        }
+        return true
     }
     
-    public func isBlackListed(urlTesting: String) -> Bool {
+    public func isBlackListed(urlTesting: String, onResponse: @escaping (Bool) -> Void, onTimeout: @escaping () -> Void) -> Bool {
         
         var ret = false
+        var isTimeout = false
         
         let urlTestingWithoutParameter = BlackListSingleton.removeParameterInUrl(urlTesting)
         
@@ -135,7 +173,7 @@ public class BlackListSingleton {
         let test = db!.getUrlInBlacklist(url: urlTestingWithoutParameter)
         if (test == nil || test!.expires) {
             print("Network")
-            RestBlacklistManager.testPaths(route: "/blacklist/urls/hash", paths: [BlackListSingleton.hashPath(urlTestingWithoutParameter)]) { (result : [Bool]) in
+            RestBlacklistManager.testPaths(route: "/blacklist/urls/hash", paths: [BlackListSingleton.hashPath(urlTestingWithoutParameter)], onCompletion: { (result : [Bool]) in
                 ret = result[0]
                 do {
                     if (test == nil) {
@@ -156,21 +194,28 @@ public class BlackListSingleton {
                 } catch is Error {
                     print("Other Error")
                 }
-            }
+            }, onTimeout: {
+                isTimeout = true
+            })
         } else {
             print("Local")
             ret = !test!.available
         }
-        if (ret) {
-            print("BLACKLIST !")
-        } else {
-            print("OK GO !")
-        }
         let after = Date.nowMicroseconds()
         let elapsed = after - before
         print("elapsed : " + String(elapsed))
-        
-        return ret
+        if (isTimeout) {
+            onTimeout()
+        } else {
+            if (ret) {
+                print("BLACKLIST !")
+            } else {
+                print("OK GO !")
+            }
+            onResponse(ret)
+            return ret
+        }
+        return true
     }
     
     public func areBlackListed(hostsTesting: [String]) -> [Bool] {
@@ -192,7 +237,7 @@ public class BlackListSingleton {
                 retsByHost[hostTesting] = !test!.available
             }
         }
-        RestBlacklistManager.testPaths(route: "/blacklist/domains", paths: hostsNotFoundInLocalOrExpired) { (result : [Bool]) in
+        RestBlacklistManager.testPaths(route: "/blacklist/domains", paths: hostsNotFoundInLocalOrExpired, onCompletion: { (result : [Bool]) in
             var i = 0
             while (i < result.count) {
                 let ret = result[i]
@@ -219,7 +264,9 @@ public class BlackListSingleton {
                 }
                 i += 1
             }
-        }
+        }, onTimeout: {
+            
+        })
         var i = 0
         while (i < hostsTesting.count) {
             rets[i] = retsByHost[hostsTesting[i]]!
@@ -233,15 +280,16 @@ public class BlackListSingleton {
         return rets
     }
     
-    public func isRedirect(hostTesting: String) -> Bool {
+    public func isRedirect(hostTesting: String, onResponse: @escaping (Bool) -> Void, onTimeout: @escaping () -> Void) -> Bool {
         
         var ret = false
+        var isTimeout = false
         
         let before = Date.nowMicroseconds()
         let test = db!.getDomainInRedirect(domain: hostTesting)
         if (test == nil || test!.expires) {
             print("Network")
-            RestBlacklistManager.testPaths(route: "/redirect/domains/hash", paths: [BlackListSingleton.hashPath(hostTesting)]) { (result : [Bool]) in
+            RestBlacklistManager.testPaths(route: "/redirect/domains/hash", paths: [BlackListSingleton.hashPath(hostTesting)], onCompletion: { (result : [Bool]) in
                 ret = result[0]
                 do {
                     if (test == nil) {
@@ -262,26 +310,48 @@ public class BlackListSingleton {
                 } catch is Error {
                     print("Other Error")
                 }
-            }
+            }, onTimeout: {
+                isTimeout = true
+            })
         } else {
             print("Local")
             ret = !test!.available
         }
-        if (ret) {
-            print("BLACKLIST !")
-        } else {
-            print("OK GO !")
-        }
         let after = Date.nowMicroseconds()
         let elapsed = after - before
         print("elapsed : " + String(elapsed))
-        
-        return ret
+        if (isTimeout) {
+            onTimeout()
+        } else {
+            if (ret) {
+                print("REDIRECT !")
+            } else {
+                print("OK GO !")
+            }
+            onResponse(ret)
+            return ret
+        }
+        return true
+    } 
+    
+    private func isFacebookRedirect(urlTesting : String) -> Bool {
+        return urlTesting.contains("facebook.com/") && urlTesting != "http://facebook.com/" && urlTesting != "https://facebook.com/" && urlTesting != "http://www.facebook.com/" && urlTesting != "https://www.facebook.com/" && urlTesting != "http://m.facebook.com/" && urlTesting != "https://m.facebook.com/" && urlTesting != "http://www.m.facebook.com/" && urlTesting != "https://www.m.facebook.com/"
+        //let domain = "(([a-z]+)+\\.)?facebook(\\.[a-z]+)+/[a-z]+"
+        //let domainRegex : NSRegularExpression = try! NSRegularExpression(pattern : domain, options: [])
+        //let results = domainRegex.matches(in: urlTesting, options: [], range: NSRange(location: 0, length: urlTesting.count))
+        //return results.count > 0
     }
     
-    public func isRedirect(urlTesting: String) -> Bool {
+    public func isRedirect(urlTesting: String, onResponse: @escaping (Bool) -> Void, onTimeout: @escaping () -> Void) -> Bool {
+        
+        if (isFacebookRedirect(urlTesting: urlTesting)) {
+            print("isFacebookRedirect \(urlTesting)")
+            onResponse(true)
+            return true
+        }
         
         var ret = false
+        var isTimeout = false
         
         let urlTestingWithoutParameter = BlackListSingleton.removeParameterInUrl(urlTesting)
         
@@ -289,7 +359,7 @@ public class BlackListSingleton {
         let test = db!.getUrlInRedirect(url: urlTesting)
         if (test == nil || test!.expires) {
             print("Network")
-            RestBlacklistManager.testPaths(route: "/redirect/urls/hash", paths: [BlackListSingleton.hashPath(urlTestingWithoutParameter)]) { (result : [Bool]) in
+            RestBlacklistManager.testPaths(route: "/redirect/urls/hash", paths: [BlackListSingleton.hashPath(urlTestingWithoutParameter)], onCompletion: { (result : [Bool]) in
                 ret = result[0]
                 do {
                     if (test == nil) {
@@ -310,21 +380,28 @@ public class BlackListSingleton {
                 } catch is Error {
                     print("Other Error")
                 }
-            }
+            }, onTimeout: {
+                isTimeout = true
+            });
         } else {
             print("Local")
             ret = !test!.available
         }
-        if (ret) {
-            print("BLACKLIST !")
-        } else {
-            print("OK GO !")
-        }
         let after = Date.nowMicroseconds()
         let elapsed = after - before
         print("elapsed : " + String(elapsed))
-        
-        return ret
+        if (isTimeout) {
+            onTimeout()
+        } else {
+            if (ret) {
+                print("REDIRECT !")
+            } else {
+                print("OK GO !")
+            }
+            onResponse(ret)
+            return ret
+        }
+        return true
     }
     
     public func isIp(hostTesting : String) -> Bool {
@@ -371,7 +448,10 @@ public class BlackListSingleton {
         
         let searchEngine = searchEngineContainer.getSearchEngine(name: searchEngineName)
         if (searchEngine != nil) {
-            if (url.contains(searchEngine!.search)) {
+            if (searchEngine!.search == nil) {
+                return false
+            }
+            if (url.contains(searchEngine!.search!)) {
                 return true
             }
         }
@@ -382,7 +462,10 @@ public class BlackListSingleton {
         
         let searchEngine = searchEngineContainer.getSearchEngine(name: searchEngineName)
         if (searchEngine != nil) {
-            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search)) {
+            if (searchEngine!.search == nil) {
+                return false
+            }
+            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search!)) {
                 return true
             }
         }
@@ -393,7 +476,10 @@ public class BlackListSingleton {
         
         let searchEngine = searchEngineContainer.getSearchEngine(name: searchEngineName)
         if (searchEngine != nil) {
-            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search)) {
+            if (searchEngine!.search == nil) {
+                return false
+            }
+            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search!)) {
                 return url.contains(searchEngine!.safeSearchUrl!)
             }
         }
@@ -404,7 +490,10 @@ public class BlackListSingleton {
         
         let searchEngine = searchEngineContainer.getSearchEngine(name: searchEngineName)
         if (searchEngine != nil) {
-            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search)) {
+            if (searchEngine!.search == nil) {
+                return url
+            }
+            if (searchEngine!.safeSearchUrl != nil && url.contains(searchEngine!.search!)) {
                 if url.contains("?") {
                     return url + "&" + searchEngine!.safeSearchUrl!
                 } else {
@@ -435,9 +524,13 @@ public class BlackListSingleton {
                 if (searchEngine!.safeSearchRequestType! == "GET") {
                     RestRequester.makeHTTPGetRequest(path: searchEngine!.safeSearchRequestUrl!, isJsonResponse: false, onCompletion: { err, res in
                         
+                    }, onTimeout: {
+                        
                     })
                 } else if (searchEngine!.safeSearchRequestType! == "POST") {
                     RestRequester.makeHTTPPostRequest(path: searchEngine!.safeSearchRequestUrl!, postString: searchEngine!.safeSearchRequestBody!, isJsonResponse: false, onCompletion: { err, res in
+                        
+                    }, onTimeout: {
                         
                     })
                 }

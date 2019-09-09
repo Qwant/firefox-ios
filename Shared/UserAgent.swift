@@ -99,7 +99,7 @@ open class UserAgent {
         let mutableUA = NSMutableString(string: userAgent)
         mutableUA.insert("QwantiOS/\(appVersion)b\(AppInfo.buildNumber) ", at: mobileRange.location)
 
-        mutableUA.replaceOccurrences(of: "Mozilla/5.0", with: "QwantMobile/2.0", range: mutableUA.range(of: "Mozilla/5.0"))
+        mutableUA.replaceOccurrences(of: "Mozilla/5.0", with: "QwantJuniorMobile/1.0", range: mutableUA.range(of: "Mozilla/5.0"))
         
         let firefoxUA = "\(mutableUA) Safari/\(webKitVersion)"
 
