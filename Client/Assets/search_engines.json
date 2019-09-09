@@ -1,0 +1,45 @@
+[
+ {
+    "name": "Google",
+    "domain": "(www\\.)?google(\\.[a-z]+)+",
+    "search": "/search",
+    "safe_search_url": "safe=active",
+    "state" : "invalid"
+ },
+ {
+    "name": "Qwant",
+    "domain": "(www\\.)?qwant(\\.[a-z]+)+",
+    "search": "/",
+    "safe_search_url": "s=2",
+    "state" : "invalid"
+ },
+ {
+    "name": "Bing",
+    "domain": "(www\\.)?bing(\\.[a-z]+)+",
+    "search": "/search",
+    "safe_search_url": "safe=active",
+    "state" : "invalid"
+ },
+ {
+    "name": "Ecosia",
+    "domain": "(www\\.)?ecosia(\\.[a-z]+)+",
+    "search": "/search",
+    "safe_search_request_type": "POST",
+    "safe_search_request_url": "https://www.ecosia.org/settings",
+    "safe_search_request_body": "f=y",
+    "state" : "invalid"
+ },
+ {
+    "name": "DuckDuckGo",
+    "domain": "(www\\.)?duckduckgo(\\.[a-z]+)+",
+    "search": "/",
+    "state" : "invalid"
+ },
+ {
+    "name": "Yahoo",
+    "domain": "(www\\.)?([a-z]+\\.)+yahoo(\\.[a-z]+)+",
+    "search": "/search",
+    "state" : "invalid",
+    "use_qjm_parsing" : "true"
+ }
+]

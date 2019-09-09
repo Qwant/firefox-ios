@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>The Internet connection appears to be offline.</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script type="application/javascript">
+        // If the user swipes back and forth to this tab, we want to make sure we make an attempt to reload the original page.
+        var fresh = true;
+        window.addEventListener('popstate', function () {
+                                if (fresh)
+                                fresh = false;
+                                else
+                                webkit.messageHandlers.localRequestHelper.postMessage({ type: "reload" });
+                                });
+    </script>
+    <style>
+        #a { display: block;
+            margin: auto;
+        } /* kill scrollbars from hell */
+    
+        body {
+            background-color: white;
+            padding: 0 65px;
+            color: #333;
+            font-size: 16px;
+            -webkit-text-size-adjust: none;
+            font: -apple-system-body;
+        }
+    
+        h1 {
+            color: #333;
+            font-size: 16px;
+            -webkit-text-size-adjust: none;
+            font: -apple-system-body;
+            font-weight: 300;
+        }
+    
+        /* Add a set of stripes at the top of pages */
+        #decoration {
+            background-image: repeating-linear-gradient(-65deg,      #eee,  #eee 10px,
+            white 10px, white 20px,
+            #eee 20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 32px;
+            width: 100%;
+        }
+    
+        a {
+            color: rgb(76, 158, 255);
+            text-decoration: none;
+        }
+    
+        #errorShortDesc {
+            /* Margins between the li and buttons below it won't be collapsed. Remove the bottom margin here. */
+            margin: 20px 0 0;
+        }
+    
+        button {
+            /* Force buttons to display: block here to try and enfoce collapsing margins */
+            display: block;
+            width: 100%;
+            border: none;
+            padding: 1rem;
+            font: -apple-system-body;
+            background-color: rgb(76, 158, 255);
+            color: white;
+            font-size: 16px;
+            font-weight: 300;
+            border-radius: 5px;
+            background-image: none;
+            margin: 10px 0 0;
+            position: -webkit-sticky;
+            bottom: 5px;
+        }
+    
+        #errorPageContainer {
+            /* If the page is greater than 550px center the content.
+             * This number should be kept in sync with the media query for tablets below */
+            max-width: 550px;
+            margin: 0 auto;
+            -webkit-transform: translateY(127px);
+            padding-bottom: 10px;
+            
+            min-height: calc(100% - 127px - 10px);
+            display: flex;
+            flex-direction: column;
+        }
+    
+        /* On large screen devices (hopefully a 7+ inch tablet, we already center content (see #errorPageContainer above).
+         Apply tablet specific styles here */
+        @media (min-width: 550px) {
+            #errorTitle,
+            #errorShortDescText {
+                width: 50%;
+            }
+            
+            button {
+                position: absolute;
+                top: -0.5em;
+                right: 0px;
+                bottom: auto;
+                padding-left: 5%;
+                padding-right: 5%;
+                min-width: 40%;
+                width: auto;
+            }
+        }
+    
+        #errorLongContent {
+            font: -apple-system-body;
+            color: #ccc;
+            font-size: 12px;
+        }
+    
+        #errorLongDesc {
+            margin-bottom: 78px;
+        }
+    
+    </style>
+</head>
+
+<body>
+    
+    <canvas id=a><!--<image id="img" src="image.png" width=1>--></canvas>
+    
+    <!-- PAGE CONTAINER (for styling purposes only) -->
+    <div id="errorPageContainer">
+        
+        <!-- Error Title -->
+        <div id="errorTitle">
+            <h1 id="errorTitleText">The Internet connection appears to be offline.</h1>
+        </div>
+        
+        <!-- LONG CONTENT (the section most likely to require scrolling) -->
+        <div id="errorLongContent">
+            
+            <!-- Short Description -->
+            <div id="errorShortDesc">
+                <p id="errorShortDescText">NSURLErrorDomain</p>
+            </div>
+            
+            <!-- Buttons -->
+            <div id="actions"><button onclick="window.location.href='https://www.qwantjunior.com'">Réessayer</button></div>
+        </div>
+        
+    </div>
+    
+    <div id="decoration"></div>
+
+<script>
+    var a = document.getElementsByTagName('canvas')[0];
+    var b = document.body;
+    a.style.width = (a.width = innerWidth / 2) + 'px';
+    a.style.height = (a.height = innerHeight / 2) + 'px';
+    var c = a.getContext('2d');
+    var img = new Image();
+    img.onload = function() {
+        c.drawImage(img, 0, 0);
+    };
+
+    img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABnCAYAAABPYmGyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAScwAAEnMBjCK5BwAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xOdTWsmQAABNFSURBVHhevZwJ1FZTF8c1UEiTCmWWkCkhpeJjITIkUygzSZIpGpQyRaEQGZJQ5mUeUoaFknmekrEvQyyZ5+J897efs++z77nnfZ6n933X919rv/eec+89Z//vPcPe+5znXcE5V6ty9tlnu/XXX9+tvvrqbocddnD77ruv6927t9t1113duuuu65o1a+Z69eqV3Bp/vqYSzayOrLTSSqLw9Om3JsnSePvtt93hhx+e1L6CO/3008mKllkdiWYuj6y99tpuiy22cD///HOSLGLZsmXu119/9Snn/vnnH/fLL7/4VBEXXHCBEEuQK7s6Es2sVFBk3rx5yalzf/31lxxBSAb88ccf/qxALrzeqlUr16fPoZxG66pUopmViH+rglA5ix9++MF9+umn7rfffvM5WUBOyR533HFus8024zRXX6USzSwlN998M2yS0wJCMhdffLHbcsst5Z6YNGnSxB111FHu3Xfflfv//vtvOSroUwwmCXJ1VyLRTKRNmzaubt06rmXLlm7jjTdOKunsunfvLkopLBkUCZWvV69eLs/Keuut55YsWSLP22Z44IEHyvW99+4pLwddVl55ZclLkNEzlGjmtGk3uQEDBiSnWTAAfPjhh3JuyTRt2iRVUiVGpmvXru6ggw5yW221VSb/scce8yUVseKKKwpJi3///dc1b96c06jeSDTzqquucqNGjUpOnVu6dKkcb7311uSN7S3nlsyqq66aUQ6pXz9LZr/99vN3Z3HwwQen97z00kuSh9I0Q/pd48aNJc+OjtUiNGXKFHfOOeckp879/vvvcqRSYEerQw89NFVIJSRTp04df3d86D7jjDPSe4HWBzp27OiefvppnyqALpAgo6+VaOYNN9zghg0blpwW8NBDD7l99tnHpwpYvPjrVBGVkAyyzjrryP0hGdtnuId7TzjhBEkr3n//fde2bVufKrzMahGaMuUGN3z48OS0ADomhVtox1UJydg+RLP9888//ZOFZmXJPfPMM+m9Cr1OXwL6PCZVgpzOKtHMSZMmpU0O2Iq0o6oCSEgmTHfr1k2eASEZhd577733yj2K0047zV1//fU+VU1Ctg+9+uqrqUJYALxtvpYqUI6MpidOnChl2AEFxXXC1fsPOeQQSSuefPLJzKDSsmULDlG9kWim7UO8nZEjR8q5KnPFFVdklFUplz7vvPPkeYWWx0vTezCBgJKlRfh+Uzt9iAnzlltukXNF3779UgVUKiXHJP3KK6/4kpxMrIyE9l5gTSXtR6DafWjkyEKTO+aYY9yDDz4o54BmZytHKiVTqVx66aW+tgLq1EGtAmrch/BbHn/8cTkHrVq1zFS+vGRi5HS4Hj9+fJrHxKogrWjRooZ9iIlvxowZcs58pBUiNSVTv359OVrotR133NHnONegQQM5MnRXsw9NSfvQ5MmT06/F4FBUpnbIIDNm3Cblv/baa2levXp1JQ/4ryKoQR8qjGx04B499pBz9S5rk4wKHd+mGzZsKHW++eabbpdddpFzUOM+tGzZUrfKKqvI+SOPPJKpFKltcnq9c+fOUicvcdy4cXIOatyHAL6IIlZ5MR1Xrup01ferdbD11lunA0SN+pAldOKJJyZz0c1yfsopp+Qqj6fLkSt9XaHnaoXXuA+Bd955RyI7irXWWitTeW2Teeutt6SeWbNmuf3331/OFTXuQ2qeYD1b4H1aJVTKkylNjpidAqtCPWRFrfShDz74QGwsojJ2wps9e7YEF61CVkLlS8UYbIsAZ511lhiqOJGKWutDuOQbbbSRnN94441uyJAhGc8Se+yyyy5zPXv2lLhDTGEruO2MYkza6nor7r77bumz4L777ktbRq31oW+++UaUAISfmPzAhRdeKMQ+//xzSSswZCdNukqGW5rt4MGDXf/+/cWv4Zmrr77aXXnlle67777zTxTePHkMOFoe5tAbb7zhTj31VHfEEUdIHqh2H9IgCWR++uknOQf333+/KEgzBHfccYcbMWKEO//886V52AhqaGRa92H06NESwyO4b+/DQtG6FZB44okn5LzafQiTB9ebJgDCmMCjjz7qTj75ZHf55ZenkaGwH4wZM8afFWDd+o8++sjNnDlTzpmwzzzzzIRw9n5bHy8Wf6h167UkWZVEM++8805p54MGDUqSeTI4Xzbiee2117qhQ8+Wjgy4TjO65JJLJK2wBBnN8EQvuugi98knn/jcIqjPuuLvvfeekNp8881JRvVGopkID2+66aZu0aJFSbKIkBzQOIMqrEM9TQroysS5554rR8hC6LnnnkvTVvmQjNZHed6jjeqMRDPD4KFfoJJKwi9l02GTUwIKndsAhPCzaK7lyNj0mmuuySGqN5LLsDFqPEWOTz31VHKp+KZASAaMGFHsI2Dy5GsSkqNkAGC0swESrA8GGItyZDTIiU4cYpLPKNwsb5PzDh06SLoUGa109OjCF4mRDcH8g2mjKEeGl6FNmxGVIT5BXn+b6NGjRy5wTqF2Eg2VtWk7GVtYxRTMMToUlyNDWskoqvpK2YT/OgoKtdEXqzwI0zfddJOMdGPHjhVhlBszZrSMZMX0GOncBF8Ab355yGizZZhnkk6Q5aAnzPDMKwoKsW0+VJ72HF63igBGL4swbZ8HlZDRNPXHJtn0BNsqtvgESFsyX3/9tdh3CiVrlYkpWwqx+0MyhNAsWA1MECdEc2NPQQhLRvvSrFmPuxdeeEHOQzIxcsxDmj722GMl0G+XLbVZf/bZZ+6ee+5JLQ9FSA7cdddd8myClANSPPGFIyxuKexb0XkFW06hZBXYcpZMSM7Wo7JkScFQhciQIWfKuc5p4ZebP/8D1759+/RZwtIJShNSwYy3YVuUPemkkzKjE8B4HT58hFjU1rIIyYBYPbqAzFfAviOwr7FA8O2334riG2ywfu7ZgQMHckueEGY6IaM11lgj9xDSunXrdE0IaPN78cUXc/fix4Cw2YFNNtlE6iCQyAubOnWqfBnK02bF0v52220rc2BYtgrzJC+MVb4EWULXXXddZg7B7SW94YYbZgrBycNDtc2AlXJ7j4pF7Esp8LcYZCy6d++W+EDZBQFCaXiwNiwNiG8kyBJiPMchA2GbBT/++KP4LcwzeKQWtlJEYwSqZEhmjz32yC00T5hwub9awJ577ikvlWHZuvwKO0A0atSIQ5YQ7RNv0gIlGOspECKsPtPWbYxOI6kqNuABGL3CL3PkkUeKsYv7jWesHjDQl4lZg1nUpk1r8aEYjBioIBIO3bycBFlCOHPWUkYJ7fAKlAW8te+//17cb41oWlII8QVgyZRqdgAy+ubxmHlZECaGAUIy2ofDuUj+0IeGDh3KhSiZhQs/T0aYDcTUwGxhrlDwJiFx2GGHyT4GXYYvpTzl22ZjyQDmuN6993fPP/98aiJZMtxP+TzDYJUgSwjRnSOWjD6Emc86kYICCdXi0dIc7TPcr2RoThi8rNHqSwiVD9O8ebxhtsMAYnMW3K/k2BjVrl07TvOEwsVa+6UIWmDnbbvtthL5we5TM0mh9yuZBx54QL6cFaYGi1LkdMNGgwYryRFYMoDFa7+OlCe0++67J4cCLBnAcsaXX36ZzA3bpREgbcMKSwaE66YaZFSUIgOYq4Dv9FKfJcPchU9FLDBBnlCnTp2SQ54MYJ8o0L03VG6VD8kAS8ZGUAl/0aRKkQH0R14iX2D+/Pk+twC1/Yjc+phdnhCTKFAythAUIc1x3rznfW4BKBMC80gJhOHgEDEygEHo4YcfljCZjR7hgqjxSkzQuzx5Qk2bNk0ORUybNk3mAOwqIi2EkbgHpWgOxOs0lIWNhwfKCIg9xwCgEVcr06dPl/sVNigJiJpijev948ePk4gqIygOIk4d8TwFw7oPUuYJUQCf0AL7CyW5pkBRhu+jjz5aOjnXqZTAo8Vtt90mz91+++1yPdxkCygLu4+wb7NmhZel0rbtxsnbHyj763bbbbd0b6sC8tts01Hnzyyh448/XhRYsGCBTGga2tUNF4ScqISvxZwUAx0WK5zhnwGBQYBAIuFhBJNn++23lz3drJ9a5a3QCtjvA0jrdMHchCuP1YB+6Au4h4NK4U8hMwrtgDQxYswUjIVAbADSXbp0lkJrIpTLnGbXgiAFeRDrYwq/oJwl5HfiZkYrHe3s6MUbnzBhgk9l8dVXX4kXSVvni7O/rlu3rslX2U5MfFx8mk7fvn3FKqGPqtersIpDNAQvN/Rmme+wDxMUCf3nPzuTkULJWGhlVITxaDsnCCuqLvCPqEPDxArqt3Voy8Ef88uWRUK661Bhyey8805SwbPPPitprF46Il+DQYFz7LlwHqoUdG6MWV4SFsnixYsT+0zCvQKMT+Y/dmwp7JeiL1mvtfBHDmy7XJxRrFev/ZKBQHx2IcXDmD6MbAoGgzlz5khTw4scNmyoHOm8hIA5h7Sm6dDkIfTDqVNvzKw/MRVQF6FiXBVWQoDqqOFggGvDnOcHkSIhth3zBej4dlHKm+YCRqbhw4elSywg7GM1hU7SRG8ZGflVC3MNIDCycOFCOVfvmv7cqFHEH0L69OkjFrQWAGDPZPjyyy+nW5wVIZlwxud6qTT3W9ssTCv41QvQLwR46QRjIMSST4I8oTp16soKAW1aJ0kcuQ4dthF7ae7cuZIHypEpR64cGZtGYaYJLBAFcyU/WfAGbMoBySaSJMuDPtYlYI6wZtH/kwzA0kAvXdKh2dE9yGN6SJDlEGbQb7iZvkKwgg0WzPIgJBNTtqZk7NBs14N4sRMnTpBzhLABl0LJZaiwcMwRcwMTCCIhmVJfCkVDcuXIVEWObTm4435ncVRflWimFb4YhVuUI0MzwRJQ1PRL0QX8Un9URyvRTCvqMSrKkSENMFTZSmM3WIByyodp/B+81dVWW41kVEcr0UwVHKj+/Yu/RwjJxN68TQNGJ13uX14y1iLwOxyjelqJZqrwcxgdrmNL76XIcB0wi9OJQXXJAF4KLzhBTk8r0UwVYl4o069fv0yUh9GnFBmb5verlGHj1+WUV8NTwbzILixrVVcl0UwVFLFCjOyaa67J2FMhUMaS4zkOhMAA1+2XCpcpFYSoMFht/T5Yk9PTSjRTBQuBaD9vxxaMMFhgb0GQNSQMTNskgd+SJmUxOYf+D4DcF198IfYbBmyXLl1ydSFEUBs3Lj8wRDORwYNPySw6ESRh5S6Mt5WSvfbai0fTMsPr5QSzx9qWYXkxiWYiWLcEMQBt3oK4AvFwFsBwk3XHiRXedIJcueF9Vlh3xZ4Md5hos2SSJ+CSIFeuSjQT0dWGsE/o6KXAF2K1gKUW3A8Uw+dJEC0X4R6+OP4MPlgpUL+GyxgxY/ablWgmomZ7SCZGjvgaYVnsPx+liZapAiFgBwdglQcauFfMnPlYMtJlI6WhRDORdu2yUf8YGZtWlNsthWDw8ltZC8iEQ7clAwiI+OWVaLlINBPxP18WhPNMSIbRjXmK0dAvdkXLtMJXYrLE/+ILlyKj5/QtnM4E0TKRaCbCajUoR4ZzrHGiNaDcb+RUWNeBhF2SBLEv8/HHH0v8gRBzuf+/EM1EtJ2XIgPZsB/45zJlxYRJ01rkwJIhIMNCNUufLKoBgvYE7xNEy0SimUjz5s2SN1hUthwZHdr9ylu0zFC8KSMIv0w4SQNGOBvhiUk0E2F3okZJw2YXI6NpbLcE0TJD8eujOTLh6KaLazvttBOHaFkq0UyVqppdVWTAgAEnyi7hBLnyQtHy7YAQI6PLLuGehJhEM1V69txLTXZBuWbH+euvv46mJHPlhcKuFL6OwioPSCtZ8v1kHy1LJZppRd8iFnapL4NiShbLmlWJBLnyrBDr45fEIPZlSFMHwX0Gg7p15Xd50bJUopmhMEBYxMjom+QaRm0lX4ndJJD3TTRF+KUAFr13QaJlqUQzQyH0yk/HABVVRQZg1wF8F78oFS1TpX37wlKOIiSjvpdfpY+WYSWaGRN8lYYNG2SWFkO3nLRfCZDR7oADDuA0Wp5Kx47byNppKRDCqrRfRjNLCQWzAsHPqfnNAm8Q95qYGVEeBRuUvLURLUeFhTAcv0GDTnZjx14ki880W8pkyQaDF8OXzX/hszGJZpYTbLbZs2fJgi8eK0H+0A1gtS7cyxaTFi1apoMJRwYJ4nBsWrJLlOEWmKokmllOCA3rD/9C6DDMrhP/7zeiZaj4f5qSIrQQtA/h/CWIlmElmllOfNAvM08AO0CgaKdO23MaLUPF770WxAYE9VYrab5INLOc+A5acrTjnkqcPRasia4y51RFBvidlNEyrEQzy4nu+VGEZBYt+q8Q8rsko2WoMLnq+q0iJAP8S8w9H0o0s5x4m0oQkgHsX6hUAaYDfpajCMnoV/P/9SJahpVoZjlBWd3cZMloB+Z6pYQQjV9AxJLR8ghl+V3/0eetRDPLCX69VzgHgo9cY7EsQe7ZmHD/wIHiWufAFrPleTnRzEqEShDmoAULPpS9CphHmh/eX0pw4XmGHwzyXzWYf+bOnSNbx8ivZD5TiWZWKqp8KOF9lYj9x1+hhPeWkmjm8ghBRTxJQlN+T2n0vkqFvXFEnJi8/eJ19L64uBX+B/bcbfvlJ4+ZAAAAAElFTkSuQmCC";
+
+    </script>
+<script>
+    // Variables
+    // a: the canvas
+    // b: the body
+    // c: the canvas's 2d context
+    // d: (reused) game has started (0/1)
+    // e: game has ended (0/1)
+    // f: score
+    // g: the random map
+    // h: dragon's vertical speed
+    // i, j: dragon's coordinates x, y
+    // k: steps already passed (1 step = 20px)
+    // l: the game's framerate
+    // n: the game's loop function
+    // o: loop var
+    // p: dragon's drawing path
+    // v, w, y, z: temp vars
+    
+    // Initialization
+    c.scale(a.height/1E3,a.height/1E3);
+    
+    // Reset
+    d=e=f=h=0;
+    g=[];
+    for(o=0;o<1E3;o++)
+    g[o]=g[o+1E3]=8*Math.random()|1-1;
+    i=j=300;
+    k=20;
+    l=50;
+    
+    // Controls (click/tap)
+    a.ontouchstart=a.onmousedown=function(){
+        
+        // If game is over, reset
+        if(e){
+            d=e=f=h=0;
+            g=[];
+            for(o=0;o<1E3;o++)
+            g[o]=g[o+1E3]=8*Math.random()|1-1;
+            i=j=300;
+            k=20;
+            l=50;
+        }
+        
+        // If game is not over, start the game if it's not started, and jump
+        else{
+            h=45;
+            d=1;
+        }
+    };
+
+// Game loop
+n=function(){
+    
+    // Background
+    c.fillStyle="#fff";
+    c.fillRect(0,0,4E4,4E4);
+    
+    // Walls
+    c.fillStyle="#ddd";
+    
+    // Roof
+    c.beginPath();
+    c.moveTo(-k,0);
+    for(o=2E3;o--;)
+    o%20
+    ?
+    c.lineTo(40*o-k,20+4*g[o])
+    :
+    (c.lineTo(40*o-k,100*g[o]),c.lineTo(40*o-k-4,100*g[o]));
+    c.lineTo(40*o-k,0);
+    c.fill();
+    
+    // Ceiling
+    c.beginPath();
+    c.moveTo(-k,2E3);
+    for(o=2E3;o--;)
+    o%20
+    ?
+    c.lineTo(40*o-k,980-4*g[o])
+    :
+    (c.lineTo(40*o-k,100*(g[o]+3)),c.lineTo(40*o-k-4,100*(g[o]+3)));
+    c.lineTo(40*o-k,1E3);
+    c.fill();
+    
+    c.moveTo(v=i-e,w=(j-=h)-e);
+    
+    c.drawImage(img, i - 20, j - 40);
+    
+    // Apply gravity if the game has started
+    d&&(h-=6);
+    
+    // Loop on the map if we are far enough
+    d&&!e&&(k+=20,4E4<k&&(k-=4E4));
+    
+    // Increase score and game speed after each obstacle
+    !d||e||(k+280)%800||(f++,20<l&&l--);
+    
+    // Game over
+    if(50>j||950<j||!((k+300)%800)&&(j<100*g[20*~~(k/800)+20]+50||j>100*g[20*~~(k/800)+20]+250))
+    e=40;
+    
+    // Text
+    c.fillStyle="#8cd";
+    c.font="6em Arial";
+    d&&c.fillText(f,a.width/(a.height/1E3)/2,500);
+    //d||c.fillText("Flappy Dragon",a.width/(a.height/1E3)/2-300,500);
+    e&&c.fillText("Score",a.width/(a.height/1E3)/2-90,370);
+    c.fillText(e?"Réessayer?":!d?"Démarrer":"",a.width/(a.height/1E3)/2-200,!d?500:600);
+    
+    // Loop
+    setTimeout(n,l)
+}
+
+onload = function(){
+    n();
+}
+</script>
+</body>
+</html>
+
