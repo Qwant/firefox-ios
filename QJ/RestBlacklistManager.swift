@@ -10,16 +10,17 @@ import Foundation
 
 class RestBlacklistManager : NSObject {
     
-    private static let baseURL = "https://mobile-secure.qwantjunior.com/api/qwant-junior-mobile"
+    private static let host = "mobile-secure.qwantjunior.com"
+    private static let baseURL = "https://\(host)/api/qwant-junior-mobile"
     // mobile-secure.qwantjunior.com
     // qwant-junior-mobile-server2.eu-gb.mybluemix.net
     
     
-    public static func isQwantJuniorHost(hostTesting : String) -> Bool {
-        return hostTesting == "mobile-secure.qwantjunior.com"
+    public static func getQwantJuniorHost() -> String {
+        return host
     }
 
-    public static func testPaths(route : String, paths : [String], onCompletion: @escaping ([Bool]) -> Void) {
+    public static func testPaths(route : String, paths : [String], onCompletion: @escaping ([Bool]) -> Void, onTimeout: @escaping () -> Void) {
         var postString : String = ""
         var ret : [Bool] = []
         var i = 0
@@ -28,7 +29,7 @@ class RestBlacklistManager : NSObject {
                 postString += "&"
             }
             postString += "test" + String(i + 1) + "=" + paths[i]
-            ret.append(false)
+            ret.append(true)
             print(String(i + 1) + " -> " + paths[i])
             i += 1
         }
@@ -52,6 +53,8 @@ class RestBlacklistManager : NSObject {
                 i += 1
             }
             onCompletion(ret)
+        }, onTimeout: {
+            onTimeout();
         })
     }
     
@@ -62,6 +65,8 @@ class RestBlacklistManager : NSObject {
             if (err != nil || json == nil) {
                 return
             }
+        }, onTimeout: {
+            
         })
     }
 

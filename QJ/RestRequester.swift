@@ -10,7 +10,9 @@ import Foundation
 
 class RestRequester {
     
-    public static func makeHTTPGetRequest(path: String, isJsonResponse : Bool, onCompletion: @escaping (Error?, Any?) -> Void) {
+    public static func makeHTTPGetRequest(path: String, isJsonResponse : Bool,
+                                          onCompletion: @escaping (Error?, Any?) -> Void,
+                                          onTimeout: @escaping () -> Void) {
         
         guard let url = URL(string: path) else {
             print("Error: cannot create URL with " + path)
@@ -63,11 +65,22 @@ class RestRequester {
             }
         }
         task.resume()
-        sem.wait()
-        onCompletion(retE, retS)
+        let timeout_result = sem.wait(timeout: DispatchTime.now() + .milliseconds(1000))
+        switch timeout_result {
+        case .success:
+            onCompletion(retE, retS)
+            break;
+        case .timedOut:
+            onTimeout();
+            break;
+        default:
+            break;
+        }
     }
     
-    public static func makeHTTPPostRequest(path: String, postString : String, isJsonResponse : Bool, onCompletion: @escaping (Error?, Any?) -> Void) {
+    public static func makeHTTPPostRequest(path: String, postString : String, isJsonResponse : Bool,
+                                           onCompletion: @escaping (Error?, Any?) -> Void,
+                                           onTimeout: @escaping () -> Void) {
         
         guard let url = URL(string: path) else {
             print("Error: cannot create URL with " + path)
@@ -122,8 +135,17 @@ class RestRequester {
             }
         }
         task.resume()
-        sem.wait()
-        onCompletion(retE, retS)
+        let timeout_result = sem.wait(timeout: DispatchTime.now() + .milliseconds(500))
+        switch timeout_result {
+        case .success:
+            onCompletion(retE, retS)
+            break;
+        case .timedOut:
+            onTimeout();
+            break;
+        default:
+            break;
+        }
     }
     
 }

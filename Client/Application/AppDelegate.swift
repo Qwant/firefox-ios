@@ -98,6 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
         Logger.syncLogger.newLogWithDate(logDate)
 
         Logger.browserLogger.newLogWithDate(logDate)
+        
+        //Version Qwant Junior
+        log.debug("Creating Qwant Junior Cache")
+        //URLCache.shared = FilteredWebCache()
 
         let profile = getProfile(application)
 
