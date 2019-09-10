@@ -123,7 +123,7 @@ class IntroViewController: UIViewController {
         subtitlePage3.isHidden = true
         subtitlePage1.numberOfLines = 3
         subtitlePage2.numberOfLines = 3
-        subtitlePage3.numberOfLines = 3 // TODO adjust line numbers
+        subtitlePage3.numberOfLines = 3
         var i = 0
         [subtitlePage1, subtitlePage2, subtitlePage3].forEach {
             $0.textAlignment = .center
@@ -143,13 +143,12 @@ class IntroViewController: UIViewController {
         let buttonHeight = 46
         let buttonBlue = UIColor.Photon.Blue50
 
-        // TODO remove sign buttons
         [nextButton, startBrowsingButton].forEach {
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             $0.layer.cornerRadius = 10
         }
 
-        nextButton.setTitle(Strings.IntroNextButtonTitle, for: .normal) // TODO string change ?
+        nextButton.setTitle(Strings.IntroNextButtonTitle, for: .normal)
         nextButton.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
 
         [nextButton, startBrowsingButton].forEach {
@@ -164,7 +163,7 @@ class IntroViewController: UIViewController {
             }
         }
 
-        startBrowsingButton.setTitle(Strings.StartBrowsingButtonTitle, for: .normal) // TODO string change ?
+        startBrowsingButton.setTitle(Strings.StartBrowsingButtonTitle, for: .normal)
         startBrowsingButton.isHidden = true
         startBrowsingButton.addTarget(self, action: #selector(startBrowsing), for: .touchUpInside)
 

@@ -66,7 +66,7 @@ class SearchEngineContainer {
                 String(domain[Range($0.range, in: domain)!])
             }
             for result in resultsStr {
-                if result! == domain {
+                if result == domain {
                     return searchEngine.name
                 }
             }

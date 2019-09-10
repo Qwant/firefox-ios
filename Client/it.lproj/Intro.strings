@@ -8,7 +8,7 @@
 "Intro.Slides.Button.SignUp" = "Registrati";
 
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Leggi le tue email da qualunque app, non solo Mail, con Qwant.";
+"Intro.Slides.Mail.Description" = "Leggi le tue email da qualunque app, non solo Mail, con Qwant Junior.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "C’è posta per te… con opzioni";
@@ -35,7 +35,7 @@
 "Intro.Slides.Welcome.Description.v2" = "Veloce, riservato e sempre al tuo fianco.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title.v2" = "Benvenuto in Qwant";
+"Intro.Slides.Welcome.Title.v2" = "Benvenuto in Qwant Junior";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Inizia a navigare";
@@ -43,9 +43,10 @@
 /* The button that opens the sign in page for sync. See http://mzl.la/1T8gxwo */
 "Turn on Sync…" = "Attiva Sync…";
 
-"Intro.Slides.Welcome2.Title" = "Benvenuto/a su Qwant Mobile";
-"Intro.Slides.Welcome2.Description" = "Qwant Mobile ti permette di cercare tutte le informazioni che vuoi sul web, nella massima confidenzialità.";
-"Intro.Slides.Privacy.Title" = "La tua vita privata rimane privata";
-"Intro.Slides.Privacy.Description" = "Qwant non memorizza le tue ricerche o i siti che visiti. Non recuperiamo né vendiamo i tuoi dati e facciamo il possibile per impedire il tracciamento pubblicitario.";
-"Intro.Slides.Efficiency.Title" = "Ricerche rapide ed efficaci";
-"Intro.Slides.Efficiency.Description" = "Qwant ti presenta i risultati più pertinenti in modo del tutto neutrale. Attualità, musica, social media o video: cerca tutto quello che vuoi, nella più totale libertà.";
+
+"Intro.Slides.Welcome2.Title" = "Benvenuto su Qwant Junior Mobile";
++"Intro.Slides.Privacy.Title" = "Fai in modo che i più giovani scoprano internet in tutta sicurezza.";
++"Intro.Slides.Efficiency.Title" = "Non raccogliamo le informazioni personali.";
++"Intro.Slides.Welcome2.Description" = "Con Qwant Junior Mobile sperimenta una navigazione pensata per i bambini";
++"Intro.Slides.Privacy.Description" = "L ’applicazione Qwant Junior blocca i siti non adatti ai bambini e i risultati non adeguati dei motori di ricerca";
++"Intro.Slides.Efficiency.Description" = "Noi di Qwant Junior siamo impegnati a garantire la sicurezza della vita privata: i dati personali  non sono né raccolti né venduti, perché i bambini non sono merce";

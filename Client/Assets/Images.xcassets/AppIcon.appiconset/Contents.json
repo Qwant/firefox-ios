@@ -3,151 +3,151 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-40.png",
+      "filename" : "iOs-AppIcon-40.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-60.png",
+      "filename" : "iOs-AppIcon-60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-29.png",
+      "filename" : "iOs-AppIcon-29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-58.png",
+      "filename" : "iOs-AppIcon-58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-87.png",
+      "filename" : "iOs-AppIcon-87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-80.png",
+      "filename" : "iOs-AppIcon-80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-120.png",
+      "filename" : "iOs-AppIcon-120.png",
       "scale" : "3x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-57.png",
+      "filename" : "iOs-AppIcon-57.png",
       "scale" : "1x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-114.png",
+      "filename" : "iOs-AppIcon-114.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-121.png",
+      "filename" : "iOs-AppIcon-121.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "icon-ios-v4-180.png",
+      "filename" : "iOs-AppIcon-180.png",
       "scale" : "3x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-20.png",
+      "filename" : "iOs-AppIcon-20.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-41.png",
+      "filename" : "iOs-AppIcon-41.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-30.png",
+      "filename" : "iOs-AppIcon-30.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-59.png",
+      "filename" : "iOs-AppIcon-59.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-42.png",
+      "filename" : "iOs-AppIcon-42.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-81.png",
+      "filename" : "iOs-AppIcon-81.png",
       "scale" : "2x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-50.png",
+      "filename" : "iOs-AppIcon-50.png",
       "scale" : "1x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-100.png",
+      "filename" : "iOs-AppIcon-100.png",
       "scale" : "2x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-72.png",
+      "filename" : "iOs-AppIcon-72.png",
       "scale" : "1x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-144.png",
+      "filename" : "iOs-AppIcon-144.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-76.png",
+      "filename" : "iOs-AppIcon-76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-152.png",
+      "filename" : "iOs-AppIcon-152.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "icon-ios-v4-167.png",
+      "filename" : "iOs-AppIcon-167.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "icon-ios-v4-1024.png",
+      "filename" : "iOs-AppIcon-1024.png",
       "scale" : "1x"
     },
     {
@@ -167,14 +167,14 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "icon-ios-v4-61.png",
+      "filename" : "iOs-AppIcon-61.png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "icon-ios-v4-88.png",
+      "filename" : "iOs-AppIcon-88.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
@@ -268,13 +268,13 @@
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "icon-ios-v4-512.png",
+      "filename" : "iOs-AppIcon-512.png",
       "scale" : "1x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "icon-ios-v4-1025.png",
+      "filename" : "iOs-AppIcon-1025.png",
       "scale" : "2x"
     }
   ],

@@ -12,7 +12,7 @@
 </Url>
 <Url type="text/html" method="GET" template="https://www.qwant.com/">
   <Param name="q" value="{searchTerms}"/>
-  <Param name="client" value="qwantbrowser"/>
+  <Param name="client" value="qwantjuniorbrowser"/>
 </Url>
 <SearchForm>https://www.qwant.com/</SearchForm>
 </SearchPlugin>

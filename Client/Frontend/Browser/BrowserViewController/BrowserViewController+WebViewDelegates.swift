@@ -410,6 +410,140 @@ extension BrowserViewController: WKNavigationDelegate {
             return
         }
 
+        //Version Qwant Junior
+        if (url.host != nil) {
+            print("URL Host : " + url.host!)
+                
+            if (navigationAction.navigationType == WKNavigationType.backForward ) {
+                print("WKNavigationType.backForward")
+            } else if (navigationAction.navigationType == WKNavigationType.formResubmitted ) {
+                print("WKNavigationType.formResubmitted")
+            } else if (navigationAction.navigationType == WKNavigationType.formSubmitted ) {
+                print("WKNavigationType.formSubmitted")
+            } else if (navigationAction.navigationType == WKNavigationType.linkActivated ) {
+                print("WKNavigationType.linkActivated")
+            } else if (navigationAction.navigationType == WKNavigationType.other ) {
+                print("WKNavigationType.other")
+            } else if (navigationAction.navigationType == WKNavigationType.reload ) {
+                print("WKNavigationType.reload")
+            }
+
+            if (!BlackListSingleton.sharedInstance.isQwantJuniorHost(hostTesting: url.host!)) {
+    
+                let pre = Locale.preferredLanguages[0]
+                let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+
+                if (BlackListSingleton.sharedInstance.isRedirect(hostTesting: url.host!, onResponse: { (res : Bool) in
+                    if (res) {
+                        decisionHandler(WKNavigationActionPolicy.cancel)
+                    }
+                }, onTimeout : {
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getTimeoutUrl())!))
+                })) {
+                    return
+                }
+                
+                if (BlackListSingleton.sharedInstance.isRedirect(urlTesting: url.absoluteString, onResponse: { (res : Bool) in
+                    if (res) {
+                        decisionHandler(WKNavigationActionPolicy.cancel)
+                    }
+                }, onTimeout : {
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getTimeoutUrl())!))
+                })) {
+                    return
+                }
+                
+                if (BlackListSingleton.sharedInstance.isBlackListed(hostTesting: url.host!, onResponse: { (res : Bool) in
+                    if (res) {
+                        decisionHandler(WKNavigationActionPolicy.cancel)
+                        webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getWarningUrl())!))
+                    }
+                }, onTimeout : {
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getTimeoutUrl())!))
+                })) {
+                    return
+                }
+                
+                if (BlackListSingleton.sharedInstance.isBlackListed(urlTesting: url.absoluteString, onResponse: { (res : Bool) in
+                    if (res) {
+                        decisionHandler(WKNavigationActionPolicy.cancel)
+                        webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getWarningUrl())!))
+                    }
+                }, onTimeout : {
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    webView.load(URLRequest(url: URL(string : BlackListSingleton.sharedInstance.getTimeoutUrl())!))
+                })) {
+                    return
+                }
+                
+                if (BlackListSingleton.sharedInstance.isIp(hostTesting: url.host!)) {
+
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com/public/index/ip/\(l)")!))
+                    return
+                }
+                
+                if (urlBar.currentURL?.host == url.host || navigationAction.navigationType == WKNavigationType.linkActivated ) {
+                    let searchEngine = BlackListSingleton.sharedInstance.findSearchEngineName(hostTesting: url.host!)
+                    if (searchEngine != nil) {
+        
+                        if (!BlackListSingleton.sharedInstance.searchEngineHasValidState(searchEngineName: searchEngine!)) {
+                            decisionHandler(WKNavigationActionPolicy.cancel)
+                            webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com//public/index/warning-search-engine/\(l)")!))
+                            return
+                        }
+                        if (BlackListSingleton.sharedInstance.isFirstSearchEngine(hostTesting: url.host!)) {
+    
+                            decisionHandler(WKNavigationActionPolicy.cancel)
+                            webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com/public/index/search-engine/\(l)/" + url.host!)!))
+                            return
+                        }
+                        if (BlackListSingleton.sharedInstance.searchEngineHasSafeSearchUrlAvailable(searchEngineName: searchEngine!, url: url.absoluteString)) {
+                            if (!BlackListSingleton.sharedInstance.searchEngineHasSafeSearchUrl(searchEngineName: searchEngine!, url: url.absoluteString)) {
+                                decisionHandler(WKNavigationActionPolicy.cancel)
+                                webView.load(URLRequest(url: URL(string: BlackListSingleton.sharedInstance.convertSearchEngineSafeSearchUrl(searchEngineName: searchEngine!, url: url.absoluteString))!))
+                            }
+                        } else if (BlackListSingleton.sharedInstance.searchEngineHasSafeSearchRequestAvailable(searchEngineName: searchEngine!)) {
+                            BlackListSingleton.sharedInstance.runSearchEngineSafeSearchRequest(searchEngineName: searchEngine!)
+                        } else {
+                            if (BlackListSingleton.sharedInstance.searchEngineHasSearch(searchEngineName: searchEngine!, url: url.absoluteString)) {
+                                if (BlackListSingleton.sharedInstance.searchInSearchEngineIfBlacklistedResult(searchEngineName: searchEngine!, url: url.absoluteString)) {
+                                    decisionHandler(WKNavigationActionPolicy.cancel)
+                                    webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com/public/index/warning/\(l)")!))
+                                    return
+                                }
+                        }
+                }
+            }
+            //YOUTUBE SAFE SEARCH
+            let youtubeDomainRegex = try! NSRegularExpression(pattern : "(www\\.)?youtube(\\.[a-z]+)+", options: [])
+            if (youtubeDomainRegex.numberOfMatches(in: url.host!, options: [], range: NSRange(location: 0, length: url.host!.count)) != 0) {
+                if (!url.absoluteString.contains("safe=active")) {
+                    decisionHandler(WKNavigationActionPolicy.cancel)
+                    var youtubeUrl = url.absoluteString
+                    if youtubeUrl.contains("?") {
+                            youtubeUrl = youtubeUrl + "&" + "safe=active"
+                        } else {
+                            youtubeUrl = youtubeUrl + "?" + "safe=active"
+                        }
+                    print("url youtube : \(url)")
+                    var request = URLRequest(url: URL(string : youtubeUrl )! )
+                        request.addValue("PREF=f1=50000000&f2=8000000", forHTTPHeaderField: "Cookie")
+                        webView.load(request);
+                }
+            }
+        }
+    }
+
+       /*webView.evaluateJavaScript("document.documentElement.outerHTML", completionHandler: { (html, err) in
+            print("---> \(html)")
+        })*/
+        }
+
+        
         // This is the normal case, opening a http or https url, which we handle by loading them in this WKWebView. We
         // always allow this. Additionally, data URIs are also handled just like normal web pages.
 

@@ -8,7 +8,7 @@
 "Intro.Slides.Button.SignUp" = "Sign Up";
 
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Use any email app — not just Mail — with Qwant.";
+"Intro.Slides.Mail.Description" = "Use any email app — not just Mail — with Qwant Junior.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "You’ve got mail… options";
@@ -35,7 +35,7 @@
 "Intro.Slides.Welcome.Description.v2" = "Fast, private, and on your side.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title.v2" = "Welcome to Qwant";
+"Intro.Slides.Welcome.Title.v2" = "Welcome to Qwant Junior";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Start Browsing";
@@ -44,9 +44,9 @@
 "Turn on Sync…" = "Turn on Sync…";
 
 
-"Intro.Slides.Welcome2.Title" = "Welcome to Qwant mobile";
-"Intro.Slides.Welcome2.Description" = "With Qwant mobile, search the web efficiently with total privacy.";
-"Intro.Slides.Privacy.Title" = "Your private life remains private";
-"Intro.Slides.Privacy.Description" = "Qwant doesn't look at your queries or the sites you visit. The search engine you use is neutral and blocks tracking.";
-"Intro.Slides.Efficiency.Title" = "Experience fast & efficient searches";
-"Intro.Slides.Efficiency.Description" = "Qwant gives you the best results instantly in total neutrality. News, music, social network or videos: search everything with total freedom.";
+"Intro.Slides.Welcome2.Title" = "Welcome on board !";
+"Intro.Slides.Privacy.Title" = "Keep your kids safe when surfing the Internet";
+"Intro.Slides.Efficiency.Title" = "Tracking protection built-in for better privacy and less ads";
+"Intro.Slides.Welcome2.Description" = "Qwant Junior Mobile is a fun, safe and fluid browsing experience for kids.";
+"Intro.Slides.Privacy.Description" = "Qwant Junior hides inapropriate content such violence, porn, drugs, hate, and other search engines that may display these contents.";
+"Intro.Slides.Efficiency.Description" = "Qwant Junior neither tracks nor collects any data about your kid. Your kid's data will never be used to make money.";

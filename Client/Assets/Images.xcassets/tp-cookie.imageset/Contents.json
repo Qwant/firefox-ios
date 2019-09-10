@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "cookie.pdf",
+      "filename" : "iOs-SplashScreen-junior-842x910.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iOs-SplashScreen-junior-842x910-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iOs-SplashScreen-junior-842x910-2.png",
       "scale" : "3x"
     }
   ],

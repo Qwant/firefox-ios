@@ -8,7 +8,7 @@
 "Intro.Slides.Button.SignUp" = "Créer un compte";
 
 /* Description for the 'Mail' panel in the First Run tour. */
-"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Qwant.";
+"Intro.Slides.Mail.Description" = "Utilisez n’importe quelle application de courrier électronique (et pas uniquement Mail) avec Qwant Junior.";
 
 /* Title for the fourth panel 'Mail' in the First Run tour. */
 "Intro.Slides.Mail.Title" = "Plus de choix pour vos courriels";
@@ -32,10 +32,10 @@
 "Intro.Slides.TrailheadSync.Title.v2" = "Synchronisez vos marque-pages, votre historique et vos mots de passe avec votre téléphone.";
 
 /* Description for the 'Welcome' panel in the First Run tour. */
-"Intro.Slides.Welcome.Description.v2" = "Rapide, confidentiel et à vos côtés.";
+"Intro.Slides.Welcome.Description.v2" = "Un navigateur mobile et moderne par Qwant Junior, l’organisation à but non lucratif qui s’engage à défendre un Web libre et ouvert.";
 
 /* Title for the first panel 'Welcome' in the First Run tour. */
-"Intro.Slides.Welcome.Title.v2" = "Bienvenue dans Qwant";
+"Intro.Slides.Welcome.Title.v2" = "Merci d’avoir choisi Qwant Junior !";
 
 /* See http://mzl.la/1T8gxwo */
 "Start Browsing" = "Commencer la navigation";
@@ -44,9 +44,9 @@
 "Turn on Sync…" = "Activer Sync…";
 
 
-"Intro.Slides.Welcome2.Title" = "Bienvenue sur Qwant mobile";
-"Intro.Slides.Welcome2.Description" = "Avec Qwant mobile, naviguez rapidement sur le Web et profitez du moteur de recherche qui respecte votre vie privée";
-"Intro.Slides.Privacy.Title" = "Votre vie reste privée";
-"Intro.Slides.Privacy.Description" = "Qwant ne regarde ni les sites que vous visitez, ni les recherches que vous faites. Il lutte contre le tracking publicitaire et reste neutre";
-"Intro.Slides.Efficiency.Title" = "Des recherches rapides et efficaces";
-"Intro.Slides.Efficiency.Description" = "Qwant délivre les meilleurs résultats instantanément. Actu, musique, social, vidéos… recherchez tout, en toute liberté";
+"Intro.Slides.Welcome2.Title" = "Bienvenue sur Qwant Junior mobile";
++"Intro.Slides.Privacy.Title" = "Laissez vos enfants découvrir Internet, en sécurité";
++"Intro.Slides.Efficiency.Title" = "Nous ne collectons aucune donnée de votre enfant";
++"Intro.Slides.Welcome2.Description" = "Avec Qwant Junior Mobile, découvrez une expérience de navigation pensée pour les enfants.";
++"Intro.Slides.Privacy.Description" = "L'application Qwant Junior bloque les sites inadaptés aux enfants, et filtre les moteurs de recherche susceptibles d'afficher ces contenus.";
++"Intro.Slides.Efficiency.Description" = "Qwant Junior s'engage pour la sécurité des données : aucune donnée personnelle n'est collectée, stockée, revendue. Votre enfant n'est pas une marchandise.";
