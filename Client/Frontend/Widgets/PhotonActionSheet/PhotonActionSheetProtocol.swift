@@ -80,7 +80,7 @@ extension PhotonActionSheetProtocol {
         let trackingProtection = PhotonActionSheetItem(title: Strings.TPMenuTitle, iconString: "menu-TrackingProtection", isEnabled: trackingProtectionEnabled, accessory: .Switch) { action in
             FirefoxTabContentBlocker.toggleTrackingProtectionEnabled(prefs: self.profile.prefs, tabManager: self.tabManager)
         }
-        items.append(contentsOf: [trackingProtection, noImageMode])
+        // items.append(contentsOf: [trackingProtection, noImageMode])
 
         let nightModeEnabled = NightModeHelper.isActivated(profile.prefs)
         let nightMode = PhotonActionSheetItem(title: Strings.AppMenuNightMode, iconString: "menu-NightMode", isEnabled: nightModeEnabled, accessory: .Switch) { action in
@@ -242,15 +242,16 @@ extension PhotonActionSheetProtocol {
         if !tab.urlIsTooLong {
             mainActions.append(isBookmarked ? removeBookmark : bookmarkPage)
 
-            if tab.readerModeAvailableOrActive {
+            /* if tab.readerModeAvailableOrActive {
                 mainActions.append(addReadingList)
-            }
+            } */
         }
 
         let pinAction = (isPinned ? removeTopSitesPin : pinToTopSites)
-        mainActions.append(contentsOf: [copyURL])
+        // mainActions.append(contentsOf: [copyURL])
 
-        return [mainActions, [findInPageAction, toggleDesktopSite, pinAction]]
+        // return [mainActions, [findInPageAction, toggleDesktopSite, pinAction]]
+        return [mainActions]
     }
 
     func fetchBookmarkStatus(for url: String) -> Deferred<Maybe<Bool>> {

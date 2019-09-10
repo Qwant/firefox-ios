@@ -36,7 +36,7 @@ class ContentBlockerSettingsTableView: SettingsTableViewController {
 
     @objc func moreInfoTapped() {
         let viewController = SettingsContentViewController()
-        viewController.url = SupportUtils.URLForTopic("tracking-protection-ios")
+        try! viewController.url = NSLocalizedString("settings.trackingprotection.more.url", value: "https://help.qwant.com/help/qwant-mobile/about-tracking-protection/?client=qwantjuniorbrowser", comment: "URL for more info about tracking protection").asURL()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

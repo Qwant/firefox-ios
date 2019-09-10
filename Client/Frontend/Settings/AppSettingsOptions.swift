@@ -749,7 +749,7 @@ class OpenSupportPageSetting: Setting {
 
     override func onClick(_ navigationController: UINavigationController?) {
         navigationController?.dismiss(animated: true) {
-            if let url = URL(string: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser") {
+            if let url = URL(string: "https://help.qwant.com/help/qwant-mobile/?client=qwantjuniorbrowser") {
                 self.delegate?.settingsOpenURLInNewTab(url)
             }
         }
@@ -903,7 +903,7 @@ class PrivacyPolicySetting: Setting {
     }
 
     override var url: URL? {
-        return URL(string: "https://about.qwant.com/legal/privacy/?client=qwantbrowser")
+        return URL(string: "https://about.qwant.com/legal/privacy/?client=qwantjuniorbrowser")
     }
 
     override func onClick(_ navigationController: UINavigationController?) {

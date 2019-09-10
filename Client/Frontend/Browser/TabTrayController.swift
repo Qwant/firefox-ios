@@ -469,7 +469,7 @@ extension TabTrayController {
     @objc func didTapLearnMore() {
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         if let langID = Locale.preferredLanguages.first {
-            let learnMoreRequest = URLRequest(url: "https://about.qwant.com/?client=qwantbrowser".asURL!)
+            let learnMoreRequest = URLRequest(url: NSLocalizedString("privatebrowsing.more.url", value: "https://about.qwant.com/?client=qwantjuniorbrowser", comment: "URL for more info about private").asURL!)
             openNewTab(learnMoreRequest)
         }
     }

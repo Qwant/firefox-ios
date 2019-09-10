@@ -439,7 +439,7 @@ struct IntroCard: Codable {
         let welcome = IntroCard(title: Strings.CardTitleWelcome2, text: Strings.CardTextWelcome2, imageName: "tour-Welcome2")
         let privacy = IntroCard(title: Strings.CardTitlePrivacy, text: Strings.CardTextPrivacy, imageName: "tour-Privacy")
         let efficiency = IntroCard(title: Strings.CardTitleEfficiency, text: Strings.CardTextEfficiency, imageName: "tour-Efficiency", buttonText: Strings.SignInButtonTitle, buttonSelector: #selector(IntroViewController.login).description)
-        return [welcome, privacy, efficiency]
+        return [welcome, efficiency, privacy]
     }
 
     /* Codable doesnt allow quick conversion to a dictonary */

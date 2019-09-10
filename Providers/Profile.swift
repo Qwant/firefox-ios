@@ -230,13 +230,18 @@ open class BrowserProfile: Profile {
         // Set up our database handles.
         self.db = BrowserDB(filename: "browser.db", schema: BrowserSchema(), files: files)
         self.readingListDB = BrowserDB(filename: "ReadingList.db", schema: ReadingListSchema(), files: files)
-
+        
         if isNewProfile {
             log.info("New profile. Removing old Keychain/Prefs data.")
             KeychainWrapper.wipeKeychain()
             prefs.clearAll()
             
-            prefs.setString("https://www.qwant.com/?client=qwantbrowser", forKey: PrefsKeys.KeyDefaultHomePageURL)
+            let pre = Locale.preferredLanguages[0]
+            let l = (pre.count >= 2) ? pre.substring(with: pre.startIndex..<pre.index(pre.startIndex, offsetBy: 2)) : "null"
+            let r = (pre.count >= 5) ? pre.substring(with: pre.index(pre.startIndex, offsetBy: 3)..<pre.endIndex) : "null"
+            print("LANG = \(pre) \(l) \(r)")
+            
+            prefs.setString("https://www.qwantjunior.com/?client=qwantjuniorbrowser&l=\(l)&r=\(r)&sr=\(l)", forKey: PrefsKeys.KeyDefaultHomePageURL)
             prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
 
