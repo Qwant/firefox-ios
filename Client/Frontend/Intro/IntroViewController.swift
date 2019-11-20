@@ -56,11 +56,7 @@ class IntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if #available(iOS 13, *) {
-            view.backgroundColor = .systemBackground
-        } else {
-            view.backgroundColor = .white
-        }
+        view.backgroundColor = .white
 
         let main2panel = UIStackView()
         main2panel.axis = .vertical
@@ -103,11 +99,14 @@ class IntroViewController: UIViewController {
         heading1.text = Strings.CardTitleWelcome2
         heading2.text = Strings.CardTitlePrivacy
         heading2.isHidden = true
+        heading2.numberOfLines = 2
         heading3.text = Strings.CardTitleEfficiency
         heading3.isHidden = true
+        heading3.numberOfLines = 2
         let headingTab = [heading1, heading2, heading3]
         headingTab.forEach {
             $0.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+            $0.textColor = .black
             $0.adjustsFontSizeToFitWidth = true
             $0.textAlignment = .center
             $0.snp.makeConstraints { make in
@@ -127,6 +126,7 @@ class IntroViewController: UIViewController {
         var i = 0
         [subtitlePage1, subtitlePage2, subtitlePage3].forEach {
             $0.textAlignment = .center
+            $0.textColor = .black
             $0.adjustsFontSizeToFitWidth = true
             // Shrink the font for the smallest screen size
             let fontSize: CGFloat = view.frame.size.width <= 320 ? 16 : 20
@@ -176,11 +176,7 @@ class IntroViewController: UIViewController {
             make.top.equalToSuperview().offset(buttonEdgeInset)
             make.right.equalToSuperview().inset(buttonEdgeInset)
         }
-        if #available(iOS 13, *) {
-            closeButton.tintColor = .secondaryLabel
-        } else {
-            closeButton.tintColor = .black
-        }
+        closeButton.tintColor = .black
     }
 
     @objc func nextTapped() {
