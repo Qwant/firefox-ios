@@ -492,7 +492,7 @@ extension BrowserViewController: WKNavigationDelegate {
         
                         if (!BlackListSingleton.sharedInstance.searchEngineHasValidState(searchEngineName: searchEngine!)) {
                             decisionHandler(WKNavigationActionPolicy.cancel)
-                            webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com//public/index/warning-search-engine/\(l)")!))
+                            webView.load(URLRequest(url: URL(string :"https://mobile-secure.qwantjunior.com/public/index/warning-search-engine/\(l)")!))
                             return
                         }
                         if (BlackListSingleton.sharedInstance.isFirstSearchEngine(hostTesting: url.host!)) {
