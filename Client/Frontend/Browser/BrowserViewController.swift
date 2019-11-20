@@ -585,11 +585,7 @@ class BrowserViewController: UIViewController {
     // upgrade, downgrades are not possible, so we can show the What's New page.
 
     func shouldShowWhatsNew() -> Bool {
-        guard let latestMajorAppVersion = profile.prefs.stringForKey(LatestAppVersionProfileKey)?.components(separatedBy: ".").first else {
-            return false // Clean install, never show What's New
-        }
-
-        return latestMajorAppVersion != AppInfo.majorAppVersion && DeviceInfo.hasConnectivity()
+        return false
     }
 
     fileprivate func showQueuedAlertIfAvailable() {
