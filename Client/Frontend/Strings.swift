@@ -696,12 +696,12 @@ extension Strings {
 }
 
 extension Strings {
-    public static let CardTitleWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Title", tableName: "Intro", value: "Welcome on Qwant mobile !", comment: "Title for the first panel 'Welcome' in the First Run tour.")
-    public static let CardTitlePrivacy = NSLocalizedString("Intro.Slides.Privacy.Title", tableName: "Intro", value: "Your life stays private", comment: "Title for the second panel 'Privacy' in the First Run tour.")
-    public static let CardTitleEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Title", tableName: "Intro", value: "Fast and efficient searches", comment: "Title for the third panel 'Efficiency' in the First Run tour.")
-    public static let CardTextWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Description", tableName: "Intro", value: "With Qwant mobile, navigate quickly and enjoy the browser which respect your privacy", comment: "Description for the 'Welcome' panel in the First Run tour.")
-    public static let CardTextPrivacy = NSLocalizedString("Intro.Slides.Privacy.Description", tableName: "Intro", value: "Qwant neither look the site you visit nor your researshes. It fight again ad tracking and stays neutral", comment: "Description for the 'Privacy' panel in the First Run tour.")
-    public static let CardTextEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Description", tableName: "Intro", value: "Qwant delivers the best results intantaneously. Search everything, freely", comment: "Description for the 'Efficiency' panel in the First Run tour.")
+    public static let CardTitleWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Title", tableName: "Intro", value: "Welcome on board !", comment: "Title for the first panel 'Welcome' in the First Run tour.")
+    public static let CardTitlePrivacy = NSLocalizedString("Intro.Slides.Privacy.Title", tableName: "Intro", value: "Keep your kids safe when surfing the Internet", comment: "Title for the second panel 'Privacy' in the First Run tour.")
+    public static let CardTitleEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Title", tableName: "Intro", value: "Tracking protection built-in for better privacy and less ads", comment: "Title for the third panel 'Efficiency' in the First Run tour.")
+    public static let CardTextWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Description", tableName: "Intro", value: "Qwant Junior Mobile is a fun, safe and fluid browsing experience for kids.", comment: "Description for the 'Welcome' panel in the First Run tour.")
+    public static let CardTextPrivacy = NSLocalizedString("Intro.Slides.Privacy.Description", tableName: "Intro", value: "Qwant Junior hides inapropriate content such violence, porn, drugs, hate, and other search engines that may display these contents.", comment: "Description for the 'Privacy' panel in the First Run tour.")
+    public static let CardTextEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Description", tableName: "Intro", value: "Qwant Junior neither tracks nor collects any data about your kid. Your kid's data will never be used to make money.", comment: "Description for the 'Efficiency' panel in the First Run tour.")
 }
 
 // Keyboard short cuts
