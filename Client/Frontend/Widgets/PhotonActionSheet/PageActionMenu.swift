@@ -39,7 +39,7 @@ extension PhotonActionSheetProtocol {
             return [[shareFile]]
         }
 
-        let defaultUAisDesktop = UserAgent.isDesktop(ua: UserAgent.defaultUserAgent())
+        /* let defaultUAisDesktop = UserAgent.isDesktop(ua: UserAgent.defaultUserAgent())
         let toggleActionTitle: String
         if defaultUAisDesktop {
             toggleActionTitle = tab.changedUserAgent ? Strings.AppMenuViewDesktopSiteTitleString : Strings.AppMenuViewMobileSiteTitleString
@@ -51,7 +51,7 @@ extension PhotonActionSheetProtocol {
                 tab.toggleChangeUserAgent()
                 Tab.ChangeUserAgent.updateDomainList(forUrl: url, isChangedUA: tab.changedUserAgent, isPrivate: tab.isPrivate)
             }
-        }
+        } */
 
         let addReadingList = PhotonActionSheetItem(title: Strings.AppMenuAddToReadingListTitleString, iconString: "addToReadingList") { _, _ in
             guard let url = tab.url?.displayURL else { return }
@@ -107,7 +107,7 @@ extension PhotonActionSheetProtocol {
             }.uponQueue(.main) { _ in }
         }
 
-        let sendToDevice = PhotonActionSheetItem(title: Strings.SendToDeviceTitle, iconString: "menu-Send-to-Device") { _, _ in
+        /* let sendToDevice = PhotonActionSheetItem(title: Strings.SendToDeviceTitle, iconString: "menu-Send-to-Device") { _, _ in
             guard let bvc = presentableVC as? PresentableVC & InstructionsViewControllerDelegate & DevicePickerViewControllerDelegate else { return }
             if !self.profile.hasAccount() {
                 let instructionsViewController = InstructionsViewController()
@@ -125,7 +125,7 @@ extension PhotonActionSheetProtocol {
             let navigationController = UINavigationController(rootViewController: devicePickerViewController)
             navigationController.modalPresentationStyle = .formSheet
             bvc.present(navigationController, animated: true, completion: nil)
-        }
+        } */
 
         let sharePage = PhotonActionSheetItem(title: Strings.AppMenuSharePageTitleString, iconString: "action_share") { _, _ in
             guard let url = tab.canonicalURL?.displayURL else { return }
@@ -163,10 +163,10 @@ extension PhotonActionSheetProtocol {
             }
         }
 
-        mainActions.append(contentsOf: [sendToDevice, copyURL])
+        mainActions.append(contentsOf: [copyURL])
 
         let pinAction = (isPinned ? removeTopSitesPin : pinToTopSites)
-        var commonActions = [toggleDesktopSite, pinAction]
+        var commonActions = [pinAction]
 
         // Disable find in page if document is pdf.
         if tab.mimeType != MIMEType.PDF {

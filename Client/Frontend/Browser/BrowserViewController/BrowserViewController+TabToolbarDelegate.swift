@@ -97,11 +97,11 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         actions.append(getLibraryActions(vcDelegate: self))
         actions.append(getOtherPanelActions(vcDelegate: self))
 
-        if let whatsNewAction = whatsNewAction, var lastGroup = actions.last, lastGroup.count > 1 {
+        /* if let whatsNewAction = whatsNewAction, var lastGroup = actions.last, lastGroup.count > 1 {
             lastGroup.insert(whatsNewAction, at: lastGroup.count - 1)
             actions.removeLast()
             actions.append(lastGroup)
-        }
+        } */
 
         // force a modal if the menu is being displayed in compact split screen
         let shouldSuppress = !topTabsVisible && UIDevice.current.userInterfaceIdiom == .pad
