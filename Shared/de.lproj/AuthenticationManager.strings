@@ -16,6 +16,9 @@
 /* Label used as a setting item and title of the following screen to change the current passcode */
 "Change Passcode" = "Code ändern";
 
+/* Title of the dialog used to request the passcode */
+"Enter Passcode" = "Code eingeben";
+
 /* Text displayed above the input field when changing the existing passcode */
 "Enter a new passcode" = "Neuen Code eingeben";
 
@@ -24,9 +27,6 @@
 
 /* Text displayed above the input field when changing the existing passcode */
 "Enter passcode" = "Code eingeben";
-
-/* Title of the dialog used to request the passcode */
-"Enter Passcode" = "Code eingeben";
 
 /* Label for the Face ID/Passcode item in Settings */
 "Face ID & Passcode" = "Face ID & Code";
@@ -67,12 +67,6 @@
 /* Label for the Touch ID/Passcode item in Settings */
 "Touch ID & Passcode" = "Touch ID & Code";
 
-/* Touch ID prompt subtitle when disabling Touch ID */
-"touchid.disable.reason.label" = "Nutzen Sie Ihren Fingerabdruck, um Touch ID zu deaktivieren.";
-
-/* Touch ID prompt subtitle when accessing the require passcode setting */
-"touchid.require.passcode.reason.label" = "Nutzen Sie Ihren Fingerabdruck, um das erforderliche Code-Intervall zu konfigurieren.";
-
 /* Label used as a setting item to turn off passcode */
 "Turn Passcode Off" = "Code deaktivieren";
 
@@ -87,4 +81,10 @@
 
 /* Touch ID prompt subtitle when accessing logins */
 "Use your fingerprint to access Logins now." = "Nutzen Sie jetzt Ihren Fingerabdruck, um auf Zugangsdaten zuzugreifen.";
+
+/* Touch ID prompt subtitle when disabling Touch ID */
+"touchid.disable.reason.label" = "Nutzen Sie Ihren Fingerabdruck, um Touch ID zu deaktivieren.";
+
+/* Touch ID prompt subtitle when accessing the require passcode setting */
+"touchid.require.passcode.reason.label" = "Nutzen Sie Ihren Fingerabdruck, um das erforderliche Code-Intervall zu konfigurieren.";
 

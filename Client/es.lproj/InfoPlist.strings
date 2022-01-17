@@ -1,8 +1,8 @@
 /* Privacy - Camera Usage Description */
-"NSCameraUsageDescription" = "Esto te permite hacer fotos y subirlas.";
+"NSCameraUsageDescription" = "Qwant usa tu cámara para escanear códigos QR y tomar fotos y videos.";
 
 /* Privacy - Face ID Usage Description */
-"NSFaceIDUsageDescription" = "Firefox requiere Face ID para acceder a tus inicios de sesión guardados.";
+"NSFaceIDUsageDescription" = "Qwant requiere Face ID para acceder a tus inicios de sesión guardados.";
 
 /* Privacy - Location When In Use Usage Description */
 "NSLocationWhenInUseUsageDescription" = "Los sitios web que visites pueden solicitar conocer tu ubicación.";
@@ -13,12 +13,12 @@
 /* Privacy - Photo Library Additions Usage Description */
 "NSPhotoLibraryAddUsageDescription" = "Esto te permite guardar fotos.";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewPrivateTab" = "Nueva pestaña privada";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewTab" = "Nueva pestaña";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleQRCode" = "Escanear código QR";
 

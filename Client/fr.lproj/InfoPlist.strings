@@ -1,24 +1,24 @@
 /* Privacy - Camera Usage Description */
-"NSCameraUsageDescription" = "Ceci vous permet de prendre des photos et de les envoyer.";
+"NSCameraUsageDescription" = "Qwant utilise votre appareil photo pour scanner les codes QR et prendre des photos et vidéos.";
 
 /* Privacy - Face ID Usage Description */
-"NSFaceIDUsageDescription" = "Firefox a besoin de Face ID pour accéder à vos identifiants enregistrés.";
+"NSFaceIDUsageDescription" = "Qwant a besoin de Face ID pour accéder à vos identifiants enregistrés.";
 
 /* Privacy - Location When In Use Usage Description */
 "NSLocationWhenInUseUsageDescription" = "Les sites web que vous visitez peuvent demander à connaître votre emplacement.";
 
 /* Privacy - Microphone Usage Description */
-"NSMicrophoneUsageDescription" = "Ceci vous permet de prendre des vidéos et de les envoyer.";
+"NSMicrophoneUsageDescription" = "Qwant utilise votre microphone pour enregistrer et charger des fichiers audio.";
 
 /* Privacy - Photo Library Additions Usage Description */
 "NSPhotoLibraryAddUsageDescription" = "Ceci vous permet d’enregistrer des photos.";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewPrivateTab" = "Nouvel onglet privé";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewTab" = "Nouvel onglet";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleQRCode" = "Scanner un code QR";
 

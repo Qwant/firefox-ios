@@ -2,7 +2,7 @@
 "NSCameraUsageDescription" = "Hiermit können Sie Fotos machen und hochladen.";
 
 /* Privacy - Face ID Usage Description */
-"NSFaceIDUsageDescription" = "Firefox benötigt Face ID, um auf Ihre gespeicherten Zugangsdaten zuzugreifen.";
+"NSFaceIDUsageDescription" = "Qwant benötigt Face ID, um auf Ihre gespeicherten Zugangsdaten zuzugreifen.";
 
 /* Privacy - Location When In Use Usage Description */
 "NSLocationWhenInUseUsageDescription" = "Von Ihnen besuchte Websites können Ihren Standort abfragen.";
@@ -13,12 +13,12 @@
 /* Privacy - Photo Library Additions Usage Description */
 "NSPhotoLibraryAddUsageDescription" = "Damit können Sie Fotos speichern.";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewPrivateTab" = "Neuer privater Tab";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleNewTab" = "Neuer Tab";
 
-/* (No Comment) */
+/* None */
 "ShortcutItemTitleQRCode" = "QR-Code scannen";
 

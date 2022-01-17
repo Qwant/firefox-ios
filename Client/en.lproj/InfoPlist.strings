@@ -1,11 +1,24 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Qwant uses your camera to scan QR codes and take photos and video.";
 
-NSLocationWhenInUseUsageDescription = "Websites you visit may request your location.";
-NSPhotoLibraryAddUsageDescription = "This lets you save photos.";
-NSCameraUsageDescription = "Firefox uses your camera to scan QR codes and take photos and video.";
-NSMicrophoneUsageDescription = "Firefox uses your microphone to record and upload audio.";
-ShortcutItemTitleNewTab = "New Tab";
-ShortcutItemTitleNewPrivateTab = "New Private Tab";
-ShortcutItemTitleQRCode = "Scan QR Code";
+/* Privacy - Face ID Usage Description */
+"NSFaceIDUsageDescription" = "Qwant requires Face ID to access your saved logins.";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Websites you visit may request your location.";
+
+/* Privacy - Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "Qwant uses your microphone to record and upload audio.";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "This lets you save photos.";
+
+/* None */
+"ShortcutItemTitleNewPrivateTab" = "New Private Tab";
+
+/* None */
+"ShortcutItemTitleNewTab" = "New Tab";
+
+/* None */
+"ShortcutItemTitleQRCode" = "Scan QR Code";
+

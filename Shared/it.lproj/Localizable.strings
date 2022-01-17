@@ -1,8 +1,8 @@
-/* Button for smaller reader font size. Keep this extremely short! This is shown in the reader mode toolbar. */
-"-" = "-";
-
 /* Button for larger reader font size. Keep this extremely short! This is shown in the reader mode toolbar. */
 "+" = "+";
+
+/* Button for smaller reader font size. Keep this extremely short! This is shown in the reader mode toolbar. */
+"-" = "-";
 
 /* Authentication prompt message with no realm. Parameter is the hostname of the site */
 "A username and password are being requested by %@." = "%@ richiede un nome utente e una password.";
@@ -98,9 +98,6 @@
    Name for button adding current article to reading list in reader mode */
 "Add to Reading List" = "Aggiungi a Elenco lettura";
 
-/* Accessibility message e.g. spoken by VoiceOver after the current page gets added to the Reading List using the Reader View button, e.g. by long-pressing it or by its accessibility custom action. */
-"Added page to Reading List" = "Pagina aggiunta a Elenco lettura";
-
 /* Button to dismiss the 'Add Pass Failed' alert.  See https://support.apple.com/HT204003 for context on Wallet. */
 "AddPass.Error.Dismiss" = "OK";
 
@@ -109,6 +106,9 @@
 
 /* Title of the 'Add Pass Failed' alert. See https://support.apple.com/HT204003 for context on Wallet. */
 "AddPass.Error.Title" = "Errore aggiunta biglietto";
+
+/* Accessibility message e.g. spoken by VoiceOver after the current page gets added to the Reading List using the Reader View button, e.g. by long-pressing it or by its accessibility custom action. */
+"Added page to Reading List" = "Pagina aggiunta a Elenco lettura";
 
 /* Accessibility label for address and search field, both words (Address, Search) are therefore nouns. */
 "Address and Search" = "Indirizzo e ricerca";
@@ -242,9 +242,6 @@
 /* Accessibility label (used by assistive technology) notifying the user that the tab is being closed. */
 "Closing tab" = "Chiusura scheda in corso";
 
-/* Accessibility label for Desktop Computer (PC) image in remote tabs list */
-"computer" = "computer";
-
 /* Context menu item for bookmarking a link URL */
 "ContextMenu.BookmarkLinkButtonTitle" = "Aggiungi ai segnalibri";
 
@@ -288,7 +285,7 @@
 "ContextMenu.ShareLinkButtonTitle" = "Condividi link";
 
 /* Contextual hints are little popups that appear for the users informing them of new features. This one talks about the more personalized home feature. */
-"ContextualHints.Homepage.PersonalizedHome" = "La pagina iniziale personalizzata di Firefox rende più semplice riprendere da dove avevi interrotto. Puoi trovare le schede recenti, i segnalibri e i risultati delle ricerche.";
+"ContextualHints.Homepage.PersonalizedHome" = "La pagina iniziale personalizzata di Qwant rende più semplice riprendere da dove avevi interrotto. Puoi trovare le schede recenti, i segnalibri e i risultati delle ricerche.";
 
 /* Contextual hints are little popups that appear for the users informing them of new features. This one talks about the inactive tabs feature. */
 "ContextualHints.TabTray.InactiveTabs" = "Le schede che non visualizzi da due settimane vengono spostate qui.";
@@ -296,23 +293,23 @@
 /* Contextual hints are little popups that appear for the users informing them of new features. This one is the call to action for the inactive tabs contextual popup. */
 "ContextualHints.TabTray.InactiveTabs.CallToAction" = "Disattiva nelle impostazioni";
 
-/* Accessibility message e.g. spoken by VoiceOver after adding current webpage to the Reading List failed. */
-"Could not add page to Reading list" = "Impossibile aggiungere la pagina a Elenco lettura.";
-
 /* Accessibility message e.g. spoken by VoiceOver after the user wanted to add current page to the Reading List and this was not done, likely because it already was in the Reading List, but perhaps also because of real failures. */
 "Could not add page to Reading List. Maybe it’s already there?" = "Impossibile aggiungere la pagina a Elenco lettura. Forse è già presente?";
+
+/* Accessibility message e.g. spoken by VoiceOver after adding current webpage to the Reading List failed. */
+"Could not add page to Reading list" = "Impossibile aggiungere la pagina a Elenco lettura.";
 
 /* Error message that is shown in settings when there was a problem loading */
 "Could not load page." = "Impossibile caricare la pagina.";
 
 /* Description for the new dark mode change in the version 22 app release. It describes the new automatic dark theme and how to change the theme settings. */
-"CoverSheet.v22.DarkMode.Description" = "In iOS 13, Firefox passa automaticamente al tema scuro quando il telefono è impostato in modalità scura. Per modificare questo comportamento toccare Impostazioni > Tema.";
+"CoverSheet.v22.DarkMode.Description" = "In iOS 13, Qwant passa automaticamente al tema scuro quando il telefono è impostato in modalità scura. Per modificare questo comportamento toccare Impostazioni > Tema.";
 
 /* Title for the new dark mode change in the version 22 app release. */
 "CoverSheet.v22.DarkMode.Title" = "Il tema scuro ora include tastiera e schermata iniziale di colore scuro.";
 
 /* Description for the new ETP mode i.e. standard vs strict */
-"CoverSheet.v24.ETP.Description" = "La protezione antitracciamento avanzata integrata in Firefox impedisce agli annunci pubblicitari di seguirti in giro. Per bloccare ancora più elementi traccianti, annunci pubblicitari e pop-up, attiva l’opzione Restrittiva.";
+"CoverSheet.v24.ETP.Description" = "La protezione antitracciamento avanzata integrata in Qwant impedisce agli annunci pubblicitari di seguirti in giro. Per bloccare ancora più elementi traccianti, annunci pubblicitari e pop-up, attiva l’opzione Restrittiva.";
 
 /* Text for the new ETP settings button */
 "CoverSheet.v24.ETP.Settings.Button" = "Vai alle impostazioni";
@@ -337,11 +334,11 @@
 /* Name for display settings button in reader mode. Display in the meaning of presentation, not monitor. */
 "Display Settings" = "Impostazioni visualizzazione";
 
-/* Used as a button label for crash dialog prompt */
-"Don’t Send" = "Non inviare";
-
 /* Done button on left side of the Settings view controller title bar */
 "Done" = "Fatto";
+
+/* Used as a button label for crash dialog prompt */
+"Don’t Send" = "Non inviare";
 
 /* Panel accessibility label */
 "Downloads" = "Download";
@@ -362,7 +359,7 @@
 "Downloads.CancelDialog.Title" = "Annulla download";
 
 /* The message displayed to a user when they try and perform the download of an asset that Firefox cannot currently handle. */
-"Downloads.Error.Message" = "Al momento i download non sono supportati in Firefox.";
+"Downloads.Error.Message" = "Al momento i download non sono supportati in Qwant.";
 
 /* The label text in the Download Cancelled toast for showing confirmation that the download was cancelled. */
 "Downloads.Toast.Cancelled.LabelText" = "Download annullato";
@@ -407,7 +404,7 @@
 "ErrorPages.AdvancedWarning2.Text" = "Potrebbe trattarsi di una configurazione errata o di un tentativo di attacco. Procedi solo se sei consapevole dei potenziali rischi.";
 
 /* Warning text on the certificate error page */
-"ErrorPages.CertWarning.Description" = "Il gestore di %@ ha configurato il sito in modo non corretto. Per evitare potenziali furti di informazioni Firefox ha interrotto la connessione.";
+"ErrorPages.CertWarning.Description" = "Il gestore di %@ ha configurato il sito in modo non corretto. Per evitare potenziali furti di informazioni Qwant ha interrotto la connessione.";
 
 /* Title on the certificate error page */
 "ErrorPages.CertWarning.Title" = "Questa connessione non è affidabile";
@@ -428,7 +425,7 @@
 "Facebook" = "Facebook";
 
 /* Title for firefox about:home page in tab history list */
-"Firefox.HomePage.Title" = "Pagina iniziale di Firefox";
+"Firefox.HomePage.Title" = "Pagina iniziale di Qwant";
 
 /* A button at bottom of the Firefox homepage that, when clicked, takes users straight to the settings options, where they can customize the Firefox Home page */
 "FirefoxHome.CustomizeHomeButton.Title" = "Personalizza pagina iniziale";
@@ -443,13 +440,13 @@
 "FxA.AccountVerificationRequired" = "Richiesta verifica account";
 
 /* Message explaining that user needs to check email for Firefox Account verfication link. */
-"FxA.AccountVerificationRequiredSurface" = "È necessario verificare %@. Controlla la mail per il link di verifica da Firefox.";
+"FxA.AccountVerificationRequiredSurface" = "È necessario verificare %@. Controlla la mail per il link di verifica da Qwant.";
 
 /* Button label to connect another device to Sync */
 "FxA.ConnectAnotherDevice" = "Connetti un altro dispositivo";
 
 /* Settings section title for Firefox Account */
-"FxA.FirefoxAccount" = "Account Firefox";
+"FxA.FirefoxAccount" = "Account Qwant";
 
 /* Button label to go to Firefox Account settings */
 "FxA.ManageAccount" = "Gestione account e dispositivi";
@@ -460,41 +457,17 @@
 /* Button label to open Sync preferences */
 "FxA.OpenSyncPreferences" = "Apri preferenze Sync";
 
-/* Instructions shown on qr code scanning view */
-"fxa.qr-scanning-view.instructions" = "Scansiona il codice QR visualizzato su firefox.com/pair";
-
 /* Remove button is displayed on firefox account page under certain scenarios where user would like to remove their account. */
 "FxA.RemoveAccount" = "Rimuovi";
 
 /* Description string for alert view that gets presented when user tries to remove an account. */
-"FxA.RemoveAccountAlertMessage" = "Rimuovi l’account Firefox associato a questo dispositivo per accedere come un altro utente.";
+"FxA.RemoveAccountAlertMessage" = "Rimuovi l’account Qwant associato a questo dispositivo per accedere come un altro utente.";
 
 /* Remove account alert is the final confirmation before user removes their firefox account */
 "FxA.RemoveAccountAlertTitle" = "Rimuovi account";
 
 /* Button label to resend email */
 "FxA.ResendEmail" = "Invia nuovamente l’email";
-
-/* FxA sign in view subtitle */
-"fxa.signin.camera-signin" = "Accedi con la fotocamera";
-
-/* FxA sign in create account label. */
-"fxa.signin.create-account-pt-1" = "Sincronizza Firefox tra vari dispositivi con un account.";
-
-/* FxA sign in create account label. This will be linked to the site to create an account. */
-"fxa.signin.create-account-pt-2" = "Crea un account Firefox.";
-
-/* FxA sign in view qr code instructions */
-"fxa.signin.qr-link-instruction" = "Apri Firefox sul computer e vai all’indirizzo firefox.com/pair";
-
-/* FxA sign in view qr code scan button */
-"fxa.signin.ready-to-scan" = "Pronto per la scansione";
-
-/* FxA sign in view title */
-"fxa.signin.turn-on-sync" = "Attiva Sync";
-
-/* FxA sign in view email login button */
-"fxa.signin.use-email-instead" = "Accedi con l’email";
 
 /* Button label to sign into Sync */
 "FxA.SignIntoSync" = "Accedi a Sync";
@@ -509,25 +482,25 @@
 "FxA.TakeYourWebWithYou" = "Il tuo Web, sempre con te";
 
 /* Title of a notification displayed when another device has connected to FxA. %@ refers to the name of the newly connected device. */
-"FxAPush_DeviceConnected_body" = "%@ è ora connesso a Firefox Sync.";
+"FxAPush_DeviceConnected_body" = "%@ è ora connesso a Qwant Sync.";
 
 /* Title of a notification displayed when another device has connected to FxA. */
 "FxAPush_DeviceConnected_title" = "Sync connesso";
 
-/* Body of a notification displayed when named device has been disconnected from FxA. %@ refers to the name of the disconnected device. */
-"FxAPush_DeviceDisconnected_body" = "%@ è stato disconnesso correttamente.";
-
 /* Body of a notification displayed when this device has been disconnected from FxA by another device. */
-"FxAPush_DeviceDisconnected_ThisDevice_body" = "Questo dispositivo è stato disconnesso correttamente da Firefox Sync.";
+"FxAPush_DeviceDisconnected_ThisDevice_body" = "Questo dispositivo è stato disconnesso correttamente da Qwant Sync.";
 
 /* Title of a notification displayed when this device has been disconnected by another device. */
 "FxAPush_DeviceDisconnected_ThisDevice_title" = "Sync disconnesso";
 
+/* Body of a notification displayed when unnamed device has been disconnected from FxA. */
+"FxAPush_DeviceDisconnected_UnknownDevice_body" = "Un dispositivo è stato disconnesso da Qwant Sync.";
+
+/* Body of a notification displayed when named device has been disconnected from FxA. %@ refers to the name of the disconnected device. */
+"FxAPush_DeviceDisconnected_body" = "%@ è stato disconnesso correttamente.";
+
 /* Title of a notification displayed when named device has been disconnected from FxA. */
 "FxAPush_DeviceDisconnected_title" = "Sync disconnesso";
-
-/* Body of a notification displayed when unnamed device has been disconnected from FxA. */
-"FxAPush_DeviceDisconnected_UnknownDevice_body" = "Un dispositivo è stato disconnesso da Firefox Sync.";
 
 /* A re-worded offer about Sync, displayed when the Sync home panel is empty, that emphasizes one-way data transfer, not syncing. */
 "Get your open tabs, bookmarks, and passwords from your other devices." = "Utilizza le schede aperte, le password e i segnalibri salvati in altri dispositivi.";
@@ -575,7 +548,7 @@
 "HistoryPanel.EmptySyncedTabsPanelTabSyncDisabledState.Description" = "Attiva la sincronizzazione delle schede per visualizzare l’elenco delle schede aperte sugli altri dispositivi.";
 
 /* Title for the empty synced tabs state in the History Panel */
-"HistoryPanel.EmptySyncedTabsState.Title" = "Firefox Sync";
+"HistoryPanel.EmptySyncedTabsState.Title" = "Qwant Sync";
 
 /* Title for the Back to History button in the History Panel */
 "HistoryPanel.HistoryBackButton.Title" = "Cronologia";
@@ -665,7 +638,7 @@
 "InactiveTabs.TabTray.AutoClosePrompt.ButtonTitle" = "Attiva chiusura automatica";
 
 /* In the Tabs Tray, in the Inactive Tabs section, a prompt may come up about auto-closing tabs. This string describes what happens if you elect to turn on this option. */
-"InactiveTabs.TabTray.AutoClosePrompt.Content" = "Firefox chiuderà le schede che non hai visualizzato nell’ultimo mese.";
+"InactiveTabs.TabTray.AutoClosePrompt.Content" = "Qwant chiuderà le schede che non hai visualizzato nell’ultimo mese.";
 
 /* In the Tabs Tray, in the Inactive Tabs section, a prompt may come up about auto-closing tabs. This is the title of that Auto Close prompt */
 "InactiveTabs.TabTray.AutoClosePrompt.Title" = "Chiudi automaticamente dopo un mese?";
@@ -675,9 +648,6 @@
 
 /* Accessibility label for button increasing font size in display settings of reader mode */
 "Increase text size" = "Aumenta la dimensione del testo";
-
-/* Relative time for a tab that was visited within the last few moments. */
-"just now" = "adesso";
 
 /* A label indicating the keyboard shortcut of resetting a web page's view to the standard viewing size. This label is displayed in the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
 "Keyboard.Shortcuts.ActualSize" = "Dimensione originale";
@@ -693,6 +663,9 @@
 
 /* A label indicating the keyboard shortcut of finding text a user desires within a page again. This label is displayed in the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
 "Keyboard.Shortcuts.FindAgain" = "Trova successivo";
+
+/* A label indicating the keyboard shortcut of opening a new non-private tab, switching the user to that tab and Normal Browsing Mode. This label is displayed inside the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
+"Keyboard.Shortcuts.NewNormalTab" = "Nuova scheda normale";
 
 /* A label indicating the keyboard shortcut of opening a link in a new tab while staying on the currently selected tab. This label is displayed in the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
 "Keyboard.Shortcuts.OpenLinkInBackground" = "Apri link in background";
@@ -745,6 +718,9 @@
 /* A label indicating the keyboard shortcut of switching between the first nine tabs. This label is displayed in the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
 "Keyboard.Shortcuts.ShowTabNumber" = "Visualizza numero schede 1-9";
 
+/* A label indicating the keyboard shortcut of reopening the last closed tab. This label is displayed inside the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
+"Keyboard.Shortcuts.UndoCloseTab" = "Riapri scheda chiusa";
+
 /* A label indicating the keyboard shortcut of enlarging the view of the current web page. This label is displayed in the Discoverability overlay when a user presses the Command key. The Discoverability overlay and shortcut become available only when a user has connected a hardware keyboard to an iPad. See https://drive.google.com/file/d/1gH3tbvDceg7yG5N67NIHS-AXgDgCzBHN/view?usp=sharing for more details. */
 "Keyboard.Shortcuts.ZoomIn" = "Aumenta zoom";
 
@@ -759,6 +735,9 @@
 
 /* History tableview section header */
 "Last week" = "Ultima settimana";
+
+/* This label is meant to signify the section containing a group of items that are older than thirty days. */
+"LibraryPanel.Section.Older" = "Più vecchi";
 
 /* Settings item that opens a tab containing the licenses. See http://mzl.la/1NSAWCG */
 "Licenses" = "Licenze";
@@ -794,13 +773,13 @@
 "Logins.Onboarding.Message" = "Le tue credenziali e le password sono ora protette da Face ID, Touch ID o da un codice per il dispositivo.";
 
 /* Warning message shown when you try to enable or use native AutoFill without a device passcode setup */
-"Logins.PasscodeRequirement.Warning" = "Per utilizzare la funzione di compilazione automatica per Firefox, devi avere attivato un codice per il dispositivo.";
+"Logins.PasscodeRequirement.Warning" = "Per utilizzare la funzione di compilazione automatica per Qwant, devi avere attivato un codice per il dispositivo.";
 
 /* Label displaying welcome view tagline under the title */
 "Logins.WelcomeView.Tagline" = "Porta le tue password sempre con te";
 
 /* Label displaying welcome view title */
-"Logins.WelcomeView.Title2" = "Compilazione automatica delle password di Firefox";
+"Logins.WelcomeView.Title2" = "Compilazione automatica delle password di Qwant";
 
 /* Title of the big blue button to enable AutoFill */
 "Logins.WelcomeView.TurnOnAutoFill" = "Attiva la compilazione automatica";
@@ -848,7 +827,7 @@
 "LoginsList.LoginsListSearchPlaceholder" = "Filtra";
 
 /* Label shown when there are no logins to list */
-"LoginsList.NoLoginsFound.Description" = "Le credenziali salvate verranno visualizzate qui. Se hai salvato le tue credenziali in Firefox su un dispositivo diverso, accedi al tuo account Firefox.";
+"LoginsList.NoLoginsFound.Description" = "Le credenziali salvate verranno visualizzate qui. Se hai salvato le tue credenziali in Qwant su un dispositivo diverso, accedi al tuo account Qwant.";
 
 /* Label shown when there are no logins saved */
 "LoginsList.NoLoginsFound.Title" = "Nessuna credenziale salvata";
@@ -872,7 +851,7 @@
 "LoginsList.Title" = "ACCESSI SALVATI";
 
 /* Restore Tabs Prompt Description */
-"Looks like Firefox crashed previously. Would you like to restore your tabs?" = "Sembra che si sia verificato un arresto inatteso di Firefox. Ripristinare le schede?";
+"Looks like Firefox crashed previously. Would you like to restore your tabs?" = "Sembra che si sia verificato un arresto inatteso di Qwant. Ripristinare le schede?";
 
 /* Name for Mark as read button in reader mode
    Title for the button that marks a reading list item as read */
@@ -916,10 +895,10 @@
 "Menu.EnhancedTrackingProtectionOn.Title" = "Protezione antitracciamento avanzata ATTIVA per questo sito.";
 
 /* Description for having standard ETP protection with ITP offered in iOS14+ */
-"Menu.EnhancedTrackingProtectionStandardWithITP.Title" = "Firefox blocca traccianti intersito, traccianti social, cryptominer e fingerprinter.";
+"Menu.EnhancedTrackingProtectionStandardWithITP.Title" = "Qwant blocca traccianti intersito, traccianti social, cryptominer e fingerprinter.";
 
 /* Description for having strict ETP protection with ITP offered in iOS14+ */
-"Menu.EnhancedTrackingProtectionStrictWithITP.Title" = "Firefox blocca traccianti intersito, traccianti social, cryptominer, fingerprinter e contenuti traccianti.";
+"Menu.EnhancedTrackingProtectionStrictWithITP.Title" = "Qwant blocca traccianti intersito, traccianti social, cryptominer, fingerprinter e contenuti traccianti.";
 
 /* Label for the button, displayed in the menu, takes you to to History screen when pressed. */
 "Menu.History.Label" = "Cronologia";
@@ -960,11 +939,11 @@
 /* Label for the button, displayed in the menu, takes you to to Reading List screen when pressed. */
 "Menu.ReadingList.Label" = "Elenco lettura";
 
-/* Label for the button, displayed in the menu, used to reload the current website without Tracking Protection */
-"Menu.ReloadWithoutTrackingProtection.Title" = "Ricarica senza antitracciamento";
-
 /* Label for the button, displayed in the menu, used to reload the current website with Tracking Protection enabled */
 "Menu.ReloadWithTrackingProtection.Title" = "Ricarica con antitracciamento";
+
+/* Label for the button, displayed in the menu, used to reload the current website without Tracking Protection */
+"Menu.ReloadWithoutTrackingProtection.Title" = "Ricarica senza antitracciamento";
 
 /* Toast displayed to the user after a bookmark has been removed. */
 "Menu.RemoveBookmark.Confirm" = "Segnalibro eliminato";
@@ -985,7 +964,7 @@
 "Menu.TrackingProtection.Details.Verifier" = "Verificato da %@";
 
 /* Message in menu when no trackers blocked. */
-"Menu.TrackingProtection.NoTrackersBlockedTitle" = "Nessun elemento tracciante conosciuto da Firefox è stato rilevato in questa pagina.";
+"Menu.TrackingProtection.NoTrackersBlockedTitle" = "Nessun elemento tracciante conosciuto da Qwant è stato rilevato in questa pagina.";
 
 /* The title for tracking protection settings */
 "Menu.TrackingProtection.ProtectionSettings.Title" = "Impostazioni protezione";
@@ -1000,7 +979,7 @@
 "Menu.TrackingProtectionBlockedSocial.Title" = "Traccianti social";
 
 /* Description of the Tracking protection menu when TP is blocking parts of the page */
-"Menu.TrackingProtectionBlocking.Description" = "Firefox sta bloccando alcune sezioni della pagina che potrebbero tracciare la navigazione.";
+"Menu.TrackingProtectionBlocking.Description" = "Qwant sta bloccando alcune sezioni della pagina che potrebbero tracciare la navigazione.";
 
 /* The description of the Tracking Protection menu item when tracking is enabled */
 "Menu.TrackingProtectionBlockingDisabled.Description" = "Blocca i traccianti online";
@@ -1074,15 +1053,6 @@
 /* The title for the option to view the What's new page. */
 "Menu.WhatsNew.Title" = "Novità";
 
-/* Accessibility label for Mobile Device image in remote tabs list */
-"mobile device" = "dispositivo mobile";
-
-/* Relative date for dates older than a month and less than two months. */
-"more than a month ago" = "più di un mese fa";
-
-/* Description for a date more than a week ago, but less than a month ago. */
-"more than a week ago" = "più di una settimana fa";
-
 /* Accessibility label for the navigation toolbar displayed at the bottom of the screen. */
 "Navigation Toolbar" = "Barra degli strumenti di spostamento";
 
@@ -1125,19 +1095,19 @@
 
 /* On the onboarding card, letting users know what's new in this version of Firefox, this is the title for the Jump Back In bullet point on the card
    The title for the new onboarding card letting users know what is new in Firefox iOS */
-"Onboarding.WhatsNew.Title" = "Novità di Firefox";
+"Onboarding.WhatsNew.Title" = "Novità di Qwant";
 
 /* Title for prompt displayed to user after the app crashes */
-"Oops! Firefox crashed" = "Oops! Firefox si è bloccato";
-
-/* See http://mzl.la/1LXbDOL */
-"Open articles in Reader View by tapping the book icon when it appears in the title bar." = "Apri articoli in Modalità lettura toccando l’icona quando appare nella barra del titolo.";
+"Oops! Firefox crashed" = "Oops! Qwant si è bloccato";
 
 /* See http://mzl.la/1G7uHo7 */
 "Open Settings" = "Apri impostazioni";
 
 /* Toggle tabs syncing setting */
 "Open Tabs" = "Schede aperte";
+
+/* See http://mzl.la/1LXbDOL */
+"Open articles in Reader View by tapping the book icon when it appears in the title bar." = "Apri articoli in Modalità lettura toccando l’icona quando appare nella barra del titolo.";
 
 /* The message displayed to a user when they try to open a URL that cannot be handled by Firefox, or any external app. */
 "OpenURL.Error.Message" = "Non è possibile aprire questa pagina in quanto ha un indirizzo non valido.";
@@ -1155,19 +1125,19 @@
 "Password" = "Password";
 
 /* Error message shown in the remote tabs panel */
-"PasswordAutoFill.NoPasswordsFoundTitle" = "Non sono presenti credenziali sincronizzate dall’account Firefox";
+"PasswordAutoFill.NoPasswordsFoundTitle" = "Non sono presenti credenziali sincronizzate dall’account Qwant";
 
 /* Header for the list of credentials table */
 "PasswordAutoFill.PasswordsListTitle" = "Credenziali disponibili:";
 
 /* Title of the extension that shows firefox passwords */
-"PasswordAutoFill.SectionTitle" = "Credenziali di Firefox";
+"PasswordAutoFill.SectionTitle" = "Credenziali di Qwant";
 
 /* See http://mzl.la/1G7uHo7 */
 "PhotoLibrary.FirefoxWouldLikeAccessMessage" = "Permette di salvare le immagini nel Rullino.";
 
 /* See http://mzl.la/1G7uHo7 */
-"PhotoLibrary.FirefoxWouldLikeAccessTitle" = "Firefox vorrebbe accedere alle foto del dispositivo";
+"PhotoLibrary.FirefoxWouldLikeAccessTitle" = "Qwant vorrebbe accedere alle foto del dispositivo";
 
 /* Button for closing the menu action sheet */
 "PhotonMenu.close" = "Chiudi";
@@ -1189,9 +1159,6 @@
 
 /* A label indicating the action that a user can rate the Firefox app in the App store. */
 "Ratings.Settings.RateOnAppStore" = "Valuta su App Store";
-
-/* Accessibility label for read article in reading list. It's a past participle - functions as an adjective. */
-"read" = "letto";
 
 /* Accessibility label for the Reader View button */
 "Reader View" = "Modalità lettura";
@@ -1251,7 +1218,7 @@
 "ScanQRCode.InvalidDataError.Message" = "Dati non validi";
 
 /* Text of the prompt user to setup the camera authorization. */
-"ScanQRCode.PermissionError.Message" = "Consenti a Firefox l’accesso alla fotocamera del dispositivo da Impostazioni -> Privacy -> Fotocamera.";
+"ScanQRCode.PermissionError.Message" = "Consenti a Qwant l’accesso alla fotocamera del dispositivo da Impostazioni -> Privacy -> Fotocamera.";
 
 /* Title for the QR code scanner view. */
 "ScanQRCode.View.Title" = "Scansione codice QR";
@@ -1306,14 +1273,14 @@
 /* Accessibility label for the lock icon, which is only present if the connection is secure */
 "Secure connection" = "Connessione sicura";
 
-/* Message displayed in the crash dialog above the buttons used to select when sending reports */
-"Send a crash report so Mozilla can fix the problem?" = "Inviare una segnalazione del blocco a Mozilla in modo che possano risolvere il problema?";
-
 /* Menu item in settings used to open input.mozilla.org where people can submit feedback */
 "Send Feedback" = "Invia feedback";
 
 /* Used as a button label for crash dialog prompt */
 "Send Report" = "Invia segnalazione";
+
+/* Message displayed in the crash dialog above the buttons used to select when sending reports */
+"Send a crash report so Mozilla can fix the problem?" = "Inviare una segnalazione del blocco a Qwant in modo che possano risolvere il problema?";
 
 /* Button title for cancelling share screen
    Close button in top navigation bar */
@@ -1335,19 +1302,34 @@
 "SendTo.NavBar.Title" = "Invia scheda";
 
 /* Error message shown in the remote tabs panel */
-"SendTo.NoDevicesFound.Message" = "Al momento non risultano disponibili per la sincronizzazione ulteriori dispositivi connessi a questo account Firefox.";
+"SendTo.NoDevicesFound.Message" = "Al momento non risultano disponibili per la sincronizzazione ulteriori dispositivi connessi a questo account Qwant.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Message" = "Apri le impostazioni di Firefox ed effettua l’accesso per continuare.";
+"SendTo.NotSignedIn.Message" = "Apri le impostazioni di Qwant ed effettua l’accesso per continuare.";
 
 /* See http://mzl.la/1ISlXnU */
-"SendTo.NotSignedIn.Title" = "Accesso all’account Firefox non effettuato.";
+"SendTo.NotSignedIn.Title" = "Accesso all’account Qwant non effettuato.";
 
 /* Navigation bar button to Send the current page to a device */
 "SendTo.SendAction.Text" = "Invia";
 
 /* The text for the button on the Send to Device page if you are not signed in to Firefox Accounts. */
-"SendTo.SignIn.Button" = "Accedi a Firefox";
+"SendTo.SignIn.Button" = "Accedi a Qwant";
+
+/* Label for an action used to add one or more tabs recieved from a notification to the reading list. */
+"SentTab.AddToReadingListAction.Title" = "Aggiungi a Elenco lettura";
+
+/* Label for an action used to bookmark one or more tabs from a notification. */
+"SentTab.BookmarkAction.title" = "Aggiungi segnalibro";
+
+/* Body of notification received after a spurious message from FxA has been received. */
+"SentTab.NoTabArrivingNotification.body" = "Tocca per iniziare";
+
+/* Title of notification received after a spurious message from FxA has been received. */
+"SentTab.NoTabArrivingNotification.title" = "Qwant Sync";
+
+/* Label for an action used to view one or more tabs from a notification. */
+"SentTab.ViewAction.title" = "Visualizza";
 
 /* Body of notification shown when the device is sent one or more tabs from an unnamed device. */
 "SentTab_TabArrivingNotification_NoDevice_body" = "È arrivata una nuova scheda da un altro dispositivo.";
@@ -1360,21 +1342,6 @@
 
 /* Title of notification shown when the device is sent one or more tabs from the named device. %@ is the placeholder for the device name. This device name will be localized by that device. */
 "SentTab_TabArrivingNotification_WithDevice_title" = "Ricezione scheda da %@";
-
-/* Label for an action used to add one or more tabs recieved from a notification to the reading list. */
-"SentTab.AddToReadingListAction.Title" = "Aggiungi a Elenco lettura";
-
-/* Label for an action used to bookmark one or more tabs from a notification. */
-"SentTab.BookmarkAction.title" = "Aggiungi segnalibro";
-
-/* Body of notification received after a spurious message from FxA has been received. */
-"SentTab.NoTabArrivingNotification.body" = "Tocca per iniziare";
-
-/* Title of notification received after a spurious message from FxA has been received. */
-"SentTab.NoTabArrivingNotification.title" = "Firefox Sync";
-
-/* Label for an action used to view one or more tabs from a notification. */
-"SentTab.ViewAction.title" = "Visualizza";
 
 /* Sepia theme setting in Reading View settings */
 "Sepia" = "Seppia";
@@ -1424,6 +1391,15 @@
 /* Copy app version alert shown in settings. */
 "Settings.CopyAppVersion.Title" = "Copiato negli appunti";
 
+/* DNT Settings option for always on */
+"Settings.DNT.OptionAlwaysOn" = "Sempre";
+
+/* DNT Settings option for only turning on when Tracking Protection is also on */
+"Settings.DNT.OptionOnWithTP" = "Solo quando è attiva la protezione antitracciamento";
+
+/* DNT Settings title */
+"Settings.DNT.Title" = "Comunica ai siti la volontà di non essere tracciato inviando un segnale Do No Track";
+
 /* Default text in search bar for Data Management */
 "Settings.DataManagement.SearchLabel" = "Filtra siti";
 
@@ -1434,7 +1410,7 @@
 "Settings.DataManagement.Title" = "Gestione dati";
 
 /* Body of the alert when prompting the user asking to disconnect. */
-"Settings.Disconnect.Body" = "I dati di navigazione non verranno più sincronizzati con l’account Firefox, ma non saranno rimossi dal dispositivo in uso.";
+"Settings.Disconnect.Body" = "I dati di navigazione non verranno più sincronizzati con l’account Qwant, ma non saranno rimossi dal dispositivo in uso.";
 
 /* Button displayed at the bottom of settings page allowing users to Disconnect from FxA */
 "Settings.Disconnect.Button" = "Disconnetti Sync";
@@ -1491,15 +1467,6 @@
 /* Title in main app settings for Theme settings */
 "Settings.DisplayTheme.Title.v2" = "Tema";
 
-/* DNT Settings option for always on */
-"Settings.DNT.OptionAlwaysOn" = "Sempre";
-
-/* DNT Settings option for only turning on when Tracking Protection is also on */
-"Settings.DNT.OptionOnWithTP" = "Solo quando è attiva la protezione antitracciamento";
-
-/* DNT Settings title */
-"Settings.DNT.Title" = "Comunica ai siti la volontà di non essere tracciato inviando un segnale Do No Track";
-
 /* Label used for the device name settings section. */
 "Settings.FxA.DeviceName" = "Nome dispositivo";
 
@@ -1507,13 +1474,13 @@
 "Settings.FxA.Sync.SectionName" = "Impostazioni di sincronizzazione";
 
 /* Title displayed in header of the FxA settings panel. */
-"Settings.FxA.Title" = "Account Firefox";
+"Settings.FxA.Title" = "Account Qwant";
 
 /* General settings section title */
 "Settings.General.SectionName" = "Generale";
 
 /* In the settings menu, on the Firefox homepage customization section, this is the description below the section, describing what the options in the section are for. */
-"Settings.Home.Option.Description" = "Scegli quali contenuti visualizzare nella pagina iniziale di Firefox.";
+"Settings.Home.Option.Description" = "Scegli quali contenuti visualizzare nella pagina iniziale di Qwant.";
 
 /* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle the Jump Back In section on homepage on or off */
 "Settings.Home.Option.JumpBackIn" = "Torna a questa scheda";
@@ -1521,14 +1488,14 @@
 /* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to turn the Pocket Recommendations section on the Firefox homepage on or off */
 "Settings.Home.Option.Pocket" = "Consigliati da Pocket";
 
+/* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle Recent Searches section on the Firefox homepage on or off */
+"Settings.Home.Option.RecentSearches" = "Ricerche recenti";
+
 /* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle Recently Saved section on the Firefox homepage on or off */
 "Settings.Home.Option.RecentlySaved" = "Aggiunti di recente";
 
 /* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle Recently Visited section on the Firfox homepage on or off */
 "Settings.Home.Option.RecentlyVisited" = "Visitati di recente";
-
-/* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle Recent Searches section on the Firefox homepage on or off */
-"Settings.Home.Option.RecentSearches" = "Ricerche recenti";
 
 /* In the settings menu, in the Firefox homepage customization section, this is the title for the option that allows users to toggle Shortcuts section on the Firefox homepage on or off */
 "Settings.Home.Option.Shortcuts" = "Scorciatoie";
@@ -1540,7 +1507,7 @@
 "Settings.Home.Option.StartAtHome.Always" = "Pagina iniziale";
 
 /* In the settings menu, in the Start at Home customization options, this is text that appears below the section, describing what the section settings do. */
-"Settings.Home.Option.StartAtHome.Description" = "Scegli quali elementi visualizzare quando riapri Firefox.";
+"Settings.Home.Option.StartAtHome.Description" = "Scegli quali elementi visualizzare quando riapri Qwant.";
 
 /* In the settings menu, on the Start at Home homepage customization option, this allows users to set this setting to return to the last tab they were on, every time they open up Firefox */
 "Settings.Home.Option.StartAtHome.Never" = "Ultima scheda";
@@ -1549,7 +1516,7 @@
 "Settings.Home.Option.StartAtHome.Title" = "Schermata di apertura";
 
 /* In the settings menu, this is the title of the Firefox Homepage customization settings section */
-"Settings.Home.Option.Title" = "Pagina iniziale di Firefox";
+"Settings.Home.Option.Title" = "Pagina iniziale di Qwant";
 
 /* Button in settings to clear the home page. */
 "Settings.HomePage.Clear.Button" = "Reimposta";
@@ -1600,10 +1567,10 @@
 "Settings.NewTab.Option.CustomizeFooter2" = "Siti che hai salvato o visitato";
 
 /* The title for the section to customize top sites in the new tab settings page. */
-"Settings.NewTab.Option.CustomizeTitle" = "Personalizza pagina iniziale di Firefox";
+"Settings.NewTab.Option.CustomizeTitle" = "Personalizza pagina iniziale di Qwant";
 
 /* Option in settings to show Firefox Home when you open a new tab */
-"Settings.NewTab.Option.FirefoxHome" = "Pagina iniziale di Firefox";
+"Settings.NewTab.Option.FirefoxHome" = "Pagina iniziale di Qwant";
 
 /* Option in the settings to turn off recent bookmarks in the Highlights section */
 "Settings.NewTab.Option.HighlightsBookmarks" = "Segnalibri recenti";
@@ -1645,7 +1612,7 @@
 "Settings.NewTab.TopSectionNameFooter" = "Scegli cosa caricare all’apertura di una nuova scheda";
 
 /* Description displayed under the ”Offer to Open Copied Link” option. See https://bug1223660.bmoattachments.org/attachment.cgi?id=8898349 */
-"Settings.OfferClipboardBar.Status" = "All’apertura di Firefox";
+"Settings.OfferClipboardBar.Status" = "All’apertura di Qwant";
 
 /* Title of setting to enable the Go to Copied URL feature. See https://bug1223660.bmoattachments.org/attachment.cgi?id=8898349 */
 "Settings.OfferClipboardBar.Title" = "Chiedi se aprire i link copiati";
@@ -1669,7 +1636,7 @@
 "Settings.SendUsage.Link" = "Ulteriori informazioni.";
 
 /* A short description that explains why mozilla collects usage data. */
-"Settings.SendUsage.Message" = "Mozilla si impegna a raccogliere solo i dati necessari a fornire e migliorare Firefox per tutti gli utenti.";
+"Settings.SendUsage.Message" = "Qwant si impegna a raccogliere solo i dati necessari a fornire e migliorare la navigazione per tutti gli utenti.";
 
 /* The title for the setting to send usage data. */
 "Settings.SendUsage.Title" = "Invia dati sull’uso";
@@ -1687,7 +1654,7 @@
 "Settings.Siri.OpenTabShortcut" = "Apri nuova scheda";
 
 /* The description that describes what siri shortcuts are */
-"Settings.Siri.SectionDescription" = "Utilizza Siri per aprire velocemente Firefox";
+"Settings.Siri.SectionDescription" = "Utilizza Siri per aprire velocemente Qwant";
 
 /* The option that takes you to the siri shortcuts settings page */
 "Settings.Siri.SectionName" = "Comandi di Siri";
@@ -1711,7 +1678,7 @@
 "Settings.Studies.Toggle.Link" = "Ulteriori informazioni.";
 
 /* A short description that explains that Mozilla is running studies */
-"Settings.Studies.Toggle.Message" = "Firefox può installare e condurre degli studi di tanto in tanto.";
+"Settings.Studies.Toggle.Message" = "Qwant può installare e condurre degli studi di tanto in tanto.";
 
 /* Toggled OFF to opt-out of studies */
 "Settings.Studies.Toggle.Off" = "Disattivato";
@@ -1744,7 +1711,7 @@
 "Settings.TrackingProtection.Alert.Title" = "Attenzione";
 
 /* Header description for tracking protection options section where Basic/Strict block list can be selected */
-"Settings.TrackingProtection.BlockListsHeader" = "Scegli l’elenco da utilizzare in Firefox per bloccare gli elementi in grado di tracciare la navigazione.";
+"Settings.TrackingProtection.BlockListsHeader" = "Scegli l’elenco da utilizzare in Qwant per bloccare gli elementi in grado di tracciare la navigazione.";
 
 /* Explanation of basic mode. */
 "Settings.TrackingProtection.Info.BasicTitle" = "Equilibrio tra protezione e prestazioni.";
@@ -1855,16 +1822,16 @@
 "ShareExtension.LoadInBackgroundAction.Title" = "Carica in background";
 
 /* Share extension label shown after user has performed 'Load in Background' action. */
-"ShareExtension.LoadInBackgroundActionDone.Title" = "Caricamento in Firefox";
+"ShareExtension.LoadInBackgroundActionDone.Title" = "Caricamento in Qwant";
 
 /* Action label on share extension to immediately open page in Firefox. */
-"ShareExtension.OpenInFirefoxAction.Title" = "Apri in Firefox";
+"ShareExtension.OpenInFirefoxAction.Title" = "Apri in Qwant";
 
 /* Action label on share extension to immediately open page in Firefox in private mode. */
 "ShareExtension.OpenInPrivateModeAction.Title" = "Apri in modalità anonima";
 
 /* Action label on share extension to search for the selected text in Firefox. */
-"ShareExtension.SeachInFirefoxAction.Title" = "Cerca in Firefox";
+"ShareExtension.SeachInFirefoxAction.Title" = "Cerca in Qwant";
 
 /* Label for show search suggestions setting. */
 "Show Search Suggestions" = "Visualizza suggerimenti";
@@ -1901,16 +1868,13 @@
 "Sync.FirstTimeMessage.Label" = "La prima sincronizzazione potrebbe richiedere un po’ di tempo";
 
 /* String displayed on Sign In to Sync page that allows the user to create a new account. */
-"Sync.NoAccount.Description" = "Non hai un account? Creane uno per sincronizzare Firefox tra vari dispositivi.";
+"Sync.NoAccount.Description" = "Non hai un account? Creane uno per sincronizzare Qwant tra vari dispositivi.";
 
 /* Message displayed when the user's account is syncing with no ellipsis */
 "Sync.Syncing.Label" = "Sincronizzazione";
 
 /* Message displayed when the user's account is syncing with ellipsis at the end */
 "Sync.SyncingEllipsis.Label" = "Sincronizzazione…";
-
-/* Panel accessibility label */
-"Synced Tabs" = "Schede sincronizzate";
 
 /* The Bookmark sync component, used in SyncState.Partial.Title */
 "SyncState.Bookmark.Title" = "Segnalibri";
@@ -1939,26 +1903,14 @@
 /* The Tabs sync component, used in SyncState.Partial.Title */
 "SyncState.Tabs.Title" = "Schede";
 
+/* Panel accessibility label */
+"Synced Tabs" = "Schede sincronizzate";
+
 /* Message spoken by VoiceOver saying the position of the single currently visible tab in Tabs Tray, along with the total number of tabs. E.g. \"Tab 2 of 5\" says that tab 2 is visible (and is the only visible tab), out of 5 tabs total. */
 "Tab %@ of %@" = "Scheda %1$@ di %2$@";
 
 /* Hardware shortcut to open the tab tray from a tab. Shown in the Discoverability overlay when the hardware Command Key is held down. */
 "Tab.ShowTabTray.KeyCodeTitle" = "Mostra tutte le schede";
-
-/* Message spoken by VoiceOver saying the range of tabs that are currently visible in Tabs Tray, along with the total number of tabs. E.g. \"Tabs 8 to 10 of 15\" says tabs 8, 9 and 10 are visible, out of 15 tabs total. */
-"Tabs %@ to %@ of %@" = "Schede da %1$@ a %2$@ di %3$@";
-
-/* Accessibility label for the Tabs Tray view. */
-"Tabs Tray" = "Barra delle schede";
-
-/* The button to undo the delete all tabs */
-"Tabs.DeleteAllUndo.Button" = "Annulla";
-
-/* The label indicating that all the tabs were closed */
-"Tabs.DeleteAllUndo.Title" = "Schede chiuse: %d";
-
-/* The placeholder text for the tab search bar */
-"Tabs.Search.PlaceholderText" = "Ricerca schede";
 
 /* Accessibility label for the Add Tab button in the Tab Tray. */
 "TabTray.AddTab.Button" = "Aggiungi scheda";
@@ -2026,6 +1978,21 @@
 /* The section header for tabs opened yesterday */
 "TabTray.Yesterday.Header" = "Ieri";
 
+/* Message spoken by VoiceOver saying the range of tabs that are currently visible in Tabs Tray, along with the total number of tabs. E.g. \"Tabs 8 to 10 of 15\" says tabs 8, 9 and 10 are visible, out of 15 tabs total. */
+"Tabs %@ to %@ of %@" = "Schede da %1$@ a %2$@ di %3$@";
+
+/* Accessibility label for the Tabs Tray view. */
+"Tabs Tray" = "Barra delle schede";
+
+/* The button to undo the delete all tabs */
+"Tabs.DeleteAllUndo.Button" = "Annulla";
+
+/* The label indicating that all the tabs were closed */
+"Tabs.DeleteAllUndo.Title" = "Schede chiuse: %d";
+
+/* The placeholder text for the tab search bar */
+"Tabs.Search.PlaceholderText" = "Ricerca schede";
+
 /* Message displayed when the reader mode page could not be loaded. This message will appear only when sharing to Firefox reader mode from another app. */
 "The page could not be displayed in Reader View." = "Impossibile visualizzare la pagina in Modalità lettura.";
 
@@ -2034,9 +2001,6 @@
 
 /* Error displayed when reader mode cannot be enabled */
 "There was an error converting the page" = "Si è verificato un errore durante la conversione della pagina";
-
-/* Relative date for date in past week. */
-"this week" = "questa settimana";
 
 /* label for Not Now button */
 "Toasts.NotNow" = "Non ora";
@@ -2049,9 +2013,6 @@
 
 /* History tableview section header */
 "Today" = "Oggi";
-
-/* Relative date for date older than a minute. */
-"today at %@" = "oggi alle %@";
 
 /* Accessibility label for the Menu button. */
 "Toolbar.Menu.AccessibilityLabel" = "Menu";
@@ -2084,13 +2045,10 @@
 "UIMenuItem.PasteGo" = "Incolla e Vai";
 
 /* Search in New Tab Text selection menu item */
-"UIMenuItem.SearchWithFirefox" = "Cerca con Firefox";
-
-/* Accessibility label for unread article in reading list. It's a past participle - functions as an adjective. */
-"unread" = "non letto";
+"UIMenuItem.SearchWithFirefox" = "Cerca con Qwant";
 
 /* Text message in the settings table view */
-"Upgrade Firefox to connect" = "Aggiorna Firefox per connetterti";
+"Upgrade Firefox to connect" = "Aggiorna Qwant per connetterti";
 
 /* Debug option */
 "Use stage servers" = "Usa i server di test";
@@ -2116,18 +2074,69 @@
 /* Tile title for Wikipedia */
 "Wikipedia" = "Wikipedia";
 
-/* Relative date for yesterday. */
-"yesterday" = "ieri";
-
 /* History tableview section header */
 "Yesterday" = "Ieri";
 
 /* Error message in the remote tabs panel */
-"You don’t have any tabs open in Firefox on your other devices." = "Non risulta alcuna scheda aperta in Firefox negli altri dispositivi.";
+"You don’t have any tabs open in Firefox on your other devices." = "Non risulta alcuna scheda aperta in Qwant negli altri dispositivi.";
+
+/* Tile title for YouTube */
+"YouTube" = "YouTube";
 
 /* Your Rights settings section title */
 "Your Rights" = "I tuoi diritti";
 
-/* Tile title for YouTube */
-"YouTube" = "YouTube";
+/* Accessibility label for Desktop Computer (PC) image in remote tabs list */
+"computer" = "computer";
+
+/* Instructions shown on qr code scanning view */
+"fxa.qr-scanning-view.instructions" = "Scansiona il codice QR visualizzato su qwant.com/pair";
+
+/* FxA sign in view subtitle */
+"fxa.signin.camera-signin" = "Accedi con la fotocamera";
+
+/* FxA sign in create account label. */
+"fxa.signin.create-account-pt-1" = "Sincronizza Qwant tra vari dispositivi con un account.";
+
+/* FxA sign in create account label. This will be linked to the site to create an account. */
+"fxa.signin.create-account-pt-2" = "Crea un account Qwant.";
+
+/* FxA sign in view qr code instructions */
+"fxa.signin.qr-link-instruction" = "Apri Qwant sul computer e vai all’indirizzo qwant.com/pair";
+
+/* FxA sign in view qr code scan button */
+"fxa.signin.ready-to-scan" = "Pronto per la scansione";
+
+/* FxA sign in view title */
+"fxa.signin.turn-on-sync" = "Attiva Sync";
+
+/* FxA sign in view email login button */
+"fxa.signin.use-email-instead" = "Accedi con l’email";
+
+/* Relative time for a tab that was visited within the last few moments. */
+"just now" = "adesso";
+
+/* Accessibility label for Mobile Device image in remote tabs list */
+"mobile device" = "dispositivo mobile";
+
+/* Relative date for dates older than a month and less than two months. */
+"more than a month ago" = "più di un mese fa";
+
+/* Description for a date more than a week ago, but less than a month ago. */
+"more than a week ago" = "più di una settimana fa";
+
+/* Accessibility label for read article in reading list. It's a past participle - functions as an adjective. */
+"read" = "letto";
+
+/* Relative date for date in past week. */
+"this week" = "questa settimana";
+
+/* Relative date for date older than a minute. */
+"today at %@" = "oggi alle %@";
+
+/* Accessibility label for unread article in reading list. It's a past participle - functions as an adjective. */
+"unread" = "non letto";
+
+/* Relative date for yesterday. */
+"yesterday" = "ieri";
 
