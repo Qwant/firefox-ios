@@ -16,12 +16,23 @@ class IntroViewController: UIViewController, OnViewDismissable {
         welcomeCardView.clipsToBounds = true
         return welcomeCardView
     }()
-    private lazy var syncCard: IntroScreenSyncView = {
-        let syncCardView = IntroScreenSyncView()
-        syncCardView.translatesAutoresizingMaskIntoConstraints = false
-        syncCardView.clipsToBounds = true
-        return syncCardView
+    private lazy var efficiencyCard: IntroScreenEfficiencyView = {
+        let efficiencyCardView = IntroScreenEfficiencyView()
+        efficiencyCardView.clipsToBounds = true
+        return efficiencyCardView
     }()
+    private lazy var privacyCard: IntroScreenPrivacyView = {
+        let privacyCardView = IntroScreenPrivacyView()
+        privacyCardView.clipsToBounds = true
+        return privacyCardView
+    }()
+
+//    private lazy var syncCard: IntroScreenSyncView = {
+//        let syncCardView = IntroScreenSyncView()
+//        syncCardView.translatesAutoresizingMaskIntoConstraints = false
+//        syncCardView.clipsToBounds = true
+//        return syncCardView
+//    }()
     // Closure delegate
     var didFinishClosure: ((IntroViewController, FxAPageType?) -> Void)?
     
@@ -53,12 +64,16 @@ class IntroViewController: UIViewController, OnViewDismissable {
     //onboarding intro view
     private func setupIntroView() {
         // Initialize
-        view.addSubview(syncCard)
+//        view.addSubview(syncCard)
+        view.addSubview(efficiencyCard)
+        view.addSubview(privacyCard)
         view.addSubview(welcomeCard)
         
         // Constraints
         setupWelcomeCard()
-        setupSyncCard()
+        setupPrivacyCard()
+        setupEfficiencyCard()
+//        setupSyncCard()
     }
     
     private func setupWelcomeCard() {
@@ -83,32 +98,69 @@ class IntroViewController: UIViewController, OnViewDismissable {
         welcomeCard.closeClosure = {
             self.didFinishClosure?(self, nil)
         }
-        // Sign in button closure
-        welcomeCard.signInClosure = {
-            self.didFinishClosure?(self, .emailLoginFlow)
+//        // Sign in button closure
+//        welcomeCard.signInClosure = {
+//            self.didFinishClosure?(self, .emailLoginFlow)
+//        }
+//        // Sign up button closure
+//        welcomeCard.signUpClosure = {
+//            self.didFinishClosure?(self, .emailLoginFlow)
+//        }
+    }
+    
+    private func setupPrivacyCard() {
+        // Constraints
+        privacyCard.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        // Sign up button closure
-        welcomeCard.signUpClosure = {
-            self.didFinishClosure?(self, .emailLoginFlow)
+        // Buton action closures
+        // Next button action
+        privacyCard.nextClosure = {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.privacyCard.alpha = 0
+            }) { _ in
+                self.privacyCard.isHidden = true
+            }
+        }
+        // Close button action
+        privacyCard.closeClosure = {
+            self.didFinishClosure?(self, nil)
         }
     }
     
-    private func setupSyncCard() {
-        NSLayoutConstraint.activate([
-            syncCard.topAnchor.constraint(equalTo: view.topAnchor),
-            syncCard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            syncCard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            syncCard.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        // Start browsing button action
-        syncCard.startBrowsing = {
+    private func setupEfficiencyCard() {
+        // Constraints
+        efficiencyCard.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        // Buton action closures
+        // Next button action
+        efficiencyCard.nextClosure = {
             self.didFinishClosure?(self, nil)
         }
-        // Sign-up browsing button action
-        syncCard.signUp = {
-            self.didFinishClosure?(self, .emailLoginFlow)
+        // Close button action
+        efficiencyCard.closeClosure = {
+            self.didFinishClosure?(self, nil)
         }
     }
+    
+//    private func setupSyncCard() {
+//        NSLayoutConstraint.activate([
+//            syncCard.topAnchor.constraint(equalTo: view.topAnchor),
+//            syncCard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            syncCard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            syncCard.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        ])
+//        // Start browsing button action
+//        syncCard.startBrowsing = {
+//            self.didFinishClosure?(self, nil)
+//        }
+//        // Sign-up browsing button action
+//        syncCard.signUp = {
+//            self.didFinishClosure?(self, .emailLoginFlow)
+//        }
+//    }
 }
 
 // MARK: UIViewController setup

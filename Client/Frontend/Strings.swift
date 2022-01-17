@@ -1097,6 +1097,15 @@ extension String {
     public static let IntroSignUpButtonTitle = MZLocalizedString("Intro.Slides.Button.SignUp", tableName: "Intro", value: "Sign Up", comment: "Sign up to Firefox account button on second intro screen.", lastUpdated: .unknown)
 }
 
+extension String {
+    public static let CardTitleWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Title", tableName: "Intro", value: "Welcome on Qwant mobile !", comment: "Title for the first panel 'Welcome' in the First Run tour.")
+    public static let CardTitlePrivacy = NSLocalizedString("Intro.Slides.Privacy.Title", tableName: "Intro", value: "Your life stays private", comment: "Title for the second panel 'Privacy' in the First Run tour.")
+    public static let CardTitleEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Title", tableName: "Intro", value: "Fast and efficient searches", comment: "Title for the third panel 'Efficiency' in the First Run tour.")
+    public static let CardTextWelcome2 = NSLocalizedString("Intro.Slides.Welcome2.Description", tableName: "Intro", value: "With Qwant mobile, navigate quickly and enjoy the browser which respect your privacy", comment: "Description for the 'Welcome' panel in the First Run tour.")
+    public static let CardTextPrivacy = NSLocalizedString("Intro.Slides.Privacy.Description", tableName: "Intro", value: "Qwant neither look the site you visit nor your researshes. It fight again ad tracking and stays neutral", comment: "Description for the 'Privacy' panel in the First Run tour.")
+    public static let CardTextEfficiency = NSLocalizedString("Intro.Slides.Efficiency.Description", tableName: "Intro", value: "Qwant delivers the best results intantaneously. Search everything, freely", comment: "Description for the 'Efficiency' panel in the First Run tour.")
+}
+
 // MARK: - Share extension
 extension String {
     public static let SendToCancelButton = MZLocalizedString("SendTo.Cancel.Button", value: "Cancel", comment: "Button title for cancelling share screen", lastUpdated: .unknown)
@@ -1236,6 +1245,7 @@ extension String {
 
     // Quick Action - Small Size Widget - Edit Mode
     public static let QuickActionDescription = MZLocalizedString("TodayWidget.QuickActionDescription", tableName: "Today", value: "Select a Firefox shortcut to add to your Home screen.", comment: "Quick action description when widget enters edit mode", lastUpdated: .unknown)
+    public static let QuickActionTitle = MZLocalizedString("TodayWidget.QuickActionTitle", tableName: "Today", value: "Quick Link Selection", comment: "Quick link action title", lastUpdated: .unknown)
     public static let QuickActionDropDownMenu = MZLocalizedString("TodayWidget.QuickActionDropDownMenu", tableName: "Today", value: "Quick action", comment: "Quick Actions left label text for dropdown menu when widget enters edit mode", lastUpdated: .unknown)
     public static let DropDownMenuItemNewSearch = MZLocalizedString("TodayWidget.DropDownMenuItemNewSearch", tableName: "Today", value: "New Search", comment: "Quick Actions drop down menu item for new search when widget enters edit mode and drop down menu expands", lastUpdated: .unknown)
     public static let DropDownMenuItemNewPrivateSearch = MZLocalizedString("TodayWidget.DropDownMenuItemNewPrivateSearch", tableName: "Today", value: "New Private Search", comment: "Quick Actions drop down menu item for new private search when widget enters edit mode and drop down menu expands", lastUpdated: .unknown)

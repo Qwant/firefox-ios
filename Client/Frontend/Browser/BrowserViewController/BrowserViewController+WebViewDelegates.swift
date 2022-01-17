@@ -348,7 +348,7 @@ extension BrowserViewController: WKNavigationDelegate {
     // leave a 'Back to Safari' button in the status bar, which we do not want.
     fileprivate func isStoreURL(_ url: URL) -> Bool {
         if url.scheme == "http" || url.scheme == "https" || url.scheme == "itms-apps" {
-            if url.host == "itunes.apple.com" {
+            if url.host == "itunes.apple.com" || url.host == "apps.apple.com" {
                 return true
             }
         }

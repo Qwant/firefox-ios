@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "back-panel-home.png",
+      "filename" : "iOs-Favicon-30.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "back-panel-home@2x.png",
+      "filename" : "iOs-Favicon-60.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "back-panel-home@3x.png",
+      "filename" : "iOs-Favicon-90.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

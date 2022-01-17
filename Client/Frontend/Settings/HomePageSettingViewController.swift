@@ -90,8 +90,8 @@ class HomePageSettingViewController: SettingsTableViewController, FeatureFlagsPr
         // Setup
         var sectionItems = [Setting]()
 
-        let pocketSetting = BoolSetting(with: .pocket,
-                                        titleText: NSAttributedString(string: .Settings.Homepage.CustomizeFirefoxHome.Pocket))
+//        let pocketSetting = BoolSetting(with: .pocket,
+//                                        titleText: NSAttributedString(string: .Settings.Homepage.CustomizeFirefoxHome.Pocket))
 
         let jumpBackInSetting = BoolSetting(with: .jumpBackIn,
                                             titleText: NSAttributedString(string: .Settings.Homepage.CustomizeFirefoxHome.JumpBackIn))
@@ -117,7 +117,7 @@ class HomePageSettingViewController: SettingsTableViewController, FeatureFlagsPr
             sectionItems.append(historyHighlightsSetting)
         }
 
-        sectionItems.append(pocketSetting)
+//        sectionItems.append(pocketSetting)
 
         return SettingSection(title: NSAttributedString(string: .SettingsTopSitesCustomizeTitle),
                               footerTitle: NSAttributedString(string: .Settings.Homepage.CustomizeFirefoxHome.Description),

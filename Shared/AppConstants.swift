@@ -5,8 +5,8 @@
 import UIKit
 
 public enum AppName: String, CustomStringConvertible {
-    case shortName = "Firefox"
-    case longName = "Firefox Daylight"
+    case shortName = "Qwant"
+    case longName = "Qwant Browser"
 
     public var description: String {
         return self.rawValue
@@ -46,15 +46,7 @@ public struct AppConstants {
 
     /// Build Channel.
     public static let BuildChannel: AppBuildChannel = {
-        #if MOZ_CHANNEL_RELEASE
             return AppBuildChannel.release
-        #elseif MOZ_CHANNEL_BETA
-            return AppBuildChannel.beta
-        #elseif MOZ_CHANNEL_FENNEC
-            return AppBuildChannel.developer
-        #else
-            return AppBuildChannel.other
-        #endif
     }()
 
     public static let scheme: String = {

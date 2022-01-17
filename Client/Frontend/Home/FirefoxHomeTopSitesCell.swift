@@ -130,10 +130,14 @@ class TopSiteItemCell: UICollectionViewCell, NotificationThemeable {
     func configureWithTopSiteItem(_ site: Site) {
         url = site.tileURL
 
-        if let provider = site.metadata?.providerName {
-            titleLabel.text = provider.lowercased()
+        if site.title.contains("Qwant") {
+            titleLabel.text = site.title
         } else {
-            titleLabel.text = site.tileURL.shortDisplayString
+            if let provider = site.metadata?.providerName {
+                titleLabel.text = provider.lowercased()
+            } else {
+                titleLabel.text = site.tileURL.shortDisplayString
+            }
         }
 
         let words = titleLabel.text?.components(separatedBy: NSCharacterSet.whitespacesAndNewlines).count

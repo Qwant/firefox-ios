@@ -51,6 +51,7 @@ DerivedData
 # content blocking lists
 content-blocker-lib-ios/Lists/*
 
+/ios-l10n-scripts
 #python environment
 python-env/
 

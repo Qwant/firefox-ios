@@ -19,13 +19,15 @@ open class UserAgent {
     private static var defaults = UserDefaults(suiteName: AppInfo.sharedContainerIdentifier)!
 
     private static func clientUserAgent(prefix: String) -> String {
-        let versionStr: String
-        if AppInfo.appVersion != "0.0.1" {
-            versionStr = "\(AppInfo.appVersion)b\(AppInfo.buildNumber)"
-        } else {
-            versionStr = "dev"
-        }
-        return "\(prefix)/\(versionStr) (\(DeviceInfo.deviceModel()); iPhone OS \(UIDevice.current.systemVersion)) (\(AppInfo.displayName))"
+//        let versionStr: String
+//        if AppInfo.appVersion != "0.0.1" {
+//            versionStr = "\(AppInfo.appVersion)b\(AppInfo.buildNumber)"
+//        } else {
+//            versionStr = "dev"
+//        }
+//        return "\(prefix)/\(versionStr) (\(DeviceInfo.deviceModel()); iPhone OS \(UIDevice.current.systemVersion)) (\(AppInfo.displayName))"
+        return ""
+//        return "\(prefix)/\(AppInfo.appVersion)b\(AppInfo.buildNumber) (\(DeviceInfo.deviceModel()); iPhone OS \(UIDevice.current.systemVersion)) (\(AppInfo.displayName))"
     }
 
     public static var syncUserAgent: String {
@@ -44,6 +46,17 @@ open class UserAgent {
         return clientUserAgent(prefix: "Firefox-iOS")
     }
 
+//    public static func defaultUserAgent() -> String {
+//        // As of iOS 13 using a hidden webview method does not return the correct UA on
+//        // iPad (it returns mobile UA). We should consider that method no longer reliable.
+//        /* if UIDevice.current.userInterfaceIdiom == .pad {
+//            return desktopUserAgent()
+//        } else {
+//            return mobileUserAgent()
+//        } */
+//        return mobileUserAgent()
+//    }
+
     public static func isDesktop(ua: String) -> Bool {
         return ua.lowercased().contains("intel mac")
     }
@@ -53,7 +66,9 @@ open class UserAgent {
     }
 
     public static func mobileUserAgent() -> String {
-        return UserAgentBuilder.defaultMobileUserAgent().userAgent()
+//        return UserAgentBuilder.defaultMobileUserAgent().userAgent()
+        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605 (KHTML, like Gecko) Mobile/15E148 Safari/605 QwantMobile/3.0"
+//        return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/\(AppInfo.appVersion) Mobile/15E148 Safari/605.1.15"
     }
 
     public static func oppositeUserAgent(domain: String) -> String {
@@ -135,7 +150,8 @@ public struct UserAgentBuilder {
     }
 
     public static func defaultMobileUserAgent() -> UserAgentBuilder {
-        return UserAgentBuilder(product: UserAgent.product, systemInfo: "(\(UIDevice.current.model); CPU iPhone OS \(UIDevice.current.systemVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X)", platform: UserAgent.platform, platformDetails: UserAgent.platformDetails, extensions: "FxiOS/\(AppInfo.appVersion)  \(UserAgent.uaBitMobile) \(UserAgent.uaBitSafari)")
+//        return UserAgentBuilder(product: UserAgent.product, systemInfo: "(\(UIDevice.current.model); CPU OS \(UIDevice.current.systemVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X)", platform: UserAgent.platform, platformDetails: UserAgent.platformDetails, extensions: "FxiOS/\(AppInfo.appVersion)  \(UserAgent.uaBitMobile) \(UserAgent.uaBitSafari)")
+        return UserAgentBuilder(product: "product", systemInfo: "sysinfo", platform: "plateform", platformDetails: "plateform details", extensions: "extensions")
     }
 
     public static func defaultDesktopUserAgent() -> UserAgentBuilder {

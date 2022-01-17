@@ -134,27 +134,27 @@ extension PhotonActionSheetProtocol where Self: FeatureFlagsProtocol {
             TelemetryWrapper.recordEvent(category: .action, method: .tap, object: .removePinnedSite)
         }
 
-        let sendToDevice = PhotonActionSheetItem(title: .SendLinkToDeviceTitle,
-                                                 iconString: "menu-Send-to-Device") { _,_  in
-            guard let bvc = presentableVC as? PresentableVC & InstructionsViewControllerDelegate & DevicePickerViewControllerDelegate else { return }
-            if !self.profile.hasAccount() {
-                let instructionsViewController = InstructionsViewController()
-                instructionsViewController.delegate = bvc
-                let navigationController = UINavigationController(rootViewController: instructionsViewController)
-                navigationController.modalPresentationStyle = .formSheet
-                bvc.present(navigationController, animated: true, completion: nil)
-                return
-            }
-
-            let devicePickerViewController = DevicePickerViewController()
-            devicePickerViewController.pickerDelegate = bvc
-            devicePickerViewController.profile = self.profile
-            devicePickerViewController.profileNeedsShutdown = false
-            let navigationController = UINavigationController(rootViewController: devicePickerViewController)
-            navigationController.modalPresentationStyle = .formSheet
-            TelemetryWrapper.recordEvent(category: .action, method: .tap, object: .sendToDevice)
-            bvc.present(navigationController, animated: true, completion: nil)
-        }
+//        let sendToDevice = PhotonActionSheetItem(title: .SendLinkToDeviceTitle,
+//                                                 iconString: "menu-Send-to-Device") { _,_  in
+//            guard let bvc = presentableVC as? PresentableVC & InstructionsViewControllerDelegate & DevicePickerViewControllerDelegate else { return }
+//            if !self.profile.hasAccount() {
+//                let instructionsViewController = InstructionsViewController()
+//                instructionsViewController.delegate = bvc
+//                let navigationController = UINavigationController(rootViewController: instructionsViewController)
+//                navigationController.modalPresentationStyle = .formSheet
+//                bvc.present(navigationController, animated: true, completion: nil)
+//                return
+//            }
+//
+//            let devicePickerViewController = DevicePickerViewController()
+//            devicePickerViewController.pickerDelegate = bvc
+//            devicePickerViewController.profile = self.profile
+//            devicePickerViewController.profileNeedsShutdown = false
+//            let navigationController = UINavigationController(rootViewController: devicePickerViewController)
+//            navigationController.modalPresentationStyle = .formSheet
+//            TelemetryWrapper.recordEvent(category: .action, method: .tap, object: .sendToDevice)
+//            bvc.present(navigationController, animated: true, completion: nil)
+//        }
 
         let sharePage = PhotonActionSheetItem(title: .ShareContextMenuTitle, iconString: "action_share") { _,_  in
             guard let url = tab.canonicalURL?.displayURL else { return }
@@ -196,7 +196,7 @@ extension PhotonActionSheetProtocol where Self: FeatureFlagsProtocol {
             section1.insert((isBookmarked ? removeBookmark : bookmarkPage), at: 0)
         }
 
-        section3.insert(contentsOf: [copyURL, sendToDevice], at: 0)
+        section3.insert(contentsOf: [copyURL/*, sendToDevice*/], at: 0)
 
         // Disable find in page and report site issue if document is pdf.
         if tab.mimeType != MIMEType.PDF {

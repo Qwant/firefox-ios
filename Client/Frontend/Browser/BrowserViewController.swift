@@ -655,11 +655,12 @@ class BrowserViewController: UIViewController {
     // upgrade, downgrades are not possible, so we can show the What's New page.
 
     func shouldShowWhatsNew() -> Bool {
-        guard let latestMajorAppVersion = profile.prefs.stringForKey(LatestAppVersionProfileKey)?.components(separatedBy: ".").first else {
-            return false // Clean install, never show What's New
-        }
-
-        return latestMajorAppVersion != AppInfo.majorAppVersion && DeviceInfo.hasConnectivity()
+        return false
+//        guard let latestMajorAppVersion = profile.prefs.stringForKey(LatestAppVersionProfileKey)?.components(separatedBy: ".").first else {
+//            return false // Clean install, never show What's New
+//        }
+//
+//        return latestMajorAppVersion != AppInfo.majorAppVersion && DeviceInfo.hasConnectivity()
     }
 
     fileprivate func showQueuedAlertIfAvailable() {
@@ -942,7 +943,7 @@ class BrowserViewController: UIViewController {
         }
 
         let shareItem = ShareItem(url: url, title: title, favicon: favicon)
-        profile.places.createBookmark(parentGUID: "mobile______", url: shareItem.url, title: shareItem.title)
+        profile.places.createBookmark(parentGUID: BookmarkRoots.MobileFolderGUID, url: shareItem.url, title: shareItem.title)
 
         var userData = [QuickActions.TabURLKey: shareItem.url]
         if let title = shareItem.title {
@@ -1980,7 +1981,7 @@ extension BrowserViewController {
             dBOnboardingViewController.modalPresentationStyle = .popover
         }
         dBOnboardingViewController.viewModel.goToSettings = {
-            self.firefoxHomeViewController?.dismissDefaultBrowserCard()
+//            self.firefoxHomeViewController?.dismissDefaultBrowserCard()
             dBOnboardingViewController.dismiss(animated: true) {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
             }
@@ -2036,6 +2037,22 @@ extension BrowserViewController {
                     let fxaParams = FxALaunchParams(query: ["entrypoint": "firstrun"])
                     self.presentSignInViewController(fxaParams, flowType: flow, referringPage: .onboarding)
                 }
+
+//    func launchFxAFromDeeplinkURL(_ url: URL) {
+//        self.profile.prefs.removeObjectForKey("AdjustDeeplinkKey")
+//        var query = url.getQuery()
+//        query["entrypoint"] = "adjust_deepklink_ios"
+//        let fxaParams: FxALaunchParams
+//        fxaParams = FxALaunchParams(query: query)
+//        self.presentSignInViewController(fxaParams)
+//    }
+//
+//    func introViewControllerDidFinish(_ introViewController: IntroViewController, showLoginFlow: FxALoginFlow?) {
+//        self.profile.prefs.setInt(1, forKey: PrefsKeys.IntroSeen)
+//
+//        introViewController.dismiss(animated: true) {
+//            if self.navigationController?.viewControllers.count ?? 0 > 1 {
+//                _ = self.navigationController?.popToRootViewController(animated: true)
             }
         }
         self.introVCPresentHelper(introViewController: introViewController)

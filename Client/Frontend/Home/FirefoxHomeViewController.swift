@@ -193,9 +193,9 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel, FeatureF
         return customCell
     }()
 
-    lazy var defaultBrowserCard: DefaultBrowserCard = .build { card in
-        card.backgroundColor = UIColor.theme.homePanel.topSitesBackground
-    }
+//    lazy var defaultBrowserCard: DefaultBrowserCard = .build { card in
+//        card.backgroundColor = UIColor.theme.homePanel.topSitesBackground
+//    }
 
     var currentTab: Tab? {
         let tabManager = BrowserViewController.foregroundBVC().tabManager
@@ -332,24 +332,24 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel, FeatureF
         view.addSubview(contextualSourceView)
         contextualSourceView.backgroundColor = .clear
 
-        if #available(iOS 14.0, *), !UserDefaults.standard.bool(forKey: "DidDismissDefaultBrowserCard") {
-            self.view.addSubview(defaultBrowserCard)
-            NSLayoutConstraint.activate([
-                defaultBrowserCard.topAnchor.constraint(equalTo: view.topAnchor),
-                defaultBrowserCard.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
-                defaultBrowserCard.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                defaultBrowserCard.widthAnchor.constraint(equalToConstant: 380),
-
-                collectionView.topAnchor.constraint(equalTo: defaultBrowserCard.bottomAnchor),
-                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            ])
-
-            defaultBrowserCard.dismissClosure = {
-                self.dismissDefaultBrowserCard()
-            }
-        }
+//        if #available(iOS 14.0, *), !UserDefaults.standard.bool(forKey: "DidDismissDefaultBrowserCard") {
+//            self.view.addSubview(defaultBrowserCard)
+//            NSLayoutConstraint.activate([
+//                defaultBrowserCard.topAnchor.constraint(equalTo: view.topAnchor),
+//                defaultBrowserCard.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
+//                defaultBrowserCard.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//                defaultBrowserCard.widthAnchor.constraint(equalToConstant: 380),
+//
+//                collectionView.topAnchor.constraint(equalTo: defaultBrowserCard.bottomAnchor),
+//                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            ])
+//
+//            defaultBrowserCard.dismissClosure = {
+//                self.dismissDefaultBrowserCard()
+//            }
+//        }
 
         NSLayoutConstraint.activate([
             overlayView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -412,15 +412,15 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel, FeatureF
         applyTheme()
     }
 
-    public func dismissDefaultBrowserCard() {
-        self.defaultBrowserCard.removeFromSuperview()
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
+//    public func dismissDefaultBrowserCard() {
+//        self.defaultBrowserCard.removeFromSuperview()
+//        NSLayoutConstraint.activate([
+//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        ])
+//    }
 
     @objc func reload(notification: Notification) {
         switch notification.name {
@@ -432,7 +432,7 @@ class FirefoxHomeViewController: UICollectionViewController, HomePanel, FeatureF
     }
 
     func applyTheme() {
-        defaultBrowserCard.applyTheme()
+//        defaultBrowserCard.applyTheme()
         view.backgroundColor = UIColor.theme.homePanel.topSitesBackground
     }
 
@@ -1052,6 +1052,65 @@ extension FirefoxHomeViewController: DataObserverDelegate {
                                      value: nil,
                                      extras: extras)
     }
+
+    /* func getTopSites() -> Success {
+        let numRows = max(self.profile.prefs.intForKey(PrefsKeys.NumberOfTopSiteRows) ?? TopSitesRowCountSettingsController.defaultNumberOfRows, 1)
+        let maxItems = UIDevice.current.userInterfaceIdiom == .pad ? 32 : 16
+        return self.profile.history.getTopSitesWithLimit(maxItems).both(self.profile.history.getPinnedTopSites()).bindQueue(.main) { (topsites, pinnedSites) in
+            guard let mySites = topsites.successValue?.asArray(), let pinned = pinnedSites.successValue?.asArray() else {
+                return succeed()
+            }
+
+            // How sites are merged together. We compare against the url's base domain. example m.youtube.com is compared against `youtube.com`
+            let unionOnURL = { (site: Site) -> String in
+                if URL(string: site.url)?.shortDisplayString == "qwant" {
+                    return URL(string: site.url)?.absoluteString ?? ""
+                }
+                return URL(string: site.url)?.normalizedHost ?? ""
+            }
+
+            // Fetch the default sites
+            let defaultSites = self.defaultTopSites()
+            // create PinnedSite objects. used by the view layer to tell topsites apart
+            let pinnedSites: [Site] = pinned.map({ PinnedSite(site: $0) })
+
+            // Merge default topsites with a user's topsites.
+            let mergedSites = defaultSites.union(mySites, f: unionOnURL)
+            // Merge pinnedSites with sites from the previous step
+            let allSites = pinnedSites.union(mergedSites, f: unionOnURL)
+
+            // Favour topsites from defaultSites as they have better favicons. But keep PinnedSites
+            let newSites = allSites.map { site -> Site in
+                if let _ = site as? PinnedSite {
+                    return site
+                }
+                var domain = URL(string: site.url)?.shortDisplayString
+                if (domain == "qwant") {
+                    domain = URL(string: site.url)?.host
+                }
+                return defaultSites.find { $0.title.lowercased() == domain } ?? site
+            }
+
+            self.topSitesManager.currentTraits = self.view.traitCollection
+            let maxItems = Int(numRows) * self.topSitesManager.numberOfHorizontalItems()
+            if newSites.count > Int(ActivityStreamTopSiteCacheSize) {
+                self.topSitesManager.content = Array(newSites[0..<Int(ActivityStreamTopSiteCacheSize)])
+            } else {
+                self.topSitesManager.content = newSites
+            }
+
+            if newSites.count > maxItems {
+                self.topSitesManager.content =  Array(newSites[0..<maxItems])
+            }
+
+            self.topSitesManager.urlPressedHandler = { [unowned self] url, indexPath in
+                self.longPressRecognizer.isEnabled = false
+                self.showSiteWithURLHandler(url as URL)
+            }
+
+            return succeed()
+        }
+    } */
 
     // Invoked by the ActivityStreamDataObserver when highlights/top sites invalidation is complete.
     func didInvalidateDataSources(refresh forced: Bool, topSitesRefreshed: Bool) {

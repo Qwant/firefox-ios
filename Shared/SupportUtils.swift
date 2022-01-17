@@ -13,12 +13,7 @@ public struct SupportUtils {
         ///
         /// The resulting NSURL will include the app version, operating system and locale code. For example, a topic
         /// "cheese" will be turned into a link that looks like https://support.mozilla.org/1/mobile/2.0/iOS/en-US/cheese
-        guard let escapedTopic = topic.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-              let languageIdentifier = Locale.preferredLanguages.first
-        else {
-            return nil
-        }
-        return URL(string: "https://support.mozilla.org/1/mobile/\(AppInfo.appVersion)/iOS/\(languageIdentifier)/\(escapedTopic)")
+        return URL(string: "https://0.0.0.0/ShouldBeReplaced/" + topic)
     }
 
     public static func URLForReportSiteIssue(_ siteUrl: String?) -> URL? {

@@ -96,9 +96,9 @@ class TestAppDelegate: AppDelegate {
         }
         
         // Don't show the What's New page.
-        if launchArguments.contains(LaunchArguments.SkipWhatsNew) {
+//        if launchArguments.contains(LaunchArguments.SkipWhatsNew) {
             profile.prefs.setInt(1, forKey: PrefsKeys.KeyLastVersionNumber)
-        }
+//        }
 
         if launchArguments.contains(LaunchArguments.SkipDefaultBrowserOnboarding) {
             profile.prefs.setBool(true, forKey: PrefsKeys.KeyDidShowDefaultBrowserOnboarding)

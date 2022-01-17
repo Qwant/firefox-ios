@@ -112,7 +112,7 @@ class Pocket {
 
     // Returns nil if the locale is not supported
     static func IslocaleSupported(_ locale: String) -> Bool {
-        return SupportedLocales.contains(locale)
+        return false
     }
 
     // Create the URL request to query the Pocket API. The max items that the query can return is 20

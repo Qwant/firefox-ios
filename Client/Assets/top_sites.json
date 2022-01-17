@@ -1387,5 +1387,40 @@
     "image_url": "zillow-com.png",
     "background_color": "#98c554",
     "domain": "zillow.com"
+  },
+  {
+    "title": "qwant",
+    "url": "http://www.qwant.com/",
+    "image_url": "qwant-com.png",
+    "background_color": "#ffffff",
+    "domain": "qwant.com"
+  },
+  {
+    "title": "qwantjunior",
+    "url": "http://www.qwantjunior.com/",
+    "image_url": "qwantjunior-com.png",
+    "background_color": "#ffffff",
+    "domain": "qwantjunior.com"
+  },
+  {
+    "title": "qwantmusic",
+    "url": "http://www.qwant.com/music",
+    "image_url": "qwantmusic-com.png",
+    "background_color": "#ffffff",
+    "domain": "qwantmusic.com"
+  },
+  {
+    "title": "qwantboards",
+    "url": "http://boards.qwant.com/",
+    "image_url": "qwantboards-com.png",
+    "background_color": "#ffffff",
+    "domain": "qwantboards.com"
+  },
+  {
+    "title": "qwanthelp",
+    "url": "https://help.qwant.com/help/qwant-mobile/",
+    "image_url": "qwanthelp-com.png",
+    "background_color": "#ffffff",
+    "domain": "qwanthelp.com"
   }
 ]

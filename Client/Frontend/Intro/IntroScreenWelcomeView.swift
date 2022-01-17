@@ -20,14 +20,14 @@ class IntroScreenWelcomeView: UIView, CardTheme {
     private let screenSize = DeviceInfo.screenSizeOrientationIndependent()
     // Views
     private lazy var titleImageViewPage1: UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: "tour-Welcome"))
+        let imgView = UIImageView(image: UIImage(named: "tour-Welcome2"))
         imgView.contentMode = .center
         imgView.clipsToBounds = true
         return imgView
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = .CardTitleWelcome
+        label.text = .CardTitleWelcome2
         label.textColor = fxTextThemeColour
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .center
@@ -37,12 +37,12 @@ class IntroScreenWelcomeView: UIView, CardTheme {
     private lazy var subTitleLabelPage1: UILabel = {
         let fontSize: CGFloat = screenSize.width <= 320 ? 16 : 20
         let label = UILabel()
-        label.text = .CardTextWelcome
+        label.text = .CardTextWelcome2
         label.textColor = fxTextThemeColour
         label.font = UIFont.systemFont(ofSize: fontSize)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         return label
     }()
     private var closeButton: UIButton = {
@@ -51,32 +51,32 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         closeButton.tintColor = .secondaryLabel
         return closeButton
     }()
-    private lazy var signUpButton: UIButton = {
-        let button = UIButton()
-        button.accessibilityIdentifier = "signUpOnboardingButton"
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.Photon.Blue50
-        button.setTitle(.IntroSignUpButtonTitle, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.textAlignment = .center
-        return button
-    }()
-    private lazy var signInButton: UIButton = {
-        let button = UIButton()
-        button.accessibilityIdentifier = "signInOnboardingButton"
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.backgroundColor = .clear
-        button.setTitle(.IntroSignInButtonTitle, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitleColor(UIColor.Photon.Blue50, for: .normal)
-        button.titleLabel?.textAlignment = .center
-        return button
-    }()
+//    private lazy var signUpButton: UIButton = {
+//        let button = UIButton()
+//        button.accessibilityIdentifier = "signUpOnboardingButton"
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+//        button.layer.cornerRadius = 10
+//        button.backgroundColor = UIColor.Photon.Blue50
+//        button.setTitle(.IntroSignUpButtonTitle, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//        button.setTitleColor(.white, for: .normal)
+//        button.titleLabel?.textAlignment = .center
+//        return button
+//    }()
+//    private lazy var signInButton: UIButton = {
+//        let button = UIButton()
+//        button.accessibilityIdentifier = "signInOnboardingButton"
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+//        button.layer.cornerRadius = 10
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.backgroundColor = .clear
+//        button.setTitle(.IntroSignInButtonTitle, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//        button.setTitleColor(UIColor.Photon.Blue50, for: .normal)
+//        button.titleLabel?.textAlignment = .center
+//        return button
+//    }()
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle(.IntroNextButtonTitle, for: .normal)
@@ -132,7 +132,7 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         }
         
         main2panel.addArrangedSubview(bottomHolder)
-        [titleLabel, subTitleLabelPage1, signUpButton, signInButton, nextButton].forEach {
+        [titleLabel, subTitleLabelPage1, /*signUpButton, signInButton, */nextButton].forEach {
              bottomHolder.addSubview($0)
         }
         
@@ -148,20 +148,20 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         
         let buttonEdgeInset = 15
         let buttonHeight = 46
-        let buttonSpacing = 16
+//        let buttonSpacing = 16
         
-        signUpButton.addTarget(self, action: #selector(showSignUpFlow), for: .touchUpInside)
-        signUpButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(signInButton.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        }
-        signInButton.addTarget(self, action: #selector(showEmailLoginFlow), for: .touchUpInside)
-        signInButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(buttonEdgeInset)
-            make.bottom.equalTo(nextButton.snp.top).offset(-buttonSpacing)
-            make.height.equalTo(buttonHeight)
-        }
+//        signUpButton.addTarget(self, action: #selector(showSignUpFlow), for: .touchUpInside)
+//        signUpButton.snp.makeConstraints { make in
+//            make.left.right.equalToSuperview().inset(buttonEdgeInset)
+//            make.bottom.equalTo(signInButton.snp.top).offset(-buttonSpacing)
+//            make.height.equalTo(buttonHeight)
+//        }
+//        signInButton.addTarget(self, action: #selector(showEmailLoginFlow), for: .touchUpInside)
+//        signInButton.snp.makeConstraints { make in
+//            make.left.right.equalToSuperview().inset(buttonEdgeInset)
+//            make.bottom.equalTo(nextButton.snp.top).offset(-buttonSpacing)
+//            make.height.equalTo(buttonHeight)
+//        }
         nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         nextButton.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(buttonEdgeInset)
@@ -187,17 +187,17 @@ class IntroScreenWelcomeView: UIView, CardTheme {
         closeClosure?()
     }
 
-    @objc func showEmailLoginFlow() {
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingEmailLogin, extras: ["slide-num": currentPage])
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .welcomeScreenSignIn)
-        signInClosure?()
-    }
-
-    @objc func showSignUpFlow() {
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingSignUp, extras: ["slide-num": currentPage])
-        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .welcomeScreenSignUp)
-        signUpClosure?()
-    }
+//    @objc func showEmailLoginFlow() {
+//        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingEmailLogin, extras: ["slide-num": currentPage])
+//        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .welcomeScreenSignIn)
+//        signInClosure?()
+//    }
+//
+//    @objc func showSignUpFlow() {
+//        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .dismissedOnboardingSignUp, extras: ["slide-num": currentPage])
+//        TelemetryWrapper.recordEvent(category: .action, method: .press, object: .welcomeScreenSignUp)
+//        signUpClosure?()
+//    }
     
     @objc private func nextAction() {
         TelemetryWrapper.recordEvent(category: .action, method: .tap, object: .welcomeScreenNext)

@@ -17,7 +17,7 @@ class SearchSettingsTableViewController: ThemedTableViewController {
     fileprivate let ItemAddCustomSearch = 2
     fileprivate let NumberOfItemsInSectionDefault = 2
     fileprivate let SectionOrder = 1
-    fileprivate let NumberOfSections = 2
+    fileprivate let NumberOfSections = 1
     fileprivate let IconSize = CGSize(width: OpenSearchEngine.PreferredIconSize, height: OpenSearchEngine.PreferredIconSize)
     fileprivate let SectionHeaderIdentifier = "SectionHeaderIdentifier"
 
@@ -53,8 +53,8 @@ class SearchSettingsTableViewController: ThemedTableViewController {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: .SettingsSearchDoneButton, style: .done, target: self, action: #selector(self.dismissAnimated))
         }
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: .SettingsSearchEditButton, style: .plain, target: self,
-                                                                 action: #selector(beginEditing))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: .SettingsSearchEditButton, style: .plain, target: self,
+//                                                                 action: #selector(beginEditing))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -97,34 +97,34 @@ class SearchSettingsTableViewController: ThemedTableViewController {
                 // Should not happen.
                 break
             }
-        } else {
-            // The default engine is not a quick search engine.
-            let index = indexPath.item + 1
-            if index < model.orderedEngines.count {
-                engine = model.orderedEngines[index]
-                cell.showsReorderControl = true
-
-                let toggle = UISwitchThemed()
-                toggle.onTintColor = UIColor.theme.tableView.controlTint
-                // This is an easy way to get from the toggle control to the corresponding index.
-                toggle.tag = index
-                toggle.addTarget(self, action: #selector(didToggleEngine), for: .valueChanged)
-                toggle.isOn = model.isEngineEnabled(engine)
-
-                cell.editingAccessoryView = toggle
-                cell.textLabel?.text = engine.shortName
-                cell.textLabel?.adjustsFontSizeToFitWidth = true
-                cell.textLabel?.minimumScaleFactor = 0.5
-                cell.imageView?.image = engine.image.createScaled(IconSize)
-                cell.imageView?.layer.cornerRadius = 4
-                cell.imageView?.layer.masksToBounds = true
-                cell.selectionStyle = .none
-            } else {
-                cell.editingAccessoryType = .disclosureIndicator
-                cell.accessibilityLabel = .SettingsAddCustomEngineTitle
-                cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.Search.customEngineViewButton
-                cell.textLabel?.text = .SettingsAddCustomEngine
-            }
+//        } else {
+//            // The default engine is not a quick search engine.
+//            let index = indexPath.item + 1
+//            if index < model.orderedEngines.count {
+//                engine = model.orderedEngines[index]
+//                cell.showsReorderControl = true
+//
+//                let toggle = UISwitchThemed()
+//                toggle.onTintColor = UIColor.theme.tableView.controlTint
+//                // This is an easy way to get from the toggle control to the corresponding index.
+//                toggle.tag = index
+//                toggle.addTarget(self, action: #selector(didToggleEngine), for: .valueChanged)
+//                toggle.isOn = model.isEngineEnabled(engine)
+//
+//                cell.editingAccessoryView = toggle
+//                cell.textLabel?.text = engine.shortName
+//                cell.textLabel?.adjustsFontSizeToFitWidth = true
+//                cell.textLabel?.minimumScaleFactor = 0.5
+//                cell.imageView?.image = engine.image.createScaled(IconSize)
+//                cell.imageView?.layer.cornerRadius = 4
+//                cell.imageView?.layer.masksToBounds = true
+//                cell.selectionStyle = .none
+//            } else {
+//                cell.editingAccessoryType = .disclosureIndicator
+//                cell.accessibilityLabel = .SettingsAddCustomEngineTitle
+//                cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.Search.customEngineViewButton
+//                cell.textLabel?.text = .SettingsAddCustomEngine
+//            }
         }
 
         // So that the seperator line goes all the way to the left edge.
@@ -156,14 +156,14 @@ class SearchSettingsTableViewController: ThemedTableViewController {
             searchEnginePicker.delegate = self
             searchEnginePicker.selectedSearchEngineName = model.defaultEngine.shortName
             navigationController?.pushViewController(searchEnginePicker, animated: true)
-        } else if indexPath.item + 1 == model.orderedEngines.count {
-            let customSearchEngineForm = CustomSearchViewController()
-            customSearchEngineForm.profile = self.profile
-            customSearchEngineForm.successCallback = {
-                guard let window = self.view.window else { return }
-                SimpleToast().showAlertWithText(.ThirdPartySearchEngineAdded, bottomContainer: window)
-            }
-            navigationController?.pushViewController(customSearchEngineForm, animated: true)
+//        } else if indexPath.item + 1 == model.orderedEngines.count {
+//            let customSearchEngineForm = CustomSearchViewController()
+//            customSearchEngineForm.profile = self.profile
+//            customSearchEngineForm.successCallback = {
+//                guard let window = self.view.window else { return }
+//                SimpleToast().showAlertWithText(.ThirdPartySearchEngineAdded, bottomContainer: window)
+//            }
+//            navigationController?.pushViewController(customSearchEngineForm, animated: true)
         }
         return nil
     }

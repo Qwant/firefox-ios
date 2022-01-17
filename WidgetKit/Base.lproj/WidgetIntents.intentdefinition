@@ -179,7 +179,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Quick Action</string>
+			<string>String.QuickActionTitle</string>
 			<key>INIntentTitleID</key>
 			<string>eqyNJg</string>
 			<key>INIntentType</key>

@@ -18,12 +18,12 @@ struct SiteArchiver {
             return ([SavedTab](), simpleTabsDict)
         }
 
-        let unarchiver = try NSKeyedUnarchiver(forReadingWith: tabData)
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: tabData)
         unarchiver.setClass(SavedTab.self, forClassName: "Client.SavedTab")
         unarchiver.setClass(SessionData.self, forClassName: "Client.SessionData")
         unarchiver.decodingFailurePolicy = .setErrorAndReturn
         guard let tabs = unarchiver.decodeObject(forKey: "tabs") as? [SavedTab] else {
-            Sentry.shared.send( message: "Failed to restore tabs", tag: .tabManager, severity: .error, description: "\(unarchiver.error ??? "nil")")
+            Sentry.shared.send( message: "Failed to restore tabs", tag: .tabManager, severity: .error, description: "\(unarchiver.error ?? "nil")")
             SimpleTab.saveSimpleTab(tabs: nil)
             return ([SavedTab](), simpleTabsDict)
         }

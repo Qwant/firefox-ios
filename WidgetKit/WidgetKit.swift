@@ -12,8 +12,8 @@ struct FirefoxWidgets: WidgetBundle {
     var body: some Widget {
         SmallQuickLinkWidget()
         SearchQuickLinksWidget()
-        OpenTabsWidget()
-        TopSitesWidget()
+//        OpenTabsWidget()
+//        TopSitesWidget()
     }
 }
 #endif
