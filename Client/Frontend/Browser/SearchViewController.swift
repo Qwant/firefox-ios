@@ -291,7 +291,7 @@ class SearchViewController: SiteTableViewController, KeyboardHelperDelegate, Loa
             return
         }
 
-        Telemetry.default.recordSearch(location: .quickSearch, searchEngine: engine.engineID ?? "other")
+//        Telemetry.default.recordSearch(location: .quickSearch, searchEngine: engine.engineID ?? "other")
         GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.quickSearch.rawValue)"].add()
 
         searchDelegate?.searchViewController(self, didSelectURL: url, searchTerm: "")
@@ -469,7 +469,7 @@ class SearchViewController: SiteTableViewController, KeyboardHelperDelegate, Loa
             let engine = searchEngines.defaultEngine
             guard let suggestion = suggestions?[indexPath.row] else { return }
             if let url = engine.searchURLForQuery(suggestion) {
-                Telemetry.default.recordSearch(location: .suggestion, searchEngine: engine.engineID ?? "other")
+//                Telemetry.default.recordSearch(location: .suggestion, searchEngine: engine.engineID ?? "other")
                 GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.suggestion.rawValue)"].add()
                 searchDelegate?.searchViewController(self, didSelectURL: url, searchTerm: suggestion)
             }

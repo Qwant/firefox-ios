@@ -795,7 +795,7 @@ class SendAnonymousUsageDataSetting: BoolSetting {
         statusText.append(NSAttributedString(string: .SendUsageSettingLink, attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.general.highlightBlue]))
 
         super.init(
-            prefs: prefs, prefKey: AppConstants.PrefSendUsageData, defaultValue: true,
+            prefs: prefs, prefKey: AppConstants.PrefSendUsageData, defaultValue: false,
             attributedTitleText: NSAttributedString(string: .SendUsageSettingTitle),
             attributedStatusText: statusText,
             settingDidChange: {

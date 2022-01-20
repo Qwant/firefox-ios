@@ -549,7 +549,7 @@ open class BrowserProfile: Profile {
             // an events-only ping now.
             return
         }
-        let sendUsageData = prefs.boolForKey(AppConstants.PrefSendUsageData) ?? true
+        let sendUsageData = prefs.boolForKey(AppConstants.PrefSendUsageData) ?? false
         if sendUsageData {
             SyncPing.fromQueuedEvents(prefs: self.prefs,
                                       why: .schedule) >>== { SyncTelemetry.send(ping: $0, docType: .sync) }
@@ -752,7 +752,7 @@ open class BrowserProfile: Profile {
         }
 
         func canSendUsageData() -> Bool {
-            return profile.prefs.boolForKey(AppConstants.PrefSendUsageData) ?? true
+            return profile.prefs.boolForKey(AppConstants.PrefSendUsageData) ?? false
         }
 
         private func notifySyncing(notification: Notification.Name) {

@@ -5551,7 +5551,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf .venv; bash $SRCROOT/sdk_generator.sh -g MozillaAppServices\n";
+			shellScript = "rm -rf .venv; bash $SRCROOT/sdk_generator.sh -g MozillaAppServices\nsed -i '.bak' 's/disabled: false/disabled: true/g' $SRCROOT/Client/Generated/Metrics.swift\nrm $SRCROOT/Client/Generated/Metrics.swift.bak\n";
 		};
 		E4A69F612048AFEA00D9017B /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

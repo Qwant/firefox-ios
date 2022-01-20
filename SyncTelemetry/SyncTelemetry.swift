@@ -77,10 +77,10 @@ open class SyncTelemetry {
         request.addValue(Date().toRFC822String(), forHTTPHeaderField: "Date")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        makeURLSession(userAgent: UserAgent.fxaUserAgent, configuration: URLSessionConfiguration.ephemeral).dataTask(with: request) { (_, response, error) in
-            let code = (response as? HTTPURLResponse)?.statusCode
-            log.debug("Ping response: \(code ?? -1).")
-        }.resume()
+//        makeURLSession(userAgent: UserAgent.fxaUserAgent, configuration: URLSessionConfiguration.ephemeral).dataTask(with: request) { (_, response, error) in
+//            let code = (response as? HTTPURLResponse)?.statusCode
+//            log.debug("Ping response: \(code ?? -1).")
+//        }.resume()
     }
 
     private static func commonPingFormat(forType type: TelemetryDocType) -> [String: Any] {

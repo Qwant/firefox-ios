@@ -150,8 +150,8 @@ public class Sentry {
             return
         }
 
-        let event = makeEvent(message: message, tag: tag.rawValue, severity: severity, extra: extraEvents)
-        client?.send(event: event, completion: completion)
+//        let event = makeEvent(message: message, tag: tag.rawValue, severity: severity, extra: extraEvents)
+//        client?.send(event: event, completion: completion)
     }
 
     public func sendWithStacktrace(message: String, tag: SentryTag = .general, severity: SentrySeverity = .info, extra: [String: Any]? = nil, description: String? = nil, completion: SentryRequestFinished? = nil) {
@@ -175,7 +175,7 @@ public class Sentry {
             let event = strongSelf.makeEvent(message: message, tag: tag.rawValue, severity: severity, extra: extraEvents)
             strongSelf.client?.appendStacktrace(to: event)
             event.debugMeta = nil
-            strongSelf.client?.send(event: event, completion: completion)
+//            strongSelf.client?.send(event: event, completion: completion)
         }
     }
 

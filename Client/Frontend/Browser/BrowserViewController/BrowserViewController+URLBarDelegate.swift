@@ -366,7 +366,7 @@ extension BrowserViewController: URLBarDelegate, FeatureFlagsProtocol {
 
         if let searchURL = engine.searchURLForQuery(text) {
             // We couldn't find a matching search keyword, so do a search query.
-            Telemetry.default.recordSearch(location: .actionBar, searchEngine: engine.engineID ?? "other")
+//            Telemetry.default.recordSearch(location: .actionBar, searchEngine: engine.engineID ?? "other")
             GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.actionBar.rawValue)"].add()
             searchTelemetry?.shouldSetUrlTypeSearch = true
             tab.updateTimerAndObserving(state: .navSearchLoaded, searchTerm: text, searchProviderUrl: searchURL.absoluteString, nextUrl: "")
