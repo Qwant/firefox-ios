@@ -233,8 +233,8 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         let nightModeAction = getNightModeAction()
         append(to: &section, action: nightModeAction)
 
-        let passwordsAction = getPasswordAction(navigationController: navigationController)
-        append(to: &section, action: passwordsAction)
+//        let passwordsAction = getPasswordAction(navigationController: navigationController)
+//        append(to: &section, action: passwordsAction)
 
         if !isHomePage && !isFileURL {
             let reportSiteIssueAction = getReportSiteIssueAction()
@@ -454,8 +454,9 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         var items: [PhotonRowActions] = []
 
         let nightModeEnabled = NightModeHelper.isActivated()
-        let nightModeTitle: String = nightModeEnabled ? .AppMenu.AppMenuTurnOffNightMode : .AppMenu.AppMenuTurnOnNightMode
+        let nightModeTitle: String = nightModeEnabled ? .QwantSettings.NightModeTitleOn : .QwantSettings.NightModeTitleOff
         let nightMode = SingleActionViewModel(title: nightModeTitle,
+                                              text: .QwantSettings.NightModeSubtitle,
                                               iconString: ImageIdentifiers.nightMode,
                                               isEnabled: nightModeEnabled) { _ in
             NightModeHelper.toggle(tabManager: self.tabManager)

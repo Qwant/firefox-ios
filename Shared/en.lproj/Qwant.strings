@@ -208,3 +208,6 @@
 /* Title of the Github row */
 "Qwant.TrackingProtection.Information.DeveloperNotes" = "Developer Notes";
 
+"Qwant.NightMode.Title.On" = "Turn off dark mode";
+"Qwant.NightMode.Title.Off" = "Force dark mode";
+"Qwant.NightMode.Subtitle" = "Invert website colors";
