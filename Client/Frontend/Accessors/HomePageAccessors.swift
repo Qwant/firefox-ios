@@ -10,15 +10,24 @@ import Shared
 // as static.
 
 // This HomePagePref is only used when setting the HomePage on the newTab and not setting a custom URL for the Home button.
-class NewTabHomePageAccessors {
-
-    static let QwantHome = "https://www.qwant.com/"
-
+class NewTabHomePageAccessors: QwantHomePageAccessors {
     static func getHomePage(_ prefs: Prefs) -> URL? {
         let string = prefs.stringForKey(PrefsKeys.NewTabCustomUrlPrefKey) ?? getDefaultHomePageString(prefs)
         guard let urlString = string else { return nil }
         return URL(string: urlString)
     }
+}
+
+class HomeButtonHomePageAccessors: QwantHomePageAccessors {
+    static func getHomePage(_ prefs: Prefs) -> URL? {
+        let string = prefs.stringForKey(PrefsKeys.HomeButtonHomePageURL) ?? getDefaultHomePageString(prefs)
+        guard let urlString = string else { return nil }
+        return URL(string: urlString)
+    }
+}
+
+class QwantHomePageAccessors {
+    static let QwantHome = "https://www.qwant.com/"
 
     static func getDefaultHomePageString(_ prefs: Prefs) -> String? {
         return prefs.stringForKey(PrefsKeys.KeyDefaultHomePageURL) ?? makeQwantTheHomePageAndSetItAsDefault(prefs)
@@ -27,13 +36,5 @@ class NewTabHomePageAccessors {
     static func makeQwantTheHomePageAndSetItAsDefault(_ prefs: Prefs) -> String? {
         prefs.setString(QwantHome, forKey: PrefsKeys.KeyDefaultHomePageURL)
         return QwantHome
-    }
-}
-
-class HomeButtonHomePageAccessors {
-    static func getHomePage(_ prefs: Prefs) -> URL? {
-        let string = prefs.stringForKey(PrefsKeys.HomeButtonHomePageURL)
-        guard let urlString = string else { return nil }
-        return URL(string: urlString)
     }
 }
