@@ -208,3 +208,6 @@
 /* Title of the Github row */
 "Qwant.TrackingProtection.Information.DeveloperNotes" = "Notes du développeur";
 
+"Qwant.NightMode.Title.On" = "Désactiver le mode sombre";
+"Qwant.NightMode.Title.Off" = "Forcer le mode sombre";
+"Qwant.NightMode.Subtitle" = "Inverser les couleurs du site";

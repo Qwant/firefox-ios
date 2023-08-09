@@ -5477,6 +5477,24 @@ extension String {
 
 // MARK: - Qwant extension
 extension String {
+
+    public struct QwantSettings {
+        public static let NightModeTitleOn = MZLocalizedString(
+            "Qwant.NightMode.Title.On",
+            tableName: "Qwant",
+            value: "Turn off dark mode",
+            comment: "Row title for night mode when it's on")
+        public static let NightModeTitleOff = MZLocalizedString(
+            "Qwant.NightMode.Title.Off",
+            tableName: "Qwant",
+            value: "Force dark mode",
+            comment: "Row title for night mode when it's off")
+        public static let NightModeSubtitle = MZLocalizedString(
+            "Qwant.NightMode.Subtitle",
+            tableName: "Qwant",
+            value: "Invert website colors",
+            comment: "Row subtitle for night mode, to give some more context")
+    }
     
     public struct QwantDefaultBrowser {
         public static let DefaultBrowserTitle1 = MZLocalizedString(
