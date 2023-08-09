@@ -31,11 +31,11 @@
 			<key>NSExtensionActivationRule</key>
 			<dict>
 				<key>NSExtensionActivationSupportsText</key>
-				<true/>
+				<false/>
 				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<integer>1</integer>
+				<integer>0</integer>
 			</dict>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
