@@ -15,6 +15,7 @@ public extension URL {
         static let CLIENT_CONTEXT_KEY = "client"
         static let CLIENT_CONTEXT_BROWSER = "qwantbrowser"
         static let CLIENT_CONTEXT_WIDGET = "qwantwidget"
+        static let SEARCH_KEY = "q"
     }
     
     var isQwantUrl: Bool {
@@ -54,6 +55,20 @@ public extension URL {
         let contextExists = components.queryItems?.first(where: { $0.name == Constants.CLIENT_CONTEXT_KEY }) != nil
         
         return hasOpenedAppViaTheWidget || !contextExists
+    }
+    
+    var qwantSearchTerm: String? {
+        guard self.isQwantUrl && !self.isMapsUrl else { return nil }
+        
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        
+        let nonNilSearchQueryExists: ((URLQueryItem) -> Bool) = { item in
+            return item.name == Constants.SEARCH_KEY && item.value != nil
+        }
+        
+        return components.queryItems?.first(where: nonNilSearchQueryExists)?
+            .value?
+            .replacingOccurrences(of: " ", with: "+")
     }
     
     /// Appends the client context as a query parameter to the URL, ensuring the URL is valid beforehand.

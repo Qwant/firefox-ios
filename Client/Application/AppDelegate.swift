@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
 
     lazy var themeManager: ThemeManager = DefaultThemeManager(sharedContainerIdentifier: AppInfo.sharedContainerIdentifier)
-    lazy var ratingPromptManager = RatingPromptManager(profile: profile)
+    lazy var ratingPromptManager = QwantRatingPromptManager()
     lazy var appSessionManager: AppSessionProvider = AppSessionManager()
     lazy var notificationSurfaceManager = NotificationSurfaceManager()
 
