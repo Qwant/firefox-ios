@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "brands-logos-qwant-vi-privacy-monochrome.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "brands-logos-qwant-vi-privacy-monochrome-2.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

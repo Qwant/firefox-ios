@@ -6,17 +6,6 @@ import Common
 import Foundation
 import Shared
 
-class QwantContentBlockerSettingViewController: ContentBlockerSettingViewController {
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let _defaultFooter = super.tableView(tableView, viewForFooterInSection: section) as? ThemedTableSectionHeaderFooterView
-        
-        let learnMoreView = _defaultFooter?.subviews.first(where: { ($0 as? UIButton)?.titleLabel?.text == .TrackerProtectionLearnMore })
-        learnMoreView?.removeFromSuperview()
-        
-        return _defaultFooter
-    }
-}
-
 class ContentBlockerSettingViewController: SettingsTableViewController {
     private let button = UIButton()
     let prefs: Prefs
@@ -62,7 +51,7 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
                     self.currentBlockingStrength = option
                     self.prefs.setString(self.currentBlockingStrength.rawValue,
                                          forKey: ContentBlockingConfig.Prefs.StrengthKey)
-                    TabContentBlocker.prefsChanged()
+                    QwantTabContentBlocker.prefsChanged()
                     self.tableView.reloadData()
 
                     let extras = [TelemetryWrapper.EventExtraKey.preference.rawValue: "ETP-strength",
@@ -103,7 +92,7 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
             prefKey: ContentBlockingConfig.Prefs.EnabledKey,
             defaultValue: ContentBlockingConfig.Defaults.NormalBrowsing,
             attributedTitleText: NSAttributedString(string: .TrackingProtectionEnableTitle)) { [weak self] enabled in
-                TabContentBlocker.prefsChanged()
+                QwantTabContentBlocker.prefsChanged()
                 strengthSetting.forEach { item in
                     item.enabled = enabled
                 }

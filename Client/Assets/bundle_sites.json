@@ -1388,29 +1388,22 @@
     "title": "qwant",
     "url": "http://www.qwant.com/",
     "image_url": "qwant-com.png",
-    "background_color": "#ffffff",
+    "background_color": "#5c97ff",
     "domain": "qwant.com"
   },
   {
     "title": "qwantjunior",
     "url": "http://www.qwantjunior.com/",
     "image_url": "qwantjunior-com.png",
-    "background_color": "#ffffff",
+    "background_color": "#ffd6d7",
     "domain": "qwantjunior.com"
   },
   {
-    "title": "qwantmusic",
-    "url": "http://www.qwant.com/music",
-    "image_url": "qwantmusic-com.png",
-    "background_color": "#ffffff",
-    "domain": "qwantmusic.com"
-  },
-  {
-    "title": "qwantboards",
-    "url": "http://boards.qwant.com/",
-    "image_url": "qwantboards-com.png",
-    "background_color": "#ffffff",
-    "domain": "qwantboards.com"
+    "title": "qwantmaps",
+    "url": "https://www.qwant.com/maps",
+    "image_url": "qwantmaps-com.png",
+    "background_color": "#57c78f",
+    "domain": "qwant.com/maps"
   },
   {
     "title": "qwanthelp",

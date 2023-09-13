@@ -13,4 +13,13 @@ extension UIColor {
             blue: CGFloat((rgb & 0x0000FF) >> 0)  / 255.0,
             alpha: 1)
     }
+    
+    public convenience init(rgba: UInt64) {
+        self.init(
+            red: CGFloat((rgba & 0xFF000000) >> 24) / 255.0,
+            green: CGFloat((rgba & 0x00FF0000) >> 16)  / 255.0,
+            blue: CGFloat((rgba & 0x0000FF00) >> 8)  / 255.0,
+            alpha: CGFloat((rgba & 0x000000FF) >> 0) / 255.0
+        )
+    }
 }

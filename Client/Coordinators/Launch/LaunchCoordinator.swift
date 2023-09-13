@@ -42,7 +42,7 @@ class LaunchCoordinator: BaseCoordinator, SurveySurfaceViewControllerDelegate {
                                         isFullScreen: Bool) {
 
         let introViewController = QwantDefaultBrowserOnboardingViewController()
-        introViewController.didFinishClosure = { [weak self] _, _ in
+        introViewController.didFinishClosure = { [weak self] _ in
             guard let self = self else { return }
             IntroScreenManager(prefs: self.profile.prefs).didSeeIntroScreen()
             self.parentCoordinator?.didFinishLaunch(from: self)

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "iOs-Favicon-30.png",
+      "filename" : "40.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iOs-Favicon-60.png",
+      "filename" : "80.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "iOs-Favicon-90.png",
+      "filename" : "120.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

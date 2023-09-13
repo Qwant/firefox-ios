@@ -122,3 +122,11 @@ public extension UserDefaults {
         setValue(value, forKey: Constants.HAS_OPENED_APP_VIA_THE_WIDGET)
     }
 }
+
+extension Date {
+    
+    public func isWithinLast30Days() -> Bool {
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -29, to: Date().noon) ?? Date()
+        return (thirtyDaysAgo ... Date().noon).contains(self)
+    }
+}

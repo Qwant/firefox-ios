@@ -226,6 +226,12 @@ class BrowserViewController: UIViewController,
     func didTapUndoCloseAllTabToast(notification: Notification) {
         overlayManager.switchTab(shouldCancelLoading: true)
     }
+    
+    @objc func contentBlockerDidBlock(notification: Notification) {
+        if let tab = tabManager.selectedTab {
+            urlBar.locationView.tabDidChangeContentBlocking(tab)
+        }
+    }
 
     @objc
     func openTabNotification(notification: Notification) {
@@ -560,6 +566,10 @@ class BrowserViewController: UIViewController,
         notificationCenter.addObserver(self,
                                        selector: #selector(didAddPendingBlobDownloadToQueue),
                                        name: .PendingBlobDownloadAddedToQueue,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(contentBlockerDidBlock),
+                                       name: .ContentBlockerDidBlock,
                                        object: nil)
     }
 
@@ -2062,9 +2072,9 @@ extension BrowserViewController: LegacyTabDelegate {
 
         tab.addContentScript(LocalRequestHelper(), name: LocalRequestHelper.name())
 
-        let blocker = FirefoxTabContentBlocker(tab: tab, prefs: profile.prefs)
+        let blocker = QwantSpecificTabContentBlocker(tab: tab, prefs: profile.prefs)
         tab.contentBlocker = blocker
-        tab.addContentScript(blocker, name: FirefoxTabContentBlocker.name())
+        tab.addContentScript(blocker, name: QwantSpecificTabContentBlocker.name())
 
         tab.addContentScript(FocusHelper(tab: tab), name: FocusHelper.name())
     }

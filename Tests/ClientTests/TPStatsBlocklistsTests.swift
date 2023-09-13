@@ -7,12 +7,12 @@
 import XCTest
 
 class TPStatsBlocklistsTests: XCTestCase {
-    var blocklists: TPStatsBlocklists!
-
+    var blocklists: QwantTPStatsBlocklists!
+    
     override func setUp() {
         super.setUp()
-
-        blocklists = TPStatsBlocklists()
+        
+        blocklists = QwantTPStatsBlocklists()
     }
 
     override func tearDown() {
@@ -45,24 +45,24 @@ class TPStatsBlocklistsTests: XCTestCase {
     func testURLInList() {
         blocklists.load()
 
-        func blocklist(_ urlString: String, _ mainDoc: String = "https://foo.com", _ safelistedDomains: [String] = []) -> BlocklistCategory? {
+        func blocklist(_ urlString: String, _ mainDoc: String = "https://foo.com", _ safelistedDomains: [String] = []) -> Bool {
             let safelistedRegexs = safelistedDomains.compactMap { (domain) -> String? in
                 return wildcardContentBlockerDomainToRegex(domain: domain)
             }
             let mainDoc = URL(string: mainDoc)!
             return blocklists.urlIsInList(URL(string: urlString)!, mainDocumentURL: mainDoc, safelistedDomains: safelistedRegexs)
         }
-        XCTAssertEqual(blocklist("https://www.facebook.com", "https://atlassolutions.com"), nil)
-        XCTAssertEqual(blocklist("https://www.firefox.com"), nil)
-        XCTAssertEqual(blocklist("https://2leep.com/track"), .advertising)
-        XCTAssertEqual(blocklist("https://sub.2leep.com/ad"), .advertising)
-        XCTAssertEqual(blocklist("https://admeld.com"), .advertising)
-        XCTAssertEqual(blocklist("https://admeld.com/popup"), .advertising)
-        XCTAssertEqual(blocklist("https://sub.admeld.com"), .advertising)
-        XCTAssertEqual(blocklist("https://subadmeld.com"), nil)
-        XCTAssertEqual(blocklist("https://aol.com.aolanswers.com", "https://foo.com", ["ers.com"]), nil)
-        XCTAssertEqual(blocklist("https://sub.xiti.com/track"), .analytics)
-        XCTAssertEqual(blocklist("https://atlassolutions.com"), .advertising)
-        XCTAssertEqual(blocklist("https://atlassolutions.com", "https://foo.com", ["*solutions.com"]), nil)
+        XCTAssertEqual(blocklist("https://www.facebook.com", "https://atlassolutions.com"), false)
+        XCTAssertEqual(blocklist("https://www.firefox.com"), false)
+        XCTAssertEqual(blocklist("https://wheredoyoucomefrom.ovh/malicious_tracker.js"), true)
+        XCTAssertEqual(blocklist("https://sub.2leep.com/ad"), false)
+        XCTAssertEqual(blocklist("https://admeld.com"), false)
+        XCTAssertEqual(blocklist("https://admeld.com/popup"), false)
+        XCTAssertEqual(blocklist("https://sub.admeld.com"), false)
+        XCTAssertEqual(blocklist("https://xxxcounter.com"), true)
+        XCTAssertEqual(blocklist("https://aol.com.aolanswers.com", "https://foo.com", ["ers.com"]), false)
+        XCTAssertEqual(blocklist("https://sub.xiti.com/track"), true)
+        XCTAssertEqual(blocklist("https://xlisting.jp"), true)
+        XCTAssertEqual(blocklist("https://atlassolutions.com", "https://foo.com", ["*solutions.com"]), false)
     }
 }

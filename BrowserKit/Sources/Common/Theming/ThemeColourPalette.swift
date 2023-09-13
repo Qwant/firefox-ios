@@ -76,4 +76,13 @@ public protocol ThemeColourPalette {
 
     // MARK: - Shadow
     var shadowDefault: UIColor { get }
+
+    // MARK: - Qwant
+    var etp_background: UIColor { get }
+    var etp_sectionColor: UIColor { get }
+    var defaultTextAndTint: UIColor { get }
+    var etp_horizontalLine: UIColor { get }
+    var etp_subtextColor: UIColor { get }
+    var etp_closeButtonColor: UIColor { get }
+    var etp_switchAndButtonTint: UIColor { get }
 }

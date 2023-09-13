@@ -1021,6 +1021,13 @@ extension LegacyTabManager: WKNavigationDelegate {
             }
 
             storeChanges()
+            
+            if let tab = self[webView], let blocker = tab.contentBlocker {
+                if tab.restoreStatsIfPossible {
+                    blocker.restoreStats(for: url)
+                }
+                tab.restoreStatsIfPossible = false
+            }
         }
     }
 

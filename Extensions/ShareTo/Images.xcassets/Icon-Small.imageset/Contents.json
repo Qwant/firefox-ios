@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Logo couleur 40x42.png",
+      "filename" : "40.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Logo couleur 40x42@2x.png",
+      "filename" : "80.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Logo couleur 40x42@3x.png",
+      "filename" : "120.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
