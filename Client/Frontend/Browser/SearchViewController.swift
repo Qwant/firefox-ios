@@ -671,7 +671,7 @@ class SearchViewController: SiteTableViewController,
         case .searchSuggestions:
             if let site = suggestions?[indexPath.row] {
                 oneLineCell.titleLabel.text = site
-                if Locale.current.languageCode == "en",
+                if //Locale.current.languageCode == "en",
                     let attributedString = getAttributedBoldSearchSuggestions(searchPhrase: site, query: savedQuery) {
                     oneLineCell.titleLabel.attributedText = attributedString
                 }
