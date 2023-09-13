@@ -98,7 +98,7 @@ class TabLocationView: UIView, FeatureFlaggable {
                                                                 attributes: attributes)
     }
 
-    lazy var trackingProtectionButton: LockButton = .build { trackingProtectionButton in
+    lazy var trackingProtectionButton: TrackingProtectionButton = .build { trackingProtectionButton in
         trackingProtectionButton.addTarget(self, action: #selector(self.didPressTPShieldButton(_:)), for: .touchUpInside)
         trackingProtectionButton.clipsToBounds = false
         trackingProtectionButton.accessibilityIdentifier = AccessibilityIdentifiers.Toolbar.trackingProtection
@@ -454,7 +454,9 @@ extension TabLocationView: TabEventHandler {
             let themeManager: ThemeManager = AppContainer.shared.resolve()
             self.blockerStatus = blocker.status
             self.hasSecureContent = (tab.webView?.hasOnlySecureContent ?? false)
-            setTrackingProtection(theme: themeManager.currentTheme)
+//            setTrackingProtection(theme: themeManager.currentTheme)
+            trackingProtectionButton.setImage(blocker.status.image, for: .normal)
+            trackingProtectionButton.setBadgeValue(value: blocker.status.badgeValue(basedOn: blocker.stats.total))
         }
     }
 

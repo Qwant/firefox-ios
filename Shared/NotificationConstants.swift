@@ -82,6 +82,8 @@ extension Notification.Name {
 
     public static let PendingBlobDownloadAddedToQueue = Notification.Name("PendingBlobDownloadAddedToQueue")
 
+    public static let ContentBlockerDidBlock = Notification.Name("contentBlockerDidBlock")
+
     // MARK: Tab manager
 
     // Tab manager creates a toast for undo recently closed tabs and a notification is

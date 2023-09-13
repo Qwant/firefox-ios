@@ -14,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="8jg-1f-0sB">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qwant_Q" translatesAutoresizingMaskIntoConstraints="NO" id="8jg-1f-0sB">
                     <rect key="frame" x="175" y="175" width="130" height="130"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="130" id="V8U-lj-86g"/>
@@ -22,7 +22,7 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.36078431372549019" green="0.59215686274509804" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="8jg-1f-0sB" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ITK-hU-DwR"/>
                 <constraint firstItem="8jg-1f-0sB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="grm-jt-xY2"/>
@@ -33,9 +33,6 @@
         </view>
     </objects>
     <resources>
-        <image name="splash" width="134" height="134"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="qwant_Q" width="288" height="288"/>
     </resources>
 </document>

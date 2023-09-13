@@ -91,4 +91,13 @@ private struct LightColourPalette: ThemeColourPalette {
 
     // MARK: - Shadow
     var shadowDefault: UIColor = FXColors.DarkGrey40.withAlphaComponent(0.16)
+
+    // MARK: - Qwant
+    var etp_background: UIColor = UIColor(rgb: 0xf7f7f8) // Grey12
+    var etp_sectionColor: UIColor = .white
+    var defaultTextAndTint: UIColor = UIColor(rgb: 0x2a2a2e) // Grey80
+    var etp_horizontalLine: UIColor = UIColor(rgba: 0x3C3C4363) // Grey75A39
+    var etp_subtextColor: UIColor = UIColor(rgba: 0x3C3C4399) // Grey75A60
+    var etp_closeButtonColor: UIColor = FXColors.LightGrey30
+    var etp_switchAndButtonTint: UIColor = FXColors.Blue50
 }

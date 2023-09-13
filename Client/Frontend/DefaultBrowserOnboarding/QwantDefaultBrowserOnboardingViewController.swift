@@ -10,86 +10,47 @@ import Common
 
 class QwantDefaultBrowserOnboardingViewController: UIViewController {
     // Closure delegate
-    var didFinishClosure: ((QwantDefaultBrowserOnboardingViewController, FxAPageType?) -> Void)?
+    var didFinishClosure: ((QwantDefaultBrowserOnboardingViewController) -> Void)?
     
-    // Private view
-    private var fxTextThemeColour: UIColor {
-        return LegacyThemeManager.instance.userInterfaceStyle == .dark ?
-        UIColor(red: 245.0 / 255, green: 245.0 / 255, blue: 247.0 / 255, alpha: 1.0) :
-            .black
-    }
-    private var fxSubTextThemeColour: UIColor {
-        return LegacyThemeManager.instance.userInterfaceStyle == .dark ?
-        UIColor(red: 217.0 / 255, green: 217.0 / 255, blue: 224.0 / 255, alpha: 1.0) :
-        UIColor(red: 89.0 / 255, green: 89.0 / 255, blue: 95.0 / 255, alpha: 1.0)
-    }
-    private var fxBackgroundThemeColour: UIColor {
-        return LegacyThemeManager.instance.userInterfaceStyle == .dark ?
-        UIColor(red: 25.0 / 255, green: 25.0 / 255, blue: 27.0 / 255, alpha: 1.0) :
-            .white
+    private lazy var titleLabel: UILabel = .build { label in
+        label.text = .QwantDefaultBrowser.DefaultBrowserTitle
+        label.textColor = .black
+        label.font = QwantUX.Font.title
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 3
     }
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = .QwantDefaultBrowser.DefaultBrowserTitle1
-        label.textColor = fxTextThemeColour
-        label.font = UIFont.systemFont(ofSize: 32, weight: .regular)
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        return label
-    }()
-    private lazy var titleBoldLabel: UILabel = {
-        let label = UILabel()
-        label.text = .QwantDefaultBrowser.DefaultBrowserTitle2
-        label.textColor = fxTextThemeColour
-        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        return label
-    }()
-    private lazy var subtitleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var subtitleLabel: UILabel = .build { label in
         label.text = .QwantDefaultBrowser.DefaultBrowserDescription
-        label.textColor = fxSubTextThemeColour
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
+        label.textColor = .black
+        label.font = QwantUX.Font.text
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 1
+    }
     
-    private lazy var imageView: UIImageView = {
-        let imgView = UIImageView(image: LegacyThemeManager.instance.userInterfaceStyle == .dark ? #imageLiteral(resourceName: "illustrationOnboardingDark") : #imageLiteral(resourceName: "illustrationOnboardingLight") )
-        imgView.contentMode = .center
-        return imgView
-    }()
+    private lazy var imageView: UIImageView = .build { imageView in
+        imageView.image = UIImage(named: "default_browser")
+        imageView.contentMode = .scaleAspectFit
+    }
     
-    private var openSettingsButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button.layer.cornerRadius = 23
-        button.backgroundColor = UIColor(red: 26.0 / 255, green: 106.0 / 255, blue: 1.0, alpha: 1.0)
+    private lazy var openSettingsButton: UIButton = .build { button in
+        button.titleLabel?.font = QwantUX.Font.button
+        button.layer.cornerRadius = 8
+        button.backgroundColor = .black
         button.setTitle(.QwantDefaultBrowser.DefaultBrowserButtonSettings, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.accessibilityIdentifier = "openSettingButtonIntroView"
-        return button
-    }()
+        button.addTarget(self, action: #selector(self.openSettingsAction), for: .touchUpInside)
+    }
     
-    private lazy var ignoreButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    private lazy var ignoreButton: UIButton = .build { button in
+        button.titleLabel?.font = QwantUX.Font.button
         button.backgroundColor = .clear
-        button.setTitleColor(fxTextThemeColour, for: .normal)
         button.setTitle(.QwantDefaultBrowser.DefaultBrowserButtonIgnore, for: .normal)
-        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(.black, for: .normal)
         button.accessibilityIdentifier = "ignoreButtonIntroView"
-        return button
-    }()
-    
-    private let topContainerView = UIView()
-    private let combinedView = UIView()
-    
-    private let screenSize = DeviceInfo.screenSizeOrientationIndependent()
+        button.addTarget(self, action: #selector(self.ignoreAction), for: .touchUpInside)
+    }
     
     // MARK: Initializer
     init() {
@@ -102,96 +63,47 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialViewSetup()
-        topContainerViewSetup()
-        bottomViewSetup()
-    }
-    
-    // MARK: View setup
-    private func initialViewSetup() {
-        combinedView.addSubview(titleLabel)
-        combinedView.addSubview(titleBoldLabel)
-        combinedView.addSubview(subtitleLabel)
-        combinedView.addSubview(imageView)
-        topContainerView.addSubview(combinedView)
-        view.addSubview(topContainerView)
-        view.addSubview(openSettingsButton)
-        view.addSubview(ignoreButton)
-    }
-    
-    private func topContainerViewSetup() {
-        // Background colour setup
-        view.backgroundColor = fxBackgroundThemeColour
-        // Height constants
-        let titleLabelHeight = 35
-        let titleBoldLabelHeight = 80
-        let subtitleLabelHeight = 50
-        let titleImageHeight = screenSize.height > 600 ? 300 : 200
-        // Title label constraints
-        titleLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.top.equalToSuperview()
-            make.height.equalTo(titleLabelHeight)
-        }
-        titleBoldLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.margins.equalTo(0)
-            make.height.equalTo(titleBoldLabelHeight)
-        }
-        // Description label constraints
-        subtitleLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.top.equalTo(titleBoldLabel.snp.bottom)
-            make.height.equalTo(subtitleLabelHeight)
-        }
-        // Title image view constraints
-        imageView.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(subtitleLabel.snp.bottom)
-            make.height.equalTo(titleImageHeight)
-        }
-        // Top container view constraints
-        topContainerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeArea.top)
-            make.bottom.equalTo(openSettingsButton.snp.top)
-            make.left.right.equalToSuperview()
-        }
-        // Combined view constraints
-        combinedView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
-            make.height.equalTo(titleLabelHeight + subtitleLabelHeight + titleImageHeight)
-            make.centerY.equalToSuperview()
-            make.bottom.left.right.equalToSuperview()
-        }
-    }
-    
-    private func bottomViewSetup() {
-        // Sign-up button constraints
-        openSettingsButton.snp.makeConstraints { make in
-            make.bottom.equalTo(ignoreButton.snp.top).offset(-20)
-            make.left.right.equalToSuperview().inset(24)
-            make.height.equalTo(46)
+        
+        view.backgroundColor = .Qwant.Theme.PaleViolet
+        view.addSubviews(imageView, titleLabel, subtitleLabel, openSettingsButton, ignoreButton)
+        
+        imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        subtitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: QwantUX.Spacing.gutterM),
+            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterL),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-        }
-        // Start browsing button constraints
-        ignoreButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(24) // (view.safeArea.bottom)
-            make.left.right.equalToSuperview().inset(80)
-            make.height.equalTo(46)
-        }
-        // Sign-up and start browsing button action
-        openSettingsButton.addTarget(self, action: #selector(openSettingsAction), for: .touchUpInside)
-        ignoreButton.addTarget(self, action: #selector(ignoreAction), for: .touchUpInside)
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: QwantUX.Spacing.gutterM),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: QwantUX.Spacing.m),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            
+            openSettingsButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: QwantUX.Spacing.xxl),
+            openSettingsButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
+            openSettingsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            openSettingsButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight),
+            
+            ignoreButton.topAnchor.constraint(equalTo: openSettingsButton.bottomAnchor, constant: QwantUX.Spacing.xs),
+            ignoreButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
+            ignoreButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            ignoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.gutterM),
+            ignoreButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight)
+        ])
     }
     
     @objc private func openSettingsAction() {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
-        self.didFinishClosure?(self, nil)
+        self.didFinishClosure?(self)
     }
     
     @objc private func ignoreAction() {
-        self.didFinishClosure?(self, nil)
+        self.didFinishClosure?(self)
     }
 }
 
