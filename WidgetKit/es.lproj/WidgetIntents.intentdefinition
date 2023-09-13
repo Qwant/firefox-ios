@@ -1,0 +1,48 @@
+/* Quick Actions drop down menu item for Go to Copied Link when widget enters edit mode and drop down menu expands */
+"2GqvPe" = "Ir al enlace copiado";
+
+/* Accessibility label to confirm the go to copied link selection */
+"PzSrmZ-2GqvPe" = "Solo para confirmar, ¿querías \"Ir al enlace copiado\"?";
+
+/* Accessibility label to confirm the Clear Private Tabs selection */
+"PzSrmZ-eHmH1H" = "Solo para confirmar, ¿querías \"Eliminar pestañas privadas\"?";
+
+/* Accessibility label to confirm the New Private Search selection */
+"PzSrmZ-scEmjs" = "Solo para confirmar, ¿querías una \"Nueva búsqueda privada\"?";
+
+/* Accessibility label to confirm the New Search selection */
+"PzSrmZ-xRJbBP" = "Solo para confirmar, ¿querías una \"Nueva búsqueda\"?";
+
+/* Description of the collection of widgets */
+"ctDNmu" = "Acceso rápido a varias acciones de Qwant";
+
+/* Quick Actions drop down menu item for lear Private Tabs when widget enters edit mode and drop down menu expands */
+"eHmH1H" = "Eliminar pestañas privadas";
+
+/* The description of a customizable section of the widget */
+"eV8mOT" = "Tipo de acción rápida";
+
+/* Title of the quick actions widgets */
+"eqyNJg" = "Acción rápida";
+
+/* Label showing how many widgets match ‘Go to Copied Link’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-2GqvPe" = "Hay ${count} opciones que coinciden con 'Ir al enlace copiado'.";
+
+/* Label showing how many widgets match ‘Clear Private Tabs’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-eHmH1H" = "Hay ${count} opciones que coinciden con \"Borrar pestañas privadas\".";
+
+/* Label showing how many widgets match ‘New Private Search’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-scEmjs" = "Hay ${count} opciones que coinciden con 'Nueva búsqueda privada'.";
+
+/* Label showing how many widgets match ‘New Search’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-xRJbBP" = "Hay ${count} opciones que coinciden con \"Nueva búsqueda\".";
+
+/* Quick Actions drop down menu item for new private search when widget enters edit mode and drop down menu expands */
+"scEmjs" = "Nueva búsqueda privada";
+
+/* Quick Actions left label text for dropdown menu when widget enters edit mode */
+"w9jdPK" = "Acciones rápidas";
+
+/* Quick Actions drop down menu item for new search when widget enters edit mode and drop down menu expands */
+"xRJbBP" = "Nueva búsqueda";
+

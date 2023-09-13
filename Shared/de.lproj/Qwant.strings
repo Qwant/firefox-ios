@@ -1,0 +1,210 @@
+/* Title to help users understand that they can set Qwant as their default browser. */
+"DefaultBrowserOnboarding.Qwant.Title" = "Make the Qwant app your default browser";
+
+/* Description to help users understand that they can set Qwant as their default browser. */
+"DefaultBrowserOnboarding.Qwant.Description" = "Set links to open automatically in Qwant!";
+
+/* Button string to open settings that allows user to switch their default browser to Qwant. */
+"DefaultBrowserOnboarding.Qwant.ButtonSettings" = "Go to Settings";
+
+/* Button string to ignore the default browser capability. */
+"DefaultBrowserOnboarding.Qwant.ButtonIgnore" = "Ignore";
+
+/* Button to invite the user to ignore the onboarding of the First Run tour. */
+"Qwant.Intro.General.Ignore" = "Ignorieren";
+
+/* Button to invite the user to go to the next screen for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.General.Next" = "Weiter";
+
+/* Title of the Let's go button. */
+"Qwant.Intro.General.LetsGo" = "Los geht's!";
+
+/* Title of the settings button. */
+"Qwant.Intro.General.Settings" = "Einstellungen öffnen";
+
+/* Title of the Later button. */
+"Qwant.Intro.General.Later" = "Später";
+
+/* Title for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.Welcome.Title" = "Willkommen bei Qwant, lieber Anonymus";
+
+/* Subtitle for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.Welcome.Subtitle" = "Hier können Sie völlig sicher und anonym suchen:";
+
+/* Bullet point #1 for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.Welcome.Bullet1" = "**Kein** Tracking Ihrer Suchanfragen";
+
+/* Bullet point #2 for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.Welcome.Bullet2" = "**Kein** Werbetracking";
+
+/* Bullet point #3 for the first panel 'Welcome' in the First Run tour. */
+"Qwant.Intro.Welcome.Bullet3" = "**Kein** Verkauf Ihrer persönlichen Daten";
+
+/* Title for the second panel 'Qwant VIP' in the First Run tour. */
+"Qwant.Intro.QwantVIP.Title" = "Surfen Sie geschützt auf allen Websites, wenn Sie Qwant VIPrivacy installieren";
+
+/* Bullet point #1 for the second panel 'Qwant VIP' in the First Run tour. */
+"Qwant.Intro.QwantVIP.Bullet1" = "Weniger Cookies, keine aufdringlichen Banner mehr!";
+
+/* Bullet point #2 for the second panel 'Qwant VIP' in the First Run tour. */
+"Qwant.Intro.QwantVIP.Bullet2" = "Blockieren von Trackern, endlich Freiheit!";
+
+/* Title for the third panel 'Default Browser' in the First Run tour. */
+"Qwant.Intro.DefaultBrowser.Title" = "Wählen Sie Qwant als Standard-Browser-App aus";
+
+/* Subtitle for the third panel 'Default Browser' in the First Run tour. */
+"Qwant.Intro.DefaultBrowser.Subtitle" = "Alle Links, die Sie anklicken, werden automatisch in der Qwant-App geöffnet.";
+
+/* Bullet point #1 for the third panel 'Default Browser' in the First Run tour. */
+"Qwant.Intro.DefaultBrowser.Bullet1" = "1. Öffnen Sie die **Einstellungen**";
+
+/* Bullet point #2 for the third panel 'Default Browser' in the First Run tour. */
+"Qwant.Intro.DefaultBrowser.Bullet2" = "2. Wählen Sie **Standard-Browser-App**";
+
+/* Bullet point #3 for the third panel 'Default Browser' in the First Run tour. */
+"Qwant.Intro.DefaultBrowser.Bullet3" = "3. Wählen Sie **Qwant**";
+
+/* Header - SSL Cert status when the connection is secured */
+"Qwant.TrackingProtection.ConnectionSecure" = "Verbindung ist sicher";
+
+/* Header - SSL Cert status when the connection is not secured */
+"Qwant.TrackingProtection.ConnectionNotSecure" = "Verbindung ist nicht sicher";
+
+/* Green title when the tracking protection is enabled for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.EnabledTitle" = "Protection enabled";
+
+/* Pale green title when the tracking protection is enabling for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.EnablingTitle" = "Enabling...";
+
+/* Pale red title when the tracking protection is disabling for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.DisablingTitle" = "Disabling...";
+
+/* Gray subtitle when the tracking protection is either enabling or disabling for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.LoadingSubtitle" = "This operation can take up to 5 seconds, please wait.";
+
+/* Gray subtitle when the tracking protection is either enabling or disabling for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.LongerLoadingSubtitle" = "Hang tight. We're almost there...";
+
+/* Red title when the tracking protection is disabled for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.DisabledTitle" = "Protection disabled";
+
+/* Gray subtitle when the tracking protection is enabled for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.EnabledSubtitle" = "A problem on this website? Try to deactivate.";
+
+/* Gray subtitle when the tracking protection is disabled for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.DisabledSubtitle" = "Deactivated for this website.";
+
+/* Row title label to explain that the righthand-sight of the cell represents the # of blocked items for the current visited website */
+"Qwant.TrackingProtection.LocalProtection.BlockedItems" = "Blocked items";
+
+/* Row title label to explain that the righthand-sight of the cell represents the current protection level */
+"Qwant.TrackingProtection.ProtectionLevel.Title" = "Level of protection";
+
+/* Standard protection level */
+"Qwant.TrackingProtection.ProtectionLevel.StandardTitle" = "Standard";
+
+/* Description of the standard protection level */
+"Qwant.TrackingProtection.ProtectionLevel.StandardDescription" = "Blocks most trackers efficiently";
+
+/* Strict protection level */
+"Qwant.TrackingProtection.ProtectionLevel.StrictTitle" = "Streng";
+
+/* Description of the strict protection level */
+"Qwant.TrackingProtection.ProtectionLevel.StrictDescription" = "Blocks all trackers, may affect some sites";
+
+/* Disabled protection level */
+"Qwant.TrackingProtection.ProtectionLevel.DisabledTitle" = "Disabled";
+
+/* Description of the disabled protection level */
+"Qwant.TrackingProtection.ProtectionLevel.DisabledDescription" = "The browsing protection is disabled";
+
+/* Header of the statistics section */
+"Qwant.TrackingProtection.Statistics.LastThirtyDays" = "Last 30 days";
+
+/* Represents the # of items blocked by the tracking protection */
+"Qwant.TrackingProtection.Statistics.ItemsBlocked" = "Blocked items";
+
+/* Represents the time saved by the tracking protection */
+"Qwant.TrackingProtection.Statistics.TimeSaved" = "Saved time";
+
+/* Buttons to redirect to the details of the statistics */
+"Qwant.TrackingProtection.Statistics.SeeDetails" = "See details";
+
+/* Title of the local protection details page */
+"Qwant.TrackingProtection.LocalProtection.ScreenTitle" = "Blocked items";
+
+/* Title to describle the value underneath it is the number of items blocked within the current website */
+"Qwant.TrackingProtection.LocalProtection.TrackersTitle" = "Trackers";
+
+/* Title to describle the value underneath it is the number of domains blocked within the current website */
+"Qwant.TrackingProtection.LocalProtection.DomainsTitle" = "Domains";
+
+/* Title of the statistics details page */
+"Qwant.TrackingProtection.Statistics.ScreenTitle" = "Cumulative statistics";
+
+/* Title of the global tracking protection page */
+"Qwant.TrackingProtection.GlobalProtection.ScreenTitle" = "Qwant VIPrivacy";
+
+/* Header of the help section */
+"Qwant.TrackingProtection.GlobalProtection.Help" = "Hilfe";
+
+/* Cell title */
+"Qwant.TrackingProtection.GlobalProtection.About" = "Learn about Qwant VIPrivacy";
+
+/* Cell title */
+"Qwant.TrackingProtection.GlobalProtection.Experience" = "Share your experience";
+
+/* Local protection is deactivated for the currently visited website */
+"Qwant.TrackingProtection.LocalProtection.Inactive" = "Inactive";
+
+/* Represents the currently visited domain. example: on mywebsite.com */
+"Qwant.TrackingProtection.LocalProtection.OnDomain" = "on %@";
+
+/* Title of the Information row */
+"Qwant.TrackingProtection.Information.Title" = "Information";
+
+/* Title of the Feedback row */
+"Qwant.TrackingProtection.Feedback.Title" = "Feedback";
+
+/* Header title */
+"Qwant.TrackingProtection.LocalProtection.TrackersCookiesTitle" = "Trackers/Cookies";
+
+/* Placeholder text when the # of blocked trackers is null */
+"Qwant.TrackingProtection.LocalProtection.EmptyListTrackersBlocked" = "There is nothing to block here, this is a pretty nice website!";
+
+/* Button title to reactivate protection */
+"Qwant.TrackingProtection.ProtectionLevel.Reactivate" = "Reactivate protection";
+
+/* Button title to reactivate stats */
+"Qwant.TrackingProtection.Statistics.Reactivate" = "Reactivate statistics";
+
+/* Button title to deactivate stats */
+"Qwant.TrackingProtection.Statistics.Deactivate" = "Deactivate statistics";
+
+/* Confirmation text before deactivating stats */
+"Qwant.TrackingProtection.Statistics.DeactivateDetails" = "Deactivate statistics will result in deleting all cumulated statistics so far.";
+
+/* Confirmation action button title */
+"Qwant.TrackingProtection.Statistics.Deactivate.Confirm" = "Confirm deactivation";
+
+/* Cancel action button title */
+"Qwant.TrackingProtection.Statistics.Deactivate.Cancel" = "Cancel";
+
+/* Placeholder text explaining that stats are deactivated */
+"Qwant.TrackingProtection.Statistics.DeactivateForNow" = "Currently disabled";
+
+/* Button title to delete stats */
+"Qwant.TrackingProtection.Statistics.Delete" = "Delete";
+
+/* Placeholder text explaining that stats has just been reactivated */
+"Qwant.TrackingProtection.Statistics.JustActivated" = "Statistics activated! Start browsing the web, and your numbers will be displayed here.";
+
+/* Placeholder text explaining that stats are empty */
+"Qwant.TrackingProtection.Statistics.Empty" = "Nothing yet";
+
+/* Title of the Learn More row */
+"Qwant.TrackingProtection.Information.GetToKnow" = "Learn about Qwant VIPrivacy";
+
+/* Title of the Github row */
+"Qwant.TrackingProtection.Information.DeveloperNotes" = "Developer Notes";
+
