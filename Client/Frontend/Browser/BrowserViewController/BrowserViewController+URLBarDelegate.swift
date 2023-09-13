@@ -89,8 +89,20 @@ extension BrowserViewController: URLBarDelegate {
         }
         TelemetryWrapper.recordEvent(category: .action, method: .open, object: .tabTray)
 
+#if MOZ_CHANNEL_BETA
+        let alert = UIAlertController(title: "User rating criteria",
+                                      message: ratingPromptManager.debugMessage,
+                                      preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "OK", style: .cancel) { _ in
+            // App store review in-app prompt
+            self.ratingPromptManager.showRatingPromptIfNeeded()
+        }
+        alert.addAction(dismiss)
+        navigationController.present(alert, animated: true)
+#else
         // App store review in-app prompt
         ratingPromptManager.showRatingPromptIfNeeded()
+#endif
     }
 
     func urlBarDidPressReload(_ urlBar: URLBarView) {
