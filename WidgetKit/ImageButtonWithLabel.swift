@@ -89,7 +89,7 @@ struct ImageButtonWithLabel: View {
                                 .frame(height: 24.0)
                         } else {
                             Image(link.imageName)
-                                .renderingMode(.template)
+                                .renderingMode(link.imageName == "faviconFox" ? .original : .template)
                                 .scaledToFit()
                                 .frame(height: 24.0)
                         }

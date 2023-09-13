@@ -453,6 +453,7 @@ ksl.com
 tdbank.com
 sourceforge.net
 careerbuilder.com
+<<<<<<< HEAD
 google.com
 facebook.com
 amazon.com
@@ -1363,3 +1364,8 @@ ksl.com
 tdbank.com
 sourceforge.net
 careerbuilder.com
+qwant.com
+qwantjunior.com
+music.qwant.com
+boards.qwant.com
+help.qwant.com

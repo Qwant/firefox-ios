@@ -316,11 +316,8 @@ class LegacyGridTabViewController: UIViewController, TabTrayViewDelegate, Themea
 
     @objc
     func didTapLearnMore() {
-        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        if let langID = Locale.preferredLanguages.first {
-            let learnMoreRequest = URLRequest(url: "https://support.mozilla.org/1/mobile/\(appVersion ?? "0.0")/iOS/\(langID)/private-browsing-ios".asURL!)
-            openNewTab(learnMoreRequest, isPrivate: tabDisplayManager.isPrivate)
-        }
+        let learnMoreRequest = URLRequest(url: "https://about.qwant.com/".asURL!)
+        openNewTab(learnMoreRequest, isPrivate: tabDisplayManager.isPrivate)
     }
 
     func closeTabsTrayBackground() {

@@ -13,7 +13,7 @@ features:
             "jump-back-in": true,
             "recently-saved": true,
             "recent-explorations": true,
-            "pocket": true
+            "pocket": false
           }
       pocket-sponsored-stories:
         description: >
@@ -29,9 +29,9 @@ features:
             "jump-back-in": true,
             "recently-saved": true,
             "recent-explorations": true,
-            "pocket": true
+            "pocket": false
           },
-          "pocket-sponsored-stories": true
+          "pocket-sponsored-stories": false
         }
       - channel: beta
         value: {
@@ -40,7 +40,7 @@ features:
             "jump-back-in": true,
             "recently-saved": true,
             "recent-explorations": true,
-            "pocket": true
+            "pocket": false
           },
           "pocket-sponsored-stories": false
         }

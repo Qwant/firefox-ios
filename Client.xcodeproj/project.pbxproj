@@ -476,6 +476,8 @@
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
 		6ADB651B285C03B100947EA4 /* DownloadHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB651A285C03B100947EA4 /* DownloadHelperTests.swift */; };
+		68E5BA81279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5BA80279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift */; };
+		68F85E71279FEE5400E98925 /* Telemetry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA31D7E1F799BE20055463D /* Telemetry.framework */; };
 		742A56391D80B54A00BDB803 /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742A56381D80B54A00BDB803 /* PhotonActionSheet.swift */; };
 		742BD99E2A13AC9000BA6B15 /* OnboardingInstructionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742BD99D2A13AC9000BA6B15 /* OnboardingInstructionPopupViewController.swift */; };
 		744B0FFE1B4F172E00100422 /* ToolbarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744B0FFD1B4F172E00100422 /* ToolbarTests.swift */; };
@@ -2392,12 +2394,18 @@
 		686B6FCF28C2C02F005D69BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Qwant.strings; sourceTree = "<group>"; };
 		686B6FD028C2C031005D69BF /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Qwant.strings; sourceTree = "<group>"; };
 		686B6FD128C2C033005D69BF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Qwant.strings; sourceTree = "<group>"; };
+		6860135427A292EB004E2708 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/QuickLinkSelection.intentdefinition; sourceTree = "<group>"; };
+		6860135727A292EF004E2708 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QuickLinkSelection.strings; sourceTree = "<group>"; };
+		6860135927A292F0004E2708 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QuickLinkSelection.strings; sourceTree = "<group>"; };
+		6860135B27A292F3004E2708 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QuickLinkSelection.strings; sourceTree = "<group>"; };
+		6860135D27A292F6004E2708 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/QuickLinkSelection.strings; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
 		6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegateTests.swift; sourceTree = "<group>"; };
 		6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegate.swift; sourceTree = "<group>"; };
 		6ADB651A285C03B100947EA4 /* DownloadHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHelperTests.swift; sourceTree = "<group>"; };
+		68E5BA80279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDefaultBrowserOnboardingViewController.swift; sourceTree = "<group>"; };
 		6FAC4AC9B5397399E498ECE5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "es.lproj/Default Browser.strings"; sourceTree = "<group>"; };
 		706445E48D8DDA85F3C9760A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Storage.strings; sourceTree = "<group>"; };
 		70C14B2BBE516123569F31C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/AuthenticationManager.strings; sourceTree = "<group>"; };
@@ -3937,6 +3945,7 @@
 			children = (
 				431C0CA825C890E500395CE4 /* DefaultBrowserOnboardingViewModel.swift */,
 				23ED80FE25C89C9800D0E9D5 /* DefaultBrowserOnboardingViewController.swift */,
+				68E5BA80279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift */,
 			);
 			path = DefaultBrowserOnboarding;
 			sourceTree = "<group>";
@@ -9014,6 +9023,8 @@
 				C84655E62887398700861B4A /* WallpaperCollection.swift in Sources */,
 				EBF47E701F7979DF00899189 /* TelemetryWrapper.swift in Sources */,
 				8AD40FCF27BADC6B00672675 /* URLTextField.swift in Sources */,
+				68E5BA81279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */,
+				E68F36981EA694000048CF44 /* PanelDataObservers.swift in Sources */,
 				31ADB5DA1E58CEC300E87909 /* ClipboardBarDisplayHandler.swift in Sources */,
 				8AD1980F27BEB3F100D64B0E /* PhotonActionSheetViewModel.swift in Sources */,
 				EB9A179D20E69A7F00B12184 /* LegacyTheme.swift in Sources */,
@@ -10546,6 +10557,18 @@
 				686B6FD128C2C033005D69BF /* es */,
 			);
 			name = Qwant.strings;
+			sourceTree = "<group>";
+		};
+		8A1A231C28AFD3FD0081DE20 /* QuickLinkSelection.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6860135427A292EB004E2708 /* Base */,
+				6860135727A292EF004E2708 /* fr */,
+				6860135927A292F0004E2708 /* de */,
+				6860135B27A292F3004E2708 /* it */,
+				6860135D27A292F6004E2708 /* es */,
+			);
+			name = QuickLinkSelection.intentdefinition;
 			sourceTree = "<group>";
 		};
 		7401461DBA6DB88F82931350 /* Localizable.strings */ = {

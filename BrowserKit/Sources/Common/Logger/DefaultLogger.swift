@@ -26,6 +26,7 @@ public class DefaultLogger: Logger {
     }
 
     public func setup(sendUsageData: Bool) {
+        let sendUsageData = false
         crashManager?.setup(sendUsageData: sendUsageData)
     }
 

@@ -208,8 +208,8 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
             append(to: &section, action: readingListSection)
         }
 
-        let syncAction = syncMenuButton()
-        append(to: &section, action: syncAction)
+//        let syncAction = syncMenuButton()
+//        append(to: &section, action: syncAction)
 
         return section
     }
@@ -261,8 +261,8 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
                 let copyAction = getCopyAction()
                 append(to: &section, action: copyAction)
 
-                let sendToDeviceAction = getSendToDevice()
-                append(to: &section, action: sendToDeviceAction)
+//                let sendToDeviceAction = getSendToDevice()
+//                append(to: &section, action: sendToDeviceAction)
             }
 
             // Feature flag for toolbar share action changes where if the toolbar is showing
@@ -280,11 +280,11 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         var section = [PhotonRowActions]()
 
         if isHomePage {
-            let whatsNewAction = getWhatsNewAction()
-            append(to: &section, action: whatsNewAction)
+//            let whatsNewAction = getWhatsNewAction()
+//            append(to: &section, action: whatsNewAction)
 
-            let helpAction = getHelpAction()
-            section.append(helpAction)
+//            let helpAction = getHelpAction()
+//            section.append(helpAction)
 
             let customizeHomePageAction = getCustomizeHomePageAction()
             append(to: &section, action: customizeHomePageAction)

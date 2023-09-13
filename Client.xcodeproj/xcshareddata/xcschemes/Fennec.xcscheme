@@ -382,7 +382,16 @@
                   Identifier = "TabManagerTests/testPrivatePreference_togglePBMDeletesPrivate()">
                </Test>
                <Test
+                  Identifier = "SearchTests/testURIFixupPunyCode()">
+               </Test>
+               <Test
                   Identifier = "TestFavicons/testFaviconFetcherParse()">
+               </Test>
+               <Test
+                  Identifier = "UIPasteboardExtensionsTests/testAddGIFImage()">
+               </Test>
+               <Test
+                  Identifier = "UIPasteboardExtensionsTests/testAddPNGImage()">
                </Test>
                <Test
                   Identifier = "VersionSettingTests/testCopyAppVersion()">

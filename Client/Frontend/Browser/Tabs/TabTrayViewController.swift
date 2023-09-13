@@ -60,8 +60,8 @@ class TabTrayViewController: UIViewController,
         let iPhoneItems = [
             LegacyTabTrayViewModel.Segment.tabs.image!.overlayWith(image: countLabel),
             LegacyTabTrayViewModel.Segment.privateTabs.image!,
-            LegacyTabTrayViewModel.Segment.syncedTabs.image!]
-        return shouldUseiPadSetup() ? LegacyTabTrayViewModel.Segment.allCases.map { $0.label } : iPhoneItems
+            /*LegacyTabTrayViewModel.Segment.syncedTabs.image!*/]
+        return shouldUseiPadSetup() ? LegacyTabTrayViewModel.Segment.allCases.filter { $0 != .syncedTabs }.map { $0.label } : iPhoneItems
     }
 
     private lazy var deleteButton: UIBarButtonItem = {

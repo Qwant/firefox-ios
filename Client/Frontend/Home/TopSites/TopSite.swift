@@ -43,7 +43,9 @@ final class TopSite {
 
     init(site: Site) {
         self.site = site
-        if let provider = site.metadata?.providerName {
+        if site.title.contains("Qwant") {
+            title = site.title
+        } else if let provider = site.metadata?.providerName {
             title = provider.lowercased().capitalized
         } else {
             title = site.title

@@ -267,6 +267,10 @@ open class BrowserProfile: Profile {
                        category: .setup)
             MZKeychainWrapper.wipeKeychain()
             prefs.clearAll()
+            
+            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
+            prefs.setString("https://www.qwant.com/", forKey: PrefsKeys.NewTabCustomUrlPrefKey)
+            prefs.setString("https://www.qwant.com", forKey: PrefsKeys.HomeButtonHomePageURL)
         }
 
         // Set up logging from Rust.
@@ -314,23 +318,33 @@ open class BrowserProfile: Profile {
         notificationCenter.addObserver(self, selector: #selector(onLocationChange), name: .OnLocationChange, object: nil)
         notificationCenter.addObserver(self, selector: #selector(onPageMetadataFetched), name: .OnPageMetadataFetched, object: nil)
 
-        if AppInfo.isChinaEdition {
-            // Set the default homepage.
-            prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.KeyDefaultHomePageURL)
+//        if AppInfo.isChinaEdition {
+//            // Set the default homepage.
+//            prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.KeyDefaultHomePageURL)
+//
+//            if prefs.stringForKey(PrefsKeys.KeyNewTab) == nil {
+//                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.NewTabCustomUrlPrefKey)
+//                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.KeyNewTab)
+//            }
+//
+//            if prefs.stringForKey(PrefsKeys.HomePageTab) == nil {
+//                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.HomeButtonHomePageURL)
+//                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.HomePageTab)
+//            }
+//        } else {
+//            // Remove the default homepage. This does not change the user's preference,
+//            // just the behaviour when there is no homepage.
+//            prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
+//        }
 
-            if prefs.stringForKey(PrefsKeys.KeyNewTab) == nil {
-                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.NewTabCustomUrlPrefKey)
-                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.KeyNewTab)
+        // Hide the "__leanplum.sqlite" file in the documents directory.
+        if var leanplumFile = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("__leanplum.sqlite"), FileManager.default.fileExists(atPath: leanplumFile.path) {
+            let isHidden = (try? leanplumFile.resourceValues(forKeys: [.isHiddenKey]))?.isHidden ?? false
+            if !isHidden {
+                var resourceValues = URLResourceValues()
+                resourceValues.isHidden = true
+                try? leanplumFile.setResourceValues(resourceValues)
             }
-
-            if prefs.stringForKey(PrefsKeys.HomePageTab) == nil {
-                prefs.setString(PrefsDefaults.ChineseHomePageURL, forKey: PrefsKeys.HomeButtonHomePageURL)
-                prefs.setString(PrefsDefaults.ChineseNewTabDefault, forKey: PrefsKeys.HomePageTab)
-            }
-        } else {
-            // Remove the default homepage. This does not change the user's preference,
-            // just the behaviour when there is no homepage.
-            prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
         }
 
         // Create the "Downloads" folder in the documents directory.

@@ -16,7 +16,7 @@ final class AdjustHelper: NSObject, FeatureFlaggable {
          telemetryHelper: AdjustTelemetryProtocol = AdjustTelemetryHelper()) {
         self.profile = profile
         self.telemetryHelper = telemetryHelper
-        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 
         // This is required for adjust to work properly with ASA and we avoid directly disabling
         // third-party sharing as there is a specific method provided to us by adjust for that.
@@ -43,6 +43,7 @@ final class AdjustHelper: NSObject, FeatureFlaggable {
     /// Used to enable or disable Adjust SDK and it's features.
     /// If user has disabled Send Anonymous Usage Data then we ask Adjust to erase the user's data as well.
     static func setEnabled(_ enabled: Bool) {
+        let enabled = false
         Adjust.setEnabled(enabled)
 
         if !enabled {
@@ -80,7 +81,7 @@ final class AdjustHelper: NSObject, FeatureFlaggable {
 
     /// Return true if retention (session) tracking should be enabled. This follows the Send Anonymous Usage Data setting.
     private var shouldTrackRetention: Bool {
-        return profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        return profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
     }
 
     // MARK: - UserDefaults

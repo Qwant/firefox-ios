@@ -73,6 +73,7 @@ public class DefaultCrashManager: CrashManager {
     }
 
     public func setup(sendUsageData: Bool) {
+        let sendUsageData = false
         guard shouldSetup, sendUsageData, let dsn = sentryWrapper.dsn else { return }
 
         sentryWrapper.startWithConfigureOptions(configure: { options in

@@ -130,7 +130,7 @@ extension TopSitesViewModel: HomepageViewModelProtocol, FeatureFlaggable {
 
     var headerViewModel: LabelButtonHeaderViewModel {
         // Only show a header if the firefox browser logo isn't showing
-        let shouldShow = !featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly)
+        let shouldShow = !featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly) && true
         var textColor: UIColor?
         if wallpaperManager.featureAvailable {
             textColor = wallpaperManager.currentWallpaper.textColor
@@ -172,6 +172,19 @@ extension TopSitesViewModel: HomepageViewModelProtocol, FeatureFlaggable {
                                                        count: sectionDimension.numberOfTilesPerRow)
         group.interItemSpacing = NSCollectionLayoutSpacing.fixed(UX.cardSpacing)
         let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .estimated(34))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                 elementKind: UICollectionView.elementKindSectionHeader,
+                                                                 alignment: .top)
+        
+        let headerLeadingInset = HomepageViewModel.UX.leadingInset(traitCollection: traitCollection)
+        header.contentInsets = NSDirectionalEdgeInsets(top: 0,
+                                                       leading: headerLeadingInset,
+                                                       bottom: 0,
+                                                       trailing: 0)
+        section.boundarySupplementaryItems = [header]
 
         let leadingInset = HomepageViewModel.UX.leadingInset(traitCollection: traitCollection)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0,
