@@ -1,0 +1,40 @@
+"2I56oC" = "Acción rápida";
+
+"9NY97H" = "Selecciona un acceso directo de Qwant para añadirlo a tu pantalla de inicio.";
+
+"DFGT8d" = "Tipo de acción rápida";
+
+"Dt1192" = "Nueva búsqueda privada";
+
+"JiZVv0" = "Eliminar pestañas privadas";
+
+"MXB2K6" = "Nueva búsqueda";
+
+"QjQSnd-Dt1192" =  "Solo para confirmar, ¿querías una \"Nueva búsqueda privada\"?";
+
+"QjQSnd-JiZVv0" =  "Solo para confirmar, ¿querías \"Eliminar pestañas privadas\"?";
+
+"QjQSnd-MXB2K6" = "Solo para confirmar, ¿querías una \"Nueva búsqueda\"?";
+
+"QjQSnd-bpYlov" =  "Solo para confirmar, ¿querías \"Ir al enlace copiado\"?";
+
+"bpYlov" = "Ir al enlace copiado";
+
+"oQDtoo-Dt1192" =  "Hay ${count} opciones que coinciden con 'Nueva búsqueda privada'.";
+
+"oQDtoo-JiZVv0" = "Hay ${count} opciones que coinciden con \"Borrar pestañas privadas\".";
+
+"oQDtoo-MXB2K6" =  "Hay ${count} opciones que coinciden con \"Nueva búsqueda\".";
+
+"oQDtoo-bpYlov" = "Hay ${count} opciones que coinciden con 'Ir al enlace copiado'.";
+
+"pooIV6-Dt1192" =  "Hay ${count} opciones que coinciden con 'Nueva búsqueda privada'.";
+
+"pooIV6-JiZVv0" = "Hay ${count} opciones que coinciden con \"Borrar pestañas privadas\".";
+
+"pooIV6-MXB2K6" =  "Hay ${count} opciones que coinciden con \"Nueva búsqueda\".";
+
+"pooIV6-bpYlov" = "Hay ${count} opciones que coinciden con 'Ir al enlace copiado'.";
+
+"wsnbbt" = "Acción rápida";
+

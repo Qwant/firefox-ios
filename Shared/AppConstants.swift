@@ -6,7 +6,8 @@ import Common
 import UIKit
 
 public enum AppName: String, CustomStringConvertible {
-    case shortName = "Firefox"
+    case shortName = "Qwant"
+    case longName = "Qwant Browser"
 
     public var description: String {
         return self.rawValue
@@ -89,15 +90,7 @@ public class AppConstants {
 
     /// Build Channel.
     public static let buildChannel: AppBuildChannel = {
-        #if MOZ_CHANNEL_RELEASE
         return AppBuildChannel.release
-        #elseif MOZ_CHANNEL_BETA
-        return AppBuildChannel.beta
-        #elseif MOZ_CHANNEL_FENNEC
-        return AppBuildChannel.developer
-        #else
-        return AppBuildChannel.other
-        #endif
     }()
 
     /// Enables support for International Domain Names (IDN)

@@ -83,7 +83,7 @@ class TelemetryWrapper: TelemetryWrapperProtocol, FeatureFlaggable {
         telemetryConfig.userDefaultsSuiteName = AppInfo.sharedContainerIdentifier
         telemetryConfig.dataDirectory = .cachesDirectory
         telemetryConfig.updateChannel = AppConstants.buildChannel.rawValue
-        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
         telemetryConfig.isCollectionEnabled = sendUsageData
         telemetryConfig.isUploadEnabled = sendUsageData
 
@@ -163,6 +163,11 @@ class TelemetryWrapper: TelemetryWrapperProtocol, FeatureFlaggable {
     }
 
     func initGlean(_ profile: Profile, sendUsageData: Bool) {
+        let sendUsageData = false
+        if !sendUsageData {
+            return
+        }
+        
         // Get the legacy telemetry ID and record it in Glean for the deletion-request ping
         if let uuidString = UserDefaults.standard.string(forKey: "telemetry-key-prefix-clientId"), let uuid = UUID(uuidString: uuidString) {
             GleanMetrics.LegacyIds.clientId.set(uuid)

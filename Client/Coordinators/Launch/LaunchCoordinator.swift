@@ -43,16 +43,10 @@ class LaunchCoordinator: BaseCoordinator,
     // MARK: - Intro
     private func presentIntroOnboarding(with manager: IntroScreenManager,
                                         isFullScreen: Bool) {
-        let onboardingModel = NimbusOnboardingFeatureLayer().getOnboardingModel(for: .freshInstall)
-        let telemetryUtility = OnboardingTelemetryUtility(with: onboardingModel)
-        let introViewModel = IntroViewModel(introScreenManager: manager,
-                                            profile: profile,
-                                            model: onboardingModel,
-                                            telemetryUtility: telemetryUtility)
-        let introViewController = IntroViewController(viewModel: introViewModel)
-        introViewController.qrCodeNavigationHandler = self
-        introViewController.didFinishFlow = { [weak self] in
+        let introViewController = QwantDefaultBrowserOnboardingViewController()
+        introViewController.didFinishClosure = { [weak self] _, _ in
             guard let self = self else { return }
+            IntroScreenManager(prefs: self.profile.prefs).didSeeIntroScreen()
             self.parentCoordinator?.didFinishLaunch(from: self)
         }
 
@@ -61,14 +55,9 @@ class LaunchCoordinator: BaseCoordinator,
             router.present(introViewController, animated: false)
         } else {
             introViewController.preferredContentSize = CGSize(
-                width: ViewControllerConsts.PreferredSize.IntroViewController.width,
-                height: ViewControllerConsts.PreferredSize.IntroViewController.height)
+                width: ViewControllerConsts.PreferredSize.QwantDefaultBrowserOnboardingViewController.width,
+                height: ViewControllerConsts.PreferredSize.QwantDefaultBrowserOnboardingViewController.height)
             introViewController.modalPresentationStyle = .formSheet
-            // Disables dismissing the view by tapping outside the view, based on
-            // Nimbus's configuration
-            if !introViewModel.isDismissable {
-                introViewController.isModalInPresentation = true
-            }
             router.present(introViewController, animated: true)
         }
     }

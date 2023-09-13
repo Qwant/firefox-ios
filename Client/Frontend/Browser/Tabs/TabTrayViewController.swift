@@ -38,7 +38,7 @@ class TabTrayViewController: UIViewController,
 
     // MARK: - Redux state
     lazy var layout: LegacyTabTrayViewModel.Layout = {
-        return shouldUseiPadSetup() ? .regular : .compact
+        return isRegularLayout ? .regular : .compact
     }()
 
     var selectedSegment: LegacyTabTrayViewModel.Segment = .tabs
@@ -86,8 +86,8 @@ class TabTrayViewController: UIViewController,
         let iPhoneItems = [
             LegacyTabTrayViewModel.Segment.tabs.image!.overlayWith(image: countLabel),
             LegacyTabTrayViewModel.Segment.privateTabs.image!,
-            LegacyTabTrayViewModel.Segment.syncedTabs.image!]
-        return isRegularLayout ? LegacyTabTrayViewModel.Segment.allCases.map { $0.label } : iPhoneItems
+            /*LegacyTabTrayViewModel.Segment.syncedTabs.image!*/]
+        return isRegularLayout ? LegacyTabTrayViewModel.Segment.allCases.filter { $0 != .syncedTabs }.map { $0.label } : iPhoneItems
     }
 
     private lazy var deleteButton: UIBarButtonItem = {

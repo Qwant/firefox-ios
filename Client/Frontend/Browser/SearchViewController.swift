@@ -362,7 +362,7 @@ class SearchViewController: SiteTableViewController,
             return
         }
 
-        Telemetry.default.recordSearch(location: .quickSearch, searchEngine: engine.engineID ?? "other")
+//        Telemetry.default.recordSearch(location: .quickSearch, searchEngine: engine.engineID ?? "other")
         GleanMetrics.Search.counts["\(engine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.quickSearch.rawValue)"].add()
 
         searchDelegate?.searchViewController(self, didSelectURL: url, searchTerm: "")
@@ -541,7 +541,7 @@ class SearchViewController: SiteTableViewController,
                   let url = defaultEngine.searchURLForQuery(suggestion)
             else { return }
 
-            Telemetry.default.recordSearch(location: .suggestion, searchEngine: defaultEngine.engineID ?? "other")
+//            Telemetry.default.recordSearch(location: .suggestion, searchEngine: defaultEngine.engineID ?? "other")
             GleanMetrics.Search.counts["\(defaultEngine.engineID ?? "custom").\(SearchesMeasurement.SearchLocation.suggestion.rawValue)"].add()
             searchDelegate?.searchViewController(self, didSelectURL: url, searchTerm: suggestion)
         case .openedTabs:

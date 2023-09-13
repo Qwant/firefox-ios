@@ -73,11 +73,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>5W2MbK</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20E5196f</string>
+	<string>21C52</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12D4e</string>
+	<string>13A1030d</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.4</string>
+	<string>13.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -178,12 +178,16 @@
 					</dict>
 				</array>
 			</dict>
+			<key>INIntentRestrictions</key>
+			<integer>1</integer>
 			<key>INIntentTitle</key>
-			<string>Quick Action</string>
+			<string>String.QuickActionTitle</string>
 			<key>INIntentTitleID</key>
 			<string>eqyNJg</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
+			<key>INIntentUserConfirmationRequired</key>
+			<true/>
 			<key>INIntentVerb</key>
 			<string>View</string>
 		</dict>

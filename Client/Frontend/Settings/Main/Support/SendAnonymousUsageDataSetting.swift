@@ -24,7 +24,7 @@ class SendAnonymousUsageDataSetting: BoolSetting {
         super.init(
             prefs: prefs,
             prefKey: AppConstants.prefSendUsageData,
-            defaultValue: true,
+            defaultValue: false,
             attributedTitleText: NSAttributedString(string: .SendUsageSettingTitle),
             attributedStatusText: statusText,
             settingDidChange: {
@@ -35,7 +35,7 @@ class SendAnonymousUsageDataSetting: BoolSetting {
         )
         // We make sure to set this on initialization, in case the setting is turned off
         // in which case, we would to make sure that users are opted out of experiments
-        Experiments.setTelemetrySetting(prefs.boolForKey(AppConstants.prefSendUsageData) ?? true)
+        Experiments.setTelemetrySetting(prefs.boolForKey(AppConstants.prefSendUsageData) ?? false)
     }
 
     override var accessibilityIdentifier: String? {
@@ -48,5 +48,9 @@ class SendAnonymousUsageDataSetting: BoolSetting {
 
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.askedToOpen(url: url, withTitle: title)
+    }
+
+    override var hidden: Bool {
+        return true
     }
 }

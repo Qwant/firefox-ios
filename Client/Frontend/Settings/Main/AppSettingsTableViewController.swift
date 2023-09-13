@@ -145,8 +145,8 @@ class AppSettingsTableViewController: SettingsTableViewController,
 
     override func generateSettings() -> [SettingSection] {
         var settings = [SettingSection]()
-        settings += getDefaultBrowserSetting()
-        settings += getAccountSetting()
+//        settings += getDefaultBrowserSetting()
+//        settings += getAccountSetting()
         settings += getGeneralSettings()
         settings += getPrivacySettings()
         settings += getSupportSettings()
@@ -196,6 +196,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
             SearchSetting(settings: self, settingsDelegate: parentCoordinator),
             NewTabPageSetting(settings: self, settingsDelegate: parentCoordinator),
             HomeSetting(settings: self, settingsDelegate: parentCoordinator),
+            DefaultBrowserSetting(theme: themeManager.currentTheme),
             OpenWithSetting(settings: self, settingsDelegate: parentCoordinator),
             ThemeSetting(settings: self, settingsDelegate: parentCoordinator),
             SiriPageSetting(settings: self, settingsDelegate: parentCoordinator),

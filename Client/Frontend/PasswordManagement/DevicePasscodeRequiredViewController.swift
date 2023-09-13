@@ -6,6 +6,15 @@ import Common
 import UIKit
 import Shared
 
+class QwantDevicePasscodeRequiredViewController: DevicePasscodeRequiredViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let learnMoreButton = self.view.subviews.first(where: { ($0 as? UIButton)?.titleLabel?.text == .LoginsDevicePasscodeRequiredLearnMoreButtonTitle })
+        learnMoreButton?.removeFromSuperview()
+    }
+}
+
 class DevicePasscodeRequiredViewController: SettingsViewController {
     private var warningLabel: UILabel = {
         let label = UILabel()

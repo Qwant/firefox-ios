@@ -21,11 +21,11 @@ class HomePageSettingViewController: SettingsTableViewController, FeatureFlaggab
 
     var isWallpaperSectionEnabled: Bool {
         return wallpaperManager.canSettingsBeShown &&
-            featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly)
+            featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly) && false
     }
 
     var isPocketSectionEnabled: Bool {
-        return PocketProvider.islocaleSupported(Locale.current.identifier)
+        return PocketProvider.islocaleSupported(Locale.current.identifier) && false
     }
 
     var isHistoryHighlightsSectionEnabled: Bool {

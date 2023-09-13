@@ -7,29 +7,29 @@ features:
         type: WallpaperConfiguration
         default:
           {
-            "status": true,
+            "status": false,
             "version": v1,
           }
       onboarding-sheet:
         description: This property defines whether the wallpaper onboarding is shown or not
         type: Boolean
-        default: true
+        default: false
     defaults:
       - channel: beta
         value: {
           "configuration": {
-            "status": true,
+            "status": false,
             "version": v1,
           },
-          "onboarding-sheet": true
+          "onboarding-sheet": false
         }
       - channel: developer
         value: {
           "configuration": {
-            "status": true,
+            "status": false,
             "version": v1,
           },
-          "onboarding-sheet": true
+          "onboarding-sheet": false
         }
 
 objects:

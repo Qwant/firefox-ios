@@ -4302,12 +4302,12 @@ extension String {
     public static let CrashOptInAlertTitle = MZLocalizedString(
         key: "Oops! Firefox crashed",
         tableName: nil,
-        value: nil,
+        value: "Oops! Qwant crashed",
         comment: "Title for prompt displayed to user after the app crashes")
     public static let CrashOptInAlertMessage = MZLocalizedString(
         key: "Send a crash report so Mozilla can fix the problem?",
         tableName: nil,
-        value: nil,
+        value: "Send a crash report so Qwant can fix the problem?",
         comment: "Message displayed in the crash dialog above the buttons used to select when sending reports")
     public static let CrashOptInAlertSend = MZLocalizedString(
         key: "Send Report",
@@ -4729,7 +4729,7 @@ extension String {
     public static let TabTrayPrivateBrowsingDescription =  MZLocalizedString(
         key: "Firefox won’t remember any of your history or cookies, but new bookmarks will be saved.",
         tableName: "PrivateBrowsing",
-        value: nil,
+        value: "Qwant won’t remember any of your history or cookies, but new bookmarks will be saved.",
         comment: "Description text displayed when there are no open tabs while in private mode")
     public static let TabTrayAddTabAccessibilityLabel = MZLocalizedString(
         key: "Add Tab",
@@ -4854,7 +4854,7 @@ extension String {
     public static let RemoteTabErrorNoTabs = MZLocalizedString(
         key: "You don’t have any tabs open in Firefox on your other devices.",
         tableName: nil,
-        value: nil,
+        value: "You don’t have any tabs open in Qwant on your other devices.",
         comment: "Error message in the remote tabs panel")
     public static let RemoteTabErrorFailedToSync = MZLocalizedString(
         key: "There was a problem accessing tabs from your other devices. Try again in a few moments.",
@@ -5474,3 +5474,35 @@ extension String {
         comment: "This is the value for a label that indicates if a user is on an unencrypted website.")
 }
 // swiftlint:enable line_length
+
+// MARK: - Qwant extension
+extension String {
+    
+    public struct QwantDefaultBrowser {
+        public static let DefaultBrowserTitle1 = MZLocalizedString(
+            key: "DefaultBrowserOnboarding.Qwant.Title1",
+            tableName: "Default Browser",
+            value: "Make the Qwant app",
+            comment: "First part of the title to help users understand that they can set Qwant as their default browser.")
+        public static let DefaultBrowserTitle2 = MZLocalizedString(
+            key: "DefaultBrowserOnboarding.Qwant.Title2",
+            tableName: "Default Browser",
+            value: "your default browser",
+            comment: "Second part of the title to help users understand that they can set Qwant as their default browser.")
+        public static let DefaultBrowserDescription = MZLocalizedString(
+            key: "DefaultBrowserOnboarding.Qwant.Description",
+            tableName: "Default Browser",
+            value: "Set links to open automatically in Qwant!",
+            comment: "Description to help users understand that they can set Qwant as their default browser.")
+        public static let DefaultBrowserButtonSettings = MZLocalizedString(
+            key: "DefaultBrowserOnboarding.Qwant.ButtonSettings",
+            tableName: "Default Browser",
+            value: "Go to Settings",
+            comment: "Button string to open settings that allows user to switch their default browser to Qwant.")
+        public static let DefaultBrowserButtonIgnore = MZLocalizedString(
+            key: "DefaultBrowserOnboarding.Qwant.ButtonIgnore",
+            tableName: "Default Browser",
+            value: "Ignore",
+            comment: "Button string to ignore the default browser capability.")
+    }
+}

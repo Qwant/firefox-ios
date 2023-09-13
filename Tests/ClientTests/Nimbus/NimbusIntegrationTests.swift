@@ -13,7 +13,7 @@ class NimbusIntegrationTests: XCTestCase {
     func testStringBundleAccess() throws {
         XCTAssertEqual(Locale.current.languageCode, "en")
         let stringWithNoTable = Strings.bundle.localizedString(forKey: "ShareExtension.OpenInFirefoxAction.Title", value: nil, table: nil)
-        XCTAssertEqual(stringWithNoTable, "Open in Firefox")
+        XCTAssertEqual(stringWithNoTable, "Open in Qwant")
 
         let stringWithTable = Strings.bundle.localizedString(forKey: "DefaultBrowserCard.Title", value: nil, table: "Default Browser")
         XCTAssertEqual(stringWithTable, "Switch Your Default Browser")
@@ -46,7 +46,7 @@ class NimbusIntegrationTests: XCTestCase {
     func testNSLocalizedStringAccess() throws {
         XCTAssertEqual(Locale.current.languageCode, "en")
         let stringWithNoTable = NSLocalizedString("ShareExtension.OpenInFirefoxAction.Title", bundle: Strings.bundle, comment: "")
-        XCTAssertEqual(stringWithNoTable, "Open in Firefox")
+        XCTAssertEqual(stringWithNoTable, "Open in Qwant")
 
         let stringWithTable = NSLocalizedString("DefaultBrowserCard.Title", tableName: "Default Browser", bundle: Strings.bundle, comment: "")
         XCTAssertEqual(stringWithTable, "Switch Your Default Browser")

@@ -27,7 +27,7 @@ features:
             "jump-back-in": true,
             "recent-explorations": true,
           },
-          "pocket-sponsored-stories": true
+          "pocket-sponsored-stories": false
         }
       - channel: beta
         value: {

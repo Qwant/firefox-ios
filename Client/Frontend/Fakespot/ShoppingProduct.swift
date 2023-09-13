@@ -58,7 +58,7 @@ class ShoppingProduct: FeatureFlaggable {
     }
 
     var isShoppingButtonVisible: Bool {
-        return product != nil && isFakespotFeatureEnabled
+        return product != nil && isFakespotFeatureEnabled || false
     }
 
     /// Gets a Product from a URL.

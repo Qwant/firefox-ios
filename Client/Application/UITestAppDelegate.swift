@@ -127,9 +127,9 @@ class UITestAppDelegate: AppDelegate, FeatureFlaggable {
         }
 
         // Don't show the What's New page.
-        if launchArguments.contains(LaunchArguments.SkipWhatsNew) {
+//        if launchArguments.contains(LaunchArguments.SkipWhatsNew) {
             profile.prefs.setInt(1, forKey: PrefsKeys.AppVersion.Latest)
-        }
+//        }
 
         if launchArguments.contains(LaunchArguments.SkipDefaultBrowserOnboarding) {
             profile.prefs.setBool(true, forKey: PrefsKeys.KeyDidShowDefaultBrowserOnboarding)

@@ -317,16 +317,16 @@ class HistoryPanel: UIViewController,
             viewModel.removeAllData()
             fetchDataAndUpdateLayout(animating: true)
 
-            if profile.hasSyncableAccount() {
-                resyncHistory()
-            }
+//            if profile.hasSyncableAccount() {
+//                resyncHistory()
+//            }
             break
         case .DynamicFontChanged:
             if emptyStateOverlayView.superview != nil {
                 emptyStateOverlayView.removeFromSuperview()
             }
             emptyStateOverlayView = createEmptyStateOverlayView()
-            resyncHistory()
+            // resyncHistory()
             break
         case .DatabaseWasReopened:
             if let dbName = notification.object as? String, dbName == "browser.db" {
