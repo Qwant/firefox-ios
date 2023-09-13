@@ -27,6 +27,10 @@ final class RouteBuilder {
 
             recordTelemetry(input: host, isPrivate: isPrivate)
 
+            if host.rawValue.starts(with: "widget-") {
+                UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
+            }
+
             switch host {
             case .deepLink:
                 let deepLinkURL = urlScanner.value(query: "url")?.lowercased()
