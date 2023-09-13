@@ -1,0 +1,48 @@
+/* Quick Actions drop down menu item for Go to Copied Link when widget enters edit mode and drop down menu expands */
+"2GqvPe" = "Go to Copied Link";
+
+/* Accessibility label to confirm the go to copied link selection */
+"PzSrmZ-2GqvPe" = "Just to confirm, you wanted ‘Go to Copied Link’?";
+
+/* Accessibility label to confirm the Clear Private Tabs selection */
+"PzSrmZ-eHmH1H" = "Just to confirm, you wanted ‘Clear Private Tabs’?";
+
+/* Accessibility label to confirm the New Private Search selection */
+"PzSrmZ-scEmjs" = "Just to confirm, you wanted ‘New Private Search’?";
+
+/* Accessibility label to confirm the New Search selection */
+"PzSrmZ-xRJbBP" = "Just to confirm, you wanted ‘New Search’?";
+
+/* Description of the collection of widgets */
+"ctDNmu" = "Quick access to various Qwant actions";
+
+/* Quick Actions drop down menu item for lear Private Tabs when widget enters edit mode and drop down menu expands */
+"eHmH1H" = "Clear Private Tabs";
+
+/* The description of a customizable section of the widget */
+"eV8mOT" = "Quick Action Type";
+
+/* Title of the quick actions widgets */
+"eqyNJg" = "Quick Action";
+
+/* Label showing how many widgets match ‘Go to Copied Link’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-2GqvPe" = "There are ${count} options matching ‘Go to Copied Link’.";
+
+/* Label showing how many widgets match ‘Clear Private Tabs’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-eHmH1H" = "There are ${count} options matching ‘Clear Private Tabs’.";
+
+/* Label showing how many widgets match ‘New Private Search’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-scEmjs" = "There are ${count} options matching ‘New Private Search’.";
+
+/* Label showing how many widgets match ‘New Search’. ${count} is a placeholder fo the number of widgets. */
+"fi3W24-xRJbBP" = "There are ${count} options matching ‘New Search’.";
+
+/* Quick Actions drop down menu item for new private search when widget enters edit mode and drop down menu expands */
+"scEmjs" = "New Private Search";
+
+/* Quick Actions left label text for dropdown menu when widget enters edit mode */
+"w9jdPK" = "Quick Action";
+
+/* Quick Actions drop down menu item for new search when widget enters edit mode and drop down menu expands */
+"xRJbBP" = "New Search";
+

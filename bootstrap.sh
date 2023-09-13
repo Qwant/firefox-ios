@@ -10,30 +10,29 @@
 
 getLocale() {
   echo "Getting locale..."
-  rm -rf LocalizationTools
-  git clone https://github.com/mozilla-mobile/LocalizationTools.git || exit 1
+  git clone https://github.com/Qwant/ios-l10n-scripts.git -b qwant-main || exit 1
 
   echo "Creating firefoxios-l10n Git repo"
   rm -rf firefoxios-l10n
-  git clone --depth 1 https://github.com/mozilla-l10n/firefoxios-l10n firefoxios-l10n || exit 1
+  git clone --depth 1 https://github.com/Qwant/firefoxios-l10n -b qwant-main firefoxios-l10n || exit 1
 }
 
 if [ "$1" == "--force" ]; then
     rm -rf firefoxios-l10n
-    rm -rf LocalizationTools
-    rm -rf build
+    rm -rf ios-l10n-scripts
+    rm -rf /Library/Developer/Xcode/DerivedData
 fi
 
 if [ "$1" == "--importLocales" ]; then
   # Import locales
-  if [ -d "/firefoxios-l10n" ] && [ -d "/LocalizationTools" ]; then
+  if [ -d "/firefoxios-l10n" ] && [ -d "/ios-l10n-scripts" ]; then
       echo "l10n directories found. Not downloading scripts."
   else
       echo "l10n directory not found. Downloading repo and scripts."
       getLocale
   fi
 
-  ./import-strings.sh
+  ./ios-l10n-scripts/ios-l10n-tools --project-path Client.xcodeproj --l10n-project-path ./firefoxios-l10n --import
   exit 0
 fi
 
