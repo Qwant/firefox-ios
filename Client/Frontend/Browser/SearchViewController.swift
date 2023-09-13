@@ -143,6 +143,7 @@ class SearchViewController: SiteTableViewController,
 
         searchEngineContainerView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(0)
         }
 
         setupNotifications(forObserver: self, observing: [.DynamicFontChanged,
