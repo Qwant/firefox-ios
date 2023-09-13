@@ -36,44 +36,28 @@ open class DefaultSuggestedSites {
     public static let sites = [
         "default": [
             SuggestedSiteData(
-                url: "http://www.qwant.com/?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwant",
-                faviconUrl: "asset://defaultFavicon",
+                url: "https://www.qwant.com/maps",
+                bgColor: "",
+                imageUrl: "",
+                faviconUrl: "",
                 trackingId: 1,
-                title: NSLocalizedString("Qwant", comment: "Tile title for Qwant")
+                title: "Qwant Maps"
             ),
             SuggestedSiteData(
-                url: "http://www.qwantjunior.com/?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwantjunior",
-                faviconUrl: "asset://defaultFavicon",
+                url: "http://www.qwantjunior.com",
+                bgColor: "",
+                imageUrl: "",
+                faviconUrl: "",
                 trackingId: 2,
-                title: NSLocalizedString("Qwant Junior", comment: "Tile title for Qwant Junior")
+                title: "Qwant Junior"
             ),
             SuggestedSiteData(
-                url: "http://www.qwant.com/music?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwantmusic",
-                faviconUrl: "asset://defaultFavicon",
+                url: "https://help.qwant.com/en/docs/qwant-mobile",
+                bgColor: "",
+                imageUrl: "",
+                faviconUrl: "",
                 trackingId: 3,
-                title: NSLocalizedString("Qwant Music", comment: "Tile title for Qwant Music")
-            ),
-            SuggestedSiteData(
-                url: "https://boards.qwant.com/?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwantboards",
-                faviconUrl: "asset://defaultFavicon",
-                trackingId: 4,
-                title: NSLocalizedString("Qwant Boards", comment: "Tile title for Qwant Boards")
-            ),
-            SuggestedSiteData(
-                url: "https://help.qwant.com/help/qwant-mobile/?client=qwantbrowser",
-                bgColor: "#FFF",
-                imageUrl: "asset://suggestedsites_qwanthelp",
-                faviconUrl: "asset://defaultFavicon",
-                trackingId: 5,
-                title: NSLocalizedString("Qwant Help", comment: "Tile title for Qwant Help Center")
+                title: "Qwant Help"
             )
         ]
     ]
