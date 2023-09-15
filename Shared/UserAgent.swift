@@ -7,8 +7,11 @@ import WebKit
 import UIKit
 
 open class UserAgent {
-    public static let uaBitSafari = "Safari/605.1.15"
+    public static let uaBitSafari = "Safari/604.1"
+    public static let uaBitSafariMac = "Safari/605.1.15"
     public static let uaBitMobile = "Mobile/15E148"
+    public static let uaBitVersion = "Version/16.4"
+    public static let uaBitVersionMac = "Version/16.6"
     public static let uaBitQwant = "QwantMobile/\(AppInfo.appVersion)"
     public static let product = "Mozilla/5.0"
     public static let platform = "AppleWebKit/605.1.15"
@@ -163,7 +166,7 @@ public struct UserAgentBuilder {
             systemInfo: "(iPhone; CPU iPhone OS 14_0 like Mac OS X)",
             platform: UserAgent.platform,
             platformDetails: UserAgent.platformDetails,
-            extensions: "\(UserAgent.uaBitMobile) \(UserAgent.uaBitSafari)")
+            extensions: "\(UserAgent.uaBitVersion) \(UserAgent.uaBitMobile) \(UserAgent.uaBitSafari)")
     }
 
     public static func defaultDesktopUserAgent() -> UserAgentBuilder {
@@ -172,6 +175,6 @@ public struct UserAgentBuilder {
             systemInfo: "(Macintosh; Intel Mac OS X 10_15_4)",
             platform: UserAgent.platform,
             platformDetails: UserAgent.platformDetails,
-            extensions: "FxiOS/\(AppInfo.appVersion) \(UserAgent.uaBitSafari)")
+            extensions: "\(UserAgent.uaBitVersionMac) \(UserAgent.uaBitSafariMac)")
     }
 }
