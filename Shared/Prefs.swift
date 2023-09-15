@@ -151,6 +151,8 @@ public struct PrefsKeys {
 
     // Only used to force showing the App Store review dialog for debugging purposes
     public static let ForceShowAppReviewPromptOverride = "ForceShowAppReviewPromptOverride"
+
+    public static let QwantVIPStatisticsDeactivated = "HasDeactivatedQwantVIPStatistics"
 }
 
 public struct PrefsDefaults {

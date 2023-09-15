@@ -130,3 +130,15 @@ extension Date {
         return (thirtyDaysAgo ... Date().noon).contains(self)
     }
 }
+
+public extension UIView {
+    
+    func increaseAnimation() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.1
+        animation.values = [3.0, 0.0]
+        layer.add(animation, forKey: "increaseAnimation")
+    }
+    
+}

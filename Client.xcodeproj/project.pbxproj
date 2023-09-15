@@ -470,6 +470,7 @@
 		63306D452110BAF000F25400 /* LegacyTabManagerStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63306D442110BAF000F25400 /* LegacyTabManagerStoreTests.swift */; };
 		6669B5E2211418A200CA117B /* WebsiteDataSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669B5E1211418A200CA117B /* WebsiteDataSearchResultsViewController.swift */; };
 		66CE54A820FCF6CF00CC310B /* WebsiteDataManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE54A720FCF6CF00CC310B /* WebsiteDataManagementViewController.swift */; };
+		6803B0F128AB830A007658CE /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6803B0F028AB830A007658CE /* MailHelper.swift */; };
 		68051072281015F10078BADA /* QwantTPDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68051071281015F10078BADA /* QwantTPDetailsVC.swift */; };
 		68051074281015FF0078BADA /* QwantTPDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68051073281015FF0078BADA /* QwantTPDetailsVM.swift */; };
 		680510762811517C0078BADA /* QwantContentBlockerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680510752811517C0078BADA /* QwantContentBlockerSettingViewController.swift */; };
@@ -482,6 +483,12 @@
 		68374E552820196700B703B1 /* TrackingProtectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68374E542820196700B703B1 /* TrackingProtectionButton.swift */; };
 		68374E5728225E9900B703B1 /* QwantColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68374E5628225E9900B703B1 /* QwantColors.swift */; };
 		6847CD3327B15D0700336211 /* QwantExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6847CD3227B15D0700336211 /* QwantExtensionsTests.swift */; };
+		68375F3D28AE2DE7000D9ED9 /* TwoCountersInlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F3C28AE2DE7000D9ED9 /* TwoCountersInlineView.swift */; };
+		68375F3F28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F3E28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift */; };
+		68375F4128AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4028AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift */; };
+		68375F4328AE6C71000D9ED9 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4228AE6C71000D9ED9 /* ButtonCell.swift */; };
+		68375F4528AF78E6000D9ED9 /* QwantTPInformationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4428AF78E6000D9ED9 /* QwantTPInformationVM.swift */; };
+		68375F4728AFADFC000D9ED9 /* QwantVIPBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4628AFADFC000D9ED9 /* QwantVIPBaseVC.swift */; };
 		6861BCB5281ACA8800B7E8ED /* QwantTPStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861BCB4281ACA8800B7E8ED /* QwantTPStatsVC.swift */; };
 		6861BCB7281ACA9D00B7E8ED /* QwantTPStatsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861BCB6281ACA9D00B7E8ED /* QwantTPStatsVM.swift */; };
 		6864B8492812B2BC00B1BD57 /* QwantContentBlockerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864B8482812B2BC00B1BD57 /* QwantContentBlockerStats.swift */; };
@@ -496,6 +503,8 @@
 		687EE4452808171200E8EE2B /* QwantTabContentBlocker+ContentScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687EE4442808171200E8EE2B /* QwantTabContentBlocker+ContentScript.swift */; };
 		687EE4472808199F00E8EE2B /* QwantSpecificTabContentBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687EE4462808199F00E8EE2B /* QwantSpecificTabContentBlocker.swift */; };
 		68820C0627AD188000F378AC /* QwantExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68820C0527AD188000F378AC /* QwantExtensions.swift */; };
+		6896B7D528991CF300BB7289 /* QwantVIP.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6896B7D428991CF300BB7289 /* QwantVIP.xcassets */; };
+		689A58B1289D635200751CD3 /* QwantTPInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A58B0289D635200751CD3 /* QwantTPInformationVC.swift */; };
 		68AED22327EDB95D00C7A0AB /* QwantTPMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AED22227EDB95D00C7A0AB /* QwantTPMenuVC.swift */; };
 		68AED22527EDB96D00C7A0AB /* QwantTPMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AED22427EDB96D00C7A0AB /* QwantTPMenuVM.swift */; };
 		68D81DD827CE2BE400466B80 /* QwantRatingPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D81DD727CE2BE400466B80 /* QwantRatingPromptManager.swift */; };
@@ -2414,6 +2423,7 @@
 		67DF427B90D8B06D7BF3DB90 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Today.strings; sourceTree = "<group>"; };
 		6807270E2AE6B85100868B79 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ToolbarLocation.strings; sourceTree = "<group>"; };
 		6807270F2AE6B85500868B79 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JumpBackIn.strings; sourceTree = "<group>"; };
+		6803B0F028AB830A007658CE /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		68051071281015F10078BADA /* QwantTPDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPDetailsVC.swift; sourceTree = "<group>"; };
 		68051073281015FF0078BADA /* QwantTPDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPDetailsVM.swift; sourceTree = "<group>"; };
 		680510752811517C0078BADA /* QwantContentBlockerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantContentBlockerSettingViewController.swift; sourceTree = "<group>"; };
@@ -2424,6 +2434,12 @@
 		682F7E1F2829452D00A04D13 /* QwantContentBlockerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantContentBlockerStatsTests.swift; sourceTree = "<group>"; };
 		68374E542820196700B703B1 /* TrackingProtectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProtectionButton.swift; sourceTree = "<group>"; };
 		68374E5628225E9900B703B1 /* QwantColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantColors.swift; sourceTree = "<group>"; };
+		68375F3C28AE2DE7000D9ED9 /* TwoCountersInlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoCountersInlineView.swift; sourceTree = "<group>"; };
+		68375F3E28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLabelsInlineTableViewHeaderView.swift; sourceTree = "<group>"; };
+		68375F4028AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndLabelPlaceholderCell.swift; sourceTree = "<group>"; };
+		68375F4228AE6C71000D9ED9 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		68375F4428AF78E6000D9ED9 /* QwantTPInformationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPInformationVM.swift; sourceTree = "<group>"; };
+		68375F4628AFADFC000D9ED9 /* QwantVIPBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantVIPBaseVC.swift; sourceTree = "<group>"; };
 		6847CD3227B15D0700336211 /* QwantExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantExtensionsTests.swift; sourceTree = "<group>"; };
 		6855435EA1F3E75E86BE92C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FindInPage.strings; sourceTree = "<group>"; };
 		6861BCB4281ACA8800B7E8ED /* QwantTPStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPStatsVC.swift; sourceTree = "<group>"; };
@@ -2444,7 +2460,9 @@
 		687EE4442808171200E8EE2B /* QwantTabContentBlocker+ContentScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QwantTabContentBlocker+ContentScript.swift"; sourceTree = "<group>"; };
 		687EE4462808199F00E8EE2B /* QwantSpecificTabContentBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSpecificTabContentBlocker.swift; sourceTree = "<group>"; };
 		68820C0527AD188000F378AC /* QwantExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantExtensions.swift; sourceTree = "<group>"; };
+		6896B7D428991CF300BB7289 /* QwantVIP.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = QwantVIP.xcassets; path = Client/Frontend/Browser/QwantTrackingProtection/QwantVIP.xcassets; sourceTree = SOURCE_ROOT; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
+		689A58B0289D635200751CD3 /* QwantTPInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPInformationVC.swift; sourceTree = "<group>"; };
 		68AED22227EDB95D00C7A0AB /* QwantTPMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPMenuVC.swift; sourceTree = "<group>"; };
 		68AED22427EDB96D00C7A0AB /* QwantTPMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPMenuVM.swift; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
@@ -4721,6 +4739,17 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
+		68375F3B28AE2DA2000D9ED9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				68375F3C28AE2DE7000D9ED9 /* TwoCountersInlineView.swift */,
+				68375F3E28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift */,
+				68375F4028AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift */,
+				68375F4228AE6C71000D9ED9 /* ButtonCell.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		687EE43B2808138300E8EE2B /* Qwant */ = {
 			isa = PBXGroup;
 			children = (
@@ -4737,12 +4766,17 @@
 		68AED22627EDBD9200C7A0AB /* QwantTrackingProtection */ = {
 			isa = PBXGroup;
 			children = (
+				68375F3B28AE2DA2000D9ED9 /* UI */,
+				6896B7D428991CF300BB7289 /* QwantVIP.xcassets */,
+				68375F4628AFADFC000D9ED9 /* QwantVIPBaseVC.swift */,
 				68AED22227EDB95D00C7A0AB /* QwantTPMenuVC.swift */,
 				68AED22427EDB96D00C7A0AB /* QwantTPMenuVM.swift */,
 				68051071281015F10078BADA /* QwantTPDetailsVC.swift */,
 				68051073281015FF0078BADA /* QwantTPDetailsVM.swift */,
 				6861BCB4281ACA8800B7E8ED /* QwantTPStatsVC.swift */,
 				6861BCB6281ACA9D00B7E8ED /* QwantTPStatsVM.swift */,
+				689A58B0289D635200751CD3 /* QwantTPInformationVC.swift */,
+				68375F4428AF78E6000D9ED9 /* QwantTPInformationVM.swift */,
 			);
 			path = QwantTrackingProtection;
 			sourceTree = "<group>";
@@ -6512,6 +6546,7 @@
 				884CA7482344A301002E4711 /* TextContentDetector.swift */,
 				E1877A7F286E0EFD00F5BDF2 /* WebView */,
 				DA4F826629AD221600189590 /* ZoomPageBar.swift */,
+				6803B0F028AB830A007658CE /* MailHelper.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -8347,6 +8382,7 @@
 				39D056382665235700FBEE59 /* initial_experiments.json in Resources */,
 				C8B0F5F8283B7D38007AE65D /* pocketsponsoredfeed.json in Resources */,
 				D38A1EE01CB458EC0080C842 /* CertError.html in Resources */,
+				6896B7D528991CF300BB7289 /* QwantVIP.xcassets in Resources */,
 				8AEE62CB2756BA34003207D1 /* DownloadHelper.js in Resources */,
 				8AEE62CA2756BA34003207D1 /* TrackingProtectionStats.js in Resources */,
 				0BA1E0301B051A07007675AF /* NetError.css in Resources */,
@@ -9065,6 +9101,7 @@
 				8A4AC0EC28C929D700439F83 /* URLSessionProtocol.swift in Sources */,
 				C2A72A672A76938C002ACCE2 /* DownloadsCoordinator.swift in Sources */,
 				5FC276552894AEFF00AF2721 /* LibraryPanelHelper.swift in Sources */,
+				6803B0F128AB830A007658CE /* MailHelper.swift in Sources */,
 				602A2B9827F6256200C3CB78 /* FxNimbus.swift in Sources */,
 				602A2B9727F6243A00C3CB78 /* Metrics.swift in Sources */,
 				E1CD81C5290C6D5800124B27 /* HelpView.swift in Sources */,
@@ -9093,6 +9130,7 @@
 				8A5D1CA82A30D6D3005AD35C /* HomeSetting.swift in Sources */,
 				1DFE57FF27BAE3150025DE58 /* HomepageSectionType.swift in Sources */,
 				C2D1A10D2A66C70000205DCC /* BookmarksCoordinator.swift in Sources */,
+				68375F4128AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift in Sources */,
 				396E38F11EE0C8EC00CC180F /* FxAPushMessageHandler.swift in Sources */,
 				8A76B01629F6EB3900A82607 /* ScreenshotService.swift in Sources */,
 				8A3EF8052A2FCFE500796E3A /* ForgetSyncAuthStateDebugSetting.swift in Sources */,
@@ -9245,6 +9283,7 @@
 				8A93080927BFE88F0052167D /* PhotonActionSheetContainerCell.swift in Sources */,
 				C8B41E0A29F0284B00FE218A /* NimbusOnboardingFeatureLayer.swift in Sources */,
 				BD4B2DE229BB4CD9005FAA50 /* SnackButton.swift in Sources */,
+				68375F4728AFADFC000D9ED9 /* QwantVIPBaseVC.swift in Sources */,
 				F85C7F0E2711C556004BDBA4 /* SettingsViewController.swift in Sources */,
 				C8B509E3293FA39900AC013C /* AppVersionUpdateCheckerProtocol.swift in Sources */,
 				E1AFBAF9292EA0330065E35E /* SendToDeviceHelper.swift in Sources */,
@@ -9348,7 +9387,9 @@
 				D0C95E0E200FD3B200E4E51C /* PrintHelper.swift in Sources */,
 				C8CD80DA2A1E8C1D0097C3AE /* OnboardingTelemetryProtocol.swift in Sources */,
 				8A5D1CB02A30D740005AD35C /* SearchBarSetting.swift in Sources */,
+				689A58B1289D635200751CD3 /* QwantTPInformationVC.swift in Sources */,
 				EB9854FF2422686F0040F24B /* AppDelegate+PushNotifications.swift in Sources */,
+				68375F4328AE6C71000D9ED9 /* ButtonCell.swift in Sources */,
 				DFACBF85277B9B5B003D5F41 /* TopSitesRowCountSettingsController.swift in Sources */,
 				9614BF4428AD1C6700D3F7EA /* AccountSyncHandler.swift in Sources */,
 				282DA4731A68C1E700A406E2 /* OpenSearchParser.swift in Sources */,
@@ -9436,6 +9477,7 @@
 				CA4ACE4924C8C91600F55894 /* BreachAlertsDetailView.swift in Sources */,
 				C834ACD128D3ACA900203AD1 /* Blurrable.swift in Sources */,
 				687EE4412808159800E8EE2B /* QwantContentBlocker.swift in Sources */,
+				68375F3D28AE2DE7000D9ED9 /* TwoCountersInlineView.swift in Sources */,
 				C84655E22887388F00861B4A /* Wallpaper.swift in Sources */,
 				C849E46326B9C3AF00260F0B /* EnhancedTrackingProtectionVM.swift in Sources */,
 				C8EDDBF429DF119F003A4C07 /* DeeplinkInput.swift in Sources */,
@@ -9522,6 +9564,7 @@
 				D8AA923421A602DC002605C0 /* HomePageSettingViewController.swift in Sources */,
 				8A161411282C035D00DDBB02 /* CustomizeHomepageSectionViewModel.swift in Sources */,
 				C8DC90C52A066B6A0008832B /* MarkupTokenizingUtility.swift in Sources */,
+				68375F4528AF78E6000D9ED9 /* QwantTPInformationVM.swift in Sources */,
 				687EE443280816A400E8EE2B /* QwantContentBlocker+Safelist.swift in Sources */,
 				EBC4869D2195F58300CDA48D /* ErrorPageHelper.swift in Sources */,
 				C84655E8288739CB00861B4A /* WallpaperCollectionAvailability.swift in Sources */,
@@ -9667,6 +9710,7 @@
 				8AB8571D27D929350075C173 /* TopSitesViewModel.swift in Sources */,
 				8A93F85E29D36DA9004159D9 /* Coordinator.swift in Sources */,
 				43D16B8729831EEF009F8279 /* RemoveCardButton.swift in Sources */,
+				68375F3F28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift in Sources */,
 				D59431ED25E9912900F0BA82 /* WidgetIntents.intentdefinition in Sources */,
 				213778632980448C00D01309 /* DownloadFileFetcher.swift in Sources */,
 				F85C7EDF2710B4DD004BDBA4 /* LoginOnboarding.swift in Sources */,

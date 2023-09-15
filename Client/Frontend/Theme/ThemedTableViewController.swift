@@ -67,6 +67,15 @@ class ThemedTableViewController: UITableViewController, Themeable {
     }
 }
 
+class QwantThemedTableSectionHeaderFooterView: ThemedTableSectionHeaderFooterView {
+    
+    override func applyTheme(theme: Theme) {
+        super.applyTheme(theme: theme)
+        contentView.backgroundColor = theme.colors.vip_background
+        titleLabel.textColor = theme.colors.vip_subtextColor
+    }
+}
+
 class ThemedHeaderFooterViewBordersHelper: ThemeApplicable {
     enum BorderLocation {
         case top

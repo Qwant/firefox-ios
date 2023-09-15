@@ -83,11 +83,13 @@ private struct DarkColourPalette: ThemeColourPalette {
     var shadowDefault: UIColor = FXColors.DarkGrey90.withAlphaComponent(0.16)
 
     // MARK: - Qwant
-    var etp_background: UIColor = FXColors.DarkGrey80
-    var etp_sectionColor: UIColor = UIColor(rgb: 0x2c2c2e) // DarkGrey65
-    var defaultTextAndTint: UIColor = UIColor(rgb: 0xf9f9fb) // Grey10
-    var etp_horizontalLine: UIColor = UIColor(rgba: 0x3C3C4363) // Grey75A39
-    var etp_subtextColor: UIColor = FXColors.LightGrey05
-    var etp_closeButtonColor: UIColor = UIColor(rgb: 0x2c2c2e) // DarkGrey65
-    var etp_switchAndButtonTint: UIColor = FXColors.Blue20
+    var vip_background: UIColor = .black
+    var vip_sectionColor: UIColor = UIColor(rgb: 0x212327)
+    var vip_textColor: UIColor = .white
+    var vip_subtextColor: UIColor = UIColor(rgb: 0xa7acb4)
+    var vip_greenText: UIColor = UIColor(rgb: 0x57c78f)
+    var vip_redText: UIColor = UIColor(rgb: 0xff5c5f)
+    var vip_blackText: UIColor = UIColor(rgb: 0x050506)
+    var vip_horizontalLine: UIColor = UIColor(rgb: 0x4b5058)
+    var vip_switchAndButtonTint: UIColor = UIColor(rgb: 0x5c97ff)
 }

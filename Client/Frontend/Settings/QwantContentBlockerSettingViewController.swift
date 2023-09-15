@@ -2,11 +2,11 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import MessageUI
 import Shared
-import Common
 
-class QwantContentBlockerSettingViewController: SettingsTableViewController {
+class QwantContentBlockerSettingViewController: QwantSettingsTableViewController {
     let prefs: Prefs
     var currentBlockingStrength: QwantBlockingStrength
 
@@ -16,9 +16,9 @@ class QwantContentBlockerSettingViewController: SettingsTableViewController {
 
         currentBlockingStrength = QwantBlockingStrength.currentStrength(from: prefs)
         
-        super.init(style: .grouped)
+        super.init(style: .insetGrouped)
         
-        self.title = .QwantTrackingProtection.GlobalProtection
+        title = .TrackingProtectionOptionProtectionLevelTitle
 
         if !isShownFromSettings {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -39,7 +39,8 @@ class QwantContentBlockerSettingViewController: SettingsTableViewController {
     override func generateSettings() -> [SettingSection] {
         let protectionLevelSetting: [CheckmarkSetting] = QwantBlockingStrength.allCases.map { option in
             let id = QwantBlockingStrength.accessibilityId(for: option)
-            let setting = CheckmarkSetting(
+
+            let setting = QwantCheckmarkSetting(
                 title: NSAttributedString(string: option.settingTitle),
                 style: .rightSide,
                 subtitle: NSAttributedString(string: option.settingSubtitle),
@@ -51,28 +52,23 @@ class QwantContentBlockerSettingViewController: SettingsTableViewController {
                         self.prefs.setString(strength.rawValue, forKey: ContentBlockingConfig.Prefs.StrengthKey)
                     }
                     self.prefs.setBool(option != .deactivated, forKey: ContentBlockingConfig.Prefs.EnabledKey)
-
+                
                     QwantTabContentBlocker.prefsChanged()
                     self.tableView.reloadData()
-            })
-            
+                })
             return setting
         }
         
-        let firstSectionTitle = NSAttributedString(string: .TrackingProtectionOptionProtectionLevelTitle)
         let optionalFooterTitle = NSAttributedString(string: .TrackingProtectionLevelFooter)
-        let firstSection = SettingSection(title: firstSectionTitle, footerTitle: optionalFooterTitle, children: protectionLevelSetting)
+        let firstSection = SettingSection(footerTitle: optionalFooterTitle, children: protectionLevelSetting)
 
-        let secondSectionTitle = NSAttributedString(string: .QwantTrackingProtection.Help)
-        let secondSection = SettingSection(title: secondSectionTitle, children: [
-            HomepageSetting(),
-            FeedbackSetting(prefs: prefs, theme: themeManager.currentTheme, mailComposeDelegate: self)
-        ])
-        
-        return [firstSection, secondSection]
+        return [firstSection]
     }
     
-    // The first section header gets a More Info link
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let _defaultFooter = super.tableView(tableView, viewForFooterInSection: section) as? ThemedTableSectionHeaderFooterView
         guard let defaultFooter = _defaultFooter else {
@@ -90,91 +86,63 @@ class QwantContentBlockerSettingViewController: SettingsTableViewController {
     func done() {
         self.dismiss(animated: true, completion: nil)
     }
-}
 
-extension QwantContentBlockerSettingViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true)
-    }
-}
+    override func applyTheme() {
+        super.applyTheme()
 
-class HomepageSetting: Setting {
-    override var title: NSAttributedString? {
-        return NSAttributedString(string: .QwantTrackingProtection.About, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.textPrimary])
-    }
-    
-    override var url: URL? {
-        return URL(string: "https://about.qwant.com/extension")
-    }
-    
-    override func onClick(_ navigationController: UINavigationController?) {
-        guard let url = self.url else { return }
-        delegate?.settingsOpenURLInNewTab(url)
+        let theme = themeManager.currentTheme
+
+        tableView.backgroundColor = theme.colors.vip_background
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: -QwantUX.Spacing.m, bottom: 0, right: 0);
+        tableView.reloadData()
     }
 }
 
-class FeedbackSetting: Setting {
-    private struct Constants {
-        static let to = "extensions@qwant.com"
-        static let subject = "[Qwant VIPrivacy] [iOS - \(AppInfo.appVersion)]"
-        static let body = "\(AppName.longName) \(AppInfo.appVersion) (\(AppInfo.buildNumber))"
+
+class LargeSubtitleCell: ThemedTableViewCell {
+    static let Identifier = "LargeSubtitleCell"
+
+    var title = UILabel()
+    var subtitle = UILabel()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: LargeSubtitleCell.Identifier)
+        selectionStyle = .none
+
+        title.translatesAutoresizingMaskIntoConstraints = false
+        subtitle.translatesAutoresizingMaskIntoConstraints = false
+
+        title.font = QwantUX.Font.Text.xl
+
+        subtitle.font = QwantUX.Font.Text.s
+        subtitle.numberOfLines = 0
+
+        contentView.addSubviews(title, subtitle)
+
+        NSLayoutConstraint.activate([
+            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: QwantUX.Spacing.m),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: QwantUX.Spacing.m),
+            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -QwantUX.Spacing.m),
+
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor),
+            subtitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: QwantUX.Spacing.m),
+            subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -QwantUX.Spacing.xxxxl),
+            subtitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -QwantUX.Spacing.m),
+        ])
     }
-    
-    private let prefs: Prefs
-    weak var mailComposeDelegate: MFMailComposeViewControllerDelegate?
-    
-    private lazy var mailtoLinkHandler = MailtoLinkHandler()
-    private lazy var mailtoMetadata = MailToMetadata(to: Constants.to, headers: [
-        "subject": Constants.subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!,
-        "body": Constants.body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!])
-    
-    init(prefs: Prefs,
-         theme: Theme,
-         mailComposeDelegate: MFMailComposeViewControllerDelegate?) {
-        self.prefs = prefs
-        self.mailComposeDelegate = mailComposeDelegate
-        let title = NSAttributedString(string: .QwantTrackingProtection.Experience, attributes: [NSAttributedString.Key.foregroundColor: theme.colors.textPrimary])
-        super.init(title: title)
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    override func onClick(_ navigationController: UINavigationController?) {
-        sendMail(navigationController)
-    }
-    
-    override var hidden: Bool {
-        return !canSendMail()
-    }
-    
-    private func customMailURL() -> URL? {
-        if let mailScheme = prefs.stringForKey(PrefsKeys.KeyMailToOption), mailScheme != "mailto",
-           let provider = mailtoLinkHandler.mailSchemeProviders[mailScheme],
-           let mailURL = provider.newEmailURLFromMetadata(mailtoMetadata) {
-            return mailURL
-        }
-        return nil
-    }
-    
-    private func canSendMail() -> Bool {
-        if let mailURL = customMailURL() {
-            return UIApplication.shared.canOpenURL(mailURL) || MFMailComposeViewController.canSendMail()
-        }
-        return MFMailComposeViewController.canSendMail()
-    }
-    
-    private func sendMail(_ navigationController: UINavigationController?) {
-        if let mailURL = customMailURL(), UIApplication.shared.canOpenURL(mailURL) {
-            UIApplication.shared.open(mailURL, options: [:])
-        } else {
-            let composeVC = MFMailComposeViewController()
-            composeVC.mailComposeDelegate = mailComposeDelegate
-            
-            // Configure the fields of the interface.
-            composeVC.setToRecipients([Constants.to])
-            composeVC.setSubject(Constants.subject)
-            composeVC.setMessageBody(Constants.body, isHTML: false)
-            
-            // Present the view controller modally.
-            navigationController?.present(composeVC, animated: true, completion: nil)
-        }
+
+    override func applyTheme(theme: Theme) {
+        backgroundColor = theme.colors.vip_sectionColor
+        tintColor = UIColor.legacyTheme.snackbar.title
+        contentView.backgroundColor = theme.colors.vip_sectionColor
+        title.textColor = theme.colors.vip_textColor
+        subtitle.textColor = theme.colors.vip_subtextColor
+        textLabel?.text = nil
+        detailTextLabel?.text = nil
     }
 }
+

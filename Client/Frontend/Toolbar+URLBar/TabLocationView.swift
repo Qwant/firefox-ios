@@ -439,6 +439,7 @@ extension TabLocationView: TabEventHandler {
 //            setTrackingProtection(theme: themeManager.currentTheme)
             trackingProtectionButton.setImage(blocker.status.image, for: .normal)
             trackingProtectionButton.setBadgeValue(value: blocker.status.badgeValue(basedOn: blocker.stats.total))
+            trackingProtectionButton.animateIfNeeded()
         }
     }
 

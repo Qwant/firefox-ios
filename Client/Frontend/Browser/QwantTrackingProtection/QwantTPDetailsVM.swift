@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import Shared
 
 struct QwantTPDetailsVM {
@@ -22,7 +23,7 @@ struct QwantTPDetailsVM {
     }
     
     var blockedTrackersTitleString: String {
-        return .QwantTrackingProtection.TrackersTitle
+        return .QwantVIP.TrackersTitle
     }
     
     var blockedDomainsCount: Int {
@@ -30,7 +31,7 @@ struct QwantTPDetailsVM {
     }
     
     var blockedDomainsTitleString: String {
-        return .QwantTrackingProtection.DomainsTitle
+        return .QwantVIP.DomainsTitle
     }
     
     var orderedDomains: Array<(key: String, value: Int)> {
@@ -49,6 +50,22 @@ struct QwantTPDetailsVM {
     }
     
     var title: String {
-        return .QwantTrackingProtection.LocalProtection
+        return .QwantVIP.LocalProtection
+    }
+    
+    var hasBlockedAtLeastOneTracker: Bool {
+        return blockedTrackersCount > 0
+    }
+    
+    var leftHandSideHeaderTitle: String {
+        return hasBlockedAtLeastOneTracker ? .QwantVIP.DomainsTitle.uppercased() : ""
+    }
+    
+    var rightHandSideHeaderTitle: String {
+        return hasBlockedAtLeastOneTracker ? .QwantVIP.TrackersCookiesTitle.uppercased() : ""
+    }
+    
+    var placeholderTextTitle: String {
+        return .QwantVIP.EmptyListTrackersBlocked
     }
 }

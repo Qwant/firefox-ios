@@ -34,6 +34,7 @@ class EnhancedTrackingProtectionCoordinator: BaseCoordinator,
             profile: profile,
             tabManager: tabManager)
         let controller = QwantTPMenuVC(viewModel: etpViewModel)
+        etpViewModel.mailHelper.mailComposeDelegate = controller
 
         self.enhancedTrackingProtectionMenuVC = ThemedNavigationController(rootViewController: controller)
         self.profile = profile

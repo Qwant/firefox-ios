@@ -12,25 +12,53 @@ class QwantTPMenuVM {
     var tabManager: TabManager
     var profile: Profile
     var stats: QwantContentBlockerStats
+    let mailHelper: MailHelper
     
+    var shieldImage: UIImage {
+        if globalETPIsEnabled {
+            return isSiteETPEnabled ? UIImage(imageLiteralResourceName: "image_shield") : UIImage(imageLiteralResourceName: "image_shield_safelisted")
+        }
+        return UIImage(imageLiteralResourceName: "image_shield_deactivated")
+    }
+    
+    var protectionTitleString: String {
+        if globalETPIsEnabled {
+            return isSiteETPEnabled ? .QwantVIP.BlockedItems : .QwantVIP.Inactive
+        }
+        return .QwantVIP.LocalProtectionDisabledTitle
+
+    }
+    
+    var reactivateProtectionTitleString: String {
+        return .QwantVIP.ReactivateProtection
+    }
+
     var websiteTitle: String {
-        return tab.url?.baseDomain ?? ""
+        return String(format: .QwantVIP.OnDomain, tab.url?.baseDomain ?? "")
+    }
+    
+    var informationTitle: String {
+        return .QwantVIP.Information
+    }
+    
+    var mailTitle: String {
+        return .QwantVIP.Feedback
     }
     
     var protectionStatusString: String {
         if isSiteETPEnabling {
-            return isSiteETPEnabled ? .QwantTrackingProtection.LocalProtectionEnablingTitle : .QwantTrackingProtection.LocalProtectionDisablingTitle
+            return isSiteETPEnabled ? .QwantVIP.LocalProtectionEnablingTitle : .QwantVIP.LocalProtectionDisablingTitle
         }
-        return isSiteETPEnabled ? .QwantTrackingProtection.LocalProtectionEnabledTitle : .QwantTrackingProtection.LocalProtectionDisabledTitle
+        return isSiteETPEnabled ? .QwantVIP.LocalProtectionEnabledTitle : .QwantVIP.LocalProtectionDisabledTitle
     }
     
     var isLoadingForMoreThan5Seconds = false
     
     var protectionStatusDetailString: String {
         if isSiteETPEnabling {
-            return isLoadingForMoreThan5Seconds ? .QwantTrackingProtection.LocalProtectionLongerLoadingSubtitle : .QwantTrackingProtection.LocalProtectionLoadingSubtitle
+            return isLoadingForMoreThan5Seconds ? .QwantVIP.LocalProtectionLongerLoadingSubtitle : .QwantVIP.LocalProtectionLoadingSubtitle
         }
-        return isSiteETPEnabled ? .QwantTrackingProtection.LocalProtectionEnabledSubtitle : .QwantTrackingProtection.LocalProtectionDisabledSubtitle
+        return isSiteETPEnabled ? .QwantVIP.LocalProtectionEnabledSubtitle : .QwantVIP.LocalProtectionDisabledSubtitle
     }
     
     var protectionStatusColor: UIColor {
@@ -39,11 +67,11 @@ class QwantTPMenuVM {
     }
     
     var blockedTrackersTitleString: String {
-        return .QwantTrackingProtection.BlockedItems
+        return .QwantVIP.BlockedItems
     }
     
     var trackingProtectionTitleString: String {
-        return .QwantTrackingProtection.ProtectionLevel
+        return .QwantVIP.ProtectionLevel
     }
     
     var trackingProtectionSubtitleString: String {
@@ -59,19 +87,19 @@ class QwantTPMenuVM {
     }
     
     var statisticsHeaderString: String {
-        return .QwantTrackingProtection.LastThirtyDays
+        return .QwantVIP.LastThirtyDays
     }
     
     var statisticsBlockedTrackersTitleString: String {
-        return .QwantTrackingProtection.ItemsBlocked
+        return .QwantVIP.ItemsBlocked
     }
     
     var statisticsSavedTimeTitleString: String {
-        return .QwantTrackingProtection.TimeSaved
+        return .QwantVIP.TimeSaved
     }
     
     var statisticsSeeDetails: String {
-        return .QwantTrackingProtection.SeeDetails
+        return .QwantVIP.SeeDetails
     }
     
     var statisticsTrackersBlockedFormattedString: String {
@@ -87,7 +115,7 @@ class QwantTPMenuVM {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.maximumUnitCount = 1
-        formatter.unitsStyle = .full
+        formatter.unitsStyle = .abbreviated
         
         return formatter.string(from: stats.savedTime)!
     }
@@ -112,7 +140,7 @@ class QwantTPMenuVM {
     }
     
     var connectionStatusString: String {
-        return connectionSecure ? .QwantTrackingProtection.ConnectionSecure : .QwantTrackingProtection.ConnectionNotSecure
+        return connectionSecure ? .QwantVIP.ConnectionSecure : .QwantVIP.ConnectionNotSecure
     }
     
     var connectionStatusImage: UIImage {
@@ -133,18 +161,22 @@ class QwantTPMenuVM {
         self.profile = profile
         self.tabManager = tabManager
         self.stats = stats
+        let metadata = MailMetadata(
+            to: "extensions@qwant.com",
+            subject: "[Qwant VIPrivacy] [iOS - \(AppInfo.appVersion)]",
+            body: "\(AppName.longName) \(AppInfo.appVersion) (\(AppInfo.buildNumber))")
+        self.mailHelper = MailHelper(prefs: profile.prefs,
+                                     metadata: metadata)
     }
     
     // MARK: - Functions
     func getDetailsViewController() -> QwantTPDetailsVC? {
-        guard blockedTrackersCount > 0 else { return nil }
         let viewModel = QwantTPDetailsVM(tab: tab)
         return QwantTPDetailsVC(viewModel: viewModel)
     }
     
     func getStatsViewController() -> QwantTPStatsVC? {
-        guard stats.blockedTrackersCount > 0 else { return nil }
-        let viewModel = QwantTPStatsVM(stats: stats)
+        let viewModel = QwantTPStatsVM(stats: stats, prefs: profile.prefs)
         return QwantTPStatsVC(viewModel: viewModel)
     }
     
@@ -152,6 +184,17 @@ class QwantTPMenuVM {
         let contentBlocker = QwantContentBlockerSettingViewController(prefs: profile.prefs, isShownFromSettings: false)
         contentBlocker.tabManager = tabManager
         return contentBlocker
+    }
+    
+    func getInformationViewController() -> QwantTPInformationVC {
+        let viewModel = QwantTPInformationVM()
+        return QwantTPInformationVC(viewModel: viewModel)
+    }
+    
+    func activateTrackingProtection() {
+        profile.prefs.setString(BlockingStrength.basic.rawValue, forKey: ContentBlockingConfig.Prefs.StrengthKey)
+        profile.prefs.setBool(true, forKey: ContentBlockingConfig.Prefs.EnabledKey)
+        QwantTabContentBlocker.prefsChanged()
     }
     
     func toggleSiteSafelistStatus(completion: (() -> Void)?) {
@@ -176,5 +219,4 @@ class QwantTPMenuVM {
             }
         }
     }
-    
 }

@@ -8,25 +8,9 @@
 npm install
 npm run build
 
-replace_dollar_all_tags () {
-    awk '\
-        { if ($0 ~ /\$all$/) \
-            print \
-            substr($0, 0, length($0) - 4)"^\$document,popup\n" \
-            substr($0, 0, length($0) - 4)"^\n" \
-            substr($0, 0, length($0) - 4)"^\$font\n" \
-            substr($0, 0, length($0) - 4)"^\$script"; \
-        else print; }' "${@:--}" $1 > ${1}_tmp1
-    rm $1
-    mv ${1}_tmp1 $1
-}
-
-extract_excluding_rules () {
+sort_rules () {
     awk '/^@/' $1 > ${1}_safe
-}
-
-extract_valid_rules () {
-    awk '/^\||^[a-zA-Z0-9]+.*##/' $1 > ${1}_tmp1
+    awk '!/^@/' $1 > ${1}_tmp1
     rm $1
     mv ${1}_tmp1 $1
 }
@@ -36,9 +20,7 @@ aggregate_standard_lists () {
     while IFS= read -r line; do sanitized_filename=$(echo $line | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'); standard_lists+=("$sanitized_filename"); done <../standard_lists
     for i in "${standard_lists[@]}"
     do
-        replace_dollar_all_tags $i
-        extract_excluding_rules $i
-        extract_valid_rules $i
+        sort_rules $i
     done
     
     awk '{if (!standardRules[$0]++) print}' ${standard_lists[@]} > standard
@@ -57,9 +39,7 @@ aggregate_strict_lists () {
     while IFS= read -r line; do sanitized_filename=$(echo $line | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'); strict_lists+=("$sanitized_filename"); done <../strict_lists
     for i in "${strict_lists[@]}"
     do
-        replace_dollar_all_tags $i
-        extract_excluding_rules $i
-        extract_valid_rules $i
+        sort_rules $i
     done
     
     awk '{if (!strictRules[$0]++) print}' ${strict_lists[@]} > strict

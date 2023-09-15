@@ -24,17 +24,17 @@ enum QwantBlockingStrength: String, CaseIterable {
     
     var settingTitle: String {
         switch self {
-            case .basic: return .QwantTrackingProtection.StandardTitle
-            case .strict: return .QwantTrackingProtection.StrictTitle
-            case .deactivated: return .QwantTrackingProtection.DisabledTitle
+            case .basic: return .QwantVIP.StandardTitle
+            case .strict: return .QwantVIP.StrictTitle
+            case .deactivated: return .QwantVIP.DisabledTitle
         }
     }
     
     var settingSubtitle: String {
         switch self {
-            case .basic: return .QwantTrackingProtection.StandardDescription
-            case .strict: return .QwantTrackingProtection.StrictDescription
-            case .deactivated: return .QwantTrackingProtection.DisabledDescription
+            case .basic: return .QwantVIP.StandardDescription
+            case .strict: return .QwantVIP.StrictDescription
+            case .deactivated: return .QwantVIP.DisabledDescription
         }
     }
     
@@ -65,7 +65,6 @@ enum QwantBlockingStrength: String, CaseIterable {
  Qwant-specific implementation of tab content blocking.
  */
 class QwantSpecificTabContentBlocker: QwantTabContentBlocker, TabContentScript {
-    let userPrefs: Prefs
 
     class func name() -> String {
         return "TrackingProtectionStats"
@@ -89,16 +88,15 @@ class QwantSpecificTabContentBlocker: QwantTabContentBlocker, TabContentScript {
     }
 
     var isEnabledInPref: Bool {
-        return userPrefs.boolForKey(ContentBlockingConfig.Prefs.EnabledKey) ?? ContentBlockingConfig.Defaults.NormalBrowsing
+        return prefs.boolForKey(ContentBlockingConfig.Prefs.EnabledKey) ?? ContentBlockingConfig.Defaults.NormalBrowsing
     }
 
     var blockingStrengthPref: BlockingStrength {
-        return userPrefs.stringForKey(ContentBlockingConfig.Prefs.StrengthKey).flatMap(BlockingStrength.init) ?? .basic
+        return prefs.stringForKey(ContentBlockingConfig.Prefs.StrengthKey).flatMap(BlockingStrength.init) ?? .basic
     }
 
-    init(tab: ContentBlockerTab, prefs: Prefs) {
-        userPrefs = prefs
-        super.init(tab: tab)
+    override init(tab: ContentBlockerTab, prefs: Prefs) {
+        super.init(tab: tab, prefs: prefs)
         setupForTab()
     }
 

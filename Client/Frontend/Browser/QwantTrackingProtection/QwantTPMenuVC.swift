@@ -2,49 +2,22 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-import UIKit
 import Common
+import UIKit
+import MessageUI
 
-class QwantTPMenuVC: UIViewController, Themeable {
-    var themeManager: ThemeManager
-    var themeObserver: NSObjectProtocol?
-    var notificationCenter: NotificationProtocol
-    weak var enhancedTrackingProtectionMenuDelegate: EnhancedTrackingProtectionMenuDelegate?
-    
+class QwantTPMenuVC: QwantVIPBaseVC {
+
     // MARK: UI components
     
     // Title view
-    private lazy var titleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.websiteTitle
-        label.numberOfLines = 0
-    }
-    
-    private lazy var connectionImage: UIImageView = .build { image in
+    private lazy var titleImageView: UIImageView = .build { image in
+        image.image = UIImage(imageLiteralResourceName: "qwant_vip_logo_and_text")
         image.contentMode = .scaleAspectFit
     }
     
-    private lazy var connectionLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.detailsLabel
-        label.numberOfLines = 0
-    }
-    
-    private lazy var titleView: UIStackView = {
-        let hStack = UIStackView(arrangedSubviews: [self.connectionImage, self.connectionLabel])
-        hStack.spacing = 8
-        hStack.alignment = .center
-        
-        let vStack = UIStackView(arrangedSubviews: [self.titleLabel, hStack])
-        vStack.spacing = 2
-        vStack.axis = .vertical
-        vStack.alignment = .center
-        
-        return vStack
-    }()
-    
-    private lazy var closeButton = {
-       return UIBarButtonItem(barButtonSystemItem: .close) { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }
+    private lazy var imageIcon = {
+        return UIBarButtonItem(customView: self.titleImageView)
     }()
     
     private lazy var scrollView: UIScrollView = .build { scrollView in
@@ -55,26 +28,68 @@ class QwantTPMenuVC: UIViewController, Themeable {
         view.backgroundColor = .clear
     }
     
-    private lazy var logoImageView: UIImageView = .build { imageView in
-        imageView.image = UIImage(imageLiteralResourceName: "qwant_vip")
+    // Local tracking protection
+    
+    private lazy var localProtectionView = ETPSectionView(frame: .zero)
+    
+    private lazy var localProtectionShieldImage: UIImageView = .build { imageView in
         imageView.contentMode = .scaleAspectFit
     }
     
-    // Local tracking protection
-    private lazy var localProtectionView = ETPSectionView(frame: .zero)
+    private lazy var localProtectionShieldCounterLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Title.l
+        label.numberOfLines = 1
+    }
     
     private lazy var localProtectionTitleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.websiteTitle
-        label.numberOfLines = 0
+        label.font = QwantUX.Font.Title.m
+        label.numberOfLines = 1
     }
     
     private lazy var localProtectionSubtitleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.minorInfoLabel
-        label.numberOfLines = 0
+        label.font = QwantUX.Font.Text.m
+        label.numberOfLines = 1
+    }
+    
+    private lazy var localProtectionDetailArrow: UIImageView = .build { image in
+        image.image = UIImage(systemName: "chevron.right")
+    }
+    
+    private lazy var localProtectionConnectionImage: UIImageView = .build { image in
+        image.contentMode = .scaleAspectFit
+    }
+    
+    private lazy var localProtectionConnectionLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.s
+        label.numberOfLines = 1
+    }
+    
+    private lazy var localProtectionActivationButton: UIButton = .build { button in
+        button.setTitle(self.viewModel.reactivateProtectionTitleString, for: .normal)
+        button.titleLabel?.font = QwantUX.Font.Text.m
+        button.setImage(UIImage(imageLiteralResourceName: "icon_shield"), for: .normal)
+        button.addTarget(self, action: #selector(self.didActivateTrackingProtection), for: .touchUpInside)
+        button.layer.cornerRadius = QwantUX.SystemDesign.cornerRadius
+        button.clipsToBounds = true
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: QwantUX.Spacing.xxxs)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: QwantUX.Spacing.xxxs, bottom: 0, right: 0)
+    }
+    
+    private lazy var localProtectionDetailsButton: UIButton = .build { button in
+        button.addTarget(self, action: #selector(self.localProtectionDetailsTapped), for: .touchUpInside)
+    }
+    
+    private lazy var localProtectionSeparatorLine: UIView = .build()
+    
+    private lazy var localProtectionLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.xl
+        label.numberOfLines = 1
     }
     
     private lazy var localProtectionToggle: UISwitch = .build { toggle in
         toggle.addTarget(self, action: #selector(self.didChangeSwitchState), for: .valueChanged)
+        toggle.layer.cornerRadius = toggle.frame.height / 2
+        toggle.clipsToBounds = true
     }
     
     private lazy var localProtectionActivityIndicator: UIActivityIndicatorView = .build { activityIndicator in
@@ -83,101 +98,111 @@ class QwantTPMenuVC: UIViewController, Themeable {
         activityIndicator.startAnimating()
     }
     
-    // Blocked trackers count view
-    private lazy var blockedTrackersView = ETPSectionView(frame: .zero)
-    
-    private lazy var blockedTrackersButton: UIButton = .build { button in
-        button.addTarget(self, action: #selector(self.blockedTrackersDetailsTapped), for: .touchUpInside)
-    }
-    
-    private lazy var blockedTrackersTitleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.viewTitleLabels
+    private lazy var localProtectionFooterLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.s
         label.numberOfLines = 0
     }
     
-    private lazy var blockedTrackersCountLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.minorInfoLabel
-        label.numberOfLines = 0
-    }
-    
-    private lazy var blockedTrackersDetailArrow: UIImageView = .build { image in
-        image.image = UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.chevronLeft).withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
-        image.transform = CGAffineTransform(rotationAngle: .pi)
-    }
-    
-    // Tracking protection settings view
-    private lazy var trackingProtectionView = ETPSectionView(frame: .zero)
-    
-    private lazy var trackingProtectionButton: UIButton = .build { button in
+    // Protection level view
+    private lazy var protectionLevelView = ETPSectionView(frame: .zero)
+
+    private lazy var protectionLevelDetailsButton: UIButton = .build { button in
         button.addTarget(self, action: #selector(self.protectionSettingsTapped), for: .touchUpInside)
     }
-    
-    private lazy var trackingProtectionTitleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.websiteTitle
+
+    private lazy var protectionLevelTitleLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.xl
         label.allowsDefaultTighteningForTruncation = true
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 0
     }
-    
-    private lazy var trackingProtectionSubtitleLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.detailsLabel
+
+    private lazy var protectionLevelSubtitleLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
     }
-    
-    private lazy var trackingProtectionValueLabel: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.minorInfoLabel
-        label.numberOfLines = 0
+
+    private lazy var protectionLevelDetailsArrow: UIImageView = .build { image in
+        image.image = UIImage(systemName: "chevron.right")
     }
-    
-    private lazy var trackingProtectionDetailArrow: UIImageView = .build { image in
-        image.image = UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.chevronLeft).withRenderingMode(.alwaysTemplate).imageFlippedForRightToLeftLayoutDirection()
-        image.transform = CGAffineTransform(rotationAngle: .pi)
+
+    // Statistics views
+    private lazy var statisticsLeftView = ETPSectionView(frame: .zero)
+
+    private lazy var statisticsLeftTitle: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.m
+        label.numberOfLines = 1
     }
-    
-    // Statistics view
-    
-    private lazy var statisticsHeader: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.detailsLabel
-        label.numberOfLines = 0
+
+    private lazy var statisticsLeftValue: UILabel = .build { label in
+        label.font = QwantUX.Font.Title.m
+        label.numberOfLines = 1
     }
-    
-    private lazy var statisticsTopLine: UIView = .build()
-    
-    private lazy var statisticsView: UIView = .build()
-    
-    private lazy var statisticsBlockedTrackersTitle: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.minorInfoLabel
-        label.numberOfLines = 0
+
+    private lazy var statisticsLeftImage: UIImageView = .build { image in
+        image.image = UIImage(imageLiteralResourceName: "icon_shield_purple")
+        image.contentMode = .scaleAspectFit
     }
-    
-    private lazy var statisticsBlockedTrackersValue: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.websiteTitle
-        label.numberOfLines = 0
+
+    private lazy var statisticsRightView = ETPSectionView(frame: .zero)
+
+    private lazy var statisticsRightTitle: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.m
+        label.numberOfLines = 1
     }
-    
-    private lazy var statisticsSeparatorLine: UIView = .build()
-    
-    private lazy var statisticsSavedTimeTitle: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.minorInfoLabel
-        label.numberOfLines = 0
+
+    private lazy var statisticsRightValue: UILabel = .build { label in
+        label.font = QwantUX.Font.Title.m
+        label.numberOfLines = 1
     }
-    
-    private lazy var statisticsSavedTimeValue: UILabel = .build { label in
-        label.font = ETPMenuUX.Fonts.websiteTitle
-        label.numberOfLines = 0
+
+    private lazy var statisticsRightImage: UIImageView = .build { image in
+        image.image = UIImage(imageLiteralResourceName: "icon_clock_purple")
+        image.contentMode = .scaleAspectFit
     }
-    
-    private lazy var statisticsBottomLine: UIView = .build()
-    
-    private lazy var statisticsSeeDetails: UIButton = .build { button in
+
+    private lazy var statisticsDetailsButton: UIButton = .build { button in
         button.addTarget(self, action: #selector(self.statisticsTapped), for: .touchUpInside)
         button.contentHorizontalAlignment = .left
-        button.titleLabel?.font = ETPMenuUX.Fonts.minorInfoLabel
+        button.titleLabel?.font = QwantUX.Font.Text.xl
+    }
+
+    // Information view
+    private lazy var informationView = ETPSectionView(frame: .zero)
+
+    private lazy var informationDetailsButton: UIButton = .build { button in
+        button.addTarget(self, action: #selector(self.informationDetailsTapped), for: .touchUpInside)
+    }
+
+    private lazy var informationTitleLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.xl
+        label.allowsDefaultTighteningForTruncation = true
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 0
+    }
+
+    private lazy var informationDetailsArrow: UIImageView = .build { image in
+        image.image = UIImage(systemName: "chevron.right")
     }
     
-    private var constraints = [NSLayoutConstraint]()
-    
-    // MARK: - Variables
+    // Mail view
+    private lazy var mailView = ETPSectionView(frame: .zero)
+
+    private lazy var mailDetailsButton: UIButton = .build { button in
+        button.addTarget(self, action: #selector(self.sendMailTapped), for: .touchUpInside)
+    }
+
+    private lazy var mailTitleLabel: UILabel = .build { label in
+        label.font = QwantUX.Font.Text.xl
+        label.allowsDefaultTighteningForTruncation = true
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 0
+    }
+
+    private lazy var mailDetailsExternal: UIImageView = .build { image in
+        image.image = UIImage(imageLiteralResourceName: "icon_www_external")
+        image.contentMode = .scaleAspectFit
+    }
     
     private var viewModel: QwantTPMenuVM
     private var hasSetPointOrigin = false
@@ -190,9 +215,7 @@ class QwantTPMenuVC: UIViewController, Themeable {
          themeManager: ThemeManager = AppContainer.shared.resolve(),
          notificationCenter: NotificationProtocol = NotificationCenter.default) {
         self.viewModel = viewModel
-        self.themeManager = themeManager
-        self.notificationCenter = notificationCenter
-        super.init(nibName: nil, bundle: nil)
+        super.init(themeManager: themeManager, notificationCenter: notificationCenter)
     }
     
     @available(*, unavailable)
@@ -209,12 +232,6 @@ class QwantTPMenuVC: UIViewController, Themeable {
             }
             self.preferredContentSize = CGSize(width: 400, height: height)
         }
-//        else {
-//            addGestureRecognizer()
-//        }
-        setupView()
-        listenForThemeChange(view)
-        setupNotifications(forObserver: self, observing: [.ContentBlockerDidBlock])
     }
     
     override func viewDidLayoutSubviews() {
@@ -227,34 +244,24 @@ class QwantTPMenuVC: UIViewController, Themeable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupView()
-        updateViewDetails()
-        applyTheme()
     }
     
-    
-    private func setupView() {
-        NSLayoutConstraint.deactivate(constraints)
-        constraints.removeAll()
-        
+    override func setupConstraints() {
+        super.setupConstraints()
         setupTitleView()
         setupScrollView()
-        setupLogoView()
         setupLocalProtectionView()
-        setupBlockedTrackersView()
-        setupProtectionSettingsView()
+        setupProtectionLevelView()
         setupStatisticsView()
-        
-        NSLayoutConstraint.activate(constraints)
+        setupInformationView()
+        setupMailView()
     }
     
     private func setupTitleView() {
-        
-        let connectionConstraints = [
-            connectionImage.heightAnchor.constraint(equalToConstant: 15),
-            connectionImage.widthAnchor.constraint(equalToConstant: 15)
-        ]
-        
-        constraints.append(contentsOf: connectionConstraints)
+        constraints.append(contentsOf: [
+            titleImageView.heightAnchor.constraint(equalToConstant: 40),
+            titleImageView.widthAnchor.constraint(equalToConstant: 203)
+        ])
     }
     
     private func setupScrollView() {
@@ -264,7 +271,7 @@ class QwantTPMenuVC: UIViewController, Themeable {
         let frameGuide = scrollView.frameLayoutGuide
         let contentGuide = scrollView.contentLayoutGuide
 
-        let scrollViewConstraints = [
+        constraints.append(contentsOf: [
             // Constraints that set the size and position of the scroll view relative to its superview
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -288,257 +295,318 @@ class QwantTPMenuVC: UIViewController, Themeable {
             contentGuide.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentGuide.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             contentGuide.widthAnchor.constraint(equalTo: frameGuide.widthAnchor),
-        ]
-        
-        constraints.append(contentsOf: scrollViewConstraints)
-    }
-    
-    private func setupLogoView() {
-        contentView.addSubview(logoImageView)
-        
-        let logoConstraints = [
-            logoImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            logoImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            logoImageView.heightAnchor.constraint(equalToConstant: 30),
-            logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 28.0/207.0)
-        ]
-        
-        constraints.append(contentsOf: logoConstraints)
+        ])
     }
     
     private func setupLocalProtectionView() {
-        let localProtectionLabelsContainer = UIView()
-        localProtectionLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
-        localProtectionLabelsContainer.addSubviews(localProtectionTitleLabel, localProtectionSubtitleLabel)
-        localProtectionView.addSubviews(localProtectionLabelsContainer, localProtectionToggle, localProtectionActivityIndicator)
-        contentView.addSubview(localProtectionView)
+        let localProtectionHeaderContainer = UIView()
+        localProtectionHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
+        localProtectionHeaderContainer.addSubviews(localProtectionShieldImage, localProtectionShieldCounterLabel, localProtectionTitleLabel, localProtectionDetailArrow)
         
-        let localProtectionLabelsContainerConstraints = [
-            localProtectionTitleLabel.topAnchor.constraint(equalTo: localProtectionLabelsContainer.topAnchor),
-            localProtectionTitleLabel.leadingAnchor.constraint(equalTo: localProtectionLabelsContainer.leadingAnchor),
-            localProtectionTitleLabel.trailingAnchor.constraint(equalTo: localProtectionLabelsContainer.trailingAnchor),
+        let localProtectionActivatedContainer = UIView()
+        localProtectionActivatedContainer.translatesAutoresizingMaskIntoConstraints = false
+        localProtectionActivatedContainer.addSubviews(localProtectionSubtitleLabel, localProtectionConnectionImage, localProtectionConnectionLabel, localProtectionSeparatorLine, localProtectionLabel, localProtectionToggle, localProtectionActivityIndicator)
+
+        let localProtectionDeactivatedContainer = UIView()
+        localProtectionDeactivatedContainer.translatesAutoresizingMaskIntoConstraints = false
+        localProtectionDeactivatedContainer.addSubviews(localProtectionActivationButton)
+
+        localProtectionView.addSubviews(localProtectionHeaderContainer, localProtectionActivatedContainer, localProtectionDeactivatedContainer, localProtectionDetailsButton)
+        contentView.addSubviews(localProtectionFooterLabel, localProtectionView)
+        
+        let localProtectionHeaderContainerConstraints = [
+            localProtectionHeaderContainer.topAnchor.constraint(equalTo: localProtectionView.topAnchor),
+            localProtectionHeaderContainer.leadingAnchor.constraint(equalTo: localProtectionView.leadingAnchor),
+            localProtectionHeaderContainer.trailingAnchor.constraint(equalTo: localProtectionView.trailingAnchor),
             
-            localProtectionSubtitleLabel.topAnchor.constraint(equalTo: localProtectionTitleLabel.bottomAnchor, constant: 4),
-            localProtectionSubtitleLabel.leadingAnchor.constraint(equalTo: localProtectionLabelsContainer.leadingAnchor),
-            localProtectionSubtitleLabel.trailingAnchor.constraint(equalTo: localProtectionLabelsContainer.trailingAnchor),
-            localProtectionSubtitleLabel.bottomAnchor.constraint(equalTo: localProtectionLabelsContainer.bottomAnchor)
+            localProtectionShieldImage.topAnchor.constraint(equalTo: localProtectionHeaderContainer.topAnchor, constant: QwantUX.Spacing.m),
+            localProtectionShieldImage.centerXAnchor.constraint(equalTo: localProtectionHeaderContainer.centerXAnchor),
+            localProtectionShieldImage.widthAnchor.constraint(equalToConstant: 56),
+            localProtectionShieldImage.heightAnchor.constraint(equalToConstant: 64),
+            
+            localProtectionShieldCounterLabel.centerXAnchor.constraint(equalTo: localProtectionShieldImage.centerXAnchor),
+            localProtectionShieldCounterLabel.centerYAnchor.constraint(equalTo: localProtectionShieldImage.centerYAnchor),
+            
+            localProtectionTitleLabel.topAnchor.constraint(equalTo: localProtectionShieldImage.bottomAnchor, constant: QwantUX.Spacing.xs),
+            localProtectionTitleLabel.centerXAnchor.constraint(equalTo: localProtectionHeaderContainer.centerXAnchor),
+            localProtectionTitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: localProtectionHeaderContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionTitleLabel.bottomAnchor.constraint(equalTo: localProtectionHeaderContainer.bottomAnchor, constant: QwantUX.Spacing.m),
+            
+            localProtectionDetailArrow.trailingAnchor.constraint(equalTo: localProtectionView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            localProtectionDetailArrow.centerYAnchor.constraint(equalTo: localProtectionView.centerYAnchor, constant: -(QwantUX.Spacing.xs + localProtectionToggle.frame.height + QwantUX.Spacing.xs + 1) / 2)
         ]
         
-        let localProtectionConstraints = [
-            localProtectionView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: viewModel.globalETPIsEnabled ? ETPMenuUX.UX.gutterDistance : 0),
-            localProtectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            localProtectionView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
+        let localProtectionActivatedContainerConstraints = [
+            localProtectionActivatedContainer.topAnchor.constraint(equalTo: localProtectionHeaderContainer.bottomAnchor, constant: QwantUX.Spacing.m),
+            localProtectionActivatedContainer.leadingAnchor.constraint(equalTo: localProtectionView.leadingAnchor),
+            localProtectionActivatedContainer.trailingAnchor.constraint(equalTo: localProtectionView.trailingAnchor),
+            localProtectionActivatedContainer.bottomAnchor.constraint(equalTo: localProtectionView.bottomAnchor),
             
-            localProtectionLabelsContainer.topAnchor.constraint(equalTo: localProtectionView.topAnchor, constant: 12),
-            localProtectionLabelsContainer.leadingAnchor.constraint(equalTo: localProtectionView.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            localProtectionLabelsContainer.trailingAnchor.constraint(equalTo: localProtectionToggle.leadingAnchor, constant: -8),
-            localProtectionLabelsContainer.bottomAnchor.constraint(equalTo: localProtectionView.bottomAnchor, constant: -12),
-
-            localProtectionToggle.centerYAnchor.constraint(equalTo: localProtectionLabelsContainer.centerYAnchor),
-            localProtectionToggle.trailingAnchor.constraint(equalTo: localProtectionView.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
+            localProtectionSubtitleLabel.topAnchor.constraint(equalTo: localProtectionActivatedContainer.topAnchor, constant: QwantUX.Spacing.xxxs),
+            localProtectionSubtitleLabel.centerXAnchor.constraint(equalTo: localProtectionActivatedContainer.centerXAnchor),
+            localProtectionSubtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: localProtectionActivatedContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            
+            localProtectionConnectionLabel.topAnchor.constraint(equalTo: localProtectionSubtitleLabel.bottomAnchor, constant: QwantUX.Spacing.xxxs),
+            localProtectionConnectionLabel.centerXAnchor.constraint(equalTo: localProtectionActivatedContainer.centerXAnchor, constant: (15 + QwantUX.Spacing.xs) / 2), // (Image width + spacing) / 2
+            localProtectionConnectionLabel.leadingAnchor.constraint(greaterThanOrEqualTo: localProtectionActivatedContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionConnectionLabel.heightAnchor.constraint(equalToConstant: 15),
+            
+            localProtectionConnectionImage.trailingAnchor.constraint(equalTo: localProtectionConnectionLabel.leadingAnchor, constant: -QwantUX.Spacing.xs),
+            localProtectionConnectionImage.centerYAnchor.constraint(equalTo: localProtectionConnectionLabel.centerYAnchor),
+            localProtectionConnectionImage.heightAnchor.constraint(equalToConstant: 15),
+            localProtectionConnectionImage.widthAnchor.constraint(equalToConstant: 15),
+            
+            localProtectionSeparatorLine.topAnchor.constraint(equalTo: localProtectionConnectionImage.bottomAnchor, constant: QwantUX.Spacing.m),
+            localProtectionSeparatorLine.leadingAnchor.constraint(equalTo: localProtectionActivatedContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionSeparatorLine.heightAnchor.constraint(equalToConstant: 1),
+            localProtectionSeparatorLine.trailingAnchor.constraint(equalTo: localProtectionActivatedContainer.trailingAnchor),
+            
+            localProtectionLabel.leadingAnchor.constraint(equalTo: localProtectionActivatedContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionLabel.trailingAnchor.constraint(greaterThanOrEqualTo: localProtectionToggle.leadingAnchor, constant: -QwantUX.Spacing.m),
+            localProtectionLabel.centerYAnchor.constraint(equalTo: localProtectionToggle.centerYAnchor),
+            
+            localProtectionToggle.topAnchor.constraint(equalTo: localProtectionSeparatorLine.bottomAnchor, constant: QwantUX.Spacing.xs),
+            localProtectionToggle.trailingAnchor.constraint(equalTo: localProtectionActivatedContainer.trailingAnchor, constant: -QwantUX.Spacing.m),
+            localProtectionToggle.bottomAnchor.constraint(equalTo: localProtectionActivatedContainer.bottomAnchor, constant: -QwantUX.Spacing.xs),
             
             localProtectionActivityIndicator.centerYAnchor.constraint(equalTo: localProtectionToggle.centerYAnchor),
             localProtectionActivityIndicator.centerXAnchor.constraint(equalTo: localProtectionToggle.centerXAnchor)
         ]
         
-        constraints.append(contentsOf: localProtectionLabelsContainerConstraints)
-        constraints.append(contentsOf: localProtectionConstraints)
+        let localProtectionDeactivatedContainerConstraints = [
+            localProtectionDeactivatedContainer.topAnchor.constraint(equalTo: localProtectionHeaderContainer.bottomAnchor, constant: QwantUX.Spacing.m),
+            localProtectionDeactivatedContainer.leadingAnchor.constraint(equalTo: localProtectionView.leadingAnchor),
+            localProtectionDeactivatedContainer.trailingAnchor.constraint(equalTo: localProtectionView.trailingAnchor),
+            localProtectionDeactivatedContainer.bottomAnchor.constraint(equalTo: localProtectionView.bottomAnchor),
+            
+            localProtectionActivationButton.topAnchor.constraint(equalTo: localProtectionDeactivatedContainer.topAnchor, constant: QwantUX.Spacing.m),
+            localProtectionActivationButton.heightAnchor.constraint(equalToConstant: 36),
+            localProtectionActivationButton.leadingAnchor.constraint(equalTo: localProtectionDeactivatedContainer.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionActivationButton.trailingAnchor.constraint(equalTo: localProtectionDeactivatedContainer.trailingAnchor, constant: -QwantUX.Spacing.m),
+            localProtectionActivationButton.bottomAnchor.constraint(equalTo: localProtectionDeactivatedContainer.bottomAnchor, constant: -QwantUX.Spacing.m),
+        ]
         
-        if !viewModel.globalETPIsEnabled {
-            constraints.append(localProtectionView.heightAnchor.constraint(equalToConstant: 0))
+        constraints.append(contentsOf: [
+            localProtectionDetailsButton.topAnchor.constraint(equalTo: localProtectionHeaderContainer.topAnchor),
+            localProtectionDetailsButton.leadingAnchor.constraint(equalTo: localProtectionHeaderContainer.leadingAnchor),
+            localProtectionDetailsButton.trailingAnchor.constraint(equalTo: localProtectionHeaderContainer.trailingAnchor),
+            localProtectionDetailsButton.bottomAnchor.constraint(equalTo: localProtectionSeparatorLine.bottomAnchor),
+            
+            localProtectionView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: QwantUX.Spacing.m),
+            localProtectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            localProtectionView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            localProtectionFooterLabel.topAnchor.constraint(equalTo: localProtectionView.bottomAnchor, constant: QwantUX.Spacing.xs),
+            localProtectionFooterLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xxl),
+            localProtectionFooterLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xxl),
+        ])
+        
+        constraints.append(contentsOf: localProtectionHeaderContainerConstraints)
+        if viewModel.globalETPIsEnabled {
+            constraints.append(contentsOf: localProtectionActivatedContainerConstraints)
+        } else {
+            constraints.append(contentsOf: localProtectionDeactivatedContainerConstraints)
         }
     }
     
-    private func setupBlockedTrackersView() {
-        blockedTrackersView.addSubviews(blockedTrackersButton, blockedTrackersTitleLabel, blockedTrackersCountLabel, blockedTrackersDetailArrow)
-        contentView.addSubview(blockedTrackersView)
+    private func setupProtectionLevelView() {
+        protectionLevelView.addSubviews(protectionLevelDetailsButton, protectionLevelTitleLabel, protectionLevelSubtitleLabel, protectionLevelDetailsArrow)
+        contentView.addSubview(protectionLevelView)
         
-        let blockedTrackersConstraints = [
-            blockedTrackersView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            blockedTrackersView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-            blockedTrackersView.topAnchor.constraint(equalTo: localProtectionView.bottomAnchor, constant: 8),
-            
-            blockedTrackersTitleLabel.leadingAnchor.constraint(equalTo: blockedTrackersView.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            blockedTrackersTitleLabel.centerYAnchor.constraint(equalTo: blockedTrackersView.centerYAnchor),
-            
-            blockedTrackersDetailArrow.trailingAnchor.constraint(equalTo: blockedTrackersView.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-            blockedTrackersDetailArrow.centerYAnchor.constraint(equalTo: blockedTrackersView.centerYAnchor),
-            blockedTrackersDetailArrow.heightAnchor.constraint(equalToConstant: 20),
-            blockedTrackersDetailArrow.widthAnchor.constraint(equalToConstant: 20),
-            blockedTrackersDetailArrow.topAnchor.constraint(equalTo: blockedTrackersView.topAnchor, constant: 12),
-            blockedTrackersDetailArrow.bottomAnchor.constraint(equalTo: blockedTrackersView.bottomAnchor, constant: -12),
-            
-            blockedTrackersCountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: blockedTrackersTitleLabel.trailingAnchor, constant: 8),
-            blockedTrackersCountLabel.trailingAnchor.constraint(equalTo: blockedTrackersDetailArrow.leadingAnchor),
-            blockedTrackersCountLabel.centerYAnchor.constraint(equalTo: blockedTrackersView.centerYAnchor),
-            
-            blockedTrackersButton.leadingAnchor.constraint(equalTo: blockedTrackersView.leadingAnchor),
-            blockedTrackersButton.topAnchor.constraint(equalTo: blockedTrackersView.topAnchor),
-            blockedTrackersButton.trailingAnchor.constraint(equalTo: blockedTrackersView.trailingAnchor),
-            blockedTrackersButton.bottomAnchor.constraint(equalTo: blockedTrackersView.bottomAnchor),
-        ]
-        
-        constraints.append(contentsOf: blockedTrackersConstraints)
-        if !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled {
-            constraints.append(blockedTrackersView.heightAnchor.constraint(equalToConstant: 0))
-        }
-    }
-    
-    private func setupProtectionSettingsView() {
-        let trackingProtectionLabelsContainer = UIView()
-        trackingProtectionLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
-        trackingProtectionLabelsContainer.isUserInteractionEnabled = false
-        trackingProtectionLabelsContainer.addSubviews(trackingProtectionTitleLabel, trackingProtectionSubtitleLabel)
-        trackingProtectionView.addSubviews(trackingProtectionButton, trackingProtectionLabelsContainer, trackingProtectionValueLabel, trackingProtectionDetailArrow)
-        contentView.addSubview(trackingProtectionView)
-        
-        let trackingProtectionLabelsContainerConstraints = [
-            trackingProtectionTitleLabel.topAnchor.constraint(equalTo: trackingProtectionLabelsContainer.topAnchor),
-            trackingProtectionTitleLabel.leadingAnchor.constraint(equalTo: trackingProtectionLabelsContainer.leadingAnchor),
-            trackingProtectionTitleLabel.trailingAnchor.constraint(equalTo: trackingProtectionLabelsContainer.trailingAnchor),
-            
-            trackingProtectionSubtitleLabel.topAnchor.constraint(equalTo: trackingProtectionTitleLabel.bottomAnchor, constant: 2),
-            trackingProtectionSubtitleLabel.leadingAnchor.constraint(equalTo: trackingProtectionLabelsContainer.leadingAnchor),
-            trackingProtectionSubtitleLabel.trailingAnchor.constraint(equalTo: trackingProtectionLabelsContainer.trailingAnchor),
-            trackingProtectionSubtitleLabel.bottomAnchor.constraint(equalTo: trackingProtectionLabelsContainer.bottomAnchor)
-        ]
-        
-        
-        let trackingProtectionConstraints = [
-            trackingProtectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            trackingProtectionView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-    
-            trackingProtectionLabelsContainer.topAnchor.constraint(equalTo: trackingProtectionView.topAnchor, constant: 11),
-            trackingProtectionLabelsContainer.leadingAnchor.constraint(equalTo: trackingProtectionView.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            trackingProtectionLabelsContainer.bottomAnchor.constraint(equalTo: trackingProtectionView.bottomAnchor, constant: -11),
-            
-            trackingProtectionValueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: trackingProtectionLabelsContainer.trailingAnchor, constant: 8),
-            trackingProtectionValueLabel.trailingAnchor.constraint(equalTo: trackingProtectionDetailArrow.leadingAnchor),
-            trackingProtectionValueLabel.centerYAnchor.constraint(equalTo: trackingProtectionView.centerYAnchor),
-            
-            trackingProtectionDetailArrow.trailingAnchor.constraint(equalTo: trackingProtectionView.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-            trackingProtectionDetailArrow.centerYAnchor.constraint(equalTo: trackingProtectionView.centerYAnchor),
-            trackingProtectionDetailArrow.heightAnchor.constraint(equalToConstant: 20),
-            trackingProtectionDetailArrow.widthAnchor.constraint(equalToConstant: 20),
-            
-            trackingProtectionButton.leadingAnchor.constraint(equalTo: trackingProtectionView.leadingAnchor),
-            trackingProtectionButton.topAnchor.constraint(equalTo: trackingProtectionView.topAnchor),
-            trackingProtectionButton.trailingAnchor.constraint(equalTo: trackingProtectionView.trailingAnchor),
-            trackingProtectionButton.bottomAnchor.constraint(equalTo: trackingProtectionView.bottomAnchor),
-        ]
-        
-        constraints.append(contentsOf: trackingProtectionLabelsContainerConstraints)
-        constraints.append(contentsOf: trackingProtectionConstraints)
-        constraints.append(trackingProtectionView.topAnchor.constraint(equalTo: blockedTrackersView.bottomAnchor, constant: viewModel.isSiteETPEnabled && viewModel.globalETPIsEnabled ? 8 : 0))
+        let topAnchor = !viewModel.globalETPIsEnabled ? localProtectionView.bottomAnchor : localProtectionFooterLabel.bottomAnchor
 
+        constraints.append(contentsOf: [
+            protectionLevelView.topAnchor.constraint(equalTo: topAnchor, constant: QwantUX.Spacing.xxl),
+            protectionLevelView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            protectionLevelView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            protectionLevelTitleLabel.topAnchor.constraint(equalTo: protectionLevelView.topAnchor, constant: QwantUX.Spacing.s),
+            protectionLevelTitleLabel.leadingAnchor.constraint(equalTo: protectionLevelView.leadingAnchor, constant: QwantUX.Spacing.m),
+            protectionLevelTitleLabel.bottomAnchor.constraint(equalTo: protectionLevelView.bottomAnchor, constant: -QwantUX.Spacing.s),
+            
+            protectionLevelSubtitleLabel.centerYAnchor.constraint(equalTo: protectionLevelTitleLabel.centerYAnchor),
+            protectionLevelSubtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: protectionLevelTitleLabel.trailingAnchor, constant: QwantUX.Spacing.m),
+            
+            protectionLevelDetailsArrow.centerYAnchor.constraint(equalTo: protectionLevelTitleLabel.centerYAnchor),
+            protectionLevelDetailsArrow.leadingAnchor.constraint(equalTo: protectionLevelSubtitleLabel.trailingAnchor, constant: QwantUX.Spacing.s),
+            protectionLevelDetailsArrow.trailingAnchor.constraint(equalTo: protectionLevelView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            protectionLevelDetailsButton.topAnchor.constraint(equalTo: protectionLevelView.topAnchor),
+            protectionLevelDetailsButton.leadingAnchor.constraint(equalTo: protectionLevelView.leadingAnchor),
+            protectionLevelDetailsButton.trailingAnchor.constraint(equalTo: protectionLevelView.trailingAnchor),
+            protectionLevelDetailsButton.bottomAnchor.constraint(equalTo: protectionLevelView.bottomAnchor)
+        ])
     }
     
     private func setupStatisticsView() {
-        contentView.addSubviews(statisticsHeader, statisticsTopLine, statisticsView, statisticsBlockedTrackersTitle, statisticsBlockedTrackersValue, statisticsSeparatorLine, statisticsSavedTimeTitle, statisticsSavedTimeValue, statisticsBottomLine, statisticsSeeDetails)
-        
-        let statisticsConstraints = [
-            statisticsHeader.topAnchor.constraint(equalTo: trackingProtectionView.bottomAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            statisticsHeader.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            statisticsHeader.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-            
-            statisticsTopLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            statisticsTopLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            statisticsTopLine.topAnchor.constraint(equalTo: statisticsHeader.bottomAnchor, constant: 4),
-            statisticsTopLine.heightAnchor.constraint(equalToConstant: ETPMenuUX.UX.Line.height),
-            
-            statisticsView.topAnchor.constraint(equalTo: statisticsTopLine.bottomAnchor),
-            statisticsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            statisticsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            statisticsView.bottomAnchor.constraint(equalTo: statisticsBottomLine.topAnchor),
-            
-            statisticsBlockedTrackersTitle.topAnchor.constraint(equalTo: statisticsSeparatorLine.topAnchor),
-            statisticsBlockedTrackersTitle.leadingAnchor.constraint(equalTo: statisticsView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            statisticsBlockedTrackersTitle.trailingAnchor.constraint(equalTo: statisticsSeparatorLine.leadingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
+        statisticsLeftView.addSubviews(statisticsLeftTitle, statisticsLeftValue, statisticsLeftImage)
+        statisticsRightView.addSubviews(statisticsRightTitle, statisticsRightValue, statisticsRightImage)
+        contentView.addSubviews(statisticsLeftView, statisticsRightView, statisticsDetailsButton)
 
-            statisticsBlockedTrackersValue.topAnchor.constraint(equalTo: statisticsBlockedTrackersTitle.bottomAnchor, constant: 15),
-            statisticsBlockedTrackersValue.leadingAnchor.constraint(equalTo: statisticsBlockedTrackersTitle.leadingAnchor),
-            statisticsBlockedTrackersValue.trailingAnchor.constraint(equalTo: statisticsBlockedTrackersTitle.trailingAnchor),
-            statisticsBlockedTrackersValue.bottomAnchor.constraint(equalTo: statisticsSeparatorLine.bottomAnchor),
+        constraints.append(contentsOf: [
+            statisticsLeftView.topAnchor.constraint(equalTo: protectionLevelView.bottomAnchor, constant: QwantUX.Spacing.xl),
+            statisticsLeftView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsLeftView.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -QwantUX.Spacing.xxs),
 
-            statisticsSeparatorLine.topAnchor.constraint(equalTo: statisticsView.topAnchor, constant: 11),
-            statisticsSeparatorLine.bottomAnchor.constraint(equalTo: statisticsView.bottomAnchor, constant: -11),
-            statisticsSeparatorLine.widthAnchor.constraint(equalToConstant: ETPMenuUX.UX.Line.height),
-            statisticsSeparatorLine.centerXAnchor.constraint(equalTo: statisticsView.centerXAnchor),
-            
-            statisticsSavedTimeTitle.topAnchor.constraint(equalTo: statisticsSeparatorLine.topAnchor),
-            statisticsSavedTimeTitle.leadingAnchor.constraint(equalTo: statisticsSeparatorLine.trailingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            statisticsSavedTimeTitle.trailingAnchor.constraint(equalTo: statisticsView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
+            statisticsLeftTitle.topAnchor.constraint(equalTo: statisticsLeftView.topAnchor, constant: QwantUX.Spacing.s),
+            statisticsLeftTitle.leadingAnchor.constraint(equalTo: statisticsLeftView.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsLeftTitle.trailingAnchor.constraint(equalTo: statisticsLeftView.trailingAnchor, constant: -QwantUX.Spacing.m),
 
-            statisticsSavedTimeValue.topAnchor.constraint(equalTo: statisticsSavedTimeTitle.bottomAnchor, constant: 15),
-            statisticsSavedTimeValue.leadingAnchor.constraint(equalTo: statisticsSavedTimeTitle.leadingAnchor),
-            statisticsSavedTimeValue.trailingAnchor.constraint(equalTo: statisticsSavedTimeTitle.trailingAnchor),
-            statisticsSavedTimeValue.bottomAnchor.constraint(equalTo: statisticsSeparatorLine.bottomAnchor),
+            statisticsLeftValue.topAnchor.constraint(equalTo: statisticsLeftTitle.bottomAnchor, constant: QwantUX.Spacing.xs),
+            statisticsLeftValue.leadingAnchor.constraint(equalTo: statisticsLeftView.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsLeftValue.trailingAnchor.constraint(greaterThanOrEqualTo: statisticsLeftImage.leadingAnchor, constant: QwantUX.Spacing.s),
+            statisticsLeftValue.bottomAnchor.constraint(equalTo: statisticsLeftView.bottomAnchor, constant: -QwantUX.Spacing.s),
 
-            statisticsBottomLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            statisticsBottomLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            statisticsBottomLine.topAnchor.constraint(equalTo: statisticsView.bottomAnchor),
-            statisticsBottomLine.heightAnchor.constraint(equalToConstant: ETPMenuUX.UX.Line.height),
-            
-            statisticsSeeDetails.topAnchor.constraint(equalTo: statisticsBottomLine.topAnchor, constant: 8),
-            statisticsSeeDetails.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: ETPMenuUX.UX.gutterDistance),
-            statisticsSeeDetails.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -ETPMenuUX.UX.gutterDistance),
-            statisticsSeeDetails.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -ETPMenuUX.UX.gutterDistance)
-        ]
-        
-        constraints.append(contentsOf: statisticsConstraints)
+            statisticsLeftImage.trailingAnchor.constraint(equalTo: statisticsLeftView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            statisticsLeftImage.bottomAnchor.constraint(equalTo: statisticsLeftView.bottomAnchor, constant: -QwantUX.Spacing.s),
+            statisticsLeftImage.widthAnchor.constraint(equalToConstant: 28),
+            statisticsLeftImage.heightAnchor.constraint(equalToConstant: 28),
+
+            statisticsRightView.topAnchor.constraint(equalTo: protectionLevelView.bottomAnchor, constant: QwantUX.Spacing.xl),
+            statisticsRightView.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: QwantUX.Spacing.xxs),
+            statisticsRightView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m),
+            statisticsRightView.heightAnchor.constraint(equalTo: statisticsRightView.heightAnchor),
+
+            statisticsRightTitle.topAnchor.constraint(equalTo: statisticsRightView.topAnchor, constant: QwantUX.Spacing.s),
+            statisticsRightTitle.leadingAnchor.constraint(equalTo: statisticsRightView.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsRightTitle.trailingAnchor.constraint(equalTo: statisticsRightView.trailingAnchor, constant: -QwantUX.Spacing.m),
+
+            statisticsRightValue.topAnchor.constraint(equalTo: statisticsRightTitle.bottomAnchor, constant: QwantUX.Spacing.xs),
+            statisticsRightValue.leadingAnchor.constraint(equalTo: statisticsRightView.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsRightValue.trailingAnchor.constraint(greaterThanOrEqualTo: statisticsRightImage.leadingAnchor, constant: QwantUX.Spacing.s),
+            statisticsRightValue.bottomAnchor.constraint(equalTo: statisticsRightView.bottomAnchor, constant: -QwantUX.Spacing.s),
+
+            statisticsRightImage.trailingAnchor.constraint(equalTo: statisticsRightView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            statisticsRightImage.bottomAnchor.constraint(equalTo: statisticsRightView.bottomAnchor, constant: -QwantUX.Spacing.s),
+            statisticsRightImage.widthAnchor.constraint(equalToConstant: 28),
+            statisticsRightImage.heightAnchor.constraint(equalToConstant: 28),
+
+            statisticsDetailsButton.topAnchor.constraint(equalTo: statisticsLeftView.bottomAnchor, constant: QwantUX.Spacing.xs),
+            statisticsDetailsButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            statisticsDetailsButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m)
+        ])
     }
     
-    private func updateViewDetails() {
+    private func setupInformationView() {
+        informationView.addSubviews(informationTitleLabel, informationDetailsArrow, informationDetailsButton)
+        contentView.addSubview(informationView)
         
-        navigationItem.titleView = titleView
-        navigationItem.setRightBarButton(closeButton, animated: false)
+        constraints.append(contentsOf: [
+            informationView.topAnchor.constraint(equalTo: statisticsDetailsButton.bottomAnchor, constant: QwantUX.Spacing.xl),
+            informationView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            informationView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            informationTitleLabel.topAnchor.constraint(equalTo: informationView.topAnchor, constant: QwantUX.Spacing.s),
+            informationTitleLabel.leadingAnchor.constraint(equalTo: informationView.leadingAnchor, constant: QwantUX.Spacing.m),
+            informationTitleLabel.bottomAnchor.constraint(equalTo: informationView.bottomAnchor, constant: -QwantUX.Spacing.s),
+                        
+            informationDetailsArrow.centerYAnchor.constraint(equalTo: informationTitleLabel.centerYAnchor),
+            informationDetailsArrow.leadingAnchor.constraint(greaterThanOrEqualTo: informationTitleLabel.trailingAnchor, constant: QwantUX.Spacing.s),
+            informationDetailsArrow.trailingAnchor.constraint(equalTo: informationView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            informationDetailsButton.topAnchor.constraint(equalTo: informationView.topAnchor),
+            informationDetailsButton.leadingAnchor.constraint(equalTo: informationView.leadingAnchor),
+            informationDetailsButton.trailingAnchor.constraint(equalTo: informationView.trailingAnchor),
+            informationDetailsButton.bottomAnchor.constraint(equalTo: informationView.bottomAnchor)
+        ])
         
-        titleLabel.text = viewModel.websiteTitle
-        connectionLabel.text = viewModel.connectionStatusString
+        if !viewModel.mailHelper.canSendMail() {
+            constraints.append(informationView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.m))
+        }
+    }
+    
+    private func setupMailView() {
+        mailView.addSubviews(mailTitleLabel, mailDetailsExternal, mailDetailsButton)
+        contentView.addSubview(mailView)
         
-        localProtectionToggle.isOn = viewModel.isSiteETPEnabled
-        localProtectionTitleLabel.text = viewModel.protectionStatusString
-        localProtectionSubtitleLabel.text = viewModel.protectionStatusDetailString
-        localProtectionActivityIndicator.isHidden = !viewModel.globalETPIsEnabled || !viewModel.isSiteETPEnabling
-        localProtectionToggle.isHidden = !viewModel.globalETPIsEnabled || viewModel.isSiteETPEnabling
-        localProtectionTitleLabel.isHidden = !viewModel.globalETPIsEnabled
+        guard viewModel.mailHelper.canSendMail() else { return }
+        
+        constraints.append(contentsOf: [
+            mailView.topAnchor.constraint(equalTo: informationView.bottomAnchor, constant: QwantUX.Spacing.xl),
+            mailView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.m),
+            mailView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.m),
+            mailView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.m),
+
+            mailTitleLabel.topAnchor.constraint(equalTo: mailView.topAnchor, constant: QwantUX.Spacing.s),
+            mailTitleLabel.leadingAnchor.constraint(equalTo: mailView.leadingAnchor, constant: QwantUX.Spacing.m),
+            mailTitleLabel.bottomAnchor.constraint(equalTo: mailView.bottomAnchor, constant: -QwantUX.Spacing.s),
+            
+            mailDetailsExternal.centerYAnchor.constraint(equalTo: mailTitleLabel.centerYAnchor),
+            mailDetailsExternal.leadingAnchor.constraint(greaterThanOrEqualTo: mailTitleLabel.trailingAnchor, constant: QwantUX.Spacing.s),
+            mailDetailsExternal.trailingAnchor.constraint(equalTo: mailView.trailingAnchor, constant: -QwantUX.Spacing.m),
+            
+            mailDetailsButton.topAnchor.constraint(equalTo: mailView.topAnchor),
+            mailDetailsButton.leadingAnchor.constraint(equalTo: mailView.leadingAnchor),
+            mailDetailsButton.trailingAnchor.constraint(equalTo: mailView.trailingAnchor),
+            mailDetailsButton.bottomAnchor.constraint(equalTo: mailView.bottomAnchor),
+        ])
+    }
+    
+    override func updateViewDetails() {
+        super.updateViewDetails()
+        navigationItem.setLeftBarButton(imageIcon, animated: false)
+
+        localProtectionShieldCounterLabel.text = viewModel.globalETPIsEnabled && viewModel.isSiteETPEnabled ? String(describing: viewModel.blockedTrackersCount) : nil
+        localProtectionTitleLabel.text = viewModel.protectionTitleString
+        localProtectionSubtitleLabel.text = viewModel.websiteTitle
         localProtectionSubtitleLabel.isHidden = !viewModel.globalETPIsEnabled
-        
-        blockedTrackersTitleLabel.text = viewModel.blockedTrackersTitleString
-        blockedTrackersCountLabel.text = String(describing: viewModel.blockedTrackersCount)
-        blockedTrackersTitleLabel.isHidden = !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled
-        blockedTrackersCountLabel.isHidden = !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled
-        blockedTrackersDetailArrow.isHidden = !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled
+        localProtectionConnectionImage.isHidden = !viewModel.globalETPIsEnabled
+        localProtectionConnectionLabel.text = viewModel.connectionStatusString
+        localProtectionConnectionLabel.isHidden = !viewModel.globalETPIsEnabled
+        localProtectionSeparatorLine.isHidden = !viewModel.globalETPIsEnabled
+        localProtectionLabel.text = viewModel.protectionStatusString
+        localProtectionLabel.isHidden = !viewModel.globalETPIsEnabled
+        localProtectionToggle.isOn = viewModel.isSiteETPEnabled
+        localProtectionToggle.isHidden = !viewModel.globalETPIsEnabled || viewModel.isSiteETPEnabling
+        localProtectionActivityIndicator.isHidden = !viewModel.globalETPIsEnabled || !viewModel.isSiteETPEnabling
+        localProtectionActivationButton.isHidden = viewModel.globalETPIsEnabled
+        localProtectionDetailArrow.isHidden = !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled || viewModel.isSiteETPEnabling
+        localProtectionDetailsButton.isHidden = !viewModel.isSiteETPEnabled || !viewModel.globalETPIsEnabled || viewModel.isSiteETPEnabling
+        localProtectionFooterLabel.text = viewModel.protectionStatusDetailString
+        localProtectionFooterLabel.isHidden = !viewModel.globalETPIsEnabled
 
-        trackingProtectionTitleLabel.text = viewModel.trackingProtectionTitleString
-        trackingProtectionSubtitleLabel.text = viewModel.trackingProtectionSubtitleString
-        trackingProtectionValueLabel.text = viewModel.trackingProtectionValueString
+        protectionLevelTitleLabel.text = viewModel.trackingProtectionTitleString
+        protectionLevelSubtitleLabel.text = viewModel.trackingProtectionValueString
 
-        statisticsHeader.text = viewModel.statisticsHeaderString
-        statisticsBlockedTrackersTitle.text = viewModel.statisticsBlockedTrackersTitleString
-        statisticsBlockedTrackersValue.text = viewModel.statisticsTrackersBlockedFormattedString
-        statisticsSavedTimeTitle.text = viewModel.statisticsSavedTimeTitleString
-        statisticsSavedTimeValue.text = viewModel.statisticsTimeSavedFormattedString
-        statisticsSeeDetails.setTitle(viewModel.statisticsSeeDetails, for: .normal)
+        statisticsLeftTitle.text = viewModel.statisticsBlockedTrackersTitleString
+        statisticsLeftValue.text = viewModel.statisticsTrackersBlockedFormattedString
+        statisticsRightTitle.text = viewModel.statisticsSavedTimeTitleString
+        statisticsRightValue.text = viewModel.statisticsTimeSavedFormattedString
+        statisticsDetailsButton.setTitle(viewModel.statisticsSeeDetails, for: .normal)
+
+        informationTitleLabel.text = viewModel.informationTitle
+
+        mailTitleLabel.text = viewModel.mailTitle
+        mailView.isHidden = !viewModel.mailHelper.canSendMail()
+        mailTitleLabel.isHidden = !viewModel.mailHelper.canSendMail()
+        mailDetailsExternal.isHidden = !viewModel.mailHelper.canSendMail()
+        mailDetailsButton.isHidden = !viewModel.mailHelper.canSendMail()
+    }
+
+    // MARK: - Button actions
+    
+    @objc private func didActivateTrackingProtection() {
+        viewModel.activateTrackingProtection()
+        updateViewDetails()
+        setupView()
+        applyTheme()
     }
     
-    // MARK: - Button actions
+    @objc private func localProtectionDetailsTapped() {
+        guard let controller = viewModel.getDetailsViewController() else { return }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     
     @objc private func didChangeSwitchState() {
         // site is safelisted if site ETP is disabled
         viewModel.toggleSiteSafelistStatus() { [weak self] in
-            self?.setupView()
             self?.updateViewDetails()
+            self?.setupView()
             self?.applyTheme()
         }
-        setupView()
         updateViewDetails()
+        setupView()
         applyTheme()
-    }
-    
-    @objc private func blockedTrackersDetailsTapped() {
-        guard let controller = viewModel.getDetailsViewController() else { return }
-        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc private func protectionSettingsTapped() {
@@ -550,96 +618,79 @@ class QwantTPMenuVC: UIViewController, Themeable {
         guard let controller = viewModel.getStatsViewController() else { return }
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    @objc private func informationDetailsTapped() {
+        self.navigationController?.pushViewController(viewModel.getInformationViewController(), animated: true)
+    }
+    
+    @objc private func sendMailTapped() {
+        viewModel.mailHelper.sendMail(self.navigationController)
+    }
 
-//    // MARK: - Gesture Recognizer
-//
-//    private func addGestureRecognizer() {
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
-//        view.addGestureRecognizer(panGesture)
-//    }
-//
-//    @objc
-//    func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
-//        let translation = sender.translation(in: view)
-//        let originalYPosition = self.view.frame.origin.y
-//        let originalXPosition = self.view.frame.origin.x
-//
-//        // Not allowing the user to drag the view upward
-//        guard translation.y >= 0 else { return }
-//
-//        // Setting x based on window calculation because we don't want
-//        // users to move the frame side ways, only straight up or down
-//        view.frame.origin = CGPoint(x: originalXPosition,
-//                                    y: self.pointOrigin!.y + translation.y)
-//
-//        if sender.state == .ended {
-//            let dragVelocity = sender.velocity(in: view)
-//            if dragVelocity.y >= 1300 {
-//                if CoordinatorFlagManager.isEtpCoordinatorEnabled {
-//                    enhancedTrackingProtectionMenuDelegate?.didFinish()
-//                } else {
-//                    self.dismiss(animated: true, completion: nil)
-//                }
-//            } else {
-//                // Set back to original position of the view controller
-//                UIView.animate(withDuration: 0.3) {
-//                    self.view.frame.origin = self.pointOrigin ?? CGPoint(x: originalXPosition, y: originalYPosition)
-//                }
-//            }
-//        }
-//    }
-}
-
-// MARK: - Themable
-extension QwantTPMenuVC {
-    @objc func applyTheme() {
+    override func applyTheme() {
+        super.applyTheme()
         let theme = themeManager.currentTheme
-        overrideUserInterfaceStyle = theme.type.getInterfaceStyle()
-        view.backgroundColor = theme.colors.etp_background
-        
-        localProtectionView.backgroundColor = theme.colors.etp_sectionColor
-        localProtectionTitleLabel.textColor = viewModel.protectionStatusColor
-        localProtectionSubtitleLabel.textColor = theme.colors.etp_subtextColor
-        localProtectionToggle.tintColor = UIColor.Qwant.Theme.Green60
-        localProtectionToggle.onTintColor = UIColor.Qwant.Theme.Green60
-        
-        blockedTrackersView.backgroundColor = theme.colors.etp_sectionColor
-        blockedTrackersCountLabel.textColor = theme.colors.etp_subtextColor
-        blockedTrackersDetailArrow.tintColor = theme.colors.etp_subtextColor
-        
-        trackingProtectionView.backgroundColor = theme.colors.etp_sectionColor
-        trackingProtectionSubtitleLabel.textColor = theme.colors.etp_subtextColor
-        trackingProtectionValueLabel.textColor = theme.colors.etp_subtextColor
-        trackingProtectionDetailArrow.tintColor = theme.colors.etp_subtextColor
-        
-        statisticsHeader.textColor = theme.colors.etp_subtextColor
-        statisticsTopLine.backgroundColor = theme.colors.etp_horizontalLine
-        statisticsView.backgroundColor = theme.colors.etp_sectionColor
-        statisticsBlockedTrackersTitle.textColor = theme.colors.etp_subtextColor
-        statisticsSeparatorLine.backgroundColor = theme.colors.etp_horizontalLine
-        statisticsSavedTimeTitle.textColor = theme.colors.etp_subtextColor
-        statisticsBottomLine.backgroundColor = theme.colors.etp_horizontalLine
-        
-        statisticsSeeDetails.setTitleColor(theme.colors.etp_switchAndButtonTint, for: .normal)
-        
-        connectionLabel.textColor = theme.colors.etp_subtextColor
-        connectionImage.image = viewModel.connectionStatusImage
+
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.backgroundColor = theme.colors.vip_background
+        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+
+        localProtectionView.backgroundColor = theme.colors.vip_sectionColor
+        localProtectionShieldImage.image = viewModel.shieldImage
+        localProtectionShieldCounterLabel.textColor = theme.colors.vip_blackText
+        localProtectionTitleLabel.textColor = theme.colors.vip_textColor
+        localProtectionSubtitleLabel.textColor = theme.colors.vip_textColor
+        localProtectionDetailArrow.tintColor = theme.colors.vip_subtextColor
+
+        localProtectionConnectionImage.image = viewModel.connectionStatusImage
         if viewModel.connectionSecure {
-            connectionImage.tintColor = theme.colors.etp_subtextColor
+            localProtectionConnectionImage.tintColor = theme.colors.vip_subtextColor
         }
-        
+        localProtectionConnectionLabel.textColor = theme.colors.vip_subtextColor
+        localProtectionSeparatorLine.backgroundColor = theme.colors.vip_horizontalLine
+        localProtectionLabel.textColor = viewModel.protectionStatusColor
+        localProtectionToggle.onTintColor = theme.colors.vip_greenText
+        localProtectionToggle.tintColor = theme.colors.vip_redText
+        localProtectionToggle.backgroundColor = theme.colors.vip_redText
+        localProtectionToggle.subviews.first?.subviews.first?.backgroundColor = .clear
+
+        localProtectionActivationButton.setTitleColor(theme.colors.vip_background, for: .normal)
+        localProtectionActivationButton.backgroundColor = theme.colors.vip_switchAndButtonTint
+
+        localProtectionDetailsButton.backgroundColor = .clear
+
+        localProtectionFooterLabel.textColor = theme.colors.vip_subtextColor
+
+        protectionLevelView.backgroundColor = theme.colors.vip_sectionColor
+        protectionLevelTitleLabel.textColor = theme.colors.vip_textColor
+        protectionLevelSubtitleLabel.textColor = theme.colors.vip_subtextColor
+        protectionLevelDetailsArrow.tintColor = theme.colors.vip_subtextColor
+
+        statisticsLeftView.backgroundColor = theme.colors.vip_sectionColor
+        statisticsLeftTitle.textColor = theme.colors.vip_textColor
+        statisticsLeftValue.textColor = theme.colors.vip_textColor
+
+        statisticsRightView.backgroundColor = theme.colors.vip_sectionColor
+        statisticsRightTitle.textColor = theme.colors.vip_textColor
+        statisticsRightValue.textColor = theme.colors.vip_textColor
+
+        statisticsDetailsButton.setTitleColor(theme.colors.vip_switchAndButtonTint, for: .normal)
+
+        informationView.backgroundColor = theme.colors.vip_sectionColor
+        informationTitleLabel.textColor = theme.colors.vip_textColor
+        informationDetailsArrow.tintColor = theme.colors.vip_subtextColor
+
+        mailView.backgroundColor = theme.colors.vip_sectionColor
+        mailTitleLabel.textColor = theme.colors.vip_textColor
+
         setNeedsStatusBarAppearanceUpdate()
     }
 }
 
-// MARK: - Notifiable
-
-extension QwantTPMenuVC: Notifiable {
-    func handleNotifications(_ notification: Notification) {
-        switch notification.name {
-            case .ContentBlockerDidBlock:
-                updateViewDetails()
-            default: break
-        }
+extension QwantTPMenuVC: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

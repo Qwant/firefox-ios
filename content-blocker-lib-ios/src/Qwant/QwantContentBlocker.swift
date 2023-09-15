@@ -10,8 +10,10 @@ extension BlockerStatus {
         switch self {
             case .blocking, .noBlockedURLs:
                 return UIImage(imageLiteralResourceName: "tracking_protection_on")
-            case .safelisted, .disabled:
+            case .safelisted:
                 return UIImage(imageLiteralResourceName: "tracking_protection_off")
+            case .disabled:
+                return UIImage(imageLiteralResourceName: "tracking_protection_disabled")
         }
     }
     

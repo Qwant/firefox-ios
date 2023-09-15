@@ -78,11 +78,13 @@ public protocol ThemeColourPalette {
     var shadowDefault: UIColor { get }
 
     // MARK: - Qwant
-    var etp_background: UIColor { get }
-    var etp_sectionColor: UIColor { get }
-    var defaultTextAndTint: UIColor { get }
-    var etp_horizontalLine: UIColor { get }
-    var etp_subtextColor: UIColor { get }
-    var etp_closeButtonColor: UIColor { get }
-    var etp_switchAndButtonTint: UIColor { get }
+    var vip_background: UIColor { get }
+    var vip_sectionColor: UIColor { get }
+    var vip_textColor: UIColor { get }
+    var vip_subtextColor: UIColor { get }
+    var vip_greenText: UIColor { get }
+    var vip_redText: UIColor { get }
+    var vip_blackText: UIColor { get }
+    var vip_horizontalLine: UIColor { get }
+    var vip_switchAndButtonTint: UIColor { get }
 }

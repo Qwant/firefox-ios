@@ -98,7 +98,7 @@ class SettingsContentViewController: UIViewController, WKNavigationDelegate, The
         self.settingsWebView = makeWebView()
         view.addSubview(settingsWebView)
         self.settingsWebView.snp.remakeConstraints { make in
-            make.edges.equalTo(self.view)
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
 
         // Destructuring let causes problems.
