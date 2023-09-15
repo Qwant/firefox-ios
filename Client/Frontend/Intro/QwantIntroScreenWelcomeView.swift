@@ -17,14 +17,14 @@ class QwantIntroScreenWelcomeView: UIView {
     }
     
     private lazy var titleLabel: UILabel = .build { label in
-        label.font = QwantUX.Font.title
+        label.font = QwantUX.Font.Title.m
         label.numberOfLines = 2
         label.text = .QwantIntro.WelcomeTitle
         label.adjustsFontSizeToFitWidth = true
     }
     
     private lazy var subtitleLabel: UILabel = .build { label in
-        label.font = QwantUX.Font.text
+        label.font = QwantUX.Font.Text.m
         label.numberOfLines = 2
         label.text = .QwantIntro.WelcomeSubtitle
         label.adjustsFontSizeToFitWidth = true
@@ -36,7 +36,7 @@ class QwantIntroScreenWelcomeView: UIView {
     }
     
     private lazy var bulletContent1: UILabel = .build { label in
-        label.font = QwantUX.Font.text
+        label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
         label.text = .QwantIntro.WelcomeBullet1
     }
@@ -47,7 +47,7 @@ class QwantIntroScreenWelcomeView: UIView {
     }
     
     private lazy var bulletContent2: UILabel = .build { label in
-        label.font = QwantUX.Font.text
+        label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
         label.text = .QwantIntro.WelcomeBullet2
     }
@@ -58,20 +58,20 @@ class QwantIntroScreenWelcomeView: UIView {
     }
     
     private lazy var bulletContent3: UILabel = .build { label in
-        label.font = QwantUX.Font.text
+        label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
         label.text = .QwantIntro.WelcomeBullet3
     }
     
     private lazy var defaultBrowserButton: UIButton = .build { button in
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = QwantUX.SystemDesign.cornerRadius
         button.setTitle(.QwantIntro.WelcomeDefaultBrowser, for: .normal)
         button.addTarget(self, action: #selector(self.defaultBrowserTapped), for: .touchUpInside)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     private lazy var skipButton: UIButton = .build { button in
-        button.layer.cornerRadius = 8
+        button.layer.cornerRadius = QwantUX.SystemDesign.cornerRadius
         button.setTitle(.QwantIntro.WelcomeIgnore, for: .normal)
         button.addTarget(self, action: #selector(self.skipTapped), for: .touchUpInside)
     }
@@ -116,54 +116,54 @@ class QwantIntroScreenWelcomeView: UIView {
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterL),
+            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xxxxl),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: QwantUX.Spacing.l),
-            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: QwantUX.Spacing.m),
-            subtitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            subtitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            subtitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            subtitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             
             bulletContent1.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: QwantUX.Spacing.s),
-            bulletContent1.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            bulletContent1.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             bulletContent1.leadingAnchor.constraint(equalTo: bullet1.trailingAnchor, constant: QwantUX.Spacing.m),
             
             bullet1.centerYAnchor.constraint(equalTo: bulletContent1.firstBaselineAnchor, constant: -QwantUX.Spacing.xxs),
-            bullet1.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            bullet1.widthAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
-            bullet1.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
+            bullet1.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            bullet1.widthAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
+            bullet1.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
             
             bulletContent2.topAnchor.constraint(equalTo: bulletContent1.bottomAnchor, constant: QwantUX.Spacing.xs),
-            bulletContent2.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            bulletContent2.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             bulletContent2.leadingAnchor.constraint(equalTo: bullet2.trailingAnchor, constant: QwantUX.Spacing.m),
             
             bullet2.centerYAnchor.constraint(equalTo: bulletContent2.firstBaselineAnchor, constant: -QwantUX.Spacing.xxs),
-            bullet2.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            bullet2.widthAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
-            bullet2.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
+            bullet2.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            bullet2.widthAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
+            bullet2.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
             
             bulletContent3.topAnchor.constraint(equalTo: bulletContent2.bottomAnchor, constant: QwantUX.Spacing.xs),
-            bulletContent3.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            bulletContent3.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             bulletContent3.leadingAnchor.constraint(equalTo: bullet3.trailingAnchor, constant: QwantUX.Spacing.m),
             
             bullet3.centerYAnchor.constraint(equalTo: bulletContent3.firstBaselineAnchor, constant: -QwantUX.Spacing.xxs),
-            bullet3.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            bullet3.widthAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
-            bullet3.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.bulletHeight),
+            bullet3.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            bullet3.widthAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
+            bullet3.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
             
             defaultBrowserButton.topAnchor.constraint(equalTo: bulletContent3.bottomAnchor, constant: QwantUX.Spacing.xl),
-            defaultBrowserButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            defaultBrowserButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
-            defaultBrowserButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight),
+            defaultBrowserButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            defaultBrowserButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
+            defaultBrowserButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight),
             
             skipButton.topAnchor.constraint(equalTo: defaultBrowserButton.bottomAnchor, constant: QwantUX.Spacing.xs),
-            skipButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            skipButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            skipButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            skipButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             skipButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.xs),
-            skipButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight),
+            skipButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight),
         ])
     }
 }

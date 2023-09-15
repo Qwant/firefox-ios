@@ -54,7 +54,7 @@ class TPStatsBlocklistsTests: XCTestCase {
         }
         XCTAssertEqual(blocklist("https://www.facebook.com", "https://atlassolutions.com"), false)
         XCTAssertEqual(blocklist("https://www.firefox.com"), false)
-        XCTAssertEqual(blocklist("https://wheredoyoucomefrom.ovh/malicious_tracker.js"), true)
+        XCTAssertEqual(blocklist("https://wheredoyoucomefrom.ovh"), true)
         XCTAssertEqual(blocklist("https://sub.2leep.com/ad"), false)
         XCTAssertEqual(blocklist("https://admeld.com"), false)
         XCTAssertEqual(blocklist("https://admeld.com/popup"), false)

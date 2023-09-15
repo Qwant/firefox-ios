@@ -3,6 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 import WebKit
+import Shared
 
 extension QwantTabContentBlocker {
     func clearPageStats() {
@@ -34,7 +35,8 @@ extension QwantTabContentBlocker {
             
             QwantTPStatsBlocklistChecker.shared.isBlocked(url: url, mainDocumentURL: mainDocumentUrl).uponQueue(.main) { blocked in
                 if let domain = url.baseDomain, blocked == true {
-                    self.stats = self.stats.create(host: domain)
+                    let canRecordStat = !(self.prefs.boolForKey(PrefsKeys.QwantVIPStatisticsDeactivated) ?? false)
+                    self.stats = self.stats.create(host: domain, recordStat: canRecordStat)
                     print("Blocked host \(domain)")
                     NotificationCenter.default.post(name: .ContentBlockerDidBlock, object: nil)
                 }

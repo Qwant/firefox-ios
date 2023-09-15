@@ -38,7 +38,7 @@ class ContentBlockerSetting: Setting {
         self.profile = settings.profile
         self.tabManager = settings.tabManager
         self.settingsDelegate = settingsDelegate
-        super.init(title: NSAttributedString(string: .QwantTrackingProtection.GlobalProtection,
+        super.init(title: NSAttributedString(string: .QwantVIP.GlobalProtection,
                                              attributes: [NSAttributedString.Key.foregroundColor: settings.themeManager.currentTheme.colors.textPrimary]))
     }
 

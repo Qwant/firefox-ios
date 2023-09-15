@@ -3,9 +3,11 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 import WebKit
+import Shared
 
 class QwantTabContentBlocker {
     weak var tab: ContentBlockerTab?
+    var prefs: Prefs
     
     var statsForPage = [URL: QwantTPPageStats]()
 
@@ -51,8 +53,9 @@ class QwantTabContentBlocker {
         }
     }
 
-    init(tab: ContentBlockerTab) {
+    init(tab: ContentBlockerTab, prefs: Prefs) {
         self.tab = tab
+        self.prefs = prefs
         NotificationCenter.default.addObserver(self, selector: #selector(notifiedTabSetupRequired), name: .contentBlockerTabSetupRequired, object: nil)
     }
     

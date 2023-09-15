@@ -13,16 +13,18 @@ struct QwantTPPageStats {
     }
     
     init() {
-        domains = [String]();
+        domains = [String]()
     }
     
-    private init(domains: [String], host: String) {
+    private init(domains: [String], host: String, recordStat: Bool) {
         self.domains = domains + [host]
-        QwantContentBlockerStats().appendStat(for: host)
+        if recordStat {
+            QwantContentBlockerStats().appendStat(for: host)
+        }
     }
     
-    func create(host: String) -> QwantTPPageStats {
-        return QwantTPPageStats(domains: domains, host: host)
+    func create(host: String, recordStat: Bool) -> QwantTPPageStats {
+        return QwantTPPageStats(domains: domains, host: host, recordStat: recordStat)
     }
 }
 
@@ -215,7 +217,7 @@ class QwantTPStatsBlocklists {
     
     private func associatedDomainForFilter(_ filter: String) -> String? {
         do {
-            let regex = try NSRegularExpression(pattern: #"[-a-zA-Z0-9]+(\\+\.[-a-zA-Z0-9]{2,})+"#)
+            let regex = try NSRegularExpression(pattern: #"[-a-zA-Z0-9]+(\\+\.[-a-zA-Z0-9]{1,})+"#)
             guard let result = regex.firstMatch(in: filter, range: NSRange(filter.startIndex..., in: filter)) else { return nil }
             return String(filter[Range(result.range, in: filter)!]).replacingOccurrences(of: "\\.", with: ".")
         } catch _ {

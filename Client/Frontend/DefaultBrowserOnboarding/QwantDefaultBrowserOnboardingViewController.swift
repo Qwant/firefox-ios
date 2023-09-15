@@ -15,7 +15,7 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
     private lazy var titleLabel: UILabel = .build { label in
         label.text = .QwantDefaultBrowser.DefaultBrowserTitle
         label.textColor = .black
-        label.font = QwantUX.Font.title
+        label.font = QwantUX.Font.Title.m
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 3
     }
@@ -23,7 +23,7 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
     private lazy var subtitleLabel: UILabel = .build { label in
         label.text = .QwantDefaultBrowser.DefaultBrowserDescription
         label.textColor = .black
-        label.font = QwantUX.Font.text
+        label.font = QwantUX.Font.Text.m
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
     }
@@ -34,8 +34,8 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
     }
     
     private lazy var openSettingsButton: UIButton = .build { button in
-        button.titleLabel?.font = QwantUX.Font.button
-        button.layer.cornerRadius = 8
+        button.titleLabel?.font = QwantUX.Font.Text.l
+        button.layer.cornerRadius = QwantUX.SystemDesign.cornerRadius
         button.backgroundColor = .black
         button.setTitle(.QwantDefaultBrowser.DefaultBrowserButtonSettings, for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -44,7 +44,7 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
     }
     
     private lazy var ignoreButton: UIButton = .build { button in
-        button.titleLabel?.font = QwantUX.Font.button
+        button.titleLabel?.font = QwantUX.Font.Text.l
         button.backgroundColor = .clear
         button.setTitle(.QwantDefaultBrowser.DefaultBrowserButtonIgnore, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -72,28 +72,28 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
         subtitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: QwantUX.Spacing.gutterM),
-            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterL),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: QwantUX.Spacing.xl),
+            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xxxxl),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: QwantUX.Spacing.gutterM),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: QwantUX.Spacing.xl),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: QwantUX.Spacing.m),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             
-            openSettingsButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: QwantUX.Spacing.xxl),
-            openSettingsButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            openSettingsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
-            openSettingsButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight),
+            openSettingsButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: QwantUX.Spacing.xxxl),
+            openSettingsButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            openSettingsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
+            openSettingsButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight),
             
             ignoreButton.topAnchor.constraint(equalTo: openSettingsButton.bottomAnchor, constant: QwantUX.Spacing.xs),
-            ignoreButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.gutterM),
-            ignoreButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.gutterM),
-            ignoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.gutterM),
-            ignoreButton.heightAnchor.constraint(equalToConstant: QwantUX.Spacing.buttonHeight)
+            ignoreButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            ignoreButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
+            ignoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.xl),
+            ignoreButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight)
         ])
     }
     

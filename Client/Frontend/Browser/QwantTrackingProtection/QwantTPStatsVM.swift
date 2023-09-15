@@ -2,27 +2,71 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import Shared
 
 struct QwantTPStatsVM {
     
     // MARK: - Variables
     var stats: QwantContentBlockerStats
+    var prefs: Prefs
     
-    init(stats: QwantContentBlockerStats) {
+    init(stats: QwantContentBlockerStats, prefs: Prefs) {
         self.stats = stats
+        self.prefs = prefs
+    }
+    
+    var hasJustReactivatedStats = false
+    
+    var hasDeactivatedStats: Bool {
+        get { return prefs.boolForKey(PrefsKeys.QwantVIPStatisticsDeactivated) ?? false }
+        set {
+            if !newValue {
+                hasJustReactivatedStats = true
+            }
+            stats.reset()
+            prefs.setBool(newValue, forKey: PrefsKeys.QwantVIPStatisticsDeactivated)
+        }
+    }
+    
+    var shouldShowPlaceholder: Bool {
+        return !hasBlockedAtLeastOneTracker || hasDeactivatedStats
     }
     
     var title: String {
-        return .QwantTrackingProtection.Statistics
+        return .QwantVIP.Statistics
+    }
+    
+    var placeholderButtonTitle: String {
+        return .QwantVIP.ReactivateStats
+    }
+    
+    var deactivateStatsTitle: String {
+        return .QwantVIP.DeactivateStats
+    }
+    
+    var deactivateStatsMessage: String {
+        return .QwantVIP.DeactivateStatsDetails
+    }
+    
+    var deactivateStatsConfirmActionTitle: String {
+        return .QwantVIP.DeactivateStatsConfirm
+    }
+    
+    var deactivateStatsCancelActionTitle: String {
+        return .QwantVIP.DeactivateStatsCancel
+    }
+    
+    var deleteStatsTitle: String {
+        return .QwantVIP.DeleteStats
     }
     
     var statisticsBlockedTrackersTitleString: String {
-        return .QwantTrackingProtection.ItemsBlocked
+        return .QwantVIP.ItemsBlocked
     }
     
     var statisticsSavedTimeTitleString: String {
-        return .QwantTrackingProtection.TimeSaved
+        return .QwantVIP.TimeSaved
     }
     
     var statisticsTrackersBlockedFormattedString: String {
@@ -50,6 +94,36 @@ struct QwantTPStatsVM {
             }
             
             return lhs.value > rhs.value
+        }
+    }
+    
+    var hasBlockedAtLeastOneTracker: Bool {
+        return stats.blockedTrackersCount > 0
+    }
+    
+    var leftHandSideHeaderTitle: String {
+        return hasBlockedAtLeastOneTracker ? .QwantVIP.DomainsTitle.uppercased() : ""
+    }
+    
+    var rightHandSideHeaderTitle: String {
+        return hasBlockedAtLeastOneTracker ? .QwantVIP.TrackersCookiesTitle.uppercased() : ""
+    }
+    
+    var placeholderTextTitle: String {
+        if hasDeactivatedStats {
+            return .QwantVIP.DeactivatedForNow
+        } else if hasJustReactivatedStats {
+            return .QwantVIP.JustActivated
+        } else {
+            return .QwantVIP.NothingToSee
+        }
+    }
+    
+    var placeholderImage: UIImage {
+        if hasDeactivatedStats {
+            return UIImage(named: "illustration_stats_disabled")!
+        } else {
+            return UIImage(named: "illustration_stats")!
         }
     }
 }
