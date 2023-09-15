@@ -28,6 +28,7 @@ class HomeButtonHomePageAccessors: QwantHomePageAccessors {
 
 class QwantHomePageAccessors {
     static let QwantHome = "https://www.qwant.com/"
+    static let FirstRunSuffix = "?fs=1&client=qwantbrowser"
 
     static func getDefaultHomePageString(_ prefs: Prefs) -> String? {
         return prefs.stringForKey(PrefsKeys.KeyDefaultHomePageURL) ?? makeQwantTheHomePageAndSetItAsDefault(prefs)
@@ -35,6 +36,6 @@ class QwantHomePageAccessors {
 
     static func makeQwantTheHomePageAndSetItAsDefault(_ prefs: Prefs) -> String? {
         prefs.setString(QwantHome, forKey: PrefsKeys.KeyDefaultHomePageURL)
-        return QwantHome
+        return QwantHome + FirstRunSuffix
     }
 }

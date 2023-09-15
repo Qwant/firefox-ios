@@ -810,8 +810,8 @@ class Tab: NSObject {
         }
 
         if let url = self.webView?.url, path == KVOConstants.URL.rawValue {
-            if url.missesClientContext {
-                self.webView?.relaunchNavigationWithContext()
+            if url.missesQwantContext(prefs: profile.prefs) {
+                self.webView?.relaunchNavigationWithContext(prefs: profile.prefs)
                 return
             }
             self.urlDidChangeDelegate?.tab(self, urlDidChangeTo: url)

@@ -13,6 +13,7 @@ public extension URL {
         static let QWANT_HELP_DOMAIN = "help.qwant.com"
         static let QWANT_MAPS_PATH = "/maps"
         static let CLIENT_CONTEXT_KEY = "client"
+        static let CL_CONTEXT_KEY = "cl"
         static let CLIENT_CONTEXT_BROWSER = "qwantbrowser"
         static let CLIENT_CONTEXT_WIDGET = "qwantwidget"
         static let SEARCH_KEY = "q"
@@ -44,17 +45,36 @@ public extension URL {
     /// as in `https://www.qwant.com?q=wikipedia` for example, but also when we can read through the
     /// user defaults that the app has been opened via the widget, and thus that we must override the default
     /// `qwantbrowser`with the `qwantwidget` in that case.
-    var missesClientContext: Bool {
+    func missesQwantContext(prefs: Prefs) -> Bool {
+        extractQwantClIfNeeded(prefs: prefs)
+
         guard self.isQwantUrl && !self.isMapsUrl else { return false }
         
         guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false) else {
             return true
         }
-        
-        let hasOpenedAppViaTheWidget = UserDefaults.standard.hasOpenedAppViaTheWidget
-        let contextExists = components.queryItems?.first(where: { $0.name == Constants.CLIENT_CONTEXT_KEY }) != nil
-        
-        return hasOpenedAppViaTheWidget || !contextExists
+
+        // Client
+        let clientQueryParam = components.queryItems?.first(where: { $0.name == Constants.CLIENT_CONTEXT_KEY })
+        let clientQueryValue = clientQueryParam?.value ?? ""
+
+        // Widget
+        let openedViaWidget = prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget) ?? false
+        let clientIsNotWidget = clientQueryValue != Constants.CLIENT_CONTEXT_WIDGET
+
+        // Cl
+        let clQueryParam = components.queryItems?.first(where: { $0.name == Constants.CL_CONTEXT_KEY })
+        let clPrefsValue = prefs.stringForKey(PrefsKeys.QwantCampaign) ?? ""
+        let clDiffersFromPrefs = clQueryParam?.value != clPrefsValue
+
+        // Conditions
+        let clientNotThere = clientQueryParam == nil
+        let clientIsEmpty = clientQueryValue.isEmpty
+        let needsClientContext = clientNotThere || clientIsEmpty
+        let needsWidgetContext = openedViaWidget && clientIsNotWidget
+        let needsClContext = !clPrefsValue.isEmpty && clDiffersFromPrefs
+
+        return needsClientContext || needsWidgetContext || needsClContext
     }
     
     var qwantSearchTerm: String? {
@@ -77,19 +97,50 @@ public extension URL {
     /// Then re-applies all query items, and re-write the client one with the correct context
     ///
     /// - Returns: the generated URL out of the re-written components
-    fileprivate func appendClientContext() -> URL? {
+    fileprivate func appendQwantContext(prefs: Prefs) -> URL? {
         guard self.isQwantUrl else { return self }
-        
-        let context = UserDefaults.standard.hasOpenedAppViaTheWidget ? Constants.CLIENT_CONTEXT_WIDGET : Constants.CLIENT_CONTEXT_BROWSER
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(false)
-        
+
+        let hasOpenedAppViaTheWidget = prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget) ?? false
+        let context = hasOpenedAppViaTheWidget ? Constants.CLIENT_CONTEXT_WIDGET : Constants.CLIENT_CONTEXT_BROWSER
+        prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+
         var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        let queryItems = (components?.percentEncodedQueryItems ?? [])
+        var queryItems = (components?.queryItems ?? [])
             .filter { $0.name != Constants.CLIENT_CONTEXT_KEY }
             + [URLQueryItem(name: Constants.CLIENT_CONTEXT_KEY, value: context)]
-        
+
+        let cl = prefs.stringForKey(PrefsKeys.QwantCampaign)
+        if cl?.isEmpty == false {
+            queryItems = queryItems
+                .filter { $0.name != Constants.CL_CONTEXT_KEY }
+            + [URLQueryItem(name: Constants.CL_CONTEXT_KEY, value: cl)]
+        }
+
         components?.queryItems = queryItems
         return components?.url
+    }
+
+    fileprivate func extractQwantClIfNeeded(prefs: Prefs) {
+        // Ensure there isn't already a cl stored in the prefs
+        guard prefs.stringForKey(PrefsKeys.QwantCampaign) == nil else { return }
+
+        // Ensure it's the first run
+        guard prefs.boolForKey(PrefsKeys.QwantIsFirstRun) == true else { return }
+
+        // Ensure it's a qwant.com url
+        guard self.isQwantUrl && !self.isMapsUrl else { return }
+
+        // Ensure there are query items
+        guard let items = URLComponents(url: self, resolvingAgainstBaseURL: false)?.queryItems else { return }
+
+        // Ensure cl query params exists and is not empty
+        guard let clParam = items.first(where: { $0.name == Constants.CL_CONTEXT_KEY }),
+              let clValue = clParam.value, !clValue.isEmpty else { return }
+
+        // Finally save the value and the associated timestamp onto the prefs
+        prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
+        prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
+        prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
     }
 }
 
@@ -98,28 +149,13 @@ public extension WKWebView {
     /// Relaunches the navigation in the webview by appending the context as a query parameter to the URL
     ///
     /// Stops the ongoing loading, and re-load an updated URL.
-    func relaunchNavigationWithContext() {
-        guard let url = self.url, let urlWithContext = url.appendClientContext() else {
+    func relaunchNavigationWithContext(prefs: Prefs) {
+        guard let url = self.url, let urlWithContext = url.appendQwantContext(prefs: prefs) else {
             return
         }
         
         self.stopLoading()
         self.load(URLRequest(url: urlWithContext))
-    }
-}
-
-public extension UserDefaults {
-
-    private struct Constants {
-        static let HAS_OPENED_APP_VIA_THE_WIDGET = "hasOpenedAppViaTheWidget"
-    }
-    
-    var hasOpenedAppViaTheWidget: Bool {
-        return bool(forKey: Constants.HAS_OPENED_APP_VIA_THE_WIDGET)
-    }
-    
-    func setHasOpenedAppViaTheWidget(_ value: Bool) {
-        setValue(value, forKey: Constants.HAS_OPENED_APP_VIA_THE_WIDGET)
     }
 }
 

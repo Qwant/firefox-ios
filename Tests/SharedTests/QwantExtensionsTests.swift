@@ -9,7 +9,7 @@ import WebKit
 class QwantExtensionsTests: XCTestCase {
     
     override func tearDownWithError() throws {
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(false)
+        UserDefaults.standard.setValue(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
     }
     
     func testMissesClientContext_defaultCase() {
@@ -39,8 +39,8 @@ class QwantExtensionsTests: XCTestCase {
     }
     
     func testMissesClientContext_whenOpeningTheAppViaTheWidget() {
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
-        
+        UserDefaults.standard.setValue(true, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+
         var url = URL(string: "https://www.wikipedia.com")!
         XCTAssertFalse(url.missesClientContext)
         
@@ -91,7 +91,7 @@ class QwantExtensionsTests: XCTestCase {
     }
     
     func testRelaunchNavigationWithClientContext_whenOpeningTheAppViaTheWidget() {
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
+        UserDefaults.standard.setValue(true, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
         let url = URL(string: "https://www.maps.qwant.com?q=wikipedia")!
         let request = URLRequest(url: url)
         let webview = WKWebView()
