@@ -236,6 +236,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         backgroundWorkUtility?.scheduleOnAppBackground()
         tabManager.preserveTabs()
 
+        profile.prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
+
         logger.log("applicationDidEnterBackground end",
                    level: .info,
                    category: .lifecycle)
