@@ -23,6 +23,15 @@ class LegacyTabTrayViewModel {
             }
         }
 
+        func buttonsColor(for theme: Theme) -> UIColor {
+            switch self {
+            case .tabs, .syncedTabs:
+                return theme.colors.omnibar_blue
+            case .privateTabs:
+                return theme.colors.omnibar_purple
+            }
+        }
+
         var label: String {
             switch self {
             case .tabs:
@@ -39,7 +48,7 @@ class LegacyTabTrayViewModel {
             case .tabs:
                 return UIImage(named: ImageIdentifiers.navTabCounter)
             case .privateTabs:
-                return UIImage(named: ImageIdentifiers.privateMaskSmall)
+                return UIImage(named: "qwant_private")?.createScaled(CGSize(width: 24, height: 24))
             case .syncedTabs:
                 return UIImage(named: ImageIdentifiers.syncedDevicesIcon)
             }
@@ -90,6 +99,11 @@ class LegacyTabTrayViewModel {
             return segment?.navTitle
         }
         return nil
+    }
+
+    func buttonsColor(for segmentIndex: Int, with theme: Theme) -> UIColor {
+        let segment = LegacyTabTrayViewModel.Segment(rawValue: segmentIndex) ?? .tabs
+        return segment.buttonsColor(for: theme)
     }
 
     func reloadRemoteTabs() {

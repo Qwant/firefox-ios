@@ -11,6 +11,7 @@ class QwantTPMenuVM {
     var tab: Tab
     var tabManager: TabManager
     var profile: Profile
+    var theme: Theme
     var stats: QwantContentBlockerStats
     let mailHelper: MailHelper
     
@@ -144,22 +145,20 @@ class QwantTPMenuVM {
     }
     
     var connectionStatusImage: UIImage {
-//        let insecureImageString = LegacyThemeManager.instance.currentName == .dark ? "lock_blocked_dark" : "lock_blocked"
-//        let image = connectionSecure ? UIImage(imageLiteralResourceName: "lock_verified").withRenderingMode(.alwaysTemplate) : UIImage(imageLiteralResourceName: insecureImageString)
-        if connectionSecure {
-            return UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.lock).withRenderingMode(.alwaysTemplate)
-        } else {
-            return UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.lockSlash)
-        }
-//        return image
+        let imageName = connectionSecure ? "qwant_lock_on" : "qwant_lock_off"
+        let color = connectionSecure ? theme.colors.omnibar_gray : theme.colors.vip_redIcon
+        return UIImage(named: imageName)!
+            .withRenderingMode(.alwaysTemplate)
+            .tinted(withColor: color)
     }
     
     // MARK: - Initializers
     
-    init(tab: Tab, profile: Profile, tabManager: TabManager, stats: QwantContentBlockerStats = QwantContentBlockerStats()) {
+    init(tab: Tab, profile: Profile, tabManager: TabManager, theme: Theme, stats: QwantContentBlockerStats = QwantContentBlockerStats()) {
         self.tab = tab
         self.profile = profile
         self.tabManager = tabManager
+        self.theme = theme
         self.stats = stats
         let metadata = MailMetadata(
             to: "extensions@qwant.com",

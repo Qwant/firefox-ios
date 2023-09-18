@@ -17,12 +17,12 @@ struct ButtonToastViewModel {
 class ButtonToast: Toast {
     struct UX {
         static let delay = DispatchTimeInterval.milliseconds(900)
-        static let padding: CGFloat = 15
-        static let buttonPadding: CGFloat = 10
-        static let buttonBorderRadius: CGFloat = 5
-        static let buttonBorderWidth: CGFloat = 1
-        static let titleFontSize: CGFloat = 15
-        static let descriptionFontSize: CGFloat = 13
+        static let padding: CGFloat = QwantUX.Spacing.s
+        static let buttonPadding: CGFloat = QwantUX.Spacing.m
+        static let buttonBorderRadius: CGFloat = QwantUX.SystemDesign.Button.cornerRadius
+        static let buttonBorderWidth: CGFloat = QwantUX.SystemDesign.Button.borderWidth
+        static let titleFontSize: CGFloat = 17
+        static let descriptionFontSize: CGFloat = 14
         static let widthOffset: CGFloat = 20
     }
 
@@ -41,14 +41,14 @@ class ButtonToast: Toast {
     }
 
     private var titleLabel: UILabel = .build { label in
-        label.font = DefaultDynamicFontHelper.preferredBoldFont(withTextStyle: .body,
-                                                                size: UX.titleFontSize)
+        label.font = DefaultDynamicFontHelper.preferredFont(withTextStyle: .body,
+                                                            size: UX.titleFontSize)
         label.numberOfLines = 0
     }
 
     private var descriptionLabel: UILabel = .build { label in
-        label.font = DefaultDynamicFontHelper.preferredBoldFont(withTextStyle: .body,
-                                                                size: UX.descriptionFontSize)
+        label.font = DefaultDynamicFontHelper.preferredFont(withTextStyle: .body,
+                                                            size: UX.descriptionFontSize)
         label.numberOfLines = 0
     }
 
@@ -144,7 +144,7 @@ class ButtonToast: Toast {
 
         NSLayoutConstraint.activate([
             roundedButton.heightAnchor.constraint(
-                equalToConstant: roundedButton.titleLabel!.intrinsicContentSize.height + 2 * UX.buttonPadding),
+                equalToConstant: QwantUX.SystemDesign.Button.height),
             roundedButton.widthAnchor.constraint(
                 equalToConstant: roundedButton.titleLabel!.intrinsicContentSize.width + 2 * UX.buttonPadding),
             roundedButton.centerYAnchor.constraint(equalTo: paddedView.centerYAnchor),
@@ -163,11 +163,12 @@ class ButtonToast: Toast {
     override func applyTheme(theme: Theme) {
         super.applyTheme(theme: theme)
 
-        titleLabel.textColor = theme.colors.textInverted
-        descriptionLabel.textColor = theme.colors.textInverted
-        imageView.tintColor = theme.colors.textInverted
-        roundedButton.setTitleColor(theme.colors.textInverted, for: [])
-        roundedButton.layer.borderColor = theme.colors.borderInverted.cgColor
+        let invertedColor: UIColor = theme.type == .dark ? .black : .white
+        titleLabel.textColor = invertedColor
+        descriptionLabel.textColor = invertedColor
+        imageView.tintColor = invertedColor
+        roundedButton.setTitleColor(invertedColor, for: [])
+        roundedButton.layer.borderColor = invertedColor.cgColor
     }
 
     // MARK: - Button action

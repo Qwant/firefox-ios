@@ -208,3 +208,18 @@
 "Qwant.NightMode.Title.On" = "Disattiva modalità scura";
 "Qwant.NightMode.Title.Off" = "Imponi modalità scura";
 "Qwant.NightMode.Subtitle" = "Inverti i colori dei siti web";
+
+"Qwant.Zap.Alert.Title" = "Questo pulsante elimina i tuoi dati di navigazione";
+"Qwant.Zap.Alert.OK" = "Elimina i dati";
+"Qwant.Zap.Alert.Cancel" = "Annulla";
+"Qwant.Zap.Toast" = "Dati cancellati";
+
+"Qwant.Search.HeaderTitle" = "Cerca su Qwant";
+
+"Qwant.Zap.Settings" = "Impostazioni di cancellazione del browser";
+"Qwant.Zap.Settings.QwantVIP" = "Statistiche di Qwant VIP";
+"Qwant.Zap.Settings.TabsAndHistory" = "Chiudi le schede ed elimina la cronologia";
+
+"Qwant.Omnibar.Placeholder" = "Cerca o inserisci un indirizzo";
+"Qwant.Omnibar.PrivateTabs.Title" = "Navigazione in incognito";
+"Qwant.Omnibar.PrivateTabs.Description" = "I siti visitati nelle schede in incognito non saranno visualizzati nella cronologia di Qwant e i loro cookie verranno sempre eliminati dopo aver chiuso la scheda. Senza navigazione in incognito, la tua cronologia di ricerca viene memorizzata sul tuo telefono ma non è visibile a Qwant (rispettiamo la tua privacy!).\n\nTieni presente che la navigazione in incognito non ti rende invisibile su internet. Le schede in incognito non impediscono al tuo operatore di telefonia mobile o al proprietario della rete Wi-Fi di tracciare i siti che visiti o il tuo indirizzo IP pubblico.";

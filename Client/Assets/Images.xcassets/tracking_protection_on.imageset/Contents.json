@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "on.svg",
+      "filename" : "on.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "on-2.pdf",
       "idiom" : "universal"
     }
   ],

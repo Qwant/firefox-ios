@@ -2,22 +2,17 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import UIKit
 import Shared
 
 class ToolbarTextField: AutocompleteTextField {
     // MARK: - Variables
-    @objc dynamic var clearButtonTintColor: UIColor? {
+    @objc dynamic var clearButtonTintColor: UIColor? = LightTheme().colors.omnibar_gray(false) {
         didSet {
             // Clear previous tinted image that's cache and ask for a relayout
             tintedClearImage = nil
             setNeedsLayout()
-        }
-    }
-
-    override var textColor: UIColor? {
-        didSet {
-            clearButtonTintColor = textColor
         }
     }
 
@@ -38,31 +33,50 @@ class ToolbarTextField: AutocompleteTextField {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let image = UIImage.templateImageNamed("topTabs-closeTabs") else { return }
-        if tintedClearImage == nil {
+        guard let emptyImage = UIImage.templateImageNamed("qwant_search") else { return }
+        guard let notEmptyImage = UIImage.templateImageNamed("qwant_cross") else { return }
+        let image = self.text?.isEmpty == true || !self.isFirstResponder ? emptyImage : notEmptyImage
+//        if tintedClearImage == nil {
             if let clearButtonTintColor = clearButtonTintColor {
                 tintedClearImage = image.tinted(withColor: clearButtonTintColor)
             } else {
                 tintedClearImage = image
             }
-        }
+//        }
         // Since we're unable to change the tint color of the clear image, we need to iterate through the
         // subviews, find the clear button, and tint it ourselves.
         // https://stackoverflow.com/questions/55046917/clear-button-on-text-field-not-accessible-with-voice-over-swift
-        if let clearButton = value(forKey: "_clearButton") as? UIButton {
+        if let clearButton = value(forKey: "_rightView") as? UIButton {
             clearButton.setImage(tintedClearImage, for: [])
         }
     }
 
     // The default button size is 19x19, make this larger
-    override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
-        let rect = super.clearButtonRect(forBounds: bounds)
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.rightViewRect(forBounds: bounds)
         let grow: CGFloat = 16
         let rect2 = CGRect(x: rect.minX - grow/2,
                            y: rect.minY - grow/2,
                            width: rect.width + grow,
                            height: rect.height + grow)
         return rect2
+    }
+
+//    // The default button size is 19x19, make this larger
+//    override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+//        let rect = super.clearButtonRect(forBounds: bounds)
+//        let grow: CGFloat = 16
+//        let rect2 = CGRect(x: rect.minX - grow/2,
+//                           y: rect.minY - grow/2,
+//                           width: rect.width + grow,
+//                           height: rect.height + grow)
+//        return rect2
+//    }
+
+    override func applyQwantTheme(isPrivate: Bool, theme: Theme) {
+        backgroundColor = theme.colors.omnibar_urlBarBackground(isPrivate)
+        textColor = theme.colors.omnibar_urlBarText(isPrivate)
+        clearButtonTintColor = theme.colors.omnibar_gray(isPrivate)
     }
 }
 

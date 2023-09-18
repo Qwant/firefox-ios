@@ -211,3 +211,19 @@
 "Qwant.NightMode.Title.On" = "Nachtmodus ausschalten";
 "Qwant.NightMode.Title.Off" = "Nachtmodus erzwingen";
 "Qwant.NightMode.Subtitle" = "Farben der Website umkehren";
+
+"Qwant.Zap.Alert.Title" = "Über diese Schaltfläche werden Ihre Browserdaten gelöscht";
+"Qwant.Zap.Alert.OK" = "Daten löschen";
+"Qwant.Zap.Alert.Cancel" = "Abbrechen";
+"Qwant.Zap.Toast" = "Daten gelöscht";
+
+"Qwant.Search.HeaderTitle" = "Qwant-Suche";
+
+"Qwant.Zap.Settings" = "Browserlöscheinstellungen";
+"Qwant.Zap.Settings.QwantVIP" = "Qwant-VIP-Statistiken";
+"Qwant.Zap.Settings.TabsAndHistory" = "Tabs schließen und Verlauf löschen";
+
+"Qwant.Omnibar.Placeholder" = "Adresse suchen oder eingeben";
+"Qwant.Omnibar.PrivateTabs.Title" = "Privates Surfen";
+"Qwant.Omnibar.PrivateTabs.Description" = "Websites, die Sie in privaten Tabs besuchen, erscheinen nicht in Ihrem Qwant-Verlauf und die zugehörigen Cookies werden immer gelöscht, wenn Sie den Tab schließen. Wenn Sie nicht im privaten Modus surfen, wird Ihr Suchverlauf auf Ihrem Telefon gespeichert, ist aber für Qwant nicht sichtbar (wir respektieren Ihre Privatsphäre!).\n\nBitte beachten Sie, dass Sie beim Surfen im privaten Modus im Internet nicht unsichtbar sind. Private Tabs verhindern nicht, dass Ihr Mobilfunkanbieter oder WLAN-Betreiber die von Ihnen besuchten Seiten oder Ihre öffentliche IP-Adresse nachvollziehen kann";
+

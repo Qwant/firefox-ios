@@ -280,9 +280,10 @@ open class BrowserProfile: Profile {
                        category: .setup)
             MZKeychainWrapper.wipeKeychain()
             prefs.clearAll()
-            
-            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
+        
+        // Omnibar reset of defaults
+        prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
 
         setLogger(logger: ForwardOnLog(logger: self.logger))
         setMaxLevel(level: Level.info)

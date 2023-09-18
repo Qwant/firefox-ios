@@ -56,7 +56,7 @@ class QwantTPInformationVC: QwantVIPBaseVC {
         self.title = viewModel.title
         
         tableView.tableFooterView = footerImageView
-        tableView.reloadData()
+        applyTheme()
     }
     
     override func applyTheme() {

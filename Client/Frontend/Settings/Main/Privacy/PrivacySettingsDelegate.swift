@@ -8,6 +8,7 @@ import Foundation
 protocol PrivacySettingsDelegate: AnyObject {
     func pressedCreditCard()
     func pressedClearPrivateData()
+    func pressedZap()
     func pressedContentBlocker()
     func pressedPasswords()
     func pressedNotifications()

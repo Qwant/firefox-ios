@@ -45,7 +45,7 @@ class BrowserViewController: UIViewController,
     var readerModeBar: ReaderModeBarView?
     var readerModeCache: ReaderModeCache
     var statusBarOverlay: StatusBarOverlay = .build { _ in }
-    var searchController: SearchViewController?
+    var searchController: QwantSearchViewController?
     var screenshotHelper: ScreenshotHelper!
     var searchTelemetry: SearchTelemetry?
     var searchLoader: SearchLoader?
@@ -105,6 +105,12 @@ class BrowserViewController: UIViewController,
         return searchBarPosition == .bottom
     }()
 
+    lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnWebview))
+        gesture.delegate = self
+        return gesture
+    }()
+
     private var topTouchArea: UIButton!
 
     var topTabsVisible: Bool {
@@ -115,7 +121,12 @@ class BrowserViewController: UIViewController,
     var keyboardBackdrop: UIView?
 
     var scrollController = TabScrollingController()
-    private var keyboardState: KeyboardState?
+    private var keyboardState: KeyboardState? {
+        didSet {
+            self.urlBar.isKeyboardShowing = isKeyboardShowing
+            self.urlBar.applyTheme(theme: themeManager.currentTheme)
+        }
+    }
     var pendingToast: Toast? // A toast that might be waiting for BVC to appear before displaying
     var downloadToast: DownloadToast? // A toast that is showing the combined download progress
 
@@ -167,6 +178,16 @@ class BrowserViewController: UIViewController,
     }
 
     fileprivate var shouldShowSecondaryIntroScreen: Bool { profile.prefs.intForKey(PrefsKeys.SecondaryIntroSeen) == nil }
+
+    lazy var zap: QwantZap = {
+        return QwantZap(profile: profile, tabManager: tabManager)
+    }()
+
+    var isShowingSearchController = false
+
+    var isKeyboardShowing: Bool {
+        return keyboardState != nil && keyboardState?.intersectionHeightForView(view) != 0
+    }
 
     init(
         profile: Profile,
@@ -223,7 +244,11 @@ class BrowserViewController: UIViewController,
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        LegacyThemeManager.instance.statusBarStyle
+        if isShowingSearchController && tabManager.selectedTab?.isPrivate == true && isBottomSearchBar {
+            return .lightContent
+        }
+
+        return LegacyThemeManager.instance.statusBarStyle
     }
 
     @objc
@@ -340,8 +365,10 @@ class BrowserViewController: UIViewController,
             header.addArrangedViewToTop(topTabsViewController.view)
             self.topTabsViewController = topTabsViewController
             topTabsViewController.applyTheme()
+            topTabsViewController.applyUIMode(isPrivate: tabManager.selectedTab?.isPrivate ?? false, theme: themeManager.currentTheme)
         } else if showTopTabs, topTabsViewController != nil {
             topTabsViewController?.applyTheme()
+            topTabsViewController?.applyUIMode(isPrivate: tabManager.selectedTab?.isPrivate ?? false, theme: themeManager.currentTheme)
         } else {
             if let topTabsView = topTabsViewController?.view {
                 header.removeArrangedView(topTabsView)
@@ -462,6 +489,9 @@ class BrowserViewController: UIViewController,
         scrollController.header = header
         scrollController.overKeyboardContainer = overKeyboardContainer
         scrollController.bottomContainer = bottomContainer
+        scrollController.onAnimating = { [weak self] in
+            self?.overlayManager.finishEditing(shouldCancelLoading: true)
+        }
 
         updateToolbarStateForTraitCollection(traitCollection)
 
@@ -502,6 +532,7 @@ class BrowserViewController: UIViewController,
 
         // Send settings telemetry for Fakespot
         FakespotUtils().addSettingTelemetry()
+        shakeZapIfNeeded()
     }
 
     private func setupAccessibleActions() {
@@ -530,6 +561,17 @@ class BrowserViewController: UIViewController,
             }
             return true
         })
+    }
+
+    private func shakeZapIfNeeded() {
+        let hasTappedZapAtLeastOnce = profile.prefs.boolForKey(PrefsKeys.QwantHasTappedZap) ?? false
+        guard !hasTappedZapAtLeastOnce else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.async {
+                self.navigationToolbar.zapButton.startAnimating()
+            }
+        }
     }
 
     private func setupNotifications() {
@@ -633,6 +675,7 @@ class BrowserViewController: UIViewController,
         updateTabCountUsingTabManager(tabManager, animated: false)
 
         urlBar.searchEnginesDidUpdate()
+        navigationToolbar.zapButton.isEnabled = zap.enabledClearables.count != 0
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -947,7 +990,9 @@ class BrowserViewController: UIViewController,
         hideReaderModeBar(animated: false)
 
         // Make sure reload button is hidden on homepage
-        urlBar.locationView.reloadButton.reloadButtonState = .disabled
+        urlBar.locationView.reloadButton.reloadButtonState = .reload
+
+        tabManager.selectedTab?.webView?.scrollView.addGestureRecognizer(self.tapGesture)
 
         browserDelegate?.showHomepage(inline: inline,
                                       toastContainer: contentContainer,
@@ -976,7 +1021,7 @@ class BrowserViewController: UIViewController,
         let isAboutHomeURL = url.flatMap { InternalURL($0)?.isAboutHomeURL } ?? false
         guard let url = url else {
             showEmbeddedWebview()
-            urlBar.locationView.reloadButton.reloadButtonState = .disabled
+            urlBar.locationView.reloadButton.reloadButtonState = .reload
             return
         }
 
@@ -1034,15 +1079,14 @@ class BrowserViewController: UIViewController,
 
         let isPrivate = tabManager.selectedTab?.isPrivate ?? false
         let searchViewModel = SearchViewModel(isPrivate: isPrivate, isBottomSearchBar: isBottomSearchBar)
-        let searchController = SearchViewController(profile: profile,
-                                                    viewModel: searchViewModel,
-                                                    model: profile.searchEngines,
-                                                    tabManager: tabManager)
-        searchController.searchEngines = profile.searchEngines
+        let searchController = QwantSearchViewController(profile: profile, 
+                                                         viewModel: searchViewModel, 
+                                                         tabManager: tabManager)
+//        searchController.searchEngines = profile.searchEngines
         searchController.searchDelegate = self
 
         let searchLoader = SearchLoader(profile: profile, urlBar: urlBar)
-        searchLoader.addListener(searchController)
+//        searchLoader.addListener(searchController)
 
         self.searchController = searchController
         self.searchLoader = searchLoader
@@ -1051,7 +1095,21 @@ class BrowserViewController: UIViewController,
     func showSearchController() {
         createSearchControllerIfNeeded()
 
+        let useIpadSetup = shouldUseiPadSetup()
+
         guard let searchController = self.searchController else { return }
+        if useIpadSetup {
+            searchController.view.layer.cornerRadius = 20
+            searchController.view.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            searchController.tableView.layer.cornerRadius = 20
+            searchController.tableView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+
+            // shadow
+            searchController.view.layer.shadowColor = UIColor.black.cgColor
+            searchController.view.layer.shadowOffset = CGSize(width: 10, height: 10)
+            searchController.view.layer.shadowOpacity = 0.2
+            searchController.view.layer.shadowRadius = 4.0
+        }
 
         // This needs to be added to ensure during animation of the keyboard,
         // No content is showing in between the bottom search bar and the searchViewController
@@ -1068,14 +1126,25 @@ class BrowserViewController: UIViewController,
         addChild(searchController)
         view.addSubview(searchController.view)
         searchController.view.snp.makeConstraints { make in
-            make.top.equalTo(header.snp.bottom)
-            make.left.right.equalTo(view)
-
-            let constraintTarget = isBottomSearchBar ? overKeyboardContainer.snp.top : view.snp.bottom
-            make.bottom.equalTo(constraintTarget)
+            if isBottomSearchBar {
+                make.top.equalTo(view)
+            } else {
+                make.top.equalTo(header.snp.bottom)
+            }
+            if useIpadSetup {
+                make.left.equalTo(urlBar.locationView.snp.left)
+                make.right.equalTo(urlBar.locationView.snp.right)
+                make.height.equalTo(view.bounds.size.height / 2)
+            } else {
+                make.left.right.equalTo(view)
+                let constraintTarget = isBottomSearchBar ? overKeyboardContainer.snp.top : view.snp.bottom
+                make.bottom.equalTo(constraintTarget)
+            }
         }
 
         searchController.didMove(toParent: self)
+        isShowingSearchController = true
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     func hideSearchController() {
@@ -1086,6 +1155,8 @@ class BrowserViewController: UIViewController,
 
         keyboardBackdrop?.removeFromSuperview()
         keyboardBackdrop = nil
+        isShowingSearchController = false
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     func destroySearchController() {
@@ -1194,7 +1265,7 @@ class BrowserViewController: UIViewController,
 
         // No tab
         guard let tab = tabManager.selectedTab else {
-            urlBar.locationView.reloadButton.reloadButtonState = .disabled
+            urlBar.locationView.reloadButton.reloadButtonState = .reload
             navigationToolbar.updateMiddleButtonState(state)
             currentMiddleButtonState = state
             return
@@ -1202,7 +1273,7 @@ class BrowserViewController: UIViewController,
 
         // Tab with starting page
         if tab.isURLStartingPage {
-            urlBar.locationView.reloadButton.reloadButtonState = .disabled
+            urlBar.locationView.reloadButton.reloadButtonState = .reload
             navigationToolbar.updateMiddleButtonState(state)
             currentMiddleButtonState = state
             return
@@ -1311,6 +1382,7 @@ class BrowserViewController: UIViewController,
     /// Updates the URL bar text and button states.
     /// Call this whenever the page URL changes.
     fileprivate func updateURLBarDisplayURL(_ tab: Tab) {
+        guard tabManager != nil, urlBar != nil else { return }
         if tab == tabManager.selectedTab, let displayUrl = tab.url?.displayURL, urlBar.currentURL != displayUrl {
             let searchData = tab.metadataManager?.tabGroupData ?? LegacyTabGroupData()
             searchData.tabAssociatedNextUrl = displayUrl.absoluteString
@@ -1646,6 +1718,18 @@ class BrowserViewController: UIViewController,
         }
     }
 
+    func leaveOverlayModeIfPossible() {
+        if urlBar != nil {
+            urlBar.leaveOverlayMode()
+        }
+    }
+
+    func enterOverlayModeIfPossible() {
+        if urlBar != nil && urlBar.locationTextField?.text == nil {
+            urlBar.enterOverlayMode(nil, pasted: false, search: false)
+        }
+    }
+
     // MARK: Autofill
 
     private func creditCardInitialSetupTelemetry() {
@@ -1818,10 +1902,18 @@ class BrowserViewController: UIViewController,
         let tabs = tabManager.tabs
         tabs.forEach {
             $0.applyTheme()
+            if $0 == tabManager.selectedTab {
+                urlBar.locationView.tabDidChangeContentBlocking($0)
+            }
         }
 
         guard let contentScript = tabManager.selectedTab?.getContentScript(name: ReaderMode.name()) else { return }
         applyThemeForPreferences(profile.prefs, contentScript: contentScript)
+
+        topTabsViewController?.applyTheme()
+        let isPrivate = tabManager.selectedTab?.isPrivate ?? false
+        topTabsViewController?.applyUIMode(isPrivate: isPrivate, theme: currentTheme)
+        urlBar.applyUIMode(isPrivate: isPrivate, theme: currentTheme)
     }
 
     // MARK: - LibraryPanelDelegate
@@ -1895,6 +1987,20 @@ class BrowserViewController: UIViewController,
     }
 }
 
+extension BrowserViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    @objc func didTapOnWebview(_ recognizer: UITapGestureRecognizer) {
+        if overlayManager.inOverlayMode {
+            self.overlayManager.finishEditing(shouldCancelLoading: true)
+            self.tabManager.selectedTab?.webView?.scrollView.removeGestureRecognizer(self.tapGesture)
+        }
+    }
+}
+
 extension BrowserViewController: ClipboardBarDisplayHandlerDelegate {
     func shouldDisplay(clipBoardURL url: URL) {
         let viewModel = ButtonToastViewModel(labelText: .GoToCopiedLink,
@@ -1910,6 +2016,12 @@ extension BrowserViewController: ClipboardBarDisplayHandlerDelegate {
         })
         clipboardBarDisplayHandler?.clipboardToast = toast
         show(toast: toast, duration: ClipboardBarDisplayHandler.UX.toastDelay)
+    }
+}
+
+extension BrowserViewController: DonePresentingDelegate {
+    func donePresenting() {
+        navigationToolbar.zapButton.isEnabled = zap.enabledClearables.count != 0
     }
 }
 
@@ -1945,11 +2057,20 @@ extension BrowserViewController {
 
 // MARK: - LegacyTabDelegate
 extension BrowserViewController: LegacyTabDelegate {
+    func tab(_ tab: Tab, didFinishLoading webView: WKWebView) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            if tab.url?.isQwantHPUrl == true && (self.presentedViewController == nil || self.presentedViewController?.isBeingDismissed == true) {
+                self.enterOverlayModeIfPossible()
+            }
+        }
+    }
+
     func tab(_ tab: Tab, didCreateWebView webView: WKWebView) {
         // Observers that live as long as the tab. Make sure these are all cleared in willDeleteWebView below!
         KVOs.forEach { webView.addObserver(self, forKeyPath: $0.rawValue, options: .new, context: nil) }
         webView.scrollView.addObserver(self.scrollController, forKeyPath: KVOConstants.contentSize.rawValue, options: .new, context: nil)
         webView.uiDelegate = self
+        webView.setQwantCookies()
 
         let formPostHelper = FormPostHelper(tab: tab)
         tab.addContentScript(formPostHelper, name: FormPostHelper.name())
@@ -2129,7 +2250,7 @@ extension BrowserViewController: SearchViewControllerDelegate {
         // Update search icon when the searchengine changes
         searchSettingsTableViewController.updateSearchIcon = {
             self.urlBar.searchEnginesDidUpdate()
-            self.searchController?.reloadSearchEngines()
+//            self.searchController?.reloadSearchEngines()
             self.searchController?.reloadData()
         }
         let navController = ModalSettingsNavigationController(rootViewController: searchSettingsTableViewController)
@@ -2141,6 +2262,47 @@ extension BrowserViewController: SearchViewControllerDelegate {
     }
 
     func searchViewController(_ searchViewController: SearchViewController, didAppend text: String) {
+        self.urlBar.setLocation(text, search: false)
+    }
+}
+
+extension BrowserViewController: QwantSearchViewControllerDelegate {
+    func qwantSearchViewController(_ searchViewController: QwantSearchViewController, didSelectURL url: URL, searchTerm: String?) {
+        guard let tab = tabManager.selectedTab else { return }
+
+        let searchData = LegacyTabGroupData(searchTerm: searchTerm ?? "",
+                                            searchUrl: url.absoluteString,
+                                            nextReferralUrl: "")
+        tab.metadataManager?.updateTimerAndObserving(state: .navSearchLoaded, searchData: searchData, isPrivate: tab.isPrivate)
+        searchTelemetry?.shouldSetUrlTypeSearch = true
+        finishEditingAndSubmit(url, visitType: VisitType.typed, forTab: tab)
+    }
+
+    func qwantSearchViewController(_ searchViewController: QwantSearchViewController, uuid: String) {
+        overlayManager.switchTab(shouldCancelLoading: true)
+        if let tab = tabManager.getTabForUUID(uuid: uuid) {
+            tabManager.selectTab(tab)
+        }
+    }
+
+    func presentQwantSearchSettingsController() {
+        let searchSettingsTableViewController = SearchSettingsTableViewController(profile: profile)
+
+        // Update search icon when the searchengine changes
+        searchSettingsTableViewController.updateSearchIcon = {
+            self.urlBar.searchEnginesDidUpdate()
+//            self.searchController?.reloadSearchEngines()
+            self.searchController?.reloadData()
+        }
+        let navController = ModalSettingsNavigationController(rootViewController: searchSettingsTableViewController)
+        self.present(navController, animated: true, completion: nil)
+    }
+
+    func qwantSearchViewController(_ searchViewController: QwantSearchViewController, didHighlightText text: String, search: Bool) {
+        self.urlBar.setLocation(text, search: search)
+    }
+
+    func qwantSearchViewController(_ searchViewController: QwantSearchViewController, didAppend text: String) {
         self.urlBar.setLocation(text, search: false)
     }
 }
@@ -2290,6 +2452,9 @@ extension BrowserViewController: TabManagerDelegate {
         // with light theme and force apply theme with real theme before showing
         toast.applyTheme(theme: themeManager.currentTheme)
         show(toast: toast, afterWaiting: ButtonToast.UX.delay)
+        DispatchQueue.main.asyncAfter(deadline: .now() + ButtonToast.UX.delay) {
+            self.enterOverlayModeIfPossible()
+        }
     }
 
     func updateTabCountUsingTabManager(_ tabManager: TabManager, animated: Bool = true) {
@@ -2319,7 +2484,23 @@ extension BrowserViewController: UIAdaptivePresentationControllerDelegate {
     // Returning None here makes sure that the Popover is actually presented as a Popover and
     // not as a full-screen modal, which is the default on compact device classes.
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if controller.presentedViewController is QwantIntroViewController ||
+            controller.presentedViewController is QwantDefaultBrowserOnboardingViewController {
+            if topTabsVisible {
+                return .formSheet
+            } else {
+                return .fullScreen
+            }
+        }
         return .none
+    }
+
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        if presentationController.presentedViewController is QwantIntroViewController ||
+            presentationController.presentedViewController is QwantDefaultBrowserOnboardingViewController {
+            return false
+        }
+        return true
     }
 }
 
@@ -2617,7 +2798,7 @@ extension BrowserViewController: KeyboardHelperDelegate {
         // If keyboard is dismiss leave edition mode Homepage case is handled in HomepageVC
         let newTabChoice = NewTabAccessors.getNewTabPage(profile.prefs)
         if newTabChoice != .topSites, newTabChoice != .blankPage {
-            overlayManager.finishEditing(shouldCancelLoading: false)
+//            overlayManager.finishEditing(shouldCancelLoading: false)
         }
     }
 }
@@ -2668,6 +2849,12 @@ extension BrowserViewController: TabTrayDelegate {
     func tabTrayDidRequestTabsSettings() {
         navigationHandler?.show(settings: .tabs)
     }
+
+    func tabTrayDidZap(_ sender: Any) {
+        profile.prefs.setBool(true, forKey: PrefsKeys.QwantHasTappedZap)
+        urlBar.leaveOverlayMode(didCancel: true)
+        presentZapConfirmationAlert(sender)
+    }
 }
 
 extension BrowserViewController: JSPromptAlertControllerDelegate {
@@ -2684,7 +2871,7 @@ extension BrowserViewController: TopTabsDelegate {
     }
 
     func topTabsDidPressNewTab(_ isPrivate: Bool) {
-        openBlankNewTab(focusLocationField: false, isPrivate: isPrivate)
+        openBlankNewTab(focusLocationField: true, isPrivate: isPrivate)
         overlayManager.openNewTab(url: nil,
                                   newTabSettings: newTabSettings)
     }

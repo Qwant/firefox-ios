@@ -97,9 +97,30 @@ public protocol ThemeColourPalette {
     var vip_blackText: UIColor { get }
     var vip_horizontalLine: UIColor { get }
     var vip_switchAndButtonTint: UIColor { get }
+    var vip_greenIcon: UIColor { get }
+    var vip_redIcon: UIColor { get }
+    var vip_grayIcon: UIColor { get }
     var onboarding_palePink: UIColor { get }
     var onboarding_paleBlue: UIColor { get }
     var onboarding_paleGreen: UIColor { get }
     var onboarding_blackText: UIColor { get }
     var onboarding_whiteText: UIColor { get }
+    var omnibar_tableViewSeparator: UIColor { get }
+    var omnibar_keyboardBackground: UIColor { get }
+    var omnibar_urlBarBorder: UIColor { get }
+    var omnibar_blue: UIColor { get }
+    var omnibar_purple: UIColor { get }
+    var omnibar_gray: UIColor { get }
+    func omnibar_tableViewBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellPrimaryText(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellSecondaryText(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewSelectedCellBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_qwantLogo(_ isPrivate: Bool) -> UIColor
+    func omnibar_tintColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_highlightedTintColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_borderColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_urlBarBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_urlBarText(_ isPrivate: Bool) -> UIColor
+    func omnibar_gray(_ isPrivate: Bool) -> UIColor
 }

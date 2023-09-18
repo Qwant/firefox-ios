@@ -88,7 +88,7 @@ class QwantTPDetailsVC: QwantVIPBaseVC {
             rValue: String(describing: viewModel.stats.total),
             rTitle: viewModel.blockedTrackersTitleString)
         
-        tableView.reloadData()
+        applyTheme()
     }
 
     override func applyTheme() {

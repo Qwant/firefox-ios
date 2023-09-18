@@ -7,16 +7,24 @@ import SnapKit
 import Shared
 import Common
 
-class TabsButton: UIButton, ThemeApplicable {
+class TabsButton: UIButton, ThemeApplicable, PrivateModeUI {
     struct UX {
         static let cornerRadius: CGFloat = 2
         static let titleFont: UIFont = UIConstants.DefaultChromeSmallFontBold
-        static let insideButtonSize = 24
+        static let insideButtonSize = 32
     }
 
     private var selectedTintColor: UIColor!
     private var unselectedTintColor: UIColor!
     private var theme: Theme?
+    private var isPrivate: Bool?
+
+    var textColor = UIColor.Photon.Blue40 {
+        didSet {
+            countLabel.textColor = textColor
+            borderView.tintColor = textColor
+        }
+    }
 
     // When all animations are completed, this is the most-recently assigned tab count that is shown.
     // updateTabCount() can be called in rapid succession, this ensures only final tab count is displayed.
@@ -63,7 +71,7 @@ class TabsButton: UIButton, ThemeApplicable {
     }()
 
     private lazy var borderView: UIImageView = {
-        let border = UIImageView(image: UIImage(named: ImageIdentifiers.navTabCounter)?.withRenderingMode(.alwaysTemplate))
+        let border = UIImageView(image: UIImage(named: "qwant_tabs")?.withRenderingMode(.alwaysTemplate))
         return border
     }()
 
@@ -92,7 +100,7 @@ class TabsButton: UIButton, ThemeApplicable {
             make.edges.equalTo(insideButton)
         }
         countLabel.snp.remakeConstraints { (make) -> Void in
-            make.edges.equalTo(insideButton)
+            make.edges.equalTo(insideButton).inset(UIEdgeInsets(top: 4, left: 6, bottom: 0, right: 0))
         }
         insideButton.snp.remakeConstraints { (make) -> Void in
             make.size.equalTo(UX.insideButtonSize)
@@ -114,8 +122,8 @@ class TabsButton: UIButton, ThemeApplicable {
         button.countLabel.font = countLabel.font
         button.countLabel.layer.cornerRadius = countLabel.layer.cornerRadius
         button.labelBackground.layer.cornerRadius = labelBackground.layer.cornerRadius
-        if let theme {
-            button.applyTheme(theme: theme)
+        if let theme, let isPrivate {
+            button.applyUIMode(isPrivate: isPrivate, theme: theme)
         }
 
         return button
@@ -125,7 +133,7 @@ class TabsButton: UIButton, ThemeApplicable {
                         animated: Bool = true) {
         let count = max(count, 1)
         let currentCount = self.countLabel.text
-        let infinity = "\u{221E}"
+        let infinity = ":)"
         countToBe = (count < 100) ? count.description : infinity
 
         // Only animate a tab count change if the tab count has actually changed
@@ -220,11 +228,18 @@ class TabsButton: UIButton, ThemeApplicable {
     // MARK: - ThemeApplicable
     func applyTheme(theme: Theme) {
         self.theme = theme
-        borderView.tintColor = theme.colors.iconPrimary
-        countLabel.textColor = theme.colors.iconPrimary
+        unselectedTintColor = textColor
+        tintAdjustmentMode = .normal
+    }
 
-        selectedTintColor = theme.colors.actionPrimary
-        unselectedTintColor = theme.colors.iconPrimary
+    // MARK: - PrivateModeUI
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        self.isPrivate = isPrivate
+        self.theme = theme
+        textColor = theme.colors.omnibar_tintColor(isPrivate)
+        borderView.tintColor = theme.colors.omnibar_tintColor(isPrivate)
+        selectedTintColor = theme.colors.omnibar_highlightedTintColor(isPrivate)
+        applyTheme(theme: theme)
     }
 
     private func updateHighlightColors(isHighlighted: Bool) {

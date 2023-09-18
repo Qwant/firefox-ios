@@ -29,6 +29,7 @@ public struct AccessibilityIdentifiers {
         static let stopButton = "TabToolbar.stopButton"
         static let bookmarksButton = "TabToolbar.libraryButton"
         static let shoppingButton = "TabLocationView.shoppingButton"
+        static let qwant = "TabLocationView.qwantButton"
     }
 
     struct Browser {

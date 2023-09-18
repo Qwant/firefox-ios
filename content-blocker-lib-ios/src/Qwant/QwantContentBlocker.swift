@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import WebKit
 import Shared
 
@@ -16,14 +17,22 @@ extension BlockerStatus {
                 return UIImage(imageLiteralResourceName: "tracking_protection_disabled")
         }
     }
-    
+
     func badgeValue(basedOn value: Int) -> String? {
         switch self {
             case .blocking, .noBlockedURLs:
                 if value <= 0 { return "✓" }
                 else if value > 100 { return "∞" }
                 else { return String(describing: value) }
-            case .safelisted, .disabled: return nil
+            case .safelisted, .disabled: return "✕"
+        }
+    }
+
+    func color(for theme: Theme) -> UIColor {
+        switch self {
+            case .blocking, .noBlockedURLs: return theme.colors.vip_greenIcon
+            case .safelisted: return theme.colors.vip_redIcon
+            case .disabled: return theme.colors.vip_grayIcon
         }
     }
 }

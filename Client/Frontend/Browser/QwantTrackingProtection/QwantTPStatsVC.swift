@@ -111,7 +111,7 @@ class QwantTPStatsVC: QwantVIPBaseVC {
             rValue: viewModel.statisticsTimeSavedFormattedString,
             rTitle: viewModel.statisticsSavedTimeTitleString)
 
-        tableView.reloadData()
+        applyTheme()
     }
 
     override func applyTheme() {

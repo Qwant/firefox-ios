@@ -6,6 +6,7 @@ import UIKit
 import Storage
 import Shared
 import Common
+import SwiftUI
 
 protocol TabTrayDelegate: AnyObject {
     func tabTrayDidDismiss(_ tabTray: LegacyGridTabViewController)
@@ -15,6 +16,7 @@ protocol TabTrayDelegate: AnyObject {
     func tabTrayOpenRecentlyClosedTab(_ url: URL)
     func tabTrayDidRequestTabsSettings()
     func tabTrayDidCloseLastTab(toast: ButtonToast)
+    func tabTrayDidZap(_ sender: Any)
 }
 
 class LegacyGridTabViewController: UIViewController,
@@ -100,6 +102,10 @@ class LegacyGridTabViewController: UIViewController,
         return emptyView
     }()
 
+    private lazy var qwantEmptyPrivateTabsView: UIView = {
+        return UIHostingController(rootView: QwantEmptyPrivateTabsView()).view
+    }()        
+
     private lazy var tabLayoutDelegate: LegacyTabLayoutDelegate = {
         let delegate = LegacyTabLayoutDelegate(tabDisplayManager: self.tabDisplayManager,
                                                traitCollection: self.traitCollection)
@@ -177,7 +183,8 @@ class LegacyGridTabViewController: UIViewController,
             tabDisplayManager.togglePrivateMode(isOn: true, createTabOnEmptyPrivateMode: false)
         }
 
-        emptyPrivateTabsView.isHidden = !privateTabsAreEmpty
+        emptyPrivateTabsView.isHidden = true
+        qwantEmptyPrivateTabsView.isHidden = !privateTabsAreEmpty
 
         listenForThemeChange(view)
         applyTheme()
@@ -195,6 +202,13 @@ class LegacyGridTabViewController: UIViewController,
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        tabDisplayManager.tabDisplayCompletionDelegate = nil
+        tabManagerTeardown()
+    }
+
     private func setupView() {
         // TODO: Remove SNAPKIT - this will require some work as the layouts
         // are using other snapkit constraints and this will require modification
@@ -204,6 +218,10 @@ class LegacyGridTabViewController: UIViewController,
 
         view.insertSubview(emptyPrivateTabsView, aboveSubview: collectionView)
         emptyPrivateTabsView.snp.makeConstraints { make in
+            make.top.bottom.left.right.equalTo(self.collectionView)
+        }
+        view.insertSubview(qwantEmptyPrivateTabsView, aboveSubview: collectionView)
+        qwantEmptyPrivateTabsView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalTo(self.collectionView)
         }
     }
@@ -258,6 +276,7 @@ class LegacyGridTabViewController: UIViewController,
     }
 
     func focusTab(_ selectedTab: Tab) {
+        guard tabDisplayManager != nil else { return }
         if let indexOfRegularTab = tabDisplayManager.indexOfRegularTab(tab: selectedTab) {
             let indexPath = IndexPath(item: indexOfRegularTab, section: TabDisplaySection.regularTabs.rawValue)
             guard var rect = self.collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
@@ -276,6 +295,7 @@ class LegacyGridTabViewController: UIViewController,
         super.traitCollectionDidChange(previousTraitCollection)
         // Update the trait collection we reference in our layout delegate
         tabLayoutDelegate.traitCollection = traitCollection
+        applyTheme()
     }
 
     @objc
@@ -284,7 +304,8 @@ class LegacyGridTabViewController: UIViewController,
 
         tabDisplayManager.togglePrivateMode(isOn: !tabDisplayManager.isPrivate, createTabOnEmptyPrivateMode: false)
 
-        emptyPrivateTabsView.isHidden = !privateTabsAreEmpty
+        emptyPrivateTabsView.isHidden = true
+        qwantEmptyPrivateTabsView.isHidden = !privateTabsAreEmpty
     }
 
     func openNewTab(_ request: URLRequest? = nil, isPrivate: Bool) {
@@ -308,8 +329,11 @@ class LegacyGridTabViewController: UIViewController,
     }
 
     func applyTheme() {
-        tabDisplayManager.theme = themeManager.currentTheme
+        if tabDisplayManager != nil {
+            tabDisplayManager.theme = themeManager.currentTheme
+        }
         emptyPrivateTabsView.applyTheme(themeManager.currentTheme)
+        qwantEmptyPrivateTabsView.backgroundColor = UIColor(rgb: 0x1C0E58)
         backgroundPrivacyOverlay.backgroundColor = themeManager.currentTheme.colors.layerScrim
         collectionView.backgroundColor = themeManager.currentTheme.colors.layer3
         collectionView.reloadData()
@@ -351,14 +375,15 @@ class LegacyGridTabViewController: UIViewController,
 
     func closeTabsTrayHelper() {
         if tabDisplayManager.isPrivate {
-            emptyPrivateTabsView.isHidden = !privateTabsAreEmpty
-            if !emptyPrivateTabsView.isHidden {
+            emptyPrivateTabsView.isHidden = true
+            qwantEmptyPrivateTabsView.isHidden = !self.privateTabsAreEmpty
+            if !qwantEmptyPrivateTabsView.isHidden {
                 // Fade in the empty private tabs message. This slow fade allows time for the closing tab animations to complete.
-                emptyPrivateTabsView.alpha = 0
+                qwantEmptyPrivateTabsView.alpha = 0
                 UIView.animate(
                     withDuration: 0.5,
                     animations: { [weak self] in
-                        self?.emptyPrivateTabsView.alpha = 1
+                        self?.qwantEmptyPrivateTabsView.alpha = 1
                     })
             }
         } else if tabManager.normalTabs.count == 1,
@@ -389,7 +414,7 @@ class LegacyGridTabViewController: UIViewController,
 
         // Handles case for last tab where Toast is shown on Homepage
         guard !tabDisplayManager.shouldPresentUndoToastOnHomepage else {
-            handleUndoToastForLastTab()
+//            handleUndoToastForLastTab()
             return
         }
 
@@ -476,6 +501,7 @@ extension LegacyGridTabViewController {
             view.bringSubviewToFront(backgroundPrivacyOverlay)
             collectionView.alpha = 0
             emptyPrivateTabsView.alpha = 0
+            qwantEmptyPrivateTabsView.alpha = 0
         }
     }
 
@@ -487,7 +513,8 @@ extension LegacyGridTabViewController {
             withDuration: 0.2,
             animations: { [weak self] in
                 self?.collectionView.alpha = 1
-                self?.emptyPrivateTabsView.alpha = 1
+                self?.emptyPrivateTabsView.alpha = 0
+                self?.qwantEmptyPrivateTabsView.alpha = 1
             }
         ) { [weak self] _ in
             guard let self else { return }
@@ -628,7 +655,8 @@ extension LegacyGridTabViewController: TabDisplayCompletionDelegate, RecentlyClo
 
     // TabDisplayCompletionDelegate
     func completedAnimation(for type: TabAnimationType) {
-        emptyPrivateTabsView.isHidden = !privateTabsAreEmpty
+        emptyPrivateTabsView.isHidden = true
+        qwantEmptyPrivateTabsView.isHidden = !privateTabsAreEmpty
 
         switch type {
         case .addTab:
@@ -670,7 +698,7 @@ extension LegacyGridTabViewController {
 
         let controller = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         controller.addAction(UIAlertAction(title: .AppMenu.AppMenuCloseAllTabsTitleString,
-                                           style: .default,
+                                           style: .destructive,
                                            handler: { _ in self.closeTabsTrayBackground() }),
                              accessibilityIdentifier: AccessibilityIdentifiers.TabTray.deleteCloseAllButton)
         controller.addAction(UIAlertAction(title: .TabTrayCloseAllTabsPromptCancel,

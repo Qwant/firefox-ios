@@ -41,6 +41,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
     private var appAuthenticator: AppAuthenticationProtocol
     private var applicationHelper: ApplicationHelper
     weak var parentCoordinator: SettingsFlowDelegate?
+    weak var donePresentingDelegate: DonePresentingDelegate?
 
     // MARK: - Initializers
     init(with profile: Profile,
@@ -79,6 +80,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
     @objc
     private func done() {
         settingsDelegate?.didFinish()
+        donePresentingDelegate?.donePresenting()
     }
 
     private func setupNavigationBar() {
@@ -192,7 +194,19 @@ class AppSettingsTableViewController: SettingsTableViewController,
     }
 
     private func getGeneralSettings() -> [SettingSection] {
+        let suggestSetting = BoolSetting(
+            prefs: profile.prefs,
+            theme: themeManager.currentTheme,
+            prefKey: "search.suggestions.show",
+            defaultValue: true,
+            titleText: .SearchSettingsShowSearchSuggestions,
+            settingDidChange: { (newValue) in
+                self.profile.searchEngines.shouldShowSearchSuggestions = newValue
+            }
+        )
+
         var generalSettings: [Setting] = [
+            suggestSetting,
             SearchSetting(settings: self, settingsDelegate: parentCoordinator),
             NewTabPageSetting(settings: self, settingsDelegate: parentCoordinator),
             HomeSetting(settings: self, settingsDelegate: parentCoordinator),
@@ -250,6 +264,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         }
 
         privacySettings.append(ClearPrivateDataSetting(settings: self, settingsDelegate: parentCoordinator))
+        privacySettings.append(ZapSetting(settings: self, settingsDelegate: parentCoordinator))
 
         privacySettings += [
             BoolSetting(prefs: profile.prefs,

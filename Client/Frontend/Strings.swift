@@ -5854,4 +5854,68 @@ extension String {
             value: "3. Select **Qwant**",
             comment: "Bullet point #3 for the third panel 'Default Browser' in the First Run tour.")
     }
+
+    public struct QwantOmnibar {
+        public static let SearchHeaderTitle = MZLocalizedString(
+            key: "Qwant.Search.HeaderTitle",
+            tableName: "Qwant",
+            value: "Qwant search",
+            comment: "")
+
+        public static let Placeholder = MZLocalizedString(
+            key: "Qwant.Omnibar.Placeholder",
+            tableName: "Qwant",
+            value: "Search or enter an address",
+            comment: "")
+
+        public static let PrivateTabsTitle = MZLocalizedString(
+            key: "Qwant.Omnibar.PrivateTabs.Title",
+            tableName: "Qwant",
+            value: "Private browsing",
+            comment: "")
+
+        public static let PrivateTabsDescription = MZLocalizedString(
+            key: "Qwant.Omnibar.PrivateTabs.Description",
+            tableName: "Qwant",
+            value: "Sites viewed in private tabs are not displayed in your Qwant history, and their cookies are always deleted when you close the tab. Without private browsing, your search history is stored on your phone but is not visible to Qwant (we respect your privacy!).\nPlease be aware that private browsing does not make you invisible on the Internet. Private tabs do not prevent your mobile operator or Wi-Fi network owner tracking the sites you visit or your public IP address.",
+            comment: "")
+    }
+
+    public struct QwantZap {
+        public static let ZapAlertTitle = MZLocalizedString(
+            key: "Qwant.Zap.Alert.Title",
+            tableName: "Qwant",
+            value: "This button deletes your browsing history",
+            comment: "")
+        public static let ZapAlertOK = MZLocalizedString(
+            key: "Qwant.Zap.Alert.OK",
+            tableName: "Qwant",
+            value: "Delete data",
+            comment: "")
+        public static let ZapAlertCancel = MZLocalizedString(
+            key: "Qwant.Zap.Alert.Cancel",
+            tableName: "Qwant",
+            value: "Cancel",
+            comment: "")
+        public static let ZapToast = MZLocalizedString(
+            key: "Qwant.Zap.Toast",
+            tableName: "Qwant",
+            value: "Data deleted",
+            comment: "")
+        public static let ZapSettings = MZLocalizedString(
+            key: "Qwant.Zap.Settings",
+            tableName: "Qwant",
+            value: "Browser deletion settings",
+            comment: "")
+        public static let ZapSettingsQwantVIP = MZLocalizedString(
+            key: "Qwant.Zap.Settings.QwantVIP",
+            tableName: "Qwant",
+            value: "Qwant VIP's statistics",
+            comment: "")
+        public static let ZapSettingsTabsAndHistory = MZLocalizedString(
+            key: "Qwant.Zap.Settings.TabsAndHistory",
+            tableName: "Qwant",
+            value: "Close tabs and delete history",
+            comment: "")
+    }
 }

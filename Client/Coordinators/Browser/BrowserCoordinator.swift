@@ -328,6 +328,7 @@ class BrowserCoordinator: BaseCoordinator,
     func didFinishSettings(from coordinator: SettingsCoordinator) {
         router.dismiss(animated: true, completion: nil)
         remove(child: coordinator)
+        browserViewController.donePresenting()
     }
 
     // MARK: - LibraryCoordinatorDelegate

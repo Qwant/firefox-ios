@@ -39,6 +39,7 @@ class TabLocationView: UIView, FeatureFlaggable {
     var longPressRecognizer: UILongPressGestureRecognizer!
     var tapRecognizer: UITapGestureRecognizer!
     var contentView: UIStackView!
+    var currentTheme: Theme?
 
     var notificationCenter: NotificationProtocol = NotificationCenter.default
 
@@ -51,7 +52,11 @@ class TabLocationView: UIView, FeatureFlaggable {
     var url: URL? {
         didSet {
             updateTextWithURL()
-            trackingProtectionButton.isHidden = !isValidHttpUrlProtocol
+            updateConnectionStatusWithURL()
+            connectionStatusImage.isHidden = !isValidHttpUrlProtocol || url?.isQwantUrl == true || urlTextField.isFirstResponder
+            trackingProtectionButton.isHidden = !isValidHttpUrlProtocol || url?.isQwantUrl == true
+            iconView.isHidden = !isValidHttpUrlProtocol || url?.isQwantUrl == false
+            fixedSpace.isHidden = iconView.isHidden
             shareButton.isHidden = !(shouldEnableShareButtonFeature && isValidHttpUrlProtocol)
             setNeedsUpdateConstraints()
         }
@@ -74,6 +79,13 @@ class TabLocationView: UIView, FeatureFlaggable {
         }
     }
 
+    lazy var connectionStatusImage: UIImageView = .build { imageView in
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .clear
+    }
+
     lazy var urlTextField: URLTextField = .build { urlTextField in
         // Prevent the field from compressing the toolbar buttons on the 4S in landscape.
         urlTextField.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 250), for: .horizontal)
@@ -92,11 +104,33 @@ class TabLocationView: UIView, FeatureFlaggable {
         }
     }
 
-    private func setURLTextfieldPlaceholder(theme: Theme) {
-        let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.textSecondary]
-        urlTextField.attributedPlaceholder = NSAttributedString(string: .TabLocationURLPlaceholder,
+    private func setURLTextfieldPlaceholder(isPrivate: Bool, theme: Theme) {
+        let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.omnibar_gray(isPrivate)]
+        urlTextField.attributedPlaceholder = NSAttributedString(string: .QwantOmnibar.Placeholder,
                                                                 attributes: attributes)
     }
+
+    lazy var fixedSpace = UIView.build()
+
+    lazy var iconView: UIView = {
+        let image = UIImageView(image: UIImage(imageLiteralResourceName: "qwant_Q"))
+        image.translatesAutoresizingMaskIntoConstraints = false
+
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 30/2
+        view.clipsToBounds = true
+        view.addSubview(image)
+
+        let padding = 5.0
+        NSLayoutConstraint.activate([
+            image.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            image.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            image.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            image.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
+        ])
+        return view
+    }()
 
     lazy var trackingProtectionButton: TrackingProtectionButton = .build { trackingProtectionButton in
         trackingProtectionButton.addTarget(self, action: #selector(self.didPressTPShieldButton(_:)), for: .touchUpInside)
@@ -138,7 +172,7 @@ class TabLocationView: UIView, FeatureFlaggable {
     }
 
     lazy var reloadButton: StatefulButton = {
-        let reloadButton = StatefulButton(frame: .zero, state: .disabled)
+        let reloadButton = StatefulButton(frame: .zero, state: .reload)
         reloadButton.addTarget(self, action: #selector(tapReloadButton), for: .touchUpInside)
         reloadButton.addGestureRecognizer(
             UILongPressGestureRecognizer(target: self, action: #selector(longPressReloadButton)))
@@ -150,6 +184,8 @@ class TabLocationView: UIView, FeatureFlaggable {
         reloadButton.translatesAutoresizingMaskIntoConstraints = false
         return reloadButton
     }()
+
+    var connectionStatusConstraint = NSLayoutConstraint()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -167,25 +203,32 @@ class TabLocationView: UIView, FeatureFlaggable {
         let space1px = UIView.build()
         space1px.widthAnchor.constraint(equalToConstant: 1).isActive = true
 
-        let subviews = [trackingProtectionButton, space1px, urlTextField, shoppingButton, readerModeButton, shareButton, reloadButton]
+        let subviews = [trackingProtectionButton, fixedSpace, iconView, space1px, urlTextField, shoppingButton, readerModeButton, shareButton, reloadButton]
         contentView = UIStackView(arrangedSubviews: subviews)
         contentView.distribution = .fill
         contentView.alignment = .center
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         contentView.edges(equalTo: self)
+        addSubview(connectionStatusImage)
 
         NSLayoutConstraint.activate([
             trackingProtectionButton.widthAnchor.constraint(equalToConstant: UX.buttonSize),
             trackingProtectionButton.heightAnchor.constraint(equalToConstant: UX.buttonSize),
             shoppingButton.widthAnchor.constraint(equalToConstant: UX.buttonSize),
             shoppingButton.heightAnchor.constraint(equalToConstant: UX.buttonSize),
+            fixedSpace.widthAnchor.constraint(equalToConstant: 5),
+            iconView.widthAnchor.constraint(equalToConstant: 30),
+            iconView.heightAnchor.constraint(equalToConstant: 30),
+            connectionStatusImage.widthAnchor.constraint(equalToConstant: 16),
+            connectionStatusImage.heightAnchor.constraint(equalToConstant: 16),
+            connectionStatusImage.centerYAnchor.constraint(equalTo: urlTextField.centerYAnchor),
             readerModeButton.widthAnchor.constraint(equalToConstant: UX.buttonSize),
             readerModeButton.heightAnchor.constraint(equalToConstant: UX.buttonSize),
             shareButton.heightAnchor.constraint(equalToConstant: UX.buttonSize),
             shareButton.widthAnchor.constraint(equalToConstant: UX.buttonSize),
             reloadButton.widthAnchor.constraint(equalToConstant: UX.buttonSize),
-            reloadButton.heightAnchor.constraint(equalToConstant: UX.buttonSize),
+            reloadButton.heightAnchor.constraint(equalToConstant: UX.buttonSize)
         ])
 
         // Setup UIDragInteraction to handle dragging the location
@@ -309,38 +352,36 @@ class TabLocationView: UIView, FeatureFlaggable {
     }
 
     private func updateTextWithURL() {
-        if let host = url?.host, AppConstants.punyCode {
-            urlTextField.text = url?.absoluteString.replacingOccurrences(of: host, with: host.asciiHostToUTF8())
+        if url?.isQwantUrl == true {
+            urlTextField.text = url?.qwantSearchTerm?
+                .replacingOccurrences(of: "+", with: " ")
+            urlTextField.textAlignment = .left
+            return
+        }
+
+        urlTextField.textAlignment = .center
+        if let host = url?.normalizedHost {
+            urlTextField.text = host
         } else {
             urlTextField.text = url?.absoluteString
         }
-        // remove https:// (the scheme) from the url when displaying
-        if let scheme = url?.scheme, let range = url?.absoluteString.range(of: "\(scheme)://") {
-            urlTextField.text = url?.absoluteString.replacingCharacters(in: range, with: "")
-        }
     }
 
-    private func setTrackingProtection(theme: Theme) {
-        var lockImage: UIImage?
-        if !hasSecureContent {
-            lockImage = UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.lockSlash)
-        } else if let tintColor = trackingProtectionButton.tintColor {
-            lockImage = UIImage(imageLiteralResourceName: StandardImageIdentifiers.Large.lock)
-                .withTintColor(tintColor, renderingMode: .alwaysTemplate)
-        }
+    private func updateConnectionStatusWithURL() {
+        NSLayoutConstraint.deactivate([connectionStatusConstraint])
 
-        switch blockerStatus {
-        case .blocking, .noBlockedURLs, .disabled:
-            trackingProtectionButton.setImage(lockImage, for: .normal)
-            trackingProtectionButton.accessibilityLabel = hasSecureContent ?
-                .TabLocationETPOnSecureAccessibilityLabel : .TabLocationETPOnNotSecureAccessibilityLabel
-        case .safelisted:
-            if let smallDotImage = UIImage(systemName: ImageIdentifiers.circleFill)?.withTintColor(theme.colors.iconAccentBlue) {
-                trackingProtectionButton.setImage(lockImage?.overlayWith(image: smallDotImage), for: .normal)
-                trackingProtectionButton.accessibilityLabel = hasSecureContent ?
-                    .TabLocationETPOffSecureAccessibilityLabel : .TabLocationETPOffNotSecureAccessibilityLabel
-            }
-        }
+        let width = (urlTextField.text ?? "").width(withConstrainedHeight: UX.buttonSize, font: UIFont.preferredFont(forTextStyle: .body))
+        connectionStatusConstraint = connectionStatusImage.rightAnchor.constraint(equalTo: urlTextField.centerXAnchor, constant: -((width / 2) + 4))
+
+        NSLayoutConstraint.activate([connectionStatusConstraint])
+    }
+
+    private func setTrackingProtection(isPrivate: Bool, theme: Theme) {
+        let imageName = hasSecureContent ? "qwant_lock_on" : "qwant_lock_off"
+        let color = hasSecureContent ? theme.colors.omnibar_gray(isPrivate) : theme.colors.vip_redIcon
+        connectionStatusImage.image = UIImage(named: imageName)!
+            .withRenderingMode(.alwaysTemplate)
+            .tinted(withColor: color)
     }
 }
 
@@ -356,7 +397,7 @@ private extension TabLocationView {
 
         readerModeButton.isHidden = shoppingButton.isHidden ? newReaderModeState == .unavailable : true
         // When the user turns on the reader mode we need to hide the trackingProtectionButton (according to 16400), we will hide it once the newReaderModeState == .active
-        self.trackingProtectionButton.isHidden = newReaderModeState == .active
+        self.trackingProtectionButton.isHidden = newReaderModeState == .active || !isValidHttpUrlProtocol || url?.isQwantUrl == true
 
         if wasHidden != readerModeButton.isHidden {
             UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: nil)
@@ -424,20 +465,30 @@ extension TabLocationView: AccessibilityActionsSource {
 }
 
 // MARK: ThemeApplicable
-extension TabLocationView: ThemeApplicable {
+extension TabLocationView: ThemeApplicable, PrivateModeUI {
     func applyTheme(theme: Theme) {
-        setURLTextfieldPlaceholder(theme: theme)
-        urlTextField.textColor = theme.colors.textPrimary
+        currentTheme = theme
         readerModeButton.applyTheme(theme: theme)
         trackingProtectionButton.applyTheme(theme: theme)
         shareButton.applyTheme(theme: theme)
         reloadButton.applyTheme(theme: theme)
         menuBadge.badge.tintBackground(color: theme.colors.layer3)
-        setTrackingProtection(theme: theme)
         shoppingButton.tintColor = theme.colors.textPrimary
         shoppingButton.setImage(UIImage(named: StandardImageIdentifiers.Large.shopping)?
             .withTintColor(theme.colors.actionPrimary),
                                 for: .selected)
+        trackingProtectionButton.isHidden = !isValidHttpUrlProtocol || url?.isQwantUrl == true
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        iconView.backgroundColor = theme.colors.omnibar_qwantLogo(isPrivate)
+        urlTextField.textColor = theme.colors.omnibar_urlBarText(isPrivate)
+        setURLTextfieldPlaceholder(isPrivate: isPrivate, theme: theme)
+        readerModeButton.applyUIMode(isPrivate: isPrivate, theme: theme)
+        shareButton.applyUIMode(isPrivate: isPrivate, theme: theme)
+        reloadButton.applyUIMode(isPrivate: isPrivate, theme: theme)
+        setTrackingProtection(isPrivate: isPrivate, theme: theme)
+        applyTheme(theme: theme)
     }
 }
 
@@ -451,17 +502,29 @@ extension TabLocationView: TabEventHandler {
 
         ensureMainThread { [self] in
             trackingProtectionButton.alpha = 1.0
-            let themeManager: ThemeManager = AppContainer.shared.resolve()
             self.blockerStatus = blocker.status
             self.hasSecureContent = (tab.webView?.hasOnlySecureContent ?? false)
-//            setTrackingProtection(theme: themeManager.currentTheme)
             trackingProtectionButton.setImage(blocker.status.image, for: .normal)
             trackingProtectionButton.setBadgeValue(value: blocker.status.badgeValue(basedOn: blocker.stats.total))
+            if let theme = currentTheme {
+                trackingProtectionButton.setBadgeColor(color: blocker.status.color(for: theme))
+                setTrackingProtection(isPrivate: tab.isPrivate, theme: theme)
+            }
             trackingProtectionButton.animateIfNeeded()
         }
     }
 
     func tabDidGainFocus(_ tab: Tab) {
         updateBlockerStatus(forTab: tab)
+    }
+}
+
+private extension String {
+
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+        return ceil(boundingBox.width)
     }
 }
