@@ -211,3 +211,18 @@
 "Qwant.NightMode.Title.On" = "Desactivar modo oscuro";
 "Qwant.NightMode.Title.Off" = "Modo oscuro";
 "Qwant.NightMode.Subtitle" = "Invertir los colores del sitio web";
+
+"Qwant.Zap.Alert.Title" = "Este botón elimina tus datos de navegación";
+"Qwant.Zap.Alert.OK" = "Eliminar datos";
+"Qwant.Zap.Alert.Cancel" = "Cancelar";
+"Qwant.Zap.Toast" = "Datos eliminados";
+
+"Qwant.Search.HeaderTitle" = "Buscador Qwant";
+
+"Qwant.Zap.Settings" = "Configuración de eliminación del navegador";
+"Qwant.Zap.Settings.QwantVIP" = "Estadísticas de Qwant VIP";
+"Qwant.Zap.Settings.TabsAndHistory" = "Cerrar pestañas y eliminar historial";
+
+"Qwant.Omnibar.Placeholder" = "Busca o ingresa una dirección";
+"Qwant.Omnibar.PrivateTabs.Title" = "Navegación privada";
+"Qwant.Omnibar.PrivateTabs.Description" = "Los sitios vistos en pestañas privadas no se muestran en su historial de Qwant y sus cookies siempre se eliminan cuando cierra la pestaña. Sin navegación privada, su historial de búsqueda se almacena en su teléfono, pero Qwant no lo puede ver (¡respetamos su privacidad!).\n\nTenga en cuenta que la navegación privada no lo hace invisible en Internet. Las pestañas privadas no impiden que su operador de telefonía móvil o el propietario de la red Wi-Fi rastreen los sitios que visita o su dirección IP pública.";

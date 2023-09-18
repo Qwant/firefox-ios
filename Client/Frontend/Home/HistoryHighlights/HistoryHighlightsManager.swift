@@ -73,10 +73,16 @@ class HistoryHighlightsManager: HistoryHighlightsManagerProtocol {
                 return
             }
             for site in results {
-                let urlString = site.urlString ?? ""
-                if site.displayTitle.lowercased().contains(searchQuery) ||
-                    urlString.lowercased().contains(searchQuery) {
-                    searchResults.append(site)
+                if site.siteUrl?.isQwantUrl == true {
+                    if (site.siteUrl?.qwantSearchTerm ?? "").contains(searchQuery) {
+                        searchResults.append(site)
+                    }
+                } else {
+                    let urlString = site.urlString ?? ""
+                    if site.displayTitle.lowercased().contains(searchQuery) ||
+                        urlString.lowercased().contains(searchQuery) {
+                        searchResults.append(site)
+                    }
                 }
             }
             completion(Array(searchResults.prefix(resultCount)))

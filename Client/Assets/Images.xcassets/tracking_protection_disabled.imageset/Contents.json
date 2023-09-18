@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "offDisabled.svg",
+      "filename" : "on-5.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "on-6.pdf",
       "idiom" : "universal"
     }
   ],

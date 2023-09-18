@@ -251,8 +251,8 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
             let shareFileAction = getShareFileAction()
             append(to: &section, action: shareFileAction)
         } else {
-            let shortAction = getShortcutAction()
-            append(to: &section, action: shortAction)
+//            let shortAction = getShortcutAction()
+//            append(to: &section, action: shortAction)
 
             // Feature flag for share sheet changes where we moved send to device and copy
             // away from hamburger menu to the actual system share sheet. When share sheet

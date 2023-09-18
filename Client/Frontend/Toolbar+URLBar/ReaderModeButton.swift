@@ -12,7 +12,7 @@ class ReaderModeButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         adjustsImageWhenHighlighted = false
-        setImage(UIImage.templateImageNamed("reader"), for: .normal)
+        setImage(UIImage.templateImageNamed("qwant_reader"), for: .normal)
         imageView?.contentMode = .scaleAspectFit
         contentHorizontalAlignment = .center
     }
@@ -67,10 +67,15 @@ class ReaderModeButton: UIButton {
     }
 }
 
-extension ReaderModeButton: ThemeApplicable {
+extension ReaderModeButton: ThemeApplicable, PrivateModeUI {
     func applyTheme(theme: Theme) {
-        selectedTintColor = theme.colors.iconAction
-        unselectedTintColor = theme.colors.iconSecondary
         tintColor = isSelected ? selectedTintColor : unselectedTintColor
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        imageView?.tintColor = theme.colors.omnibar_gray(isPrivate)
+        selectedTintColor = isPrivate ? DarkTheme().colors.omnibar_purple : LightTheme().colors.omnibar_blue
+        unselectedTintColor = theme.colors.omnibar_gray(isPrivate)
+        applyTheme(theme: theme)
     }
 }

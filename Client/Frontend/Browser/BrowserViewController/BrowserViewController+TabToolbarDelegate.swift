@@ -47,6 +47,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
 
     func tabToolbarDidPressBack(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         updateZoomPageBarVisibility(visible: false)
+        leaveOverlayModeIfPossible()
         tabManager.selectedTab?.goBack()
     }
 
@@ -58,17 +59,24 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
 
     func tabToolbarDidPressForward(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         updateZoomPageBarVisibility(visible: false)
+        leaveOverlayModeIfPossible()
         tabManager.selectedTab?.goForward()
     }
 
     func tabToolbarDidLongPressForward(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
+        leaveOverlayModeIfPossible()
         showBackForwardList()
     }
 
     func tabToolbarDidPressBookmarks(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        leaveOverlayModeIfPossible()
         showLibrary(panel: .bookmarks)
+    }
+
+    func tabToolbarDidPressZap(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        tabTrayDidZap(button)
     }
 
     func tabToolbarDidPressAddNewTab(_ tabToolbar: TabToolbarProtocol, button: UIButton) {

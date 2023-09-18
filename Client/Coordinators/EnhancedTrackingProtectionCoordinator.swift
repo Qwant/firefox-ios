@@ -16,12 +16,14 @@ class EnhancedTrackingProtectionCoordinator: BaseCoordinator,
                                              EnhancedTrackingProtectionMenuDelegate {
     private let profile: Profile
     private let tabManager: TabManager
+    private let themeManager: ThemeManager
     private let enhancedTrackingProtectionMenuVC: ThemedNavigationController
     weak var parentCoordinator: EnhancedTrackingProtectionCoordinatorDelegate?
 
     init(router: Router,
          profile: Profile = AppContainer.shared.resolve(),
-         tabManager: TabManager = AppContainer.shared.resolve()
+         tabManager: TabManager = AppContainer.shared.resolve(),
+         themeManager: ThemeManager = AppContainer.shared.resolve()
     ) {
         let tab = tabManager.selectedTab
         let url = tab?.url ?? URL(fileURLWithPath: "")
@@ -32,13 +34,15 @@ class EnhancedTrackingProtectionCoordinator: BaseCoordinator,
         let etpViewModel = QwantTPMenuVM(
             tab: tab!,
             profile: profile,
-            tabManager: tabManager)
+            tabManager: tabManager,
+            theme: themeManager.currentTheme)
         let controller = QwantTPMenuVC(viewModel: etpViewModel)
         etpViewModel.mailHelper.mailComposeDelegate = controller
 
         self.enhancedTrackingProtectionMenuVC = ThemedNavigationController(rootViewController: controller)
         self.profile = profile
         self.tabManager = tabManager
+        self.themeManager = themeManager
         super.init(router: router)
         controller.enhancedTrackingProtectionMenuDelegate = self
     }

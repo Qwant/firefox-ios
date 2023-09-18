@@ -52,6 +52,11 @@ class AppLaunchUtil {
         // Among other things, it toggles on and off Nimbus, Contile, Adjust.
         // i.e. this must be run before initializing those systems.
         LegacyFeatureFlagsManager.shared.initializeDeveloperFeatures(with: profile)
+        
+        if let orderedEngines = profile.searchEngines.orderedEngines,
+           let qwantEngine = orderedEngines.first { $0.shortName == "Qwant" } {
+               profile.searchEngines.defaultEngine = qwantEngine
+        }
 
         // Start initializing the Nimbus SDK. This should be done after Glean
         // has been started.

@@ -23,9 +23,9 @@ protocol TabCellDelegate: AnyObject {
 
 // MARK: - Tab Cell
 class LegacyTabCell: UICollectionViewCell,
-               TabTrayCell,
-               ReusableCell,
-               ThemeApplicable {
+                     TabTrayCell,
+                     ReusableCell,
+                     ThemeApplicable {
     // MARK: - Constants
     enum Style {
         case light
@@ -191,11 +191,11 @@ class LegacyTabCell: UICollectionViewCell,
             faviconBG.isHidden = false
             screenshotView.image = nil
 
-        // Tab screenshot when available
+            // Tab screenshot when available
         } else if let tabScreenshot = tab.screenshot {
             screenshotView.image = tabScreenshot
 
-        // Favicon or letter image when tab screenshot isn't available
+            // Favicon or letter image when tab screenshot isn't available
         } else {
             faviconBG.isHidden = false
             screenshotView.image = nil
@@ -210,11 +210,13 @@ class LegacyTabCell: UICollectionViewCell,
 
     func applyTheme(theme: Theme) {
         backgroundHolder.backgroundColor = theme.colors.layer1
-        closeButton.tintColor = theme.colors.indicatorActive
+        closeButton.tintColor = theme.colors.omnibar_gray
         titleText.textColor = theme.colors.textPrimary
         screenshotView.backgroundColor = theme.colors.layer1
         favicon.tintColor = theme.colors.textPrimary
         smallFaviconView.tintColor = theme.colors.textPrimary
+        title.effect = UIBlurEffect(style: UIColor.legacyTheme.tabTray.tabTitleBlur)
+        title.setNeedsLayout()
     }
 
     override func prepareForReuse() {
@@ -233,12 +235,12 @@ class LegacyTabCell: UICollectionViewCell,
     override func accessibilityScroll(_ direction: UIAccessibilityScrollDirection) -> Bool {
         var right: Bool
         switch direction {
-        case .left:
-            right = false
-        case .right:
-            right = true
-        default:
-            return false
+            case .left:
+                right = false
+            case .right:
+                right = true
+            default:
+                return false
         }
         animator?.close(right: right)
         return true
@@ -254,7 +256,7 @@ class LegacyTabCell: UICollectionViewCell,
                                      left: LegacyTabCell.borderWidth,
                                      bottom: LegacyTabCell.borderWidth,
                                      right: LegacyTabCell.borderWidth)
-        layer.borderColor = (isPrivate ? theme.colors.borderAccentPrivate : theme.colors.borderAccent).cgColor
+        layer.borderColor = (theme.colors.omnibar_tintColor(isPrivate)).cgColor
         layer.borderWidth = LegacyTabCell.borderWidth
         layer.cornerRadius = LegacyGridTabViewController.UX.cornerRadius + LegacyTabCell.borderWidth
     }

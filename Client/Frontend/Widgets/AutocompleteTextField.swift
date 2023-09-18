@@ -280,7 +280,7 @@ class AutocompleteTextField: UITextField, UITextFieldDelegate {
 
         let enteredTextSize = self.attributedText?.boundingRect(with: self.frame.size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
         frame.origin.x = (enteredTextSize?.width.rounded() ?? 0) + textRect(forBounds: bounds).origin.x
-        frame.size.width = self.frame.size.width - clearButtonRect(forBounds: self.frame).size.width - frame.origin.x
+        frame.size.width = self.frame.size.width - rightViewRect(forBounds: self.frame).size.width - frame.origin.x
         frame.size.height = self.frame.size.height
         label.frame = frame
         return label
@@ -350,6 +350,8 @@ class AutocompleteTextField: UITextField, UITextFieldDelegate {
         applyCompletion()
         super.touchesBegan(touches, with: event)
     }
+
+    func applyQwantTheme(isPrivate: Bool, theme: Theme) {  }
 }
 
 extension AutocompleteTextField: MenuHelperInterface {
@@ -372,7 +374,7 @@ extension AutocompleteTextField: ThemeApplicable, PrivateModeUI {
 
         if autocompleteTextLabel?.attributedText != nil {
             let autocompleteText = NSMutableAttributedString(string: self.autocompleteTextLabel?.attributedText?.string ?? "")
-            let color = isPrivateMode ? theme.colors.layerAccentPrivateNonOpaque : theme.colors.layerAccentNonOpaque
+            let color = theme.colors.omnibar_urlBarBackground(isPrivate)
             autocompleteText.addAttribute(NSAttributedString.Key.backgroundColor,
                                           value: color,
                                           range: NSRange(location: 0, length: autocompleteText.length))
@@ -384,18 +386,20 @@ extension AutocompleteTextField: ThemeApplicable, PrivateModeUI {
 
     func applyTheme(theme: Theme) {
         self.theme = theme
-        let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.textSecondary]
-        attributedPlaceholder = NSAttributedString(string: .TabLocationURLPlaceholder,
+        let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.omnibar_gray(isPrivateMode)]
+        attributedPlaceholder = NSAttributedString(string: .QwantOmnibar.Placeholder,
                                                    attributes: attributes)
 
-        backgroundColor = theme.colors.layer3
-        textColor = theme.colors.textPrimary
-        tintColor = theme.colors.actionPrimary
+        backgroundColor = theme.colors.omnibar_urlBarBackground(isPrivateMode)
+        textColor = theme.colors.omnibar_urlBarText(isPrivateMode)
+        tintColor = isPrivateMode ? DarkTheme().colors.omnibar_purple : nil
 
         // Only refresh if an autocomplete label is presented to the user
         if autocompleteTextLabel?.attributedText != nil {
-            autocompleteTextLabel?.backgroundColor = theme.colors.layer3
-            autocompleteTextLabel?.textColor = theme.colors.textPrimary
+            autocompleteTextLabel?.backgroundColor = theme.colors.omnibar_urlBarBackground(isPrivateMode)
+            autocompleteTextLabel?.textColor = theme.colors.omnibar_urlBarText(isPrivateMode)
         }
+
+        applyQwantTheme(isPrivate: isPrivateMode, theme: theme)
     }
 }

@@ -160,7 +160,6 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
         view.backgroundColor = currentTheme.colors.layer3
         tabsButton.applyTheme(theme: currentTheme)
         privateModeButton.applyTheme(theme: currentTheme)
-        newTab.tintColor = currentTheme.colors.iconPrimary
         collectionView.backgroundColor = view.backgroundColor
         collectionView.reloadData()
         topTabDisplayManager.refreshStore()
@@ -194,6 +193,7 @@ class TopTabsViewController: UIViewController, Themeable, Notifiable {
                                                createTabOnEmptyPrivateMode: true,
                                                shouldSelectMostRecentTab: true)
         self.privateModeButton.setSelected(topTabDisplayManager.isPrivate, animated: true)
+        applyUIMode(isPrivate: topTabDisplayManager.isPrivate, theme: themeManager.currentTheme)
     }
 
     func scrollToCurrentTab(_ animated: Bool = true, centerCell: Bool = false) {
@@ -315,7 +315,8 @@ extension TopTabsViewController: TopTabCellDelegate {
 extension TopTabsViewController: PrivateModeUI {
     func applyUIMode(isPrivate: Bool, theme: Theme) {
         topTabDisplayManager.togglePrivateMode(isOn: isPrivate, createTabOnEmptyPrivateMode: true)
-
+        tabsButton.applyUIMode(isPrivate: isPrivate, theme: theme)
+        newTab.tintColor = theme.colors.omnibar_tintColor(isPrivate)
         privateModeButton.applyTheme(theme: theme)
         privateModeButton.applyUIMode(isPrivate: topTabDisplayManager.isPrivate, theme: theme)
     }

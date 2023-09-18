@@ -267,9 +267,10 @@ open class BrowserProfile: Profile {
                        category: .setup)
             MZKeychainWrapper.wipeKeychain()
             prefs.clearAll()
-            
-            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
         }
+        
+        // Omnibar reset of defaults
+        prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
 
         // Set up logging from Rust.
         if !RustLog.shared.tryEnable({ (level, tag, message) -> Bool in

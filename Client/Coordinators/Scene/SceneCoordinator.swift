@@ -84,7 +84,11 @@ class SceneCoordinator: BaseCoordinator, LaunchCoordinatorDelegate, LaunchFinish
     }
 
     private func startBrowser(with launchType: LaunchType?) {
-        guard !childCoordinators.contains(where: { $0 is BrowserCoordinator}) else { return }
+        guard !childCoordinators.contains(where: { $0 is BrowserCoordinator}) else {
+            let browserCoordinator = childCoordinators.first(where: { $0 is BrowserCoordinator })! as! BrowserCoordinator
+            browserCoordinator.browserViewController.enterOverlayModeIfPossible()
+            return
+        }
 
         logger.log("Starting browser with launchtype \(String(describing: launchType))",
                    level: .info,

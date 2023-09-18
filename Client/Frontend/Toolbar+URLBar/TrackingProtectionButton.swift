@@ -43,6 +43,13 @@ class TrackingProtectionButton: UIButton {
         badgeLabel.text = value
     }
 
+    private var badgeColor: UIColor = LightTheme().colors.vip_greenIcon
+
+    func setBadgeColor(color: UIColor) {
+        badgeColor = color
+        applyTheme()
+    }
+    
     func animateIfNeeded() {
         let value = Int(badgeLabel.text ?? "") ?? 0
         if value > 0 {
@@ -55,7 +62,12 @@ class TrackingProtectionButton: UIButton {
 
 extension TrackingProtectionButton: ThemeApplicable {
     func applyTheme(theme: Theme) {
-        badgeLabel.textColor = theme.colors.vip_blackText
+        badgeColor = theme.colors.vip_greenIcon
+        applyTheme()
+    }
+
+    private func applyTheme() {
+        badgeLabel.textColor = badgeColor
         badgeLabel.layer.backgroundColor = UIColor.clear.cgColor
     }
 }

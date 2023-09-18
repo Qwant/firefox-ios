@@ -49,12 +49,16 @@ class ShareButton: UIButton {
 
 // MARK: - Theme protocols
 
-extension ShareButton: ThemeApplicable {
+extension ShareButton: ThemeApplicable, PrivateModeUI {
     func applyTheme(theme: Theme) {
-        selectedTintColor = theme.colors.iconSecondary
         disabledTintColor = theme.colors.iconDisabled
         unselectedTintColor = theme.colors.iconDisabled
         tintColor = isEnabled ? selectedTintColor : disabledTintColor
         imageView?.tintColor = tintColor
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        selectedTintColor = theme.colors.omnibar_gray(isPrivate)
+        applyTheme(theme: theme)
     }
 }
