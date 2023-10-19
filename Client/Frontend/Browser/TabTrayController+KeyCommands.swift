@@ -43,12 +43,14 @@ extension LegacyGridTabViewController {
         if let tab = tabManager.selectedTab {
             tabManager.removeTab(tab)
         }
+        QwantTracking.track(.closeTab(isPrivate: tabDisplayManager.isPrivate))
     }
 
     @objc
     func didCloseAllTabsKeyCommand() {
         TelemetryWrapper.recordEvent(category: .action, method: .press, object: .keyCommand, extras: ["action": "close-all-tabs"])
         closeTabsTrayBackground()
+        QwantTracking.track(.closeAllTabs(isIntention: false, isPrivate: tabDisplayManager.isPrivate))
     }
 
     @objc

@@ -314,6 +314,7 @@ extension TopTabsViewController: TopTabCellDelegate {
     func tabCellDidClose(_ cell: UICollectionViewCell) {
         topTabDisplayManager.closeActionPerformed(forCell: cell)
         NotificationCenter.default.post(name: .TopTabsTabClosed, object: nil)
+        QwantTracking.track(.closeTab(isPrivate: topTabDisplayManager.isPrivate))
     }
 }
 

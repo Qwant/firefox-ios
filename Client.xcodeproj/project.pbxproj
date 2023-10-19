@@ -497,6 +497,8 @@
 		6816BFC82A838DB500D334DA /* QwantIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816BFC42A838DB500D334DA /* QwantIntroViewController.swift */; };
 		6816BFC92A838DB500D334DA /* QwantIntroScreenWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816BFC52A838DB500D334DA /* QwantIntroScreenWelcomeView.swift */; };
 		6816BFCB2A838DB500D334DA /* Intro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6816BFC72A838DB500D334DA /* Intro.xcassets */; };
+		681D75FF2AD945D700E63842 /* PiwikPROSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 681D75FE2AD945D700E63842 /* PiwikPROSDK */; };
+		681D76012AD94E2A00E63842 /* QwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681D76002AD94E2A00E63842 /* QwantTracking.swift */; };
 		6821F06F29AE0DF700055321 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B0DC72926F60500A85A7E /* UIResponder+Extensions.swift */; };
 		682406C72A57FBD900466D27 /* ZapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682406C62A57FBD900466D27 /* ZapButton.swift */; };
 		682A6E4129CB491A009297F0 /* QwantZap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A6E4029CB491A009297F0 /* QwantZap.swift */; };
@@ -538,6 +540,7 @@
 		68AED22327EDB95D00C7A0AB /* QwantTPMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AED22227EDB95D00C7A0AB /* QwantTPMenuVC.swift */; };
 		68AED22527EDB96D00C7A0AB /* QwantTPMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AED22427EDB96D00C7A0AB /* QwantTPMenuVM.swift */; };
 		68BEB92A2A2A24D500009415 /* QwantSearchTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BEB9292A2A24D500009415 /* QwantSearchTableViewHeader.swift */; };
+		68C2308B2AE121690005E01F /* SendQwantTrackingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2308A2AE121690005E01F /* SendQwantTrackingSetting.swift */; };
 		68CAD4702A851672000571D9 /* ZapSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CAD46F2A851672000571D9 /* ZapSetting.swift */; };
 		68CADF0128C7318100BCD1AB /* QwantSearchEnginesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CADF0028C7318100BCD1AB /* QwantSearchEnginesTests.swift */; };
 		68CADF0328C7336A00BCD1AB /* QwantSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CADF0228C7336A00BCD1AB /* QwantSearchTests.swift */; };
@@ -2500,6 +2503,7 @@
 		6816BFC42A838DB500D334DA /* QwantIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroViewController.swift; sourceTree = "<group>"; };
 		6816BFC52A838DB500D334DA /* QwantIntroScreenWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroScreenWelcomeView.swift; sourceTree = "<group>"; };
 		6816BFC72A838DB500D334DA /* Intro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Intro.xcassets; sourceTree = "<group>"; };
+		681D76002AD94E2A00E63842 /* QwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTracking.swift; sourceTree = "<group>"; };
 		682406C62A57FBD900466D27 /* ZapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapButton.swift; sourceTree = "<group>"; };
 		682A6E4029CB491A009297F0 /* QwantZap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantZap.swift; sourceTree = "<group>"; };
 		682F7E1F2829452D00A04D13 /* QwantContentBlockerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantContentBlockerStatsTests.swift; sourceTree = "<group>"; };
@@ -2547,6 +2551,7 @@
 		68AED22427EDB96D00C7A0AB /* QwantTPMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTPMenuVM.swift; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
 		68BEB9292A2A24D500009415 /* QwantSearchTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSearchTableViewHeader.swift; sourceTree = "<group>"; };
+		68C2308A2AE121690005E01F /* SendQwantTrackingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendQwantTrackingSetting.swift; sourceTree = "<group>"; };
 		68CAD46F2A851672000571D9 /* ZapSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapSetting.swift; sourceTree = "<group>"; };
 		68CADF0028C7318100BCD1AB /* QwantSearchEnginesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSearchEnginesTests.swift; sourceTree = "<group>"; };
 		68CADF0228C7336A00BCD1AB /* QwantSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSearchTests.swift; sourceTree = "<group>"; };
@@ -3695,6 +3700,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				681D75FF2AD945D700E63842 /* PiwikPROSDK in Frameworks */,
 				5A70EF0E295DFCCF00790249 /* Common in Frameworks */,
 				8A08EC6427EBDCAD00E119C7 /* AdServices.framework in Frameworks */,
 				8A08EC6227EBDCA400E119C7 /* iAd.framework in Frameworks */,
@@ -4952,6 +4958,7 @@
 				8A19ACB52A3290F9001C2147 /* NotificationsSetting.swift */,
 				8A19ACB72A329128001C2147 /* PrivacyPolicySetting.swift */,
 				8A093D822A4B68940099ABA5 /* PrivacySettingsDelegate.swift */,
+				68C2308A2AE121690005E01F /* SendQwantTrackingSetting.swift */,
 			);
 			path = Privacy;
 			sourceTree = "<group>";
@@ -7411,6 +7418,7 @@
 				E1FE133229C22782002A65FF /* BackgroundNotificationSurfaceUtility.swift */,
 				5A3A2A0C287F742C00B79EAC /* BackgroundSyncUtility.swift */,
 				602B3D6629B0E1DB0066DEF8 /* ConversionValueUtil.swift */,
+				681D76002AD94E2A00E63842 /* QwantTracking.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -7973,6 +7981,7 @@
 				5A06135929D6052E008F3D38 /* TabDataStore */,
 				216A0D752A40E7AB008077BA /* Redux */,
 				8AF2D0FB2A5F272A00C7DD69 /* ComponentLibrary */,
+				681D75FE2AD945D700E63842 /* PiwikPROSDK */,
 			);
 			productName = Client;
 			productReference = F84B21BE1A090F8100AAB793 /* Client.app */;
@@ -8198,6 +8207,7 @@
 				43AFC0E027967BFA0039DDF4 /* XCRemoteSwiftPackageReference "Fuzi" */,
 				43C6A47D27A0679300C79856 /* XCRemoteSwiftPackageReference "MappaMundi" */,
 				5A37861729A2C337006B3A34 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				681D75FD2AD945D700E63842 /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */,
 			);
 			productRefGroup = F84B21BF1A090F8100AAB793 /* Products */;
 			projectDirPath = "";
@@ -9515,6 +9525,7 @@
 				C8E2E80E23D20FD2005AACE6 /* FxAWebViewController.swift in Sources */,
 				E14F7DF2288F3F9F00E3722C /* ThemedTableSectionHeaderFooterView.swift in Sources */,
 				8A3EF7F22A2FCF4000796E3A /* DeleteExportedDataSetting.swift in Sources */,
+				68C2308B2AE121690005E01F /* SendQwantTrackingSetting.swift in Sources */,
 				8ADC2A142A33762900543DAA /* ReferringPage.swift in Sources */,
 				E1442FBF294782B6003680B0 /* CGRect+Extension.swift in Sources */,
 				96F8DA49280452CA00E53239 /* GleanPlumbContextProvider.swift in Sources */,
@@ -9643,6 +9654,7 @@
 				AB03032B2AB47AF300DCD8EF /* FakespotOptInCardView.swift in Sources */,
 				0BA02DB22942605600C92603 /* CreditCardHelper.swift in Sources */,
 				8A19ACB82A329128001C2147 /* PrivacyPolicySetting.swift in Sources */,
+				681D76012AD94E2A00E63842 /* QwantTracking.swift in Sources */,
 				E68AEDB01B18F81A00133D99 /* SwipeAnimator.swift in Sources */,
 				1DDE3DB32AC34E1E0039363B /* TabCell.swift in Sources */,
 				68AED22527EDB96D00C7A0AB /* QwantTPMenuVM.swift in Sources */,
@@ -12801,6 +12813,14 @@
 				version = 8.13.1;
 			};
 		};
+		681D75FD2AD945D700E63842 /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PiwikPRO/piwik-pro-sdk-framework-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -12961,6 +12981,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 435C85EE2788F4D00072B526 /* XCRemoteSwiftPackageReference "glean-swift" */;
 			productName = Glean;
+		};
+		681D75FE2AD945D700E63842 /* PiwikPROSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 681D75FD2AD945D700E63842 /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */;
+			productName = PiwikPROSDK;
 		};
 		781C19CE2A780BEC0000DF46 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;

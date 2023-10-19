@@ -223,3 +223,6 @@
 "Qwant.Omnibar.Placeholder" = "Cerca o inserisci un indirizzo";
 "Qwant.Omnibar.PrivateTabs.Title" = "Navigazione in incognito";
 "Qwant.Omnibar.PrivateTabs.Description" = "I siti visitati nelle schede in incognito non saranno visualizzati nella cronologia di Qwant e i loro cookie verranno sempre eliminati dopo aver chiuso la scheda. Senza navigazione in incognito, la tua cronologia di ricerca viene memorizzata sul tuo telefono ma non è visibile a Qwant (rispettiamo la tua privacy!).\n\nTieni presente che la navigazione in incognito non ti rende invisibile su internet. Le schede in incognito non impediscono al tuo operatore di telefonia mobile o al proprietario della rete Wi-Fi di tracciare i siti che visiti o il tuo indirizzo IP pubblico.";
+
+"Qwant.Tracking.Settings.Title" = "Rilevatore di dati sulle visite al sito";
+"Qwant.Tracking.Settings.Subtitle" = "I servizi di misurazione statistica dell'audience sono necessari per il funzionamento dell'applicazione permettendone la sua corretta gestione. Tuttavia, l'utente può opporsi al loro utilizzo facendo clic sul pulsante \"Toggle\".";

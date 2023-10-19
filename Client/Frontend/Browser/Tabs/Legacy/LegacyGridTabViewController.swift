@@ -597,6 +597,7 @@ extension LegacyGridTabViewController: LegacyTabCellDelegate {
            let tab = tabDisplayManager.dataStore.at(indexPath.item) {
             closeTabAction(tab: tab, cell: cell)
         }
+        QwantTracking.track(.closeTab(isPrivate: tabDisplayManager.isPrivate))
     }
 }
 
@@ -699,7 +700,10 @@ extension LegacyGridTabViewController {
         let controller = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         controller.addAction(UIAlertAction(title: .AppMenu.AppMenuCloseAllTabsTitleString,
                                            style: .destructive,
-                                           handler: { _ in self.closeTabsTrayBackground() }),
+                                           handler: { _ in
+            QwantTracking.track(.closeAllTabs(isIntention: false, isPrivate: self.tabDisplayManager.isPrivate))
+            self.closeTabsTrayBackground()
+        }),
                              accessibilityIdentifier: AccessibilityIdentifiers.TabTray.deleteCloseAllButton)
         controller.addAction(UIAlertAction(title: .TabTrayCloseAllTabsPromptCancel,
                                            style: .cancel,

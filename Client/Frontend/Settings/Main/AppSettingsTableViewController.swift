@@ -282,7 +282,11 @@ class AppSettingsTableViewController: SettingsTableViewController,
                                                     settingsDelegate: parentCoordinator))
 
         privacySettings += [
-            PrivacyPolicySetting(theme: themeManager.currentTheme, settingsDelegate: parentCoordinator)
+            PrivacyPolicySetting(theme: themeManager.currentTheme, settingsDelegate: parentCoordinator),
+            SendQwantTrackingSetting(prefs: profile.prefs,
+                                     delegate: settingsDelegate,
+                                     theme: themeManager.currentTheme,
+                                     settingsDelegate: parentCoordinator)
         ]
 
         return [SettingSection(title: NSAttributedString(string: .AppSettingsPrivacyTitle),

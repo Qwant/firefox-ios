@@ -226,3 +226,6 @@
 "Qwant.Omnibar.Placeholder" = "Busca o ingresa una dirección";
 "Qwant.Omnibar.PrivateTabs.Title" = "Navegación privada";
 "Qwant.Omnibar.PrivateTabs.Description" = "Los sitios vistos en pestañas privadas no se muestran en su historial de Qwant y sus cookies siempre se eliminan cuando cierra la pestaña. Sin navegación privada, su historial de búsqueda se almacena en su teléfono, pero Qwant no lo puede ver (¡respetamos su privacidad!).\n\nTenga en cuenta que la navegación privada no lo hace invisible en Internet. Las pestañas privadas no impiden que su operador de telefonía móvil o el propietario de la red Wi-Fi rastreen los sitios que visita o su dirección IP pública.";
+
+"Qwant.Tracking.Settings.Title" = "Medición estadística de audiencias";
+"Qwant.Tracking.Settings.Subtitle" = "Los servicios de medición estadística de audiencia son necesarios para el funcionamiento de la aplicación permitiendo su adecuada administración. Sin embargo, tiene la posibilidad de oponerse a su uso haciendo clic en el botón \"Toggle\".";

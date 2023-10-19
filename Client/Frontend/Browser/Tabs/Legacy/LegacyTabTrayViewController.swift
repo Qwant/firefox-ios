@@ -572,6 +572,7 @@ extension LegacyTabTrayViewController {
     @objc
     func didTapDeleteTabs(_ sender: UIBarButtonItem) {
         viewModel.didTapDeleteTab(sender)
+        QwantTracking.track(.closeAllTabs(isIntention: true, isPrivate: viewModel.segmentToFocus == .privateTabs))
     }
 
     @objc
