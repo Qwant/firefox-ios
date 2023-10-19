@@ -120,6 +120,7 @@ class AppLaunchUtil {
 
         updateSessionCount()
         adjustHelper.setupAdjust()
+        QwantTracking.setup()
     }
 
     private func setUserAgent() {

@@ -227,3 +227,5 @@
 "Qwant.Omnibar.PrivateTabs.Title" = "Privates Surfen";
 "Qwant.Omnibar.PrivateTabs.Description" = "Websites, die Sie in privaten Tabs besuchen, erscheinen nicht in Ihrem Qwant-Verlauf und die zugehörigen Cookies werden immer gelöscht, wenn Sie den Tab schließen. Wenn Sie nicht im privaten Modus surfen, wird Ihr Suchverlauf auf Ihrem Telefon gespeichert, ist aber für Qwant nicht sichtbar (wir respektieren Ihre Privatsphäre!).\n\nBitte beachten Sie, dass Sie beim Surfen im privaten Modus im Internet nicht unsichtbar sind. Private Tabs verhindern nicht, dass Ihr Mobilfunkanbieter oder WLAN-Betreiber die von Ihnen besuchten Seiten oder Ihre öffentliche IP-Adresse nachvollziehen kann";
 
+"Qwant.Tracking.Settings.Title" = "Statistische Erfassung von Besucherdaten";
+"Qwant.Tracking.Settings.Subtitle" = "Die Dienste zur statistischen Erfassung von Besucherdaten sind für die Funktion der Anwendung erforderlich, um eine ordnungsgemäße Verwaltung zu ermöglichen. Sie haben dennoch die Möglichkeit, der Verwendung Ihrer Daten zu widersprechen, indem Sie auf die Schaltfläche \"Toggle\" klicken.";

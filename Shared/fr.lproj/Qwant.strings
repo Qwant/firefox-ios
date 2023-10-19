@@ -226,3 +226,6 @@
 "Qwant.Omnibar.Placeholder" = "Rechercher ou saisir une adresse";
 "Qwant.Omnibar.PrivateTabs.Title" = "La navigation privée";
 "Qwant.Omnibar.PrivateTabs.Description" = "Les sites consultés dans des onglets privés ne s'affichent pas dans votre historique Qwant, et leurs cookies sont toujours supprimés lorsque vous fermez l'onglet. Sans la navigation privée, votre historique est stocké sur votre téléphone et n’est pas visible par Qwant (nous respectons votre vie privée !).\n\nSachez que la navigation privée ne vous rend pas invisible sur Internet. Les onglets privés n'empêchent pas votre opérateur mobile ou le propriétaire de votre réseau wifi de connaitre les sites que vous consultez ou votre adresse IP publique.";
+
+"Qwant.Tracking.Settings.Title" = "Mesure d'audience statistique";
+"Qwant.Tracking.Settings.Subtitle" = "Les services de mesure statistique d'audience sont nécessaires au fonctionnement de l'application en permettant sa bonne administration. Vous avez cependant la possibilité de vous opposer à leur usage en cliquant sur le bouton « Toggle ».";

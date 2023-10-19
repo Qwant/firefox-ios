@@ -2140,7 +2140,7 @@ extension BrowserViewController: LegacyTabDelegate {
         KVOs.forEach { webView.addObserver(self, forKeyPath: $0.rawValue, options: .new, context: nil) }
         webView.scrollView.addObserver(self.scrollController, forKeyPath: KVOConstants.contentSize.rawValue, options: .new, context: nil)
         webView.uiDelegate = self
-        webView.setQwantCookies()
+        webView.setQwantCookies(tracking: profile.prefs.boolForKey(AppConstants.prefQwantTracking) ?? true)
 
         let formPostHelper = FormPostHelper(tab: tab)
         tab.addContentScript(formPostHelper, name: FormPostHelper.name())

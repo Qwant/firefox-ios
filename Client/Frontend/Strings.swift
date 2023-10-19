@@ -5824,4 +5824,17 @@ extension String {
             value: "Close tabs and delete history",
             comment: "")
     }
+
+    public struct QwantTracking {
+        public static let SettingsTitle = MZLocalizedString(
+            key: "Qwant.Tracking.Settings.Title",
+            tableName: "Qwant",
+            value: "Statistical audience analytics",
+            comment: "")
+        public static let SettingsSubtitle = MZLocalizedString(
+            key: "Qwant.Tracking.Settings.Subtitle",
+            tableName: "Qwant",
+            value: "Statistical audience measurement services are necessary for the operation of the application as they allow for its proper management. However, you can opt out of their use by clicking the \"Toggle\" button.",
+            comment: "")
+    }
 }

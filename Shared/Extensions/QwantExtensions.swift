@@ -168,7 +168,7 @@ public extension WKWebView {
         self.load(URLRequest(url: urlWithContext))
     }
 
-    func setQwantCookies() {
+    func setQwantCookies(tracking: Bool) {
 
         let omnibarCookie = HTTPCookie(properties: [
             .domain: "www.qwant.com",
@@ -179,7 +179,17 @@ public extension WKWebView {
             .expires: NSDate(timeIntervalSinceNow: 31_556_926)
         ])!
 
+        let trackingCookie = HTTPCookie(properties: [
+            .domain: "www.qwant.com",
+            .path: "/",
+            .name: "audience_statistique",
+            .value: tracking ? "true" : "false",
+            .secure: "FALSE",
+            .expires: NSDate(timeIntervalSinceNow: 31_556_926)
+        ])!
+
         configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
+        configuration.websiteDataStore.httpCookieStore.setCookie(trackingCookie)
     }
 }
 

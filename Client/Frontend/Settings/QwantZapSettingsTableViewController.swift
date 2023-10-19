@@ -91,9 +91,11 @@ class QwantZapSettingsTableViewController: ThemedTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SectionButton {
 
+            QwantTracking.track(.zap, action: .icon, name: .settings)
             let alert = UIAlertController(title: .QwantZap.ZapAlertTitle, message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: .QwantZap.ZapAlertOK, style: .destructive, handler: { [weak self] _ in
                 guard let self = self else { return }
+                QwantTracking.track(.zap, action: .cta, name: .settings)
                 let viewController = ZapAnimationController(zap: self.zap)
                 viewController.onFinish = { [weak viewController] in
                     viewController?.willMove(toParent: nil)

@@ -7,6 +7,7 @@ import Foundation
 extension BrowserViewController {
 
     func presentZapConfirmationAlert(_ sender: Any) {
+        QwantTracking.track(.zap, action: .icon, name: .browser)
         let alert = UIAlertController(title: .QwantZap.ZapAlertTitle, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: .QwantZap.ZapAlertOK, style: .destructive, handler: { [weak self] _ in
             self?.doZap()
@@ -20,6 +21,7 @@ extension BrowserViewController {
     }
 
     func doZap() {
+        QwantTracking.track(.zap, action: .cta, name: .browser)
         let viewController = ZapAnimationController(zap: self.zap)
         viewController.onFinish = { [weak viewController] in
             viewController?.willMove(toParent: nil)
