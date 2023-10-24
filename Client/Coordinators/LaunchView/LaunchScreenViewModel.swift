@@ -41,6 +41,8 @@ class LaunchScreenViewModel {
             launchType = .update(viewModel: updateViewModel)
         } else if surveySurfaceManager.shouldShowSurveySurface {
             launchType = .survey(manager: surveySurfaceManager)
+        } else if DefaultBrowserOnboardingViewModel.shouldShowDefaultBrowserOnboarding(userPrefs: introScreenManager.prefs) {
+            launchType = .defaultBrowser
         }
 
         if let launchType = launchType {

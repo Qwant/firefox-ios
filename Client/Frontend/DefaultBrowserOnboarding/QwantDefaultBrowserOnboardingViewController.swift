@@ -8,9 +8,12 @@ import SnapKit
 import Shared
 import Common
 
-class QwantDefaultBrowserOnboardingViewController: UIViewController {
-    // Closure delegate
-    var didFinishClosure: ((QwantDefaultBrowserOnboardingViewController) -> Void)?
+class QwantDefaultBrowserOnboardingViewController: UIViewController, OnViewDismissable {
+
+    // MARK: - Properties
+
+    var onViewDismissed: (() -> Void)?
+    var goToSettings: (() -> Void)?
     
     private lazy var titleLabel: UILabel = .build { label in
         label.text = .QwantDefaultBrowser.DefaultBrowserTitle
@@ -97,13 +100,30 @@ class QwantDefaultBrowserOnboardingViewController: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Portrait orientation: lock enable
+        OrientationLockUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Portrait orientation: lock disable
+        OrientationLockUtility.lockOrientation(UIInterfaceOrientationMask.all)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onViewDismissed?()
+        onViewDismissed = nil
+    }
+    
     @objc private func openSettingsAction() {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
-        self.didFinishClosure?(self)
+        goToSettings?()
     }
     
     @objc private func ignoreAction() {
-        self.didFinishClosure?(self)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

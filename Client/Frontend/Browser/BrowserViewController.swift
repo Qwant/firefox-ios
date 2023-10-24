@@ -166,6 +166,8 @@ class BrowserViewController: UIViewController,
         return keyboardPressesHandlerValue
     }
 
+    fileprivate var shouldShowSecondaryIntroScreen: Bool { profile.prefs.intForKey(PrefsKeys.SecondaryIntroSeen) == nil }
+
     init(
         profile: Profile,
         tabManager: TabManager,

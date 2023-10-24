@@ -2,24 +2,43 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import UIKit
 
-class QwantIntroViewController: UIViewController, OnViewDismissable {
+enum QwantIntroContent {
+    case full
+    case onlyVIP
+}
+
+class QwantIntroViewController: UIViewController, Themeable {
+    var themeManager: ThemeManager
+    var themeObserver: NSObjectProtocol?
+    var notificationCenter: NotificationProtocol
     
-    var onViewDismissed: (() -> Void)? = nil
+    var didFinishFlow: (() -> Void)?
     
     private lazy var welcomeCard: QwantIntroScreenWelcomeView = .build { view in
         view.clipsToBounds = true
     }
     
-    private lazy var protectionCard: QwantIntroScreenProtectionView = .build { view in
+    private lazy var qwantVIPCard: QwantIntroScreenQwantVIPView = .build { view in
+        view.clipsToBounds = true
+        view.isShownStandalone = self.contentDisplayed == .onlyVIP
+    }
+    
+    private lazy var defaultBrowserCard: QwantIntroScreenDefaultBrowserView = .build { view in
         view.clipsToBounds = true
     }
-    // Closure delegate
-    var didFinishClosure: ((QwantIntroViewController, FxAPageType?) -> Void)?
 
+    var contentDisplayed: QwantIntroContent
+    
     // MARK: Initializer
-    init() {
+    init(_ content: QwantIntroContent,
+         themeManager: ThemeManager = AppContainer.shared.resolve(),
+         notificationCenter: NotificationCenter = NotificationCenter.default) {
+        self.contentDisplayed = content
+        self.themeManager = themeManager
+        self.notificationCenter = notificationCenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,12 +51,6 @@ class QwantIntroViewController: UIViewController, OnViewDismissable {
         initialViewSetup()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        onViewDismissed?()
-        onViewDismissed = nil
-    }
-    
     // MARK: View setup
     private func initialViewSetup() {
         setupIntroView()
@@ -45,13 +58,21 @@ class QwantIntroViewController: UIViewController, OnViewDismissable {
     
     //onboarding intro view
     private func setupIntroView() {
+        if contentDisplayed == .onlyVIP {
+            view.addSubview(qwantVIPCard)
+            setupQwantVIPCard()
+            return
+        }
+        
         // Initialize
-        view.addSubview(protectionCard)
+        view.addSubview(defaultBrowserCard)
+        view.addSubview(qwantVIPCard)
         view.addSubview(welcomeCard)
         
         // Constraints
         setupWelcomeCard()
-        setupProtectionCard()
+        setupQwantVIPCard()
+        setupDefaultBrowserCard()
     }
     
     private func setupWelcomeCard() {
@@ -66,12 +87,11 @@ class QwantIntroViewController: UIViewController, OnViewDismissable {
             self.dismissWelcomeCard()
         }
         
-        // Sign in button closure
-        welcomeCard.defaultBrowserClosure = {
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:]) { _ in
-                self.dismissWelcomeCard()
-            }
+        welcomeCard.ignoreClosure = {
+            self.didFinishFlow?()
         }
+
+        welcomeCard.applyTheme(theme: themeManager.currentTheme)
     }
     
     private func dismissWelcomeCard() {
@@ -82,17 +102,63 @@ class QwantIntroViewController: UIViewController, OnViewDismissable {
         }
     }
     
-    private func setupProtectionCard() {
+    private func setupQwantVIPCard() {
         NSLayoutConstraint.activate([
-            protectionCard.topAnchor.constraint(equalTo: view.topAnchor),
-            protectionCard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            protectionCard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            protectionCard.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            qwantVIPCard.topAnchor.constraint(equalTo: view.topAnchor),
+            qwantVIPCard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            qwantVIPCard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            qwantVIPCard.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        // Start browsing button action
-        protectionCard.startBrowsingClosure = {
-            self.didFinishClosure?(self, nil)
+        
+        qwantVIPCard.nextClosure = {
+            if self.contentDisplayed == .onlyVIP {
+                self.didFinishFlow?()
+            } else {
+                self.dismissQwantVIPCard()
+            }
         }
+        
+        qwantVIPCard.ignoreClosure = {
+            self.didFinishFlow?()
+        }
+
+        qwantVIPCard.applyTheme(theme: themeManager.currentTheme)
+    }
+    
+    private func dismissQwantVIPCard() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.qwantVIPCard.alpha = 0
+        }) { _ in
+            self.qwantVIPCard.isHidden = true
+        }
+    }
+    
+    private func setupDefaultBrowserCard() {
+        NSLayoutConstraint.activate([
+            defaultBrowserCard.topAnchor.constraint(equalTo: view.topAnchor),
+            defaultBrowserCard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            defaultBrowserCard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            defaultBrowserCard.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        defaultBrowserCard.ignoreClosure = {
+            self.didFinishFlow?()
+        }
+        
+        defaultBrowserCard.openSettingsClosure = {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:]) { _ in
+                self.didFinishFlow?()
+            }
+        }
+
+        defaultBrowserCard.applyTheme(theme: themeManager.currentTheme)
+    }
+
+    func applyTheme() {
+        let theme = themeManager.currentTheme
+        welcomeCard.applyTheme(theme: theme)
+        qwantVIPCard.applyTheme(theme: theme)
+        defaultBrowserCard.applyTheme(theme: theme)
     }
 }
 

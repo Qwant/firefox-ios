@@ -17,10 +17,13 @@ extension BlockerStatus {
         }
     }
     
-    func badgeValue(basedOn value: Int) -> Int {
+    func badgeValue(basedOn value: Int) -> String? {
         switch self {
-            case .blocking, .noBlockedURLs: return value
-            case .safelisted, .disabled: return 0
+            case .blocking, .noBlockedURLs:
+                if value <= 0 { return "✓" }
+                else if value > 100 { return "∞" }
+                else { return String(describing: value) }
+            case .safelisted, .disabled: return nil
         }
     }
 }

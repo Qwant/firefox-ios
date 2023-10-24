@@ -102,4 +102,9 @@ private struct LightColourPalette: ThemeColourPalette {
     var vip_blackText: UIColor = UIColor(rgb: 0x050506)
     var vip_horizontalLine: UIColor = UIColor(rgb: 0xc8cbd0)
     var vip_switchAndButtonTint: UIColor = UIColor(rgb: 0x0051e0)
+    var onboarding_palePink: UIColor = UIColor(rgb: 0xffd6d7)
+    var onboarding_paleBlue: UIColor = UIColor(rgb: 0x99beff)
+    var onboarding_paleGreen: UIColor = UIColor(rgb: 0xb3e6cc)
+    var onboarding_blackText: UIColor = UIColor(rgb: 0x050506)
+    var onboarding_whiteText: UIColor = .white
 }

@@ -97,4 +97,9 @@ public protocol ThemeColourPalette {
     var vip_blackText: UIColor { get }
     var vip_horizontalLine: UIColor { get }
     var vip_switchAndButtonTint: UIColor { get }
+    var onboarding_palePink: UIColor { get }
+    var onboarding_paleBlue: UIColor { get }
+    var onboarding_paleGreen: UIColor { get }
+    var onboarding_blackText: UIColor { get }
+    var onboarding_whiteText: UIColor { get }
 }

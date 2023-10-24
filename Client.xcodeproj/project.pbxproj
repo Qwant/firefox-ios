@@ -496,19 +496,18 @@
 		680510762811517C0078BADA /* QwantContentBlockerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680510752811517C0078BADA /* QwantContentBlockerSettingViewController.swift */; };
 		6816BFC82A838DB500D334DA /* QwantIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816BFC42A838DB500D334DA /* QwantIntroViewController.swift */; };
 		6816BFC92A838DB500D334DA /* QwantIntroScreenWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816BFC52A838DB500D334DA /* QwantIntroScreenWelcomeView.swift */; };
-		6816BFCA2A838DB500D334DA /* QwantIntroScreenProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816BFC62A838DB500D334DA /* QwantIntroScreenProtectionView.swift */; };
 		6816BFCB2A838DB500D334DA /* Intro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6816BFC72A838DB500D334DA /* Intro.xcassets */; };
 		6821F06F29AE0DF700055321 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B0DC72926F60500A85A7E /* UIResponder+Extensions.swift */; };
 		682F7E212829577700A04D13 /* QwantContentBlockerStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682F7E1F2829452D00A04D13 /* QwantContentBlockerStatsTests.swift */; };
 		68374E552820196700B703B1 /* TrackingProtectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68374E542820196700B703B1 /* TrackingProtectionButton.swift */; };
 		68374E5728225E9900B703B1 /* QwantColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68374E5628225E9900B703B1 /* QwantColors.swift */; };
-		6847CD3327B15D0700336211 /* QwantExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6847CD3227B15D0700336211 /* QwantExtensionsTests.swift */; };
 		68375F3D28AE2DE7000D9ED9 /* TwoCountersInlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F3C28AE2DE7000D9ED9 /* TwoCountersInlineView.swift */; };
 		68375F3F28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F3E28AE2E66000D9ED9 /* TwoLabelsInlineTableViewHeaderView.swift */; };
 		68375F4128AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4028AE3215000D9ED9 /* ImageAndLabelPlaceholderCell.swift */; };
 		68375F4328AE6C71000D9ED9 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4228AE6C71000D9ED9 /* ButtonCell.swift */; };
 		68375F4528AF78E6000D9ED9 /* QwantTPInformationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4428AF78E6000D9ED9 /* QwantTPInformationVM.swift */; };
 		68375F4728AFADFC000D9ED9 /* QwantVIPBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68375F4628AFADFC000D9ED9 /* QwantVIPBaseVC.swift */; };
+		6847CD3327B15D0700336211 /* QwantExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6847CD3227B15D0700336211 /* QwantExtensionsTests.swift */; };
 		6861BCB5281ACA8800B7E8ED /* QwantTPStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861BCB4281ACA8800B7E8ED /* QwantTPStatsVC.swift */; };
 		6861BCB7281ACA9D00B7E8ED /* QwantTPStatsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861BCB6281ACA9D00B7E8ED /* QwantTPStatsVM.swift */; };
 		6864B8492812B2BC00B1BD57 /* QwantContentBlockerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6864B8482812B2BC00B1BD57 /* QwantContentBlockerStats.swift */; };
@@ -536,6 +535,8 @@
 		68D81DE827D6142600466B80 /* QwantUsesInDayCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D81DE727D6142600466B80 /* QwantUsesInDayCounter.swift */; };
 		68D81DEA27D6526B00466B80 /* QwantUsesInDayCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D81DE927D6526B00466B80 /* QwantUsesInDayCounterTests.swift */; };
 		68E5BA81279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5BA80279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift */; };
+		68FCCAE52A83D66000C8EFB6 /* QwantIntroScreenDefaultBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FCCAE32A83D66000C8EFB6 /* QwantIntroScreenDefaultBrowserView.swift */; };
+		68FCCAE62A83D66000C8EFB6 /* QwantIntroScreenQwantVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FCCAE42A83D66000C8EFB6 /* QwantIntroScreenQwantVIPView.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2480,7 +2481,6 @@
 		680510752811517C0078BADA /* QwantContentBlockerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantContentBlockerSettingViewController.swift; sourceTree = "<group>"; };
 		6816BFC42A838DB500D334DA /* QwantIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroViewController.swift; sourceTree = "<group>"; };
 		6816BFC52A838DB500D334DA /* QwantIntroScreenWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroScreenWelcomeView.swift; sourceTree = "<group>"; };
-		6816BFC62A838DB500D334DA /* QwantIntroScreenProtectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroScreenProtectionView.swift; sourceTree = "<group>"; };
 		6816BFC72A838DB500D334DA /* Intro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Intro.xcassets; sourceTree = "<group>"; };
 		682F7E1F2829452D00A04D13 /* QwantContentBlockerStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantContentBlockerStatsTests.swift; sourceTree = "<group>"; };
 		68374E542820196700B703B1 /* TrackingProtectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProtectionButton.swift; sourceTree = "<group>"; };
@@ -2526,6 +2526,8 @@
 		68D81DE727D6142600466B80 /* QwantUsesInDayCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantUsesInDayCounter.swift; sourceTree = "<group>"; };
 		68D81DE927D6526B00466B80 /* QwantUsesInDayCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantUsesInDayCounterTests.swift; sourceTree = "<group>"; };
 		68E5BA80279FFE3700C6AB45 /* QwantDefaultBrowserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDefaultBrowserOnboardingViewController.swift; sourceTree = "<group>"; };
+		68FCCAE32A83D66000C8EFB6 /* QwantIntroScreenDefaultBrowserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroScreenDefaultBrowserView.swift; sourceTree = "<group>"; };
+		68FCCAE42A83D66000C8EFB6 /* QwantIntroScreenQwantVIPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QwantIntroScreenQwantVIPView.swift; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
 		6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegateTests.swift; sourceTree = "<group>"; };
 		6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegate.swift; sourceTree = "<group>"; };
@@ -4743,7 +4745,8 @@
 			children = (
 				6816BFC42A838DB500D334DA /* QwantIntroViewController.swift */,
 				6816BFC52A838DB500D334DA /* QwantIntroScreenWelcomeView.swift */,
-				6816BFC62A838DB500D334DA /* QwantIntroScreenProtectionView.swift */,
+				68FCCAE32A83D66000C8EFB6 /* QwantIntroScreenDefaultBrowserView.swift */,
+				68FCCAE42A83D66000C8EFB6 /* QwantIntroScreenQwantVIPView.swift */,
 				6816BFC72A838DB500D334DA /* Intro.xcassets */,
 			);
 			path = Intro;
@@ -9506,6 +9509,7 @@
 				F8B7109E2ABE380B0029726E /* RustErrors.swift in Sources */,
 				C8124BB129D6F55400540B79 /* Route.swift in Sources */,
 				63306D3921103EAE00F25400 /* LegacySavedTab.swift in Sources */,
+				68FCCAE62A83D66000C8EFB6 /* QwantIntroScreenQwantVIPView.swift in Sources */,
 				2F44FCCB1A9E972E00FD20CC /* SearchEnginePicker.swift in Sources */,
 				1DA3CE5F24EEE7C600422BB2 /* LegacyTabDataRetriever.swift in Sources */,
 				8A7A26EA29D4C3C800EA76F1 /* LaunchType.swift in Sources */,
@@ -9606,7 +9610,6 @@
 				8AD40FD127BADCBA00672675 /* ToolbarButton.swift in Sources */,
 				A93067E81D0FE18E00C49C6E /* NightModeHelper.swift in Sources */,
 				742BD99E2A13AC9000BA6B15 /* OnboardingInstructionPopupViewController.swift in Sources */,
-				6816BFCA2A838DB500D334DA /* QwantIntroScreenProtectionView.swift in Sources */,
 				9636D92C27F9E50100771F5E /* GleanPlumbMessageStore.swift in Sources */,
 				213B67A627CE682B000542F5 /* StartAtHomeHelper.swift in Sources */,
 				E10A1F752863BC51001EEA80 /* LegacyInactiveTabItemCell.swift in Sources */,
@@ -9646,6 +9649,7 @@
 				D59431ED25E9912900F0BA82 /* WidgetIntents.intentdefinition in Sources */,
 				213778632980448C00D01309 /* DownloadFileFetcher.swift in Sources */,
 				F85C7EDF2710B4DD004BDBA4 /* LoginOnboarding.swift in Sources */,
+				68FCCAE52A83D66000C8EFB6 /* QwantIntroScreenDefaultBrowserView.swift in Sources */,
 				C8B0F5F5283B7CCE007AE65D /* PocketSponsoredStory.swift in Sources */,
 				8AF6D4E12A856B4500B0474B /* ContileNetworking.swift in Sources */,
 				8AB8571F27D931B40075C173 /* EmptyTopSiteCell.swift in Sources */,

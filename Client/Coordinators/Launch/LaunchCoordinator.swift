@@ -4,6 +4,7 @@
 
 import Common
 import Foundation
+import Shared
 
 protocol LaunchCoordinatorDelegate: AnyObject {
     func didFinishLaunch(from coordinator: LaunchCoordinator)
@@ -34,7 +35,7 @@ class LaunchCoordinator: BaseCoordinator,
         case .update(let viewModel):
             presentUpdateOnboarding(with: viewModel, isFullScreen: isFullScreen)
         case .defaultBrowser:
-            presentDefaultBrowserOnboarding()
+            presentDefaultBrowserOnboarding(isFullScreen: isFullScreen)
         case .survey(let manager):
             presentSurvey(with: manager)
         }
@@ -43,10 +44,11 @@ class LaunchCoordinator: BaseCoordinator,
     // MARK: - Intro
     private func presentIntroOnboarding(with manager: IntroScreenManager,
                                         isFullScreen: Bool) {
-        let introViewController = QwantDefaultBrowserOnboardingViewController()
-        introViewController.didFinishClosure = { [weak self] _ in
+        let introViewController = QwantIntroViewController(.full)
+        introViewController.didFinishFlow = { [weak self] in
             guard let self = self else { return }
             IntroScreenManager(prefs: self.profile.prefs).didSeeIntroScreen()
+            self.profile.prefs.setInt(1, forKey: PrefsKeys.SecondaryIntroSeen)
             self.parentCoordinator?.didFinishLaunch(from: self)
         }
 
@@ -60,6 +62,7 @@ class LaunchCoordinator: BaseCoordinator,
             introViewController.modalPresentationStyle = .formSheet
             router.present(introViewController, animated: true)
         }
+        (self.parentCoordinator as? SceneCoordinator)?.launchBrowser()
     }
 
     // MARK: - Update
@@ -89,23 +92,25 @@ class LaunchCoordinator: BaseCoordinator,
     }
 
     // MARK: - Default Browser
-    func presentDefaultBrowserOnboarding() {
-        let defaultOnboardingViewController = DefaultBrowserOnboardingViewController()
-        defaultOnboardingViewController.viewModel.goToSettings = { [weak self] in
+    func presentDefaultBrowserOnboarding(isFullScreen: Bool) {
+        let defaultOnboardingViewController = QwantDefaultBrowserOnboardingViewController()
+        defaultOnboardingViewController.goToSettings = { [weak self] in
             guard let self = self else { return }
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
             self.parentCoordinator?.didFinishLaunch(from: self)
         }
 
-        defaultOnboardingViewController.viewModel.didAskToDismissView = { [weak self] in
-            guard let self = self else { return }
-            self.parentCoordinator?.didFinishLaunch(from: self)
+        if isFullScreen {
+            defaultOnboardingViewController.modalPresentationStyle = .popover
+            router.present(defaultOnboardingViewController, animated: false)
+        } else {
+            defaultOnboardingViewController.preferredContentSize = CGSize(
+                width: ViewControllerConsts.PreferredSize.DBOnboardingViewController.width,
+                height: ViewControllerConsts.PreferredSize.DBOnboardingViewController.height)
+            defaultOnboardingViewController.modalPresentationStyle = .formSheet
+            router.present(defaultOnboardingViewController, animated: true)
         }
-
-        defaultOnboardingViewController.preferredContentSize = CGSize(
-            width: ViewControllerConsts.PreferredSize.DBOnboardingViewController.width,
-            height: ViewControllerConsts.PreferredSize.DBOnboardingViewController.height)
-        defaultOnboardingViewController.modalPresentationStyle = .formSheet
-        router.present(defaultOnboardingViewController)
+        (self.parentCoordinator as? SceneCoordinator)?.launchBrowser()
     }
 
     // MARK: - Survey

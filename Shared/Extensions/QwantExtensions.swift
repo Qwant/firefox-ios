@@ -140,5 +140,21 @@ public extension UIView {
         animation.values = [3.0, 0.0]
         layer.add(animation, forKey: "increaseAnimation")
     }
+}
     
+public extension String {
+
+    var makeDoubleStarsTagsBoldAndRemoveThem: NSAttributedString? {
+        let regex = try! NSRegularExpression(pattern: "\\*\\*(.*?)\\*\\*", options: [])
+        let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+        
+        let cleanedString = self.replacingOccurrences(of: "**", with: "")
+        let attributedStr = NSMutableAttributedString(string: cleanedString)
+        for i in 0 ..< results.count {
+            let result = results[i]
+            let cleanedRange = NSRange(location: result.range.location - (4 * i), length: result.range.length - 4)
+            attributedStr.addAttributes([.font: UIFont.systemFont(ofSize: 15, weight: .bold)], range: cleanedRange)
+        }
+        return attributedStr
+    }
 }
