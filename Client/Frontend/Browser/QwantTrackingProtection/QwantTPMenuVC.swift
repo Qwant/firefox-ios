@@ -7,13 +7,20 @@ import UIKit
 import MessageUI
 
 class QwantTPMenuVC: QwantVIPBaseVC {
+    
+    private func repositionLogo(imageView: UIImageView) {
+        let isPortrait = UIDevice.current.orientation.isPortrait
+        let shift = isPortrait ? UIEdgeInsets(top: -16, left: 0, bottom: 0, right: 0) : UIEdgeInsets.zero
+        imageView.image = UIImage(imageLiteralResourceName: "qwant_vip_logo_and_text").withAlignmentRectInsets(shift)
+        imageView.contentMode = isPortrait ? .scaleAspectFill : .scaleAspectFit
+        imageView.setNeedsLayout()
+    }
 
     // MARK: UI components
     
     // Title view
     private lazy var titleImageView: UIImageView = .build { image in
-        image.image = UIImage(imageLiteralResourceName: "qwant_vip_logo_and_text")
-        image.contentMode = .scaleAspectFit
+        self.repositionLogo(imageView: image)
     }
     
     private lazy var imageIcon = {
@@ -39,6 +46,8 @@ class QwantTPMenuVC: QwantVIPBaseVC {
     private lazy var localProtectionShieldCounterLabel: UILabel = .build { label in
         label.font = QwantUX.Font.Title.l
         label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
     }
     
     private lazy var localProtectionTitleLabel: UILabel = .build { label in
@@ -258,10 +267,13 @@ class QwantTPMenuVC: QwantVIPBaseVC {
     }
     
     private func setupTitleView() {
+        let isPortrait = UIDevice.current.orientation.isPortrait
         constraints.append(contentsOf: [
             titleImageView.heightAnchor.constraint(equalToConstant: 40),
-            titleImageView.widthAnchor.constraint(equalToConstant: 203)
+            titleImageView.widthAnchor.constraint(equalToConstant: isPortrait ? 219 : 203)
         ])
+        
+        repositionLogo(imageView: titleImageView)
     }
     
     private func setupScrollView() {
@@ -326,6 +338,7 @@ class QwantTPMenuVC: QwantVIPBaseVC {
             
             localProtectionShieldCounterLabel.centerXAnchor.constraint(equalTo: localProtectionShieldImage.centerXAnchor),
             localProtectionShieldCounterLabel.centerYAnchor.constraint(equalTo: localProtectionShieldImage.centerYAnchor),
+            localProtectionShieldCounterLabel.widthAnchor.constraint(equalTo: localProtectionShieldImage.widthAnchor, multiplier: 0.75),
             
             localProtectionTitleLabel.topAnchor.constraint(equalTo: localProtectionShieldImage.bottomAnchor, constant: QwantUX.Spacing.xs),
             localProtectionTitleLabel.centerXAnchor.constraint(equalTo: localProtectionHeaderContainer.centerXAnchor),
@@ -686,6 +699,10 @@ class QwantTPMenuVC: QwantVIPBaseVC {
         mailTitleLabel.textColor = theme.colors.vip_textColor
 
         setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        setupView()
     }
 }
 

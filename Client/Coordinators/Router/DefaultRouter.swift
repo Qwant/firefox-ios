@@ -88,4 +88,12 @@ class DefaultRouter: NSObject, Router {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         runCompletion(for: presentationController.presentedViewController)
     }
+
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        if presentationController.presentedViewController is QwantIntroViewController ||
+            presentationController.presentedViewController is QwantDefaultBrowserOnboardingViewController {
+            return false
+        }
+        return true
+    }
 }

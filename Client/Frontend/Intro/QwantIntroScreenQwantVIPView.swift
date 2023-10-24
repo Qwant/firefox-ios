@@ -2,24 +2,39 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-import Foundation
+import Common
 import UIKit
 
-class QwantIntroScreenProtectionView: UIView {
+class QwantIntroScreenQwantVIPView: UIView, ThemeApplicable {
     
-    var startBrowsingClosure: (() -> Void)?
+    var nextClosure: (() -> Void)?
+    var ignoreClosure: (() -> Void)?
+    
+    var isShownStandalone: Bool = false {
+        didSet {
+            ignoreButton.isHidden = isShownStandalone
+            let title: String = isShownStandalone ? .QwantOnboarding.LetsGoButtonTitle : .QwantOnboarding.NextButtonTitle
+            continueButton.setTitle(title, for: .normal)
+            setNeedsLayout()
+        }
+    }
     
     // MARK: UI components
-    
     private lazy var imageView: UIImageView = .build { imageView in
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "navigation")
+        imageView.image = UIImage(named: "protected")
+    }
+    
+    private lazy var ignoreButton: UIButton = .build { button in
+        button.setTitle(.QwantOnboarding.IgnoreButtonTitle, for: .normal)
+        button.addTarget(self, action: #selector(self.ignoreTapped), for: .touchUpInside)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     private lazy var titleLabel: UILabel = .build { label in
-        label.font = QwantUX.Font.Title.m
+        label.font = QwantUX.Font.Title.l
         label.numberOfLines = 2
-        label.text = .QwantIntro.ProtectionTitle
+        label.text = .QwantOnboarding.QwantVIPTitle
         label.adjustsFontSizeToFitWidth = true
     }
     
@@ -31,7 +46,7 @@ class QwantIntroScreenProtectionView: UIView {
     private lazy var bulletContent1: UILabel = .build { label in
         label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
-        label.text = .QwantIntro.ProtectionBullet1
+        label.attributedText = String.QwantOnboarding.QwantVIPBullet1.makeDoubleStarsTagsBoldAndRemoveThem
     }
     
     private lazy var bullet2: UIImageView = .build { imageView in
@@ -42,25 +57,21 @@ class QwantIntroScreenProtectionView: UIView {
     private lazy var bulletContent2: UILabel = .build { label in
         label.font = QwantUX.Font.Text.m
         label.numberOfLines = 0
-        label.text = .QwantIntro.ProtectionBullet2
+        label.attributedText = String.QwantOnboarding.QwantVIPBullet2.makeDoubleStarsTagsBoldAndRemoveThem
     }
     
-    private lazy var subtitleLabel: UILabel = .build { label in
-        label.font = QwantUX.Font.Text.m
-        label.numberOfLines = 2
-        label.text = .QwantIntro.ProtectionSubtitle
-        label.adjustsFontSizeToFitWidth = true
-    }
-    
-    private lazy var startBrowsingButton: UIButton = .build { button in
+    private lazy var continueButton: UIButton = .build { button in
         button.layer.cornerRadius = QwantUX.SystemDesign.cornerRadius
-        button.setTitle(.QwantIntro.ProtectionStartBrowsing, for: .normal)
-        button.addTarget(self, action: #selector(self.startBrowsingTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.continueTapped), for: .touchUpInside)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
-    @objc private func startBrowsingTapped() {
-        startBrowsingClosure?()
+    @objc private func continueTapped() {
+        nextClosure?()
+    }
+    
+    @objc private func ignoreTapped() {
+        ignoreClosure?()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,32 +85,26 @@ class QwantIntroScreenProtectionView: UIView {
     }
     
     private func initialViewSetup() {
-        backgroundColor = .Qwant.Theme.PaleGreen
-        titleLabel.textColor = .black
-        bulletContent1.textColor = .black
-        bulletContent2.textColor = .black
-        subtitleLabel.textColor = .black
-        startBrowsingButton.setTitleColor(.white, for: .normal)
-        startBrowsingButton.backgroundColor = .black
-        
-        addSubviews(imageView, titleLabel, bullet1, bullet2, bulletContent1, bulletContent2, subtitleLabel, startBrowsingButton)
+        addSubviews(imageView, ignoreButton, titleLabel, bullet1, bullet2, bulletContent1, bulletContent2, continueButton)
         
         imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         bulletContent1.setContentCompressionResistancePriority(.required, for: .vertical)
         bulletContent2.setContentCompressionResistancePriority(.required, for: .vertical)
-        subtitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: QwantUX.Spacing.l),
-            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xxxxl),
+            ignoreButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            ignoreButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
+            
+            imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: QwantUX.Spacing.l),
             titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
             titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             
-            bulletContent1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: QwantUX.Spacing.xl),
+            bulletContent1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: QwantUX.Spacing.m),
             bulletContent1.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
             bulletContent1.leadingAnchor.constraint(equalTo: bullet1.trailingAnchor, constant: QwantUX.Spacing.m),
             
@@ -117,17 +122,21 @@ class QwantIntroScreenProtectionView: UIView {
             bullet2.widthAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
             bullet2.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.bulletHeight),
             
-            subtitleLabel.topAnchor.constraint(equalTo: bulletContent2.bottomAnchor, constant: QwantUX.Spacing.xl),
-            subtitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
-            subtitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
-            
-            
-            startBrowsingButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: QwantUX.Spacing.xxxl),
-            startBrowsingButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
-            startBrowsingButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
-            startBrowsingButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight),
-            startBrowsingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.xxxl),
+            continueButton.topAnchor.constraint(greaterThanOrEqualTo: bulletContent2.bottomAnchor, constant: QwantUX.Spacing.xl),
+            continueButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: QwantUX.Spacing.xl),
+            continueButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -QwantUX.Spacing.xl),
+            continueButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -QwantUX.Spacing.xl),
+            continueButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.buttonHeight),
         ])
     }
-    
+
+    func applyTheme(theme: Theme) {
+        backgroundColor = theme.colors.onboarding_paleBlue
+        ignoreButton.setTitleColor(theme.colors.onboarding_blackText, for: .normal)
+        titleLabel.textColor = theme.colors.onboarding_blackText
+        bulletContent1.textColor = theme.colors.onboarding_blackText
+        bulletContent2.textColor = theme.colors.onboarding_blackText
+        continueButton.setTitleColor(theme.colors.onboarding_whiteText, for: .normal)
+        continueButton.backgroundColor = theme.colors.onboarding_blackText
+    }
 }

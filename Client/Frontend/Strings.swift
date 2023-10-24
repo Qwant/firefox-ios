@@ -5668,20 +5668,96 @@ extension String {
             comment: "Title of the Github row")
     }
     
-    public struct QwantIntro {
-        public static let WelcomeTitle = MZLocalizedString(key: "Qwant.Intro.Welcome.Title", tableName: "Intro", value: "Welcome to Qwant, dear anonymous", comment: "Title for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeSubtitle = MZLocalizedString(key: "Qwant.Intro.Welcome.Subtitle", tableName: "Intro", value: "Here, you can search in complete privacy:", comment: "Subtitle for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeBullet1 = MZLocalizedString(key: "Qwant.Intro.Welcome.Bullet1", tableName: "Intro", value: "0% tracking", comment: "Bullet point #1 for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeBullet2 = MZLocalizedString(key: "Qwant.Intro.Welcome.Bullet2", tableName: "Intro", value: "0% data storage", comment: "Bullet point #2 for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeBullet3 = MZLocalizedString(key: "Qwant.Intro.Welcome.Bullet3", tableName: "Intro", value: "0% targeted advertising", comment: "Bullet point #3 for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeDefaultBrowser = MZLocalizedString(key: "Qwant.Intro.Welcome.DefaultBrowser", tableName: "Intro", value: "Set as default browser", comment: "Button to invite the user to set Qwant as their default browser for the first panel 'Welcome' in the First Run tour.")
-        public static let WelcomeIgnore = MZLocalizedString(key: "Qwant.Intro.Welcome.Ignore", tableName: "Intro", value: "Ignore", comment: "Button to invite the user to go to the next screen for the first panel 'Welcome' in the First Run tour.")
-        
-        public static let ProtectionTitle = MZLocalizedString(key: "Qwant.Intro.Protection.Title", tableName: "Intro", value: "Surf protected on all websites", comment: "Title for the second panel 'Protection' in the First Run tour.")
-        public static let ProtectionBullet1 = MZLocalizedString(key: "Qwant.Intro.Protection.Bullet1", tableName: "Intro", value: "Blocking trackers, finally free!", comment: "Bullet point #1 for the second panel 'Protection' in the First Run tour.")
-        public static let ProtectionBullet2 = MZLocalizedString(key: "Qwant.Intro.Protection.Bullet2", tableName: "Intro", value: "Refuse cookies for you, no more intrusive banners!", comment: "Bullet point #2 for the second panel 'Protection' in the First Run tour.")
-        public static let ProtectionSubtitle = MZLocalizedString(key: "Qwant.Intro.Protection.Subtitle", tableName: "Intro", value: "Learn more about us and do your first search!", comment: "Subtitle for the second panel 'Protection' in the First Run tour.")
-        public static let ProtectionStartBrowsing = MZLocalizedString(key: "Qwant.Intro.Protection.StartBrowsing", tableName: "Intro", value: "Let's get started!", comment: "Button to invite the user to start browsing for the second panel 'Protection' in the First Run tour.")
+    public struct QwantOnboarding {
+        public static let IgnoreButtonTitle = MZLocalizedString(
+            key: "Qwant.Intro.General.Ignore",
+            tableName: "Qwant",
+            value: "Ignore",
+            comment: "Button to invite the user to ignore the onboarding of the First Run tour.")
+        public static let NextButtonTitle = MZLocalizedString(
+            key: "Qwant.Intro.General.Next",
+            tableName: "Qwant",
+            value: "Next",
+            comment: "Button to invite the user to go to the next screen for the first panel 'Welcome' in the First Run tour.")
+        public static let LetsGoButtonTitle = MZLocalizedString(
+            key: "Qwant.Intro.General.LetsGo",
+            tableName: "Qwant",
+            value: "Let's get started!",
+            comment: "Title of the Let's go button.")
+        public static let SettingsButtonTitle = MZLocalizedString(
+            key: "Qwant.Intro.General.Settings",
+            tableName: "Qwant",
+            value: "Open Settings",
+            comment: "Title of the settings button.")
+        public static let LaterButtonTitle = MZLocalizedString(
+            key: "Qwant.Intro.General.Later",
+            tableName: "Qwant",
+            value: "Later",
+            comment: "Title of the Later button.")
+        public static let WelcomeTitle = MZLocalizedString(
+            key: "Qwant.Intro.Welcome.Title",
+            tableName: "Qwant",
+            value: "Welcome to Qwant, dear unknown user",
+            comment: "Title for the first panel 'Welcome' in the First Run tour.")
+        public static let WelcomeSubtitle = MZLocalizedString(
+            key: "Qwant.Intro.Welcome.Subtitle",
+            tableName: "Qwant",
+            value: "Search in complete privacy:",
+            comment: "Subtitle for the first panel 'Welcome' in the First Run tour.")
+        public static let WelcomeBullet1 = MZLocalizedString(
+            key: "Qwant.Intro.Welcome.Bullet1",
+            tableName: "Qwant",
+            value: "**Zero** tracking of your searches",
+            comment: "Bullet point #1 for the first panel 'Welcome' in the First Run tour.")
+        public static let WelcomeBullet2 = MZLocalizedString(
+            key: "Qwant.Intro.Welcome.Bullet2",
+            tableName: "Qwant",
+            value: "**Zero** advertising tracking",
+            comment: "Bullet point #2 for the first panel 'Welcome' in the First Run tour.")
+        public static let WelcomeBullet3 = MZLocalizedString(
+            key: "Qwant.Intro.Welcome.Bullet3",
+            tableName: "Qwant",
+            value: "**Zero** sale of your personal data",
+            comment: "Bullet point #3 for the first panel 'Welcome' in the First Run tour.")
+        public static let QwantVIPTitle = MZLocalizedString(
+            key: "Qwant.Intro.QwantVIP.Title",
+            tableName: "Qwant",
+            value: "Surf safely on all websites with our Qwant VIPrivacy extension",
+            comment: "Title for the second panel 'Qwant VIP' in the First Run tour.")
+        public static let QwantVIPBullet1 = MZLocalizedString(
+            key: "Qwant.Intro.QwantVIP.Bullet1",
+            tableName: "Qwant",
+            value: "Fewer cookies, no more intrusive banners!",
+            comment: "Bullet point #1 for the second panel 'Qwant VIP' in the First Run tour.")
+        public static let QwantVIPBullet2 = MZLocalizedString(
+            key: "Qwant.Intro.QwantVIP.Bullet2",
+            tableName: "Qwant",
+            value: "Fewer trackers, finally free!",
+            comment: "Bullet point #2 for the second panel 'Qwant VIP' in the First Run tour.")
+        public static let DefaultBrowserTitle = MZLocalizedString(
+            key: "Qwant.Intro.DefaultBrowser.Title",
+            tableName: "Qwant",
+            value: "Choose Qwant as your default browser app",
+            comment: "Title for the third panel 'Default Browser' in the First Run tour.")
+        public static let DefaultBrowserSubtitle = MZLocalizedString(
+            key: "Qwant.Intro.DefaultBrowser.Subtitle",
+            tableName: "Qwant",
+            value: "All links you click on will automatically open in the Qwant app.",
+            comment: "Subtitle for the third panel 'Default Browser' in the First Run tour.")
+        public static let DefaultBrowserBullet1 = MZLocalizedString(
+            key: "Qwant.Intro.DefaultBrowser.Bullet1",
+            tableName: "Qwant",
+            value: "1. Open **Settings**",
+            comment: "Bullet point #1 for the third panel 'Default Browser' in the First Run tour.")
+        public static let DefaultBrowserBullet2 = MZLocalizedString(
+            key: "Qwant.Intro.DefaultBrowser.Bullet2",
+            tableName: "Qwant",
+            value: "2. Select **Default browser app**",
+            comment: "Bullet point #2 for the third panel 'Default Browser' in the First Run tour.")
+        public static let DefaultBrowserBullet3 = MZLocalizedString(
+            key: "Qwant.Intro.DefaultBrowser.Bullet3",
+            tableName: "Qwant",
+            value: "3. Select **Qwant**",
+            comment: "Bullet point #3 for the third panel 'Default Browser' in the First Run tour.")
     }
-    
 }

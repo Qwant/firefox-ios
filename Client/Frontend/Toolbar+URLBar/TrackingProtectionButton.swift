@@ -34,13 +34,13 @@ class TrackingProtectionButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setBadgeValue(value: Int) {
-        guard value > 0 else {
+    func setBadgeValue(value: String?) {
+        guard let value = value else {
             badgeLabel.isHidden = true
             return
         }
         badgeLabel.isHidden = false
-        badgeLabel.text = value < 100 ? String(describing: value) : "99+"
+        badgeLabel.text = value
     }
 
     func animateIfNeeded() {
