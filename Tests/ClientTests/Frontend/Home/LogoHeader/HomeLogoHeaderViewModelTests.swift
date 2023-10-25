@@ -21,12 +21,12 @@ class HomeLogoHeaderViewModelTests: XCTestCase, FeatureFlaggable {
         profile = nil
     }
 
-    func testDefaultHomepageViewModelProtocolValues() {
+    func testDefaultHomepageViewModelProtocolValues_qwantOverride() {
         let subject = createSubject()
         XCTAssertEqual(subject.sectionType, .logoHeader)
         XCTAssertEqual(subject.headerViewModel, LabelButtonHeaderViewModel.emptyHeader)
         XCTAssertEqual(subject.numberOfItemsInSection(), 1)
-        XCTAssertTrue(subject.isEnabled)
+        XCTAssertFalse(subject.isEnabled)
     }
 }
 

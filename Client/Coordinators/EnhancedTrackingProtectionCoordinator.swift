@@ -32,7 +32,7 @@ class EnhancedTrackingProtectionCoordinator: BaseCoordinator,
         let connectionSecure = tab?.webView?.hasOnlySecureContent ?? true
 
         let etpViewModel = QwantTPMenuVM(
-            tab: tab!,
+            tab: tab ?? Tab(profile: profile, configuration: WKWebViewConfiguration()),
             profile: profile,
             tabManager: tabManager,
             theme: themeManager.currentTheme)

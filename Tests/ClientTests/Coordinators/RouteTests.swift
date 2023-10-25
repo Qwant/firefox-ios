@@ -17,7 +17,7 @@ class RouteTests: XCTestCase {
 
     func testSearchRouteWithEncodedUrl() {
         let subject = createSubject()
-        let url = URL(string: "firefox://open-url?url=http%3A%2F%2Fgoogle.com%3Fa%3D1%26b%3D2%26c%3Dfoo%2520bar")!
+        let url = URL(string: "qwant://open-url?url=http%3A%2F%2Fgoogle.com%3Fa%3D1%26b%3D2%26c%3Dfoo%2520bar")!
 
         let route = subject.makeRoute(url: url)
 
@@ -26,7 +26,7 @@ class RouteTests: XCTestCase {
 
     func testSearchRouteWithPrivateFlag() {
         let subject = createSubject()
-        let url = URL(string: "firefox://open-url?private=true")!
+        let url = URL(string: "qwant://open-url?private=true")!
 
         let route = subject.makeRoute(url: url)
 
@@ -35,7 +35,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithClearPrivateData() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/clear-private-data")!
+        let url = URL(string: "qwant://deep-link?url=/settings/clear-private-data")!
 
         let route = subject.makeRoute(url: url)
 
@@ -44,7 +44,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithNewTab() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/newTab")!
+        let url = URL(string: "qwant://deep-link?url=/settings/newTab")!
 
         let route = subject.makeRoute(url: url)
 
@@ -53,7 +53,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithNewTabTrailingSlash() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/newTab/")!
+        let url = URL(string: "qwant://deep-link?url=/settings/newTab/")!
 
         let route = subject.makeRoute(url: url)
 
@@ -62,7 +62,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithHomePage() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/homePage")!
+        let url = URL(string: "qwant://deep-link?url=/settings/homePage")!
 
         let route = subject.makeRoute(url: url)
 
@@ -71,7 +71,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithMailto() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/mailto")!
+        let url = URL(string: "qwant://deep-link?url=/settings/mailto")!
 
         let route = subject.makeRoute(url: url)
 
@@ -80,7 +80,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithSearch() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/search")!
+        let url = URL(string: "qwant://deep-link?url=/settings/search")!
 
         let route = subject.makeRoute(url: url)
 
@@ -89,7 +89,7 @@ class RouteTests: XCTestCase {
 
     func testSettingsRouteWithFxa() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/settings/fxa")!
+        let url = URL(string: "qwant://deep-link?url=/settings/fxa")!
 
         let route = subject.makeRoute(url: url)
 
@@ -98,7 +98,7 @@ class RouteTests: XCTestCase {
 
     func testHomepanelRouteWithBookmarks() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/homepanel/bookmarks")!
+        let url = URL(string: "qwant://deep-link?url=/homepanel/bookmarks")!
 
         let route = subject.makeRoute(url: url)
 
@@ -107,7 +107,7 @@ class RouteTests: XCTestCase {
 
     func testHomepanelRouteWithTopSites() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/homepanel/top-sites")!
+        let url = URL(string: "qwant://deep-link?url=/homepanel/top-sites")!
 
         let route = subject.makeRoute(url: url)
 
@@ -116,7 +116,7 @@ class RouteTests: XCTestCase {
 
     func testHomepanelRouteWithHistory() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/homepanel/history")!
+        let url = URL(string: "qwant://deep-link?url=/homepanel/history")!
 
         let route = subject.makeRoute(url: url)
 
@@ -125,7 +125,7 @@ class RouteTests: XCTestCase {
 
     func testHomepanelRouteWithReadingList() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/homepanel/reading-list")!
+        let url = URL(string: "qwant://deep-link?url=/homepanel/reading-list")!
 
         let route = subject.makeRoute(url: url)
 
@@ -134,7 +134,7 @@ class RouteTests: XCTestCase {
 
     func testDefaultBrowserRouteWithTutorial() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/default-browser/tutorial")!
+        let url = URL(string: "qwant://deep-link?url=/default-browser/tutorial")!
 
         let route = subject.makeRoute(url: url)
 
@@ -143,7 +143,7 @@ class RouteTests: XCTestCase {
 
     func testDefaultBrowserRouteWithSystemSettings() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/default-browser/system-settings")!
+        let url = URL(string: "qwant://deep-link?url=/default-browser/system-settings")!
 
         let route = subject.makeRoute(url: url)
 
@@ -152,7 +152,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidRouteWithBadPath() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/homepanel/badbad")!
+        let url = URL(string: "qwant://deep-link?url=/homepanel/badbad")!
 
         let route = subject.makeRoute(url: url)
 
@@ -161,7 +161,7 @@ class RouteTests: XCTestCase {
 
     func testFxaSignInrouteBuilderRoute() {
         let subject = createSubject()
-        let url = URL(string: "firefox://fxa-signin?signin=coolcodes&user=foo&email=bar")!
+        let url = URL(string: "qwant://fxa-signin?signin=coolcodes&user=foo&email=bar")!
 
         let route = subject.makeRoute(url: url)
 
@@ -181,7 +181,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidDeepLink() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-links-are-fun?url=/settings/newTab/")!
+        let url = URL(string: "qwant://deep-links-are-fun?url=/settings/newTab/")!
 
         let route = subject.makeRoute(url: url)
 
@@ -190,7 +190,7 @@ class RouteTests: XCTestCase {
 
     func testWidgetMediumTopSitesOpenUrl() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-medium-topsites-open-url?url=https://google.com")!
+        let url = URL(string: "qwant://widget-medium-topsites-open-url?url=https://google.com")!
 
         let route = subject.makeRoute(url: url)
 
@@ -199,7 +199,7 @@ class RouteTests: XCTestCase {
 
     func testWidgetSmallQuicklinkOpenUrlWithPrivateFlag() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-small-quicklink-open-url?private=true&url=https://google.com")!
+        let url = URL(string: "qwant://widget-small-quicklink-open-url?private=true&url=https://google.com")!
 
         let route = subject.makeRoute(url: url)
 
@@ -208,7 +208,7 @@ class RouteTests: XCTestCase {
 
     func testWidgetMediumQuicklinkOpenUrlWithoutPrivateFlag() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-medium-quicklink-open-url?url=https://google.com")!
+        let url = URL(string: "qwant://widget-medium-quicklink-open-url?url=https://google.com")!
 
         let route = subject.makeRoute(url: url)
 
@@ -218,7 +218,7 @@ class RouteTests: XCTestCase {
     func testWidgetSmallQuicklinkOpenCopied() {
         let subject = createSubject()
         UIPasteboard.general.string = "test search text"
-        let url = URL(string: "firefox://widget-small-quicklink-open-copied")!
+        let url = URL(string: "qwant://widget-small-quicklink-open-copied")!
 
         let route = subject.makeRoute(url: url)
 
@@ -228,7 +228,7 @@ class RouteTests: XCTestCase {
     func testWidgetSmallQuicklinkOpenCopiedWithUrl() {
         let subject = createSubject()
         UIPasteboard.general.url = URL(string: "https://google.com")
-        let url = URL(string: "firefox://widget-small-quicklink-open-copied")!
+        let url = URL(string: "qwant://widget-small-quicklink-open-copied")!
 
         let route = subject.makeRoute(url: url)
 
@@ -237,7 +237,7 @@ class RouteTests: XCTestCase {
 
     func testWidgetSmallQuicklinkClosePrivateTabs() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-small-quicklink-close-private-tabs")!
+        let url = URL(string: "qwant://widget-small-quicklink-close-private-tabs")!
 
         let route = subject.makeRoute(url: url)
 
@@ -246,7 +246,7 @@ class RouteTests: XCTestCase {
 
     func testWidgetMediumQuicklinkClosePrivateTabs() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-medium-quicklink-close-private-tabs")!
+        let url = URL(string: "qwant://widget-medium-quicklink-close-private-tabs")!
 
         let route = subject.makeRoute(url: url)
 
@@ -264,7 +264,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidHost() {
         let subject = createSubject()
-        let url = URL(string: "firefox://")!
+        let url = URL(string: "qwant://")!
 
         let route = subject.makeRoute(url: url)
 
@@ -273,7 +273,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidDeepLinking() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/invalid-path")!
+        let url = URL(string: "qwant://deep-link?url=/invalid-path")!
 
         let route = subject.makeRoute(url: url)
 
@@ -282,7 +282,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidWidgetTabUuid() {
         let subject = createSubject()
-        let url = URL(string: "firefox://widget-tabs-medium-open-url?uuid=invalid")!
+        let url = URL(string: "qwant://widget-tabs-medium-open-url?uuid=invalid")!
 
         let route = subject.makeRoute(url: url)
 
@@ -291,7 +291,7 @@ class RouteTests: XCTestCase {
 
     func testInvalidFxaSignIn() {
         let subject = createSubject()
-        let url = URL(string: "firefox://fxa-signin")!
+        let url = URL(string: "qwant://fxa-signin")!
 
         let route = subject.makeRoute(url: url)
 
@@ -300,7 +300,7 @@ class RouteTests: XCTestCase {
 
     func testOpenText() {
         let subject = createSubject()
-        let url = URL(string: "firefox://open-text?text=google")!
+        let url = URL(string: "qwant://open-text?text=google")!
 
         let route = subject.makeRoute(url: url)
 
@@ -311,7 +311,7 @@ class RouteTests: XCTestCase {
 
     func testAppAction_showIntroOnboarding() {
         let subject = createSubject()
-        let url = URL(string: "firefox://deep-link?url=/action/show-intro-onboarding")!
+        let url = URL(string: "qwant://deep-link?url=/action/show-intro-onboarding")!
 
         let route = subject.makeRoute(url: url)
 

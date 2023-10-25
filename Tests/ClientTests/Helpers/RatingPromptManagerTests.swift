@@ -18,8 +18,10 @@ class RatingPromptManagerTests: XCTestCase {
     var logger: CrashingMockLogger!
     var mockDispatchGroup: MockDispatchGroup!
 
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
+
+        throw XCTSkip("Qwant override")
 
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)

@@ -53,7 +53,7 @@ final class SceneCoordinatorTests: XCTestCase {
         let subject = createSubject()
         subject.launchWith(launchType: .intro(manager: IntroScreenManager(prefs: MockProfile().prefs)))
 
-        XCTAssertEqual(subject.childCoordinators.count, 1)
+        XCTAssertEqual(subject.childCoordinators.count, 2)
         XCTAssertNotNil(subject.childCoordinators[0] as? LaunchCoordinator)
     }
 
@@ -129,7 +129,7 @@ final class SceneCoordinatorTests: XCTestCase {
         let result = subject.handle(route: .action(action: .showIntroOnboarding))
 
         XCTAssertTrue(result)
-        XCTAssertEqual(subject.childCoordinators.count, 1)
+        XCTAssertEqual(subject.childCoordinators.count, 2)
         XCTAssertNotNil(subject.childCoordinators[0] as? LaunchCoordinator)
     }
 

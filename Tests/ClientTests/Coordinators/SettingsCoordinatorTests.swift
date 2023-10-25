@@ -137,7 +137,7 @@ final class SettingsCoordinatorTests: XCTestCase {
         subject.start(with: .contentBlocker)
 
         XCTAssertEqual(mockRouter.pushCalled, 1)
-        XCTAssertTrue(mockRouter.pushedViewController is ContentBlockerSettingViewController)
+        XCTAssertTrue(mockRouter.pushedViewController is QwantContentBlockerSettingViewController)
     }
 
     func testTabsSettingsRoute_showsTabsSettingsPage() throws {
@@ -408,7 +408,7 @@ final class SettingsCoordinatorTests: XCTestCase {
         subject.pressedContentBlocker()
 
         XCTAssertEqual(mockRouter.pushCalled, 1)
-        XCTAssertTrue(mockRouter.pushedViewController is ContentBlockerSettingViewController)
+        XCTAssertTrue(mockRouter.pushedViewController is QwantContentBlockerSettingViewController)
     }
 
     func testPrivacySettingsDelegate_handlePasswordRoute() {

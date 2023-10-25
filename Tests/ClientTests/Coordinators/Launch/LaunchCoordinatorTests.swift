@@ -45,7 +45,7 @@ final class LaunchCoordinatorTests: XCTestCase {
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
         let presentedViewController = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(presentedViewController as? IntroViewController)
+        XCTAssertNotNil(presentedViewController as? QwantIntroViewController)
     }
 
     func testStart_introIsIphone_setRootView() throws {
@@ -56,7 +56,7 @@ final class LaunchCoordinatorTests: XCTestCase {
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
         let pushedVC = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(pushedVC as? IntroViewController)
+        XCTAssertNotNil(pushedVC as? QwantIntroViewController)
     }
 
     // MARK: - Update
@@ -98,7 +98,7 @@ final class LaunchCoordinatorTests: XCTestCase {
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
         let presentedViewController = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(presentedViewController as? QwantDefaultBrowserOnboardingViewController)
     }
 
     // MARK: - Survey
@@ -122,10 +122,10 @@ final class LaunchCoordinatorTests: XCTestCase {
         let subject = createSubject(isIphone: false)
         subject.start(with: .survey(manager: manager))
 
-        XCTAssertEqual(mockRouter.presentCalled, 1)
+        XCTAssertEqual(mockRouter.presentCalled, 0)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
-        let pushedVC = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(pushedVC as? SurveySurfaceViewController)
+//        let pushedVC = try XCTUnwrap(mockRouter.presentedViewController)
+        XCTAssertNil(mockRouter.presentedViewController as? SurveySurfaceViewController)
     }
 
     // MARK: - QRCodeNavigationHandler
@@ -161,8 +161,8 @@ final class LaunchCoordinatorTests: XCTestCase {
         let subject = createSubject(isIphone: false)
         subject.start(with: .survey(manager: manager))
 
-        let presentedVC = try XCTUnwrap(mockRouter.presentedViewController as? SurveySurfaceViewController)
-        XCTAssertNotNil(presentedVC.delegate)
+//        let presentedVC = try XCTUnwrap(mockRouter.presentedViewController as? SurveySurfaceViewController)
+        XCTAssertNil((mockRouter.presentedViewController as? SurveySurfaceViewController)?.delegate)
     }
 
     func testDidFinish_fromSurveySurfaceViewControllerDelegate() {

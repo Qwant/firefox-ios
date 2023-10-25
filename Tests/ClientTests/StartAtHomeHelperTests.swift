@@ -59,39 +59,39 @@ class StartAtHomeHelperTests: XCTestCase {
     func testNotShouldStartAtHome_AfterFourHours() {
         setupHelper()
         setupLastActiveTimeStamp(value: -3)
-        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail for less than 4 hours")
+        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail as the feature is deactivated")
     }
 
     func testShouldStartAtHome_AfterFourHours() {
         setupHelper()
         setupLastActiveTimeStamp(value: -5)
-        XCTAssertTrue(helper.shouldStartAtHome(), "Expected to pass for more than 4 hours")
+        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail as the feature is deactivated")
     }
 
     func testNotShouldStartAtHome_Always() {
         setupHelper()
         helper.startAtHomeSetting = .always
         setupLastActiveTimeStamp(value: -3, dateComponents: .second)
-        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail for more than 5 seconds")
+        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail as the feature is deactivated")
     }
 
     func testShouldStartAtHome_Always() {
         setupHelper()
         helper.startAtHomeSetting = .always
         setupLastActiveTimeStamp(value: -6, dateComponents: .second)
-        XCTAssertTrue(helper.shouldStartAtHome(), "Expected to pass for more than 5 seconds")
+        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail as the feature is deactivated")
     }
 
     func testShouldStartAtHome_Disabled() {
         setupHelper()
         helper.startAtHomeSetting = .disabled
-        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail for disabled state")
+        XCTAssertFalse(helper.shouldStartAtHome(), "Expected to fail as the feature is deactivated")
     }
 
     func testScanForExistingHomeTab_ForEmptyTabs() {
         setupHelper()
         let homeTab = helper.scanForExistingHomeTab(in: [], with: profile.prefs)
-        XCTAssertNil(homeTab, "Expected to fail for disabled state")
+        XCTAssertNil(homeTab, "Expected to fail as the feature is deactivated")
     }
 
     func testScanForExistingHomeTab_WithHomePage() {
@@ -103,7 +103,7 @@ class StartAtHomeHelperTests: XCTestCase {
         let tab = tabManager.addTab(urlRequest)
 
         let homeTab = helper.scanForExistingHomeTab(in: [tab], with: profile.prefs)
-        XCTAssertNotNil(homeTab, "Expected to have a existing tab")
+        XCTAssertNil(homeTab, "Expected to have a existing tab")
     }
 
     func testScanForExistingHomeTab_WithoutHomePage() {

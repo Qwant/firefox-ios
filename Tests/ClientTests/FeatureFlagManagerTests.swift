@@ -23,9 +23,9 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         let mockDataSetting = featureFlags.isCoreFeatureEnabled(.useMockData)
         let contileAPISetting = featureFlags.isCoreFeatureEnabled(.useStagingContileAPI)
 
-        XCTAssertFalse(adjustSetting)
-        XCTAssertTrue(mockDataSetting)
-        XCTAssertTrue(contileAPISetting)
+        XCTAssertTrue(adjustSetting) // Qwant: Activated
+        XCTAssertFalse(mockDataSetting) // Qwant: Deactivated
+        XCTAssertFalse(contileAPISetting) // Qwant: Deactivated
     }
 
     func testDefaultNimbusBoolFlags() {
@@ -42,15 +42,15 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         XCTAssertTrue(featureFlags.isFeatureEnabled(.inactiveTabs, checking: .userOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.jumpBackIn, checking: .buildOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.jumpBackIn, checking: .userOnly))
-        XCTAssertTrue(featureFlags.isFeatureEnabled(.reportSiteIssue, checking: .buildOnly))
-        XCTAssertTrue(featureFlags.isFeatureEnabled(.reportSiteIssue, checking: .userOnly))
+        XCTAssertFalse(featureFlags.isFeatureEnabled(.reportSiteIssue, checking: .buildOnly)) // Qwant: Deactivated
+        XCTAssertFalse(featureFlags.isFeatureEnabled(.reportSiteIssue, checking: .userOnly)) // Qwant: Deactivated
         XCTAssertTrue(featureFlags.isFeatureEnabled(.topSites, checking: .buildOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.topSites, checking: .userOnly))
-        XCTAssertTrue(featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly))
+        XCTAssertFalse(featureFlags.isFeatureEnabled(.wallpapers, checking: .buildOnly)) // Qwant: Deactivated
     }
 
     func testDefaultNimbusCustomFlags() {
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom) // Qwant: .bottom
         XCTAssertEqual(featureFlags.getCustomState(for: .wallpaperVersion), WallpaperVersion.v1)
     }
 
@@ -78,10 +78,10 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         LegacyFeatureFlagsManager.shared.initializeDeveloperFeatures(with: mockProfile)
 
         // Search Bar position
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        mockProfile.prefs.setString(SearchBarPosition.bottom.rawValue,
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom) // Qwant: .bottom
+        mockProfile.prefs.setString(SearchBarPosition.top.rawValue,
                                     forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
     }
 
     func testManagerInterfaceForUpdatingBoolFlags() {
@@ -94,8 +94,8 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
 
     func testManagerInterfaceForUpdatingCustomFlags() {
         // Search Bar
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom) // Qwant: .bottom
+        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.top)
         XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.bottom)
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
     }
 }

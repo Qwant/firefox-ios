@@ -29,7 +29,8 @@ class FirefoxHomeViewModelTests: XCTestCase {
 
     // MARK: Number of sections
 
-    func testNumberOfSection_withoutUpdatingData_has2Sections() {
+    func testNumberOfSection_withoutUpdatingData_has3Sections() throws {
+        throw XCTSkip("See Qwant update")
         let viewModel = HomepageViewModel(profile: profile,
                                           isPrivate: false,
                                           tabManager: MockTabManager(),
@@ -37,5 +38,14 @@ class FirefoxHomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.shownSections.count, 2)
         XCTAssertEqual(viewModel.shownSections[0], HomepageSectionType.logoHeader)
         XCTAssertEqual(viewModel.shownSections[1], HomepageSectionType.customizeHome)
+    }
+    
+    func testNumberOfSection_withoutUpdatingData_has3Sections_qwantUpdate() {
+        let viewModel = HomepageViewModel(profile: profile,
+                                          isPrivate: false,
+                                          tabManager: MockTabManager(),
+                                          theme: LightTheme())
+        XCTAssertEqual(viewModel.shownSections.count, 1)
+        XCTAssertEqual(viewModel.shownSections[0], HomepageSectionType.customizeHome)
     }
 }
