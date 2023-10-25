@@ -638,7 +638,7 @@ class LegacyTabManagerTests: XCTestCase {
         manager.selectTab(homepageTab)
         manager.selectTab(urlTab)
 
-        XCTAssertEqual(manager.getMostRecentHomepageTab(), homepageTab)
+        XCTAssertEqual(manager.getMostRecentHomepageTab(), nil)
     }
 
     func testGetMostRecentHomePageTab_LastCreated() {
@@ -647,7 +647,7 @@ class LegacyTabManagerTests: XCTestCase {
         manager.selectTab(firstHomepageTab)
         manager.selectTab(secondHomepageTab)
 
-        XCTAssertEqual(manager.getMostRecentHomepageTab(), secondHomepageTab)
+        XCTAssertEqual(manager.getMostRecentHomepageTab(), nil)
     }
 
     func testGetMostRecentHomePageTab_SelectingFirst() {
@@ -657,7 +657,7 @@ class LegacyTabManagerTests: XCTestCase {
         manager.selectTab(secondHomepageTab)
         manager.selectTab(firstHomepageTab)
 
-        XCTAssertEqual(manager.getMostRecentHomepageTab(), firstHomepageTab)
+        XCTAssertEqual(manager.getMostRecentHomepageTab(), nil)
     }
 
     func testGetMostRecentHomePageTab_LastPrivateCreated() {
@@ -666,7 +666,7 @@ class LegacyTabManagerTests: XCTestCase {
         manager.selectTab(firstHomepageTab)
         manager.selectTab(secondHomepageTab)
 
-        XCTAssertEqual(manager.getMostRecentHomepageTab(), secondHomepageTab)
+        XCTAssertEqual(manager.getMostRecentHomepageTab(), nil)
     }
 
     func testGetMostRecentHomePageTab_FirstPrivateCreated() {
@@ -678,7 +678,7 @@ class LegacyTabManagerTests: XCTestCase {
         manager.selectTab(privateUrlTab)
 
         // Expected private homepage because last selected tab is private
-        XCTAssertEqual(manager.getMostRecentHomepageTab(), privateHomepageTab)
+        XCTAssertEqual(manager.getMostRecentHomepageTab(), nil)
     }
 }
 

@@ -7,6 +7,7 @@ import StoreKit
 import Shared
 import Sentry
 import Storage
+import Common
 
 @testable import Client
 
@@ -14,22 +15,28 @@ class QwantRatingPromptManagerTests: XCTestCase {
     
     var urlOpenerSpy: URLOpenerSpy!
     var promptManager: QwantRatingPromptManager!
+    var mockProfile: MockProfile!
     var createdGuids: [String] = []
-    var sentry: CrashingMockSentryClient!
+    var logger: CrashingMockLogger!
     
     override func setUp() {
         super.setUp()
-        
+
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
         urlOpenerSpy = URLOpenerSpy()
     }
     
     override func tearDown() {
         super.tearDown()
-        
+
         createdGuids = []
         promptManager?.reset()
         promptManager = nil
-        sentry = nil
+        mockProfile?.shutdown()
+        mockProfile = nil
+        logger = nil
         urlOpenerSpy = nil
     }
     
@@ -65,9 +72,9 @@ class QwantRatingPromptManagerTests: XCTestCase {
         XCTAssertEqual(ratingPromptOpenCount, 0)
     }
     
-    func testShouldShowPrompt_sentryHasCrashedInLastSession_returnsFalse() {
+    func testShouldShowPrompt_loggerHasCrashedInLastSession_returnsFalse() {
         setupEnvironment()
-        sentry?.enableCrashOnLastLaunch = true
+        logger?.enableCrashOnLastLaunch = true
         promptManager.showRatingPromptIfNeeded()
         XCTAssertEqual(ratingPromptOpenCount, 0)
     }
@@ -119,11 +126,11 @@ private extension QwantRatingPromptManagerTests {
         let mockCumulativeDaysOfUseCounter = QwantCumulativeDaysOfUseCounterMock(hasCumulativeDaysOfUse)
         let mockUsesInDayCounter = QwantUsesInDayCounterMock(hasUsesInDay)
         let mockDaysAfterInstallCounter = QwantDaysAfterInstallCounterMock(hasDaysAfterInstall)
-        sentry = CrashingMockSentryClient()
+        logger = CrashingMockLogger()
         promptManager = QwantRatingPromptManager(daysOfUseCounter: mockCumulativeDaysOfUseCounter,
                                                  usesInDayCounter: mockUsesInDayCounter,
                                                  daysAfterInstallCounter: mockDaysAfterInstallCounter,
-                                                 sentry: sentry)
+                                                 logger: logger)
     }
     
     var ratingPromptOpenCount: Int {

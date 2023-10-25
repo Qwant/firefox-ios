@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Client.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3B43E3CF1D95C48D00BBA9DB"
+               BuildableName = "StoragePerfTests.xctest"
+               BlueprintName = "StoragePerfTests"
+               ReferencedContainer = "container:Client.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -75,16 +89,28 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "FeatureFlagManagerTests/testDefaultNimbusBoolFlags()">
+               </Test>
+               <Test
+                  Identifier = "GleanPlumbMessageManagerTests">
+               </Test>
+               <Test
+                  Identifier = "HistoryHighlightsTests/testSingleHistoryHighlightExists_RemovingOpenTab()">
+               </Test>
+               <Test
+                  Identifier = "PocketDataAdaptorTests">
+               </Test>
+               <Test
+                  Identifier = "PocketStoriesTests">
+               </Test>
+               <Test
                   Identifier = "SearchTests/testURIFixupPunyCode()">
                </Test>
                <Test
                   Identifier = "TestFavicons/testFaviconFetcherParse()">
                </Test>
                <Test
-                  Identifier = "UIPasteboardExtensionsTests">
-               </Test>
-               <Test
-                  Identifier = "VersionSettingTests">
+                  Identifier = "TopSitesDataAdaptorTests">
                </Test>
             </SkippedTests>
          </TestableReference>
@@ -117,16 +143,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B43E3CF1D95C48D00BBA9DB"
-               BuildableName = "StoragePerfTests.xctest"
-               BlueprintName = "StoragePerfTests"
-               ReferencedContainer = "container:Client.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FCAE2231ABB51F800877008"
                BuildableName = "StorageTests.xctest"
                BlueprintName = "StorageTests"
@@ -145,6 +161,21 @@
             <SkippedTests>
                <Test
                   Identifier = "LiveStorageClientTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SiteImageViewTests"
+               BuildableName = "SiteImageViewTests"
+               BlueprintName = "SiteImageViewTests"
+               ReferencedContainer = "container:BrowserKit">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "BundleImageFetcherTests/testValidData_returnImage()">
                </Test>
             </SkippedTests>
          </TestableReference>

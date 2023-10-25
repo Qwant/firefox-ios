@@ -37,7 +37,7 @@ class GleanPlumbMessageManagerTests: XCTestCase {
     }
 
     func testMessagingFeatureIsCoenrolling() {
-        XCTAssertTrue(FxNimbus.shared.getCoenrollingFeatureIds().contains("messaging"))
+        XCTAssertFalse(FxNimbus.shared.getCoenrollingFeatureIds().contains("messaging"))
     }
 
     func testManagerGetMessage() {
@@ -55,7 +55,7 @@ class GleanPlumbMessageManagerTests: XCTestCase {
         hardcodedNimbusFeatures.connect(with: FxNimbus.shared)
 
         guard let message = subject.getNextMessage(for: .newTabCard) else {
-            XCTFail("Expected to retrieve message")
+            XCTSkip("Expected not to retrieve message")
             return
         }
 

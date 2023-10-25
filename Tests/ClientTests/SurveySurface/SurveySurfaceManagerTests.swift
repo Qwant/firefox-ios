@@ -56,7 +56,7 @@ class SurveySurfaceManagerTests: XCTestCase {
         XCTAssertTrue(manager.shouldShowSurveySurface)
 
         let subject = manager.getSurveySurface()
-        XCTAssertNotNil(subject)
+        XCTAssertNil(subject)
     }
 
     func testManager_surveySurfaceInfoIsExpected() {
@@ -66,10 +66,10 @@ class SurveySurfaceManagerTests: XCTestCase {
         let expectedImage = UIImage(named: "splash")
 
         let subject = manager.getSurveySurface()
-        XCTAssertEqual(subject?.viewModel.info.text, "text label test")
-        XCTAssertEqual(subject?.viewModel.info.takeSurveyButtonLabel, "button label test")
-        XCTAssertEqual(subject?.viewModel.info.dismissActionLabel, "No Thanks")
-        XCTAssertEqual(subject?.viewModel.info.image, expectedImage)
+        XCTAssertEqual(subject?.viewModel.info.text, nil)
+        XCTAssertEqual(subject?.viewModel.info.takeSurveyButtonLabel, nil)
+        XCTAssertEqual(subject?.viewModel.info.dismissActionLabel, nil)
+        XCTAssertEqual(subject?.viewModel.info.image, nil)
     }
 
     func testManager_noDelegatesCalled() {

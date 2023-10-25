@@ -53,7 +53,7 @@ final class ShortcutRouteTests: XCTestCase {
 
         let route = subject.makeRoute(shortcutItem: shortcutItem, tabSetting: .blankPage)
 
-        XCTAssertNil(route)
+        XCTAssertNotNil(route)
     }
 
     func testQRCodeShortcut() {

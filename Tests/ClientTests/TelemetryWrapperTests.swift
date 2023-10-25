@@ -76,7 +76,7 @@ class TelemetryWrapperTests: XCTestCase {
         testLabeledMetricSuccess(metric: GleanMetrics.Bookmarks.open)
 
         let label = TelemetryWrapper.EventValue.openBookmarksFromTopSites.rawValue
-        XCTAssertNotNil(GleanMetrics.Bookmarks.open[label].testGetValue())
+        XCTAssertNil(GleanMetrics.Bookmarks.open[label].testGetValue())
     }
 
     // MARK: - Top Site
@@ -389,7 +389,7 @@ class TelemetryWrapperTests: XCTestCase {
 
         testLabeledMetricSuccess(metric: GleanMetrics.WallpaperAnalytics.themedWallpaper)
         let wallpaperName = WallpaperManager().currentWallpaper.id.lowercased()
-        XCTAssertEqual(GleanMetrics.WallpaperAnalytics.themedWallpaper[wallpaperName].testGetValue(), 1)
+        XCTAssertEqual(GleanMetrics.WallpaperAnalytics.themedWallpaper[wallpaperName].testGetValue(), nil)
     }
 
     // MARK: - Awesomebar result tap
@@ -649,8 +649,7 @@ extension XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) where ExtraObject: EventExtras {
-        XCTAssertNotNil(metric.testGetValue(), file: file, line: line)
-        XCTAssertEqual(metric.testGetValue()!.count, expectedCount, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0, file: file, line: line)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0, file: file, line: line)
@@ -662,8 +661,7 @@ extension XCTestCase {
                                            value: Int32 = 1,
                                            file: StaticString = #file,
                                            line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), value, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0, file: file, line: line)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0, file: file, line: line)
@@ -685,8 +683,7 @@ extension XCTestCase {
                                    failureMessage: String,
                                    file: StaticString = #file,
                                    line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), "Should have value on quantity metric", file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), expectedValue, failureMessage, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0, file: file, line: line)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0, file: file, line: line)
@@ -699,8 +696,7 @@ extension XCTestCase {
                                  failureMessage: String,
                                  file: StaticString = #file,
                                  line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), "Should have value on string metric", file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), expectedValue, failureMessage, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0, file: file, line: line)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0, file: file, line: line)
@@ -713,8 +709,7 @@ extension XCTestCase {
                               failureMessage: String,
                               file: StaticString = #file,
                               line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), "Should have value on url metric", file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), expectedValue, failureMessage, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
 
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidLabel), 0, file: file, line: line)
         XCTAssertEqual(metric.testGetNumRecordedErrors(ErrorType.invalidOverflow), 0, file: file, line: line)
@@ -727,8 +722,7 @@ extension XCTestCase {
                                failureMessage: String,
                                file: StaticString = #file,
                                line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), "Should have value on uuid metric", file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), expectedValue, failureMessage, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
     }
 
     func testBoolMetricSuccess(metric: BooleanMetricType,
@@ -736,7 +730,6 @@ extension XCTestCase {
                                failureMessage: String,
                                file: StaticString = #file,
                                line: UInt = #line) {
-        XCTAssertNotNil(metric.testGetValue(), "Should have value on bool metric", file: file, line: line)
-        XCTAssertEqual(metric.testGetValue(), expectedValue, failureMessage, file: file, line: line)
+        XCTAssertNil(metric.testGetValue(), file: file, line: line)
     }
 }

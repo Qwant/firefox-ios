@@ -62,7 +62,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 5, "Contains 5 default sites")
+            XCTAssertEqual(sites.count, 3, "Contains 3 default sites")
             expectation.fulfill()
         }
 
@@ -78,7 +78,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 7, "Contains 5 default sites and two pinned sites")
+            XCTAssertEqual(sites.count, 5, "Contains 3 default sites and two pinned sites")
             expectation.fulfill()
         }
 
@@ -97,7 +97,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 7, "Contains 5 default sites and 2 frecency sites")
+            XCTAssertEqual(sites.count, 5, "Contains 3 default sites and 2 frecency sites")
             expectation.fulfill()
         }
 
@@ -115,7 +115,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 7, "Contains 5 default sites and 2 frecency sites, no sponsored urls")
+            XCTAssertEqual(sites.count, 5, "Contains 3 default sites and 2 frecency sites, no sponsored urls")
             expectation.fulfill()
         }
 
@@ -133,7 +133,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 7, "Contains 5 default sites and 2 frecency sites, no frecency duplicates")
+            XCTAssertEqual(sites.count, 5, "Contains 3 default sites and 2 frecency sites, no frecency duplicates")
             expectation.fulfill()
         }
 
@@ -150,7 +150,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 5, "Contains only 5 default sites, no duplicates of defaults sites")
+            XCTAssertEqual(sites.count, 4, "Contains only 3 default sites, no duplicates of defaults sites")
             expectation.fulfill()
         }
 
@@ -166,7 +166,7 @@ class TopSitesHelperTests: XCTestCase {
                 XCTFail("Has no sites")
                 return
             }
-            XCTAssertEqual(sites.count, 5, "Contains only 4 default sites, and "
+            XCTAssertEqual(sites.count, 4, "Contains only 3 default sites, and "
                            + "one pinned site that replaced the default site")
             expectation.fulfill()
         }

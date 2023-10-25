@@ -9,7 +9,35 @@ import XCTest
 @testable import Client
 
 class SearchTests: XCTestCase {
-    func testParsing() {
+    func testParsing() throws {
+        throw XCTSkip("Deleted google search plugin")
+
+        let parser = OpenSearchParser(pluginMode: true)
+        let file = Bundle.main.path(forResource: "google-b-m", ofType: "xml", inDirectory: "SearchPlugins/")
+        let engine: OpenSearchEngine! = parser.parse(file!, engineID: "google-b-m")
+        XCTAssertEqual(engine.shortName, "Google")
+
+        // Test regular search queries.
+        XCTAssertEqual(engine.searchURLForQuery("foobar")!.absoluteString, "https://www.google.com/search?q=foobar&ie=utf-8&oe=utf-8&client=firefox-b-m")
+
+        // Test search suggestion queries.
+        XCTAssertEqual(engine.suggestURLForQuery("foobar")!.absoluteString, "https://www.google.com/complete/search?client=firefox&q=foobar")
+    }
+
+    func testParsing_qwant() {
+        let parser = OpenSearchParser(pluginMode: true)
+        let file = Bundle.main.path(forResource: "qwant", ofType: "xml", inDirectory: "SearchPlugins/")
+        let engine: OpenSearchEngine! = parser.parse(file!, engineID: "qwant")
+        XCTAssertEqual(engine.shortName, "Qwant")
+
+        // Test regular search queries.
+        XCTAssertEqual(engine.searchURLForQuery("foobar")!.absoluteString, "https://www.qwant.com/?q=foobar&client=qwantbrowser")
+
+        // Test search suggestion queries.
+        XCTAssertEqual(engine.suggestURLForQuery("foobar")!.absoluteString, "https://api.qwant.com/api/suggest/?q=foobar&client=opensearch")
+    }
+
+    func testParsing_qwantJunior() {
         let parser = OpenSearchParser(pluginMode: true)
         let file = Bundle.main.path(forResource: "qwant-junior", ofType: "xml", inDirectory: "SearchPlugins/")
         let engine: OpenSearchEngine! = parser.parse(file!, engineID: "qwantjunior")
@@ -98,7 +126,45 @@ class SearchTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testExtractingOfSearchTermsFromURL() {
+    func testExtractingOfSearchTermsFromURL() throws {
+        throw XCTSkip("Deleted google search plugin")
+
+        let parser = OpenSearchParser(pluginMode: true)
+        var file = Bundle.main.path(forResource: "google-b-m", ofType: "xml", inDirectory: "SearchPlugins/")!
+        let googleEngine: OpenSearchEngine! = parser.parse(file, engineID: "google")
+
+        // create URL
+        let searchTerm = "Foo Bar"
+        let encodedSeachTerm = searchTerm.replacingOccurrences(of: " ", with: "+")
+        let googleSearchURL = URL(string: "https://www.google.com/search?q=\(encodedSeachTerm)&ie=utf-8&oe=utf-8&gws_rd=cr&ei=I0UyVp_qK4HtUoytjagM")
+        let duckDuckGoSearchURL = URL(string: "https://duckduckgo.com/?q=\(encodedSeachTerm)&ia=about")
+        let invalidSearchURL = URL(string: "https://www.google.co.uk")
+        let yaaniSearchURL = URL(string: "https://tr.yaani.com.tr/?src=1#q=\(encodedSeachTerm)")
+
+        // check it correctly matches google search term given google config
+        XCTAssertEqual(searchTerm, googleEngine.queryForSearchURL(googleSearchURL))
+
+        // check it doesn't match when the URL is not a search URL
+        XCTAssertNil(googleEngine.queryForSearchURL(invalidSearchURL))
+
+        // check that it matches given a different configuration
+        file = Bundle.main.path(forResource: "duckduckgo", ofType: "xml", inDirectory: "SearchPlugins/")!
+        let duckDuckGoEngine: OpenSearchEngine! = parser.parse(file, engineID: "duckduckgo")
+        XCTAssertEqual(searchTerm, duckDuckGoEngine.queryForSearchURL(duckDuckGoSearchURL))
+
+        // check it doesn't match search URLs for different configurations
+        XCTAssertNil(duckDuckGoEngine.queryForSearchURL(googleSearchURL))
+
+        // check that if you pass in a nil URL that everything works
+        XCTAssertNil(duckDuckGoEngine.queryForSearchURL(nil))
+
+        // check that if search engine that uses fragment matches search term
+        file = Bundle.main.path(forResource: "yaani", ofType: "xml", inDirectory: "SearchPlugins/")!
+        let yaaniEngine: OpenSearchEngine = parser.parse(file, engineID: "Yaani")!
+        XCTAssertEqual(searchTerm, yaaniEngine.queryForSearchURL(yaaniSearchURL))
+    }
+
+    func testExtractingOfSearchTermsFromURL_qwant() {
         let parser = OpenSearchParser(pluginMode: true)
         var file = Bundle.main.path(forResource: "qwant-junior", ofType: "xml", inDirectory: "SearchPlugins/")!
         let qwantJuniorEngine: OpenSearchEngine! = parser.parse(file, engineID: "qwantjunior")
@@ -109,10 +175,10 @@ class SearchTests: XCTestCase {
         let qwantSearchURL = URL(string: "https://qwant.com/?q=\(encodedSeachTerm)&client=qwantbrowser")
         let qwantJuniorSearchURL = URL(string: "https://qwantjunior.com/?q=\(encodedSeachTerm)&client=qwantbrowser")
         let invalidSearchURL = URL(string: "https://www.google.co.uk")
-        
+
         // check it correctly matches qwant junior search term given qwant config
         XCTAssertEqual(searchTerm, qwantJuniorEngine.queryForSearchURL(qwantJuniorSearchURL))
-        
+
         // check it doesn't match when the URL is not a search URL
         XCTAssertNil(qwantJuniorEngine.queryForSearchURL(invalidSearchURL))
 
@@ -128,7 +194,9 @@ class SearchTests: XCTestCase {
         XCTAssertNil(qwantEngine.queryForSearchURL(nil))
     }
 
-    func testBingParsing_iPhone_hasIphonePartnerCode() {
+    func testBingParsing_iPhone_hasIphonePartnerCode() throws {
+        throw XCTSkip("Deleted bing search plugin")
+
         let parser = OpenSearchParser(pluginMode: true, userInterfaceIdiom: .phone)
         let file = Bundle.main.path(forResource: "bing", ofType: "xml", inDirectory: "SearchPlugins/")
         let engine: OpenSearchEngine! = parser.parse(file!, engineID: "bing")
@@ -138,7 +206,9 @@ class SearchTests: XCTestCase {
         XCTAssertTrue(containsPartnerCode)
     }
 
-    func testBingParsing_iPad_hasIpadPartnerCode() {
+    func testBingParsing_iPad_hasIpadPartnerCode() throws {
+        throw XCTSkip("Deleted bing search plugin")
+
         let parser = OpenSearchParser(pluginMode: true, userInterfaceIdiom: .pad)
         let file = Bundle.main.path(forResource: "bing", ofType: "xml", inDirectory: "SearchPlugins/")
         let engine: OpenSearchEngine! = parser.parse(file!, engineID: "bing")

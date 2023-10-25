@@ -52,7 +52,7 @@ class URLScannerTests: XCTestCase {
     }
 
     func testOurScheme() {
-        let urlString = "firefox://abcdefg/path/to/resource"
+        let urlString = "qwant://abcdefg/path/to/resource"
         let url = URL(string: urlString)!
         let scanner = URLScanner(url: url)
         XCTAssertNotNil(scanner)

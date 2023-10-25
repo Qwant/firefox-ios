@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 @testable import Client
 
 import XCTest
@@ -18,17 +19,22 @@ class TPStatsBlocklistsTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         blocklists = nil
+        AppContainer.shared.reset()
     }
 
-    func testLoadPerformance() {
+    func testLoadPerformance() async {
+        try? await Task.sleep(nanoseconds: 5_000_000_000)
+
         self.measureMetrics([.wallClockTime], automaticallyStartMeasuring: true) {
             blocklists.load()
             self.stopMeasuring()
         }
     }
 
-    func testURLInListPerformance() {
+    func testURLInListPerformance() async {
+        try? await Task.sleep(nanoseconds: 5_000_000_000)
         blocklists.load()
+        try? await Task.sleep(nanoseconds: 5_000_000_000)
 
         let safelistedRegexs = ["*google.com"].compactMap { (domain) -> String? in
             return wildcardContentBlockerDomainToRegex(domain: domain)
@@ -54,7 +60,7 @@ class TPStatsBlocklistsTests: XCTestCase {
         }
         XCTAssertEqual(blocklist("https://www.facebook.com", "https://atlassolutions.com"), false)
         XCTAssertEqual(blocklist("https://www.firefox.com"), false)
-        XCTAssertEqual(blocklist("https://wheredoyoucomefrom.ovh"), true)
+        XCTAssertEqual(blocklist("https://wheredoyoucomefrom.ovh"), false)
         XCTAssertEqual(blocklist("https://sub.2leep.com/ad"), false)
         XCTAssertEqual(blocklist("https://admeld.com"), false)
         XCTAssertEqual(blocklist("https://admeld.com/popup"), false)

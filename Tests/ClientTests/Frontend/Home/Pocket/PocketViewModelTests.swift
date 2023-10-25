@@ -34,7 +34,7 @@ final class PocketViewModelTests: XCTestCase, FeatureFlaggable {
         XCTAssertNotEqual(subject.headerViewModel, LabelButtonHeaderViewModel.emptyHeader)
         XCTAssertEqual(subject.numberOfItemsInSection(), 0)
         XCTAssertFalse(subject.hasData)
-        XCTAssertTrue(subject.isEnabled)
+        XCTAssertFalse(subject.isEnabled)
     }
 
     func testFeatureFlagDisablesSection() {

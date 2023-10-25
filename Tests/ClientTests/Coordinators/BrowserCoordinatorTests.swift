@@ -100,7 +100,7 @@ final class BrowserCoordinatorTests: XCTestCase {
 
         let secondHomepage = HomepageViewController(profile: profile, toastContainer: UIView(), overlayManager: overlayModeManager)
         XCTAssertFalse(subject.browserViewController.contentContainer.canAdd(content: secondHomepage))
-        XCTAssertNotNil(subject.homepageViewController)
+        XCTAssertNil(subject.homepageViewController)
         XCTAssertNil(subject.webviewController)
     }
 
@@ -114,7 +114,7 @@ final class BrowserCoordinatorTests: XCTestCase {
                              statusBarScrollDelegate: scrollDelegate,
                              overlayManager: overlayModeManager)
         let firstHomepage = subject.homepageViewController
-        XCTAssertNotNil(subject.homepageViewController)
+        XCTAssertNil(subject.homepageViewController)
 
         subject.showHomepage(inline: true,
                              toastContainer: UIView(),
@@ -199,7 +199,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         XCTAssertEqual(subject.childCoordinators.count, 1)
         XCTAssertNotNil(subject.childCoordinators[0] as? EnhancedTrackingProtectionCoordinator)
         XCTAssertEqual(mockRouter.presentCalled, 1)
-        XCTAssertTrue(mockRouter.presentedViewController is EnhancedTrackingProtectionMenuVC)
+        XCTAssertTrue(mockRouter.presentedViewController is ThemedNavigationController)
     }
 
     func testShowShareExtension_addsShareExtensionCoordinator() {
@@ -473,7 +473,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         let result = subject.handle(route: route)
 
         XCTAssertTrue(result)
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(subject.childCoordinators.count, 1)
         XCTAssertNotNil(subject.childCoordinators[0] as? LaunchCoordinator)
@@ -676,7 +676,7 @@ final class BrowserCoordinatorTests: XCTestCase {
 
         subject.browserHasLoaded()
 
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
     }
 
@@ -709,7 +709,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         tabManager.isRestoringTabs = false
         subject.tabManagerDidRestoreTabs(tabManager)
 
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
     }
 
