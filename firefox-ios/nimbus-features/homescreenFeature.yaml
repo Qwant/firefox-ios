@@ -31,7 +31,7 @@ features:
             "jump-back-in": true,
             "recent-explorations": false,
           },
-          "pocket-sponsored-stories": true,
+          "pocket-sponsored-stories": false,
           "prefer-switch-to-open-tab": true
         }
       - channel: beta

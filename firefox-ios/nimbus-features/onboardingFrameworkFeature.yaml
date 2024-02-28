@@ -57,7 +57,7 @@ features:
                   - Onboarding/DefaultBrowserPopup.ThirdLabel.v114
               type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             notification-permissions:
               order: 30
               title: Onboarding/Onboarding.Notification.Title.v120
@@ -72,7 +72,7 @@ features:
                   action: next-card
               type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             sign-to-sync:
               order: 20
               title: Onboarding/Onboarding.Sync.Title.v120
@@ -87,7 +87,7 @@ features:
                   action: next-card
               type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             update-welcome:
               order: 10
               title: Upgrade/Upgrade.Welcome.Title.v114

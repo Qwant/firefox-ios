@@ -21,7 +21,7 @@ features:
       - https://dictionary.telemetry.mozilla.org/apps/firefox_ios/metrics/messaging_malformed
 
     # Allow the feature to be enrolled in more than one experiment at the same time.
-    allow-coenrollment: true
+    allow-coenrollment: false
 
     variables:
 
@@ -149,6 +149,7 @@ features:
                 - I_AM_NOT_DEFAULT_BROWSER
                 - SUPPORTS_DEFAULT_BROWSER
                 - ON_FOURTH_LAUNCH_THIS_YEAR
+                - NEVER
               title: Default Browser/DefaultBrowserCard.Title
               text: Default Browser/DefaultBrowserCard.Description
               button-label: Default Browser/DefaultBrowserCard.Button.v2
