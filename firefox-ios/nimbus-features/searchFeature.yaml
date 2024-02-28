@@ -22,14 +22,14 @@ features:
             search-highlights: false
             position:
               is-position-feature-enabled: true
-              is-bottom: false
+              is-bottom: true
       - channel: beta
         value:
           awesome-bar:
             search-highlights: false
             position:
               is-position-feature-enabled: true
-              is-bottom: false
+              is-bottom: true
 
 objects:
   AwesomeBar:
@@ -55,7 +55,6 @@ objects:
         default:
           is-position-feature-enabled: true
           is-bottom: true
-
   SearchBarPositionFeature:
     description: "The configuration for the bottom search bar on the homescreen"
     fields:

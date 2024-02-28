@@ -8,16 +8,16 @@ features:
           specific contextual hints are enabled.
         type: Map<ContextualHint, Boolean>
         default:
-           toolbar-hint: true
+           toolbar-hint: false
     defaults:
       - channel: developer
         value:
            features-enabled:
-             toolbar-hint: true
+             toolbar-hint: false
       - channel: beta
         value:
            features-enabled:
-            toolbar-hint: true
+            toolbar-hint: false
 
 enums:
   ContextualHint:

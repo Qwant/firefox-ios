@@ -55,7 +55,7 @@ features:
                   - Onboarding/DefaultBrowserPopup.ThirdLabel.v114
               onboarding-type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             # multiple-choice-test:
             #   card-type: multiple-choice
             #   order: 5
@@ -126,7 +126,7 @@ features:
                   action: forward-one-card
               onboarding-type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             sign-to-sync:
               card-type: basic
               order: 20
@@ -142,7 +142,7 @@ features:
                   action: forward-one-card
               onboarding-type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             customization-theme:
               card-type: multiple-choice
               order: 40
@@ -165,7 +165,7 @@ features:
                   action: theme-dark
               onboarding-type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             customization-toolbar:
               card-type: multiple-choice
               order: 41
@@ -185,7 +185,7 @@ features:
                   action: toolbar-bottom
               onboarding-type: fresh-install
               prerequisites:
-                - ALWAYS
+                - NEVER
             update-welcome:
               card-type: basic
               order: 10

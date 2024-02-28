@@ -12,7 +12,7 @@ final class NimbusSearchBarLayer {
 
         guard UIDevice.current.userInterfaceIdiom != .pad, isVersionLayout else {
             let isAtBottom = nimbus.features.search.value().awesomeBar.position.isBottom
-            return isAtBottom ? .bottom : .top
+            return isAtBottom ? .bottom : .bottom
         }
 
         // Set the address bar to the bottom for new users enrolled in `version1` or `version2` toolbar experiment.

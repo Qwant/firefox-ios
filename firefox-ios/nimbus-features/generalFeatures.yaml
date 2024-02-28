@@ -13,13 +13,13 @@ features:
       - channel: beta
         value: {
           "report-site-issue": {
-            "status": true
+            "status": false
           }
         }
       - channel: developer
         value: {
           "report-site-issue": {
-            "status": true
+            "status": false
           }
         }
 

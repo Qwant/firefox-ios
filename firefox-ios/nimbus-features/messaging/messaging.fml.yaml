@@ -34,7 +34,7 @@ features:
       - https://dictionary.telemetry.mozilla.org/apps/firefox_ios/metrics/messaging_malformed
 
     # Allow the feature to be enrolled in more than one experiment at the same time.
-    allow-coenrollment: true
+    allow-coenrollment: false
 
     variables:
 
