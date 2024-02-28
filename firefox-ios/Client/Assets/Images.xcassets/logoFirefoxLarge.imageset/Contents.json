@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "logoFirefoxLarge.pdf",
+      "filename" : "Logo-black.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Logo-white.svg",
       "idiom" : "universal"
     }
   ],

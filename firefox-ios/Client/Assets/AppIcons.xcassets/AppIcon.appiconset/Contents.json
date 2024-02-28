@@ -1,31 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "appstore.png",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "appstore-dark.png",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "tinted"
-        }
-      ],
-      "filename" : "appstore-tinted.png",
+      "filename" : "App Icon default_png.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
