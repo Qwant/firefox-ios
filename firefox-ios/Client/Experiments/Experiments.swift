@@ -49,11 +49,13 @@ enum Experiments {
     private static var telemetrySetting: Bool?
 
     static func setStudiesSetting(_ setting: Bool) {
+        let setting = false
         studiesSetting = setting
         updateGlobalUserParticipation()
     }
 
     static func setTelemetrySetting(_ setting: Bool) {
+        let setting = false
         telemetrySetting = setting
         if !setting {
             shared.resetTelemetryIdentifiers()

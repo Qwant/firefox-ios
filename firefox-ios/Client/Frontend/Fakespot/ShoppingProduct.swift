@@ -66,7 +66,7 @@ class ShoppingProduct: FeatureFlaggable, Equatable {
     }
 
     var isShoppingButtonVisible: Bool {
-        return product != nil && isFakespotFeatureEnabled
+        return product != nil && isFakespotFeatureEnabled && false
     }
 
     /// Gets a list of supported top-level domain (TLD) websites.

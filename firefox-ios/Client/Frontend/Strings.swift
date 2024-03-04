@@ -5986,4 +5986,17 @@ extension String {
     }
 }
 
+// MARK: - Qwant
+private func QwantString(key: String.LocalizationValue) -> String {
+    return String(localized: key, table: "Qwant", bundle: Strings.bundle)
+}
+
+extension String {
+    public struct QwantSettings {
+        public static let NightModeTitleOn = QwantString(key: "Qwant.NightMode.Title.On")
+        public static let NightModeTitleOff = QwantString(key: "Qwant.NightMode.Title.Off")
+        public static let NightModeSubtitle = QwantString(key: "Qwant.NightMode.Subtitle")
+    }
+}
+
 // swiftlint:enable line_length

@@ -38,9 +38,8 @@ class LegacyTabPeekViewController: UIViewController, WKNavigationDelegate {
         var actions = [UIPreviewActionItem]()
 
         let urlIsTooLongToSave = self.tab?.urlIsTooLong ?? false
-        let isHomeTab = self.tab?.isFxHomeTab ?? false
         if !self.ignoreURL && !urlIsTooLongToSave {
-            if !self.isBookmarked && !isHomeTab {
+            if !self.isBookmarked {
                 actions.append(UIPreviewAction(
                     title: .TabPeekAddToBookmarks,
                     style: .default
@@ -87,9 +86,8 @@ class LegacyTabPeekViewController: UIViewController, WKNavigationDelegate {
         var actions = [UIAction]()
 
         let urlIsTooLongToSave = self.tab?.urlIsTooLong ?? false
-        let isHomeTab = self.tab?.isFxHomeTab ?? false
         if !self.ignoreURL && !urlIsTooLongToSave {
-            if !self.isBookmarked && !isHomeTab {
+            if !self.isBookmarked {
                 actions.append(UIAction(title: .TabPeekAddToBookmarks,
                                         image: UIImage.templateImageNamed(StandardImageIdentifiers.Large.bookmark),
                                         identifier: nil) { [weak self] _ in
@@ -214,7 +212,7 @@ class LegacyTabPeekViewController: UIViewController, WKNavigationDelegate {
             browserProfile.tabs.getClientGUIDs { (result, error) in
                 guard let clientGUIDs = result else { return }
 
-                self.hasRemoteClients = !clientGUIDs.isEmpty
+                self.hasRemoteClients = !clientGUIDs.isEmpty && false
 
                 DispatchQueue.main.async {
                     self.createDevicePicker(withProfile: browserProfile,

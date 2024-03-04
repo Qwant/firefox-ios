@@ -88,13 +88,18 @@ class TelemetryWrapper: TelemetryWrapperProtocol, FeatureFlaggable {
         migratePathComponentInDocumentsDirectory("MozTelemetry-Default-mobile-event", to: .cachesDirectory)
         migratePathComponentInDocumentsDirectory("eventArray-MozTelemetry-Default-mobile-event.json", to: .cachesDirectory)
 
-        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 
         // Initialize Glean
         initGlean(profile, sendUsageData: sendUsageData)
     }
 
     func initGlean(_ profile: Profile, sendUsageData: Bool) {
+        // Nope.
+        // swiftlint:disable trailing_semicolon
+        return;
+        // swiftlint:enable trailing_semicolon
+
         // Get the legacy telemetry ID and record it in Glean for the deletion-request ping
         if let uuidString = UserDefaults.standard.string(forKey: "telemetry-key-prefix-clientId"), let uuid = UUID(uuidString: uuidString) {
             GleanMetrics.LegacyIds.clientId.set(uuid)

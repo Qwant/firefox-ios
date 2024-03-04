@@ -161,14 +161,14 @@ class ShareViewController: UIViewController {
                 action: #selector(actionAddToReadingList),
                 hasNavigation: false
             )
-            makeSeparator(addTo: stackView)
-            makeActionRow(
-                addTo: stackView,
-                label: .ShareSendToDevice,
-                imageName: "deviceDesktopSendLarge",
-                action: #selector(actionSendToDevice),
-                hasNavigation: true
-            )
+//            makeSeparator(addTo: stackView)
+//            makeActionRow(
+//                addTo: stackView,
+//                label: .ShareSendToDevice,
+//                imageName: "deviceDesktopSendLarge",
+//                action: #selector(actionSendToDevice),
+//                hasNavigation: true
+//            )
         } else {
             pageInfoRowUrlLabel?.removeFromSuperview()
             makeActionRow(
@@ -505,9 +505,9 @@ extension ShareViewController {
         func firefoxUrl(_ url: String) -> String {
             let encoded = url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.alphanumerics) ?? ""
             if isSearch {
-                return "firefox://open-text?text=\(encoded)"
+                return "qwant://open-text?text=\(encoded)"
             }
-            return "firefox://open-url?url=\(encoded)"
+            return "qwant://open-url?url=\(encoded)"
         }
 
         guard let url = URL(string: firefoxUrl(url), invalidCharacters: false) else { return }

@@ -139,6 +139,11 @@ class ClipboardBarDisplayHandler: NSObject, URLChangeDelegate {
     }
 
     func checkIfShouldDisplayBar() {
+        // Nope.
+        // swiftlint:disable trailing_semicolon
+        return;
+        // swiftlint:enable trailing_semicolon
+
         // Clipboard bar feature needs to be enabled by users to be activated in the user settings
         guard prefs.boolForKey("showClipboardBar") ?? false else { return }
 

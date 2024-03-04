@@ -95,6 +95,7 @@ struct ImageButtonWithLabel: View {
                                 .frame(height: 24.0)
                         } else {
                             Image(link.imageName)
+                                .resizable()
                                 .scaledToFit()
                                 .frame(height: 24.0)
                         }
@@ -102,7 +103,8 @@ struct ImageButtonWithLabel: View {
                     if isSmall {
                         HStack(alignment: .bottom) {
                             Spacer()
-                            Image("faviconFox")
+                            Image("qwant_Q")
+                                .resizable()
                                 .scaledToFit()
                                 .frame(height: 24.0)
                         }

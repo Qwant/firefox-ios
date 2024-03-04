@@ -35,7 +35,7 @@ final class TabTrayViewControllerTests: XCTestCase {
         viewController.layout = .compact
         viewController.viewWillAppear(false)
 
-        XCTAssertEqual(viewController.segmentControlItems.count, 3)
+        XCTAssertEqual(viewController.segmentControlItems.count, 2)
         guard let navController = viewController.navigationController else {
             XCTFail("NavigationController is expected")
             return
@@ -77,7 +77,7 @@ final class TabTrayViewControllerTests: XCTestCase {
         viewController.layout = .regular
         viewController.viewWillAppear(false)
 
-        XCTAssertEqual(viewController.segmentControlItems.count, 3)
+        XCTAssertEqual(viewController.segmentControlItems.count, 2)
         guard let navController = viewController.navigationController else {
             XCTFail("NavigationController is expected")
             return

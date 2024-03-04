@@ -103,7 +103,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
 
         XCTAssertEqual(delegate.didFinishShowingSettingsCalled, 1)
         XCTAssertEqual(applicationHelper.lastOpenURL,
-                       URL(string: "fennec://deep-link?url=/action/show-intro-onboarding")!)
+                       URL(string: "qwant://deep-link?url=/action/show-intro-onboarding")!)
     }
 
     func testShowExperiments_openExperiments() {

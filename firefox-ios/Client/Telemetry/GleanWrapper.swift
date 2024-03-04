@@ -19,9 +19,15 @@ struct DefaultGleanWrapper: GleanWrapper {
         Glean.shared.handleCustomUrl(url: url)
     }
     func setUpload(isEnabled: Bool) {
+        // Nope.
+        let isEnabled = false
         Glean.shared.setUploadEnabled(isEnabled)
     }
     func submitPing() {
+        // Nope.
+        // swiftlint:disable trailing_semicolon
+        return;
+        // swiftlint:enable trailing_semicolon
         GleanMetrics.Pings.shared.firstSession.submit()
     }
 }

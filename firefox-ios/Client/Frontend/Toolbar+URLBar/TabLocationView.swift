@@ -330,7 +330,7 @@ class TabLocationView: UIView, FeatureFlaggable {
     }
 
     func updateShoppingButtonVisibility(for tab: Tab) {
-        guard let url else {
+        guard let url, false else {
             shoppingButton.isHidden = true
             return
         }

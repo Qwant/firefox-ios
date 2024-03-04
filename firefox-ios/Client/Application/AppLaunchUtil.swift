@@ -34,7 +34,7 @@ class AppLaunchUtil {
         recordStartUpTelemetry()
 
         // Need to get "settings.sendUsageData" this way so that Sentry can be initialized before getting the Profile.
-        let sendUsageData = NSUserDefaultsPrefs(prefix: "profile").boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageData = NSUserDefaultsPrefs(prefix: "profile").boolForKey(AppConstants.prefSendUsageData) ?? false
         logger.setup(sendUsageData: sendUsageData)
 
         setUserAgent()

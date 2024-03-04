@@ -50,7 +50,7 @@ struct ContextualHintEligibilityUtility: ContextualHintEligibilityUtilityProtoco
             return canPresentShoppingCFR
         }
 
-        return hintTypeShouldBePresented && !hasAlreadyBeenPresented(hintType)
+        return hintTypeShouldBePresented && !hasAlreadyBeenPresented(hintType) && false
     }
 
     // MARK: - Private helpers

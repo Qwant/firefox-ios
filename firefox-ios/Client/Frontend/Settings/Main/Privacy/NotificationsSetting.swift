@@ -34,4 +34,8 @@ class NotificationsSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedNotifications()
     }
+
+    override var hidden: Bool {
+        return true
+    }
 }

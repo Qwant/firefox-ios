@@ -285,7 +285,7 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
             append(to: &section, action: whatsNewAction)
 
             let helpAction = getHelpAction()
-            section.append(helpAction)
+            append(to: &section, action: helpAction)
 
             let customizeHomePageAction = getCustomizeHomePageAction()
             append(to: &section, action: customizeHomePageAction)
@@ -390,7 +390,10 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         }.items
     }
 
-    private func getSendToDevice() -> PhotonRowActions {
+    private func getSendToDevice() -> PhotonRowActions? {
+        // Nope.
+        return nil
+
         return SingleActionViewModel(title: .AppMenu.TouchActions.SendLinkToDeviceTitle,
                                      iconString: StandardImageIdentifiers.Large.deviceDesktopSend) { _ in
             guard let delegate = self.sendToDeviceDelegate,
@@ -426,7 +429,10 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         }.items
     }
 
-    private func getHelpAction() -> PhotonRowActions {
+    private func getHelpAction() -> PhotonRowActions? {
+        // Nope.
+        return nil
+
         return SingleActionViewModel(title: .AppMenu.Help,
                                      iconString: StandardImageIdentifiers.Large.helpCircle) { _ in
             if let url = URL(string: "https://support.mozilla.org/products/ios") {
@@ -461,9 +467,10 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         var items: [PhotonRowActions] = []
 
         let nightModeEnabled = NightModeHelper.isActivated()
-        let nightModeTitle: String = nightModeEnabled ? .AppMenu.AppMenuTurnOffNightMode : .AppMenu.AppMenuTurnOnNightMode
+        let nightModeTitle: String = nightModeEnabled ? .QwantSettings.NightModeTitleOn : .QwantSettings.NightModeTitleOff
         let nightMode = SingleActionViewModel(
             title: nightModeTitle,
+            text: .QwantSettings.NightModeSubtitle,
             iconString: ImageIdentifiers.nightMode,
             isEnabled: nightModeEnabled
         ) { _ in
@@ -483,6 +490,9 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     }
 
     private func syncMenuButton() -> PhotonRowActions? {
+        // Nope.
+        return nil
+
         let action: (SingleActionViewModel) -> Void = { [weak self] action in
             let fxaParams = FxALaunchParams(entrypoint: .browserMenu, query: [:])
             let parameters = FxASignInViewParameters(launchParameters: fxaParams,
@@ -528,6 +538,9 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     // MARK: Whats New
 
     private func getWhatsNewAction() -> PhotonRowActions? {
+        // Nope.
+        return nil
+
         var whatsNewAction: PhotonRowActions?
         let showBadgeForWhatsNew = shouldShowWhatsNew()
         if showBadgeForWhatsNew {
@@ -785,6 +798,9 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     // MARK: Password
 
     private func getPasswordAction(navigationController: UINavigationController?) -> PhotonRowActions? {
+        // Nope.
+        return nil
+
         guard PasswordManagerListViewController.shouldShowAppMenuShortcut(forPrefs: profile.prefs) else { return nil }
         TelemetryWrapper.recordEvent(category: .action, method: .open, object: .logins)
         return SingleActionViewModel(title: .AppMenu.AppMenuPasswords,

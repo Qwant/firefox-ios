@@ -34,8 +34,8 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         // Technically, at this stage, these should be the same.
         XCTAssertTrue(featureFlags.isFeatureEnabled(.bottomSearchBar, checking: .buildOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.bottomSearchBar, checking: .userOnly))
-        XCTAssertFalse(featureFlags.isFeatureEnabled(.historyHighlights, checking: .buildOnly))
-        XCTAssertFalse(featureFlags.isFeatureEnabled(.historyHighlights, checking: .userOnly))
+        XCTAssertTrue(featureFlags.isFeatureEnabled(.historyHighlights, checking: .buildOnly))
+        XCTAssertTrue(featureFlags.isFeatureEnabled(.historyHighlights, checking: .userOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.historyGroups, checking: .buildOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.historyGroups, checking: .userOnly))
         XCTAssertTrue(featureFlags.isFeatureEnabled(.inactiveTabs, checking: .buildOnly))
@@ -74,10 +74,10 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         LegacyFeatureFlagsManager.shared.initializeDeveloperFeatures(with: mockProfile)
 
         // Search Bar position
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        mockProfile.prefs.setString(SearchBarPosition.bottom.rawValue,
-                                    forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
         XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
+        mockProfile.prefs.setString(SearchBarPosition.top.rawValue,
+                                    forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
     }
 
     func testManagerInterfaceForUpdatingBoolFlags() {
@@ -90,8 +90,8 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
 
     func testManagerInterfaceForUpdatingCustomFlags() {
         // Search Bar
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.bottom)
         XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
+        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.top)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
     }
 }

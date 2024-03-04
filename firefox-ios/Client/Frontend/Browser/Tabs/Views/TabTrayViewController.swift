@@ -98,8 +98,8 @@ class TabTrayViewController: UIViewController,
         let iPhoneItems = [
             TabTrayPanelType.tabs.image!.overlayWith(image: countLabel),
             TabTrayPanelType.privateTabs.image!,
-            TabTrayPanelType.syncedTabs.image!]
-        return isRegularLayout ? TabTrayPanelType.allCases.map { $0.label } : iPhoneItems
+            /*TabTrayPanelType.syncedTabs.image!*/]
+        return isRegularLayout ? TabTrayPanelType.allCases.filter { $0 != .syncedTabs }.map { $0.label } : iPhoneItems
     }
 
     private lazy var deleteButton: UIBarButtonItem = {

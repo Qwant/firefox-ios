@@ -117,7 +117,7 @@ class PocketProvider: PocketStoriesProviding, FeatureFlaggable, URLCaching {
 
     // Returns nil if the locale is not supported
     static func islocaleSupported(_ locale: String) -> Bool {
-        return PocketProvider.SupportedLocales.contains(locale)
+        return PocketProvider.SupportedLocales.contains(locale) && false
     }
 
     // Create the URL request to query the Pocket API. The max items that the query can return is 20

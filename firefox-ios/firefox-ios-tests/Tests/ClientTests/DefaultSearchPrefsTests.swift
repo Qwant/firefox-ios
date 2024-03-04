@@ -19,62 +19,62 @@ class DefaultSearchPrefsTests: XCTestCase {
         let usa = (
             lang: ["en-US", "en"],
             region: "US",
-            resultList: ["google-b-1-m", "amazondotcom", "bing", "ddg", "ebay", "wikipedia"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let england = (
             lang: ["en-GB", "en"],
             region: "GB",
-            resultList: ["google-b-m", "amazon-co-uk", "bing", "ddg", "ebay-co-uk", "qwant", "wikipedia"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let france = (
             lang: ["fr-FR", "fr"],
             region: "FR",
-            resultList: ["google-b-m", "bing", "ddg", "ebay-fr", "qwant", "wikipedia-fr"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let japan = (
             lang: ["ja-JP", "ja"],
             region: "JP",
-            resultList: ["google-b-m", "amazon-jp", "bing", "ebay", "wikipedia-ja", "yahoo-jp"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let canada = (
             lang: ["en-CA", "en"],
             region: "CA",
-            resultList: ["google-b-m", "amazondotcom", "bing", "ddg", "ebay", "wikipedia"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let russia = (
             lang: ["ru-RU", "ru"],
             region: "RU",
-            resultList: ["google-com-nocodes", "ebay", "wikipedia-ru"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let taiwan = (
             lang: ["zh-TW", "zh"],
             region: "TW",
-            resultList: ["google-b-m", "bing", "ddg", "wikipedia-zh-TW"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let china = (
             lang: ["zh-hans-CN", "zh-CN", "zh"],
             region: "CN",
-            resultList: ["google-b-m", "baidu", "bing", "wikipedia-zh-CN"],
-            resultDefault: "百度"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let germany = (
             lang: ["de-DE", "de"],
             region: "DE",
-            resultList: ["google-b-m", "amazon-de", "bing", "ddg", "ebay-de", "ecosia", "qwant", "wikipedia-de"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let southAfrica = (
             lang: ["en-SA", "en"],
             region: "SA",
-            resultList: ["google-b-m", "amazondotcom", "bing", "ddg", "ebay", "wikipedia"],
-            resultDefault: "Google"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
         let testLocales = [
             usa,
@@ -109,8 +109,8 @@ class DefaultSearchPrefsTests: XCTestCase {
         let us = (
             lang: ["en-US", "en"],
             region: "US",
-            resultList: ["google-b-1-m", "amazondotcom", "bing", "ddg", "ebay", "wikipedia"],
-            resultDefault: "google-b-m"
+            resultList: ["qwant"],
+            resultDefault: "Qwant"
         )
 
         // run tests

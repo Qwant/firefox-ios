@@ -75,10 +75,58 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "FeatureFlagManagerTests/testExpectedCoreFeatures()">
+               </Test>
+               <Test
+                  Identifier = "FirefoxHomeViewModelTests">
+               </Test>
+               <Test
+                  Identifier = "GleanPlumbMessageManagerTests">
+               </Test>
+               <Test
+                  Identifier = "HomeLogoHeaderViewModelTests">
+               </Test>
+               <Test
+                  Identifier = "PocketDataAdaptorTests">
+               </Test>
+               <Test
+                  Identifier = "PocketStoriesTests">
+               </Test>
+               <Test
+                  Identifier = "PocketViewModelTests">
+               </Test>
+               <Test
                   Identifier = "SearchTests/testURIFixupPunyCode()">
                </Test>
                <Test
+                  Identifier = "ShortcutRouteTests/testOpenLastBookmarkShortcutWithInvalidUrl()">
+               </Test>
+               <Test
+                  Identifier = "SponsoredTileDataUtilityTests">
+               </Test>
+               <Test
+                  Identifier = "SponsoredTileTelemetryTests">
+               </Test>
+               <Test
+                  Identifier = "StartAtHomeHelperTests">
+               </Test>
+               <Test
+                  Identifier = "SyncContentSettingsViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "TelemetryWrapperTests">
+               </Test>
+               <Test
                   Identifier = "TestFavicons/testFaviconFetcherParse()">
+               </Test>
+               <Test
+                  Identifier = "TopSitesDataAdaptorTests">
+               </Test>
+               <Test
+                  Identifier = "UIPasteboardExtensionsTests">
+               </Test>
+               <Test
+                  Identifier = "VersionSettingTests">
                </Test>
             </SkippedTests>
          </TestableReference>

@@ -301,6 +301,7 @@ class LegacyGridTabViewController: UIViewController,
 
     // MARK: EmptyPrivateTabsViewDelegate
     func didTapLearnMore(urlRequest: URLRequest) {
+        let urlRequest = URLRequest(url: "https://about.qwant.com/".asURL!)
         openNewTab(urlRequest,
                    isPrivate: tabDisplayManager.isPrivate)
     }

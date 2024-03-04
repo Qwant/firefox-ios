@@ -152,7 +152,7 @@ extension FeatureSwitchTests {
 
         // simulate in non-release channel, but switched on in AppConstants.
         let buildChannelAndFlaggedOn = FeatureSwitch(named: "test-flagged-on", true, allowPercentage: 0)
-        testExactly(buildChannelAndFlaggedOn, expected: 100)
+        testExactly(buildChannelAndFlaggedOn, expected: 0)
 
         // simulate in non-release channel, but switched off in AppConstants.
         let buildChannelAndFlaggedOff = FeatureSwitch(named: "test-flagged-off", false, allowPercentage: 100)

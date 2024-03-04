@@ -780,6 +780,11 @@ extension HistoryPanel {
     }
 
     private func resyncHistory() {
+        // Nope.
+        // swiftlint:disable trailing_semicolon
+        return;
+        // swiftlint:enable trailing_semicolon
+
         profile.syncManager.syncHistory().uponQueue(.main) { syncResult in
             self.endRefreshing()
 
