@@ -526,6 +526,11 @@
 		6669B5E2211418A200CA117B /* WebsiteDataSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669B5E1211418A200CA117B /* WebsiteDataSearchResultsViewController.swift */; };
 		66CE54A820FCF6CF00CC310B /* WebsiteDataManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE54A720FCF6CF00CC310B /* WebsiteDataManagementViewController.swift */; };
 		683603DD2B95C97E00985FEE /* Qwant.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 683603DC2B95C97E00985FEE /* Qwant.xcstrings */; };
+		683603E02B96155800985FEE /* QwantIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603DF2B96155800985FEE /* QwantIntroViewController.swift */; };
+		683603E22B96156D00985FEE /* QwantIntroScreen3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E12B96156D00985FEE /* QwantIntroScreen3.swift */; };
+		683603E42B96157F00985FEE /* QwantIntroScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E32B96157F00985FEE /* QwantIntroScreen2.swift */; };
+		683603E62B96159200985FEE /* QwantIntroScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E52B96159200985FEE /* QwantIntroScreen1.swift */; };
+		683603E82B9615B700985FEE /* Onboarding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683603E72B9615B700985FEE /* Onboarding.xcassets */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2573,6 +2578,11 @@
 		679E44AFBE9569B898384F8A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/Default Browser.strings"; sourceTree = "<group>"; };
 		67DF427B90D8B06D7BF3DB90 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Today.strings; sourceTree = "<group>"; };
 		683603DC2B95C97E00985FEE /* Qwant.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Qwant.xcstrings; sourceTree = "<group>"; };
+		683603DF2B96155800985FEE /* QwantIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroViewController.swift; sourceTree = "<group>"; };
+		683603E12B96156D00985FEE /* QwantIntroScreen3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroScreen3.swift; sourceTree = "<group>"; };
+		683603E32B96157F00985FEE /* QwantIntroScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroScreen2.swift; sourceTree = "<group>"; };
+		683603E52B96159200985FEE /* QwantIntroScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroScreen1.swift; sourceTree = "<group>"; };
+		683603E72B9615B700985FEE /* Onboarding.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Onboarding.xcassets; sourceTree = "<group>"; };
 		6855435EA1F3E75E86BE92C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FindInPage.strings; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
@@ -4952,6 +4962,18 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		683603DE2B96152F00985FEE /* Qwant */ = {
+			isa = PBXGroup;
+			children = (
+				683603E72B9615B700985FEE /* Onboarding.xcassets */,
+				683603E52B96159200985FEE /* QwantIntroScreen1.swift */,
+				683603E32B96157F00985FEE /* QwantIntroScreen2.swift */,
+				683603E12B96156D00985FEE /* QwantIntroScreen3.swift */,
+				683603DF2B96155800985FEE /* QwantIntroViewController.swift */,
+			);
+			path = Qwant;
+			sourceTree = "<group>";
+		};
 		7B0B1B9C1C1B69F500DF4AB5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -6346,6 +6368,7 @@
 				C8BD875E2A0C243400CD803A /* ViewControllers */,
 				C88E7A532A0552F10072E638 /* Models */,
 				C88E7A5C2A0554BD0072E638 /* Protocols */,
+				683603DE2B96152F00985FEE /* Qwant */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -8576,6 +8599,7 @@
 				3BC659591E5BA505006D560F /* bundle_sites.json in Resources */,
 				E4CD9F541A71506400318571 /* Reader.html in Resources */,
 				E1AF3563286DE5F800960045 /* FullFunctionalTestPlan.xctestplan in Resources */,
+				683603E82B9615B700985FEE /* Onboarding.xcassets in Resources */,
 				E1AF3567286DE5F800960045 /* PerformanceTestPlan.xctestplan in Resources */,
 				23BEA76A251A99ED00A014BF /* NewYorkMedium-RegularItalic.otf in Resources */,
 				7B2142FE1E5E055000CDD3FC /* InfoPlist.strings in Resources */,
@@ -9395,6 +9419,7 @@
 				F8A0B08229AD61FA0091C75B /* RustSyncManager.swift in Sources */,
 				D308E4E41A5306F500842685 /* SearchEngines.swift in Sources */,
 				438FE8642988ABA600155B10 /* CreditCardTableViewController.swift in Sources */,
+				683603E62B96159200985FEE /* QwantIntroScreen1.swift in Sources */,
 				3BCE6D3C1CEB9E4D0080928C /* ThirdPartySearchAlerts.swift in Sources */,
 				8A93F86229D36F0F004159D9 /* NavigationController.swift in Sources */,
 				E13F8C342928194800BDC8B4 /* PhotonActionSheetSiteHeaderView.swift in Sources */,
@@ -9449,6 +9474,7 @@
 				7482205C1DBAB56300EEEA72 /* MailProviders.swift in Sources */,
 				8A93F87029D3A597004159D9 /* SceneCoordinator.swift in Sources */,
 				C88E7A602A05551B0072E638 /* NimbusOnboardingFeatureLayerProtocol.swift in Sources */,
+				683603E02B96155800985FEE /* QwantIntroViewController.swift in Sources */,
 				8CFD56882AAF057D003157A6 /* SwitchFakespotProduction.swift in Sources */,
 				C40046FA1CF8E0B200B08303 /* BackForwardListAnimator.swift in Sources */,
 				DD31E0FB1B382B520077078A /* TabPrintPageRenderer.swift in Sources */,
@@ -9482,6 +9508,7 @@
 				C8CD80DC2A1E8C970097C3AE /* OnboardingTelemetryUtility.swift in Sources */,
 				96C11E9B2864C2DD00840E7C /* DependencyHelper.swift in Sources */,
 				F18859502A3E454E0004AA7B /* EnhancedTrackingProtectionCoordinator.swift in Sources */,
+				683603E42B96157F00985FEE /* QwantIntroScreen2.swift in Sources */,
 				2386E4E624F8358E0072EF17 /* HomepageMessageCard.swift in Sources */,
 				21618A8C2A438A0900A5189E /* ActiveScreenAction.swift in Sources */,
 				E15DE7C2293A7AED00B32667 /* PhotonActionSheetLineSeparator.swift in Sources */,
@@ -9924,6 +9951,7 @@
 				8AB8573727D951640075C173 /* HomeLogoHeaderViewModel.swift in Sources */,
 				D3C744CD1A687D6C004CE85D /* URIFixup.swift in Sources */,
 				43D16B8029831DC5009F8279 /* CreditCardInputView.swift in Sources */,
+				683603E22B96156D00985FEE /* QwantIntroScreen3.swift in Sources */,
 				21112968289480630082C08B /* HomepageMessageCardViewModel.swift in Sources */,
 				E1CD81BE290C5C7500124B27 /* DevicePickerTableViewHeaderCell.swift in Sources */,
 				B2FEA68B2B460D1D0058E616 /* AddressAutofillSettingsEmptyView.swift in Sources */,

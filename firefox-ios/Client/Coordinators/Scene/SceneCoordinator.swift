@@ -138,4 +138,9 @@ class SceneCoordinator: BaseCoordinator, LaunchCoordinatorDelegate, LaunchFinish
         remove(child: coordinator)
         startBrowser(with: nil)
     }
+
+    func reloadIfPossible() {
+        let browserCoordinator = childCoordinators.first(where: { $0 is BrowserCoordinator }) as? BrowserCoordinator
+        browserCoordinator?.reloadIfPossible()
+    }
 }

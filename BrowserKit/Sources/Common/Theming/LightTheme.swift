@@ -104,4 +104,11 @@ private struct LightColourPalette: ThemeColourPalette {
 
     // MARK: - Shadow
     var shadowDefault: UIColor = FXColors.DarkGrey40.withAlphaComponent(0.16)
+
+    // MARK: - Qwant Onboarding
+    var onboarding_palePink = UIColor(rgb: 0xffd6d7)
+    var onboarding_paleBlue = UIColor(rgb: 0x99beff)
+    var onboarding_paleGreen = UIColor(rgb: 0xb3e6cc)
+    var onboarding_blackText = UIColor(rgb: 0x050506)
+    var onboarding_whiteText = UIColor.white
 }

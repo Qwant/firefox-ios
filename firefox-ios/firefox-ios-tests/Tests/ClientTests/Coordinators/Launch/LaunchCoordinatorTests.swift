@@ -45,7 +45,7 @@ final class LaunchCoordinatorTests: XCTestCase {
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
         let presentedViewController = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(presentedViewController as? IntroViewController)
+        XCTAssertNotNil(presentedViewController as? QwantIntroViewController)
     }
 
     func testStart_introIsIphone_setRootView() throws {
@@ -56,7 +56,7 @@ final class LaunchCoordinatorTests: XCTestCase {
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(mockRouter.setRootViewControllerCalled, 0)
         let pushedVC = try XCTUnwrap(mockRouter.presentedViewController)
-        XCTAssertNotNil(pushedVC as? IntroViewController)
+        XCTAssertNotNil(pushedVC as? QwantIntroViewController)
     }
 
     // MARK: - Update

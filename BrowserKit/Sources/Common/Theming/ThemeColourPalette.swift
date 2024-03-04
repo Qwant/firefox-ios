@@ -92,4 +92,11 @@ public protocol ThemeColourPalette {
 
     // MARK: - Shadow
     var shadowDefault: UIColor { get }
+
+    // MARK: - Qwant Onboarding
+    var onboarding_palePink: UIColor { get }
+    var onboarding_paleBlue: UIColor { get }
+    var onboarding_paleGreen: UIColor { get }
+    var onboarding_blackText: UIColor { get }
+    var onboarding_whiteText: UIColor { get }
 }

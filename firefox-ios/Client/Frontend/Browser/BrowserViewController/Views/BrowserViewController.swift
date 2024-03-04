@@ -184,6 +184,10 @@ class BrowserViewController: UIViewController,
         return keyboardPressesHandlerValue
     }
 
+    fileprivate var shouldShowSecondaryIntroScreen: Bool {
+        profile.prefs.intForKey(PrefsKeys.SecondaryIntroSeen) == nil
+    }
+
     init(
         profile: Profile,
         tabManager: TabManager,
@@ -2601,7 +2605,21 @@ extension BrowserViewController: UIAdaptivePresentationControllerDelegate {
         for controller: UIPresentationController,
         traitCollection: UITraitCollection
     ) -> UIModalPresentationStyle {
+        if controller.presentedViewController is QwantIntroViewController {
+            if topTabsVisible {
+                return .formSheet
+            } else {
+                return .fullScreen
+            }
+        }
         return .none
+    }
+
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        if presentationController.presentedViewController is QwantIntroViewController {
+            return false
+        }
+        return true
     }
 }
 

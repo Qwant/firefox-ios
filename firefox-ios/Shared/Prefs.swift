@@ -20,6 +20,7 @@ public struct PrefsKeys {
     public static let HasFocusInstalled = "HasFocusInstalled"
     public static let HasPocketInstalled = "HasPocketInstalled"
     public static let IntroSeen = "IntroViewControllerSeenv2"
+    public static let SecondaryIntroSeen = "SecondaryIntroSeen"
     public static let HomePageTab = "HomePageTab"
     public static let HomeButtonHomePageURL = "HomeButtonHomepageURL"
     public static let NumberOfTopSiteRows = "NumberOfTopSiteRows"

@@ -122,3 +122,21 @@ public extension UserDefaults {
         setValue(value, forKey: Constants.HAS_OPENED_APP_VIA_THE_WIDGET)
     }
 }
+
+public extension String {
+    var makeDoubleStarsTagsBoldAndRemoveThem: NSAttributedString? {
+        // swiftlint:disable force_try
+        let regex = try! NSRegularExpression(pattern: "\\*\\*(.*?)\\*\\*", options: [])
+        // swiftlint:enable force_try
+        let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+
+        let cleanedString = self.replacingOccurrences(of: "**", with: "")
+        let attributedStr = NSMutableAttributedString(string: cleanedString)
+        for i in 0 ..< results.count {
+            let result = results[i]
+            let cleanedRange = NSRange(location: result.range.location - (4 * i), length: result.range.length - 4)
+            attributedStr.addAttributes([.font: UIFont.systemFont(ofSize: 15, weight: .bold)], range: cleanedRange)
+        }
+        return attributedStr
+    }
+}

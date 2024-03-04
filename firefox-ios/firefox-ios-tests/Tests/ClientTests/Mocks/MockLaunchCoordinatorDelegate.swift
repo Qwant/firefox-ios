@@ -13,4 +13,6 @@ class MockLaunchCoordinatorDelegate: LaunchCoordinatorDelegate {
         didFinishCalledCount += 1
         savedDidFinishCoordinator = coordinator
     }
+
+    func reloadIfPossible() {}
 }

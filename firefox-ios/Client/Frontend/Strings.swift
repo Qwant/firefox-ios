@@ -5997,6 +5997,28 @@ extension String {
         public static let NightModeTitleOff = QwantString(key: "Qwant.NightMode.Title.Off")
         public static let NightModeSubtitle = QwantString(key: "Qwant.NightMode.Subtitle")
     }
+
+    public struct QwantOnboarding {
+        public static let IgnoreButtonTitle = QwantString(key: "Qwant.Intro.General.Ignore")
+        public static let NextButtonTitle = QwantString(key: "Qwant.Intro.General.Next")
+        public static let LetsGoButtonTitle = QwantString(key: "Qwant.Intro.General.LetsGo")
+        public static let SettingsButtonTitle = QwantString(key: "Qwant.Intro.General.Settings")
+        public static let LaterButtonTitle = QwantString(key: "Qwant.Intro.General.Later")
+        public static let WelcomeTitle = QwantString(key: "Qwant.Intro.Welcome.Title")
+        public static let WelcomeSubtitle = QwantString(key: "Qwant.Intro.Welcome.Subtitle")
+        public static let WelcomeBullet1 = QwantString(key: "Qwant.Intro.Welcome.Bullet1")
+        public static let WelcomeBullet2 = QwantString(key: "Qwant.Intro.Welcome.Bullet2")
+        public static let WelcomeBullet3 = QwantString(key: "Qwant.Intro.Welcome.Bullet3")
+        public static let QwantVIPTitle = QwantString(key: "Qwant.Intro.QwantVIP.Title")
+        public static let QwantVIPBullet1 = QwantString(key: "Qwant.Intro.QwantVIP.Bullet1")
+        public static let QwantVIPBullet2 = QwantString(key: "Qwant.Intro.QwantVIP.Bullet2")
+        public static let DefaultBrowserTitle = QwantString(key: "Qwant.Intro.DefaultBrowser.Title")
+        public static let DefaultBrowserSubtitle = QwantString(key: "Qwant.Intro.DefaultBrowser.Subtitle")
+        public static let DefaultBrowserBullet1 = QwantString(key: "Qwant.Intro.DefaultBrowser.Bullet1")
+        public static let DefaultBrowserBullet2 = QwantString(key: "Qwant.Intro.DefaultBrowser.Bullet2")
+        public static let DefaultBrowserBullet3 = QwantString(key: "Qwant.Intro.DefaultBrowser.Bullet3")
+    }
+
 }
 
 // swiftlint:enable line_length

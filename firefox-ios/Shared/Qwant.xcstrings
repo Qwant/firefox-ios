@@ -108,6 +108,654 @@
           }
         }
       }
+    },
+    "Qwant.Intro.DefaultBrowser.Bullet1" : {
+      "comment" : "Bullet point #1 for the third panel 'Default Browser' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Öffnen Sie die **Einstellungen**"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Open **Settings**"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Abra la sección de **Configuración**"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Ouvrez les **Réglages**"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Aprire le **impostazioni**"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.DefaultBrowser.Bullet2" : {
+      "comment" : "Bullet point #2 for the third panel 'Default Browser' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Wählen Sie **Standard-Browser-App**"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Select **Default browser app**"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Seleccione **Aplicación de navegación por defecto**"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Sélectionnez **App du navigateur par défaut**"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Selezionare **App browser predefinita**"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.DefaultBrowser.Bullet3" : {
+      "comment" : "Bullet point #3 for the third panel 'Default Browser' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Wählen Sie **Qwant**"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Select **Qwant**"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Seleccione **Qwant**"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Sélectionnez **Qwant**"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Selezionare **Qwant**"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.DefaultBrowser.Subtitle" : {
+      "comment" : "Subtitle for the third panel 'Default Browser' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Links, die Sie anklicken, werden automatisch in der Qwant-App geöffnet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All links you click on will automatically open in the Qwant app."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos los enlaces en los que hagas clic se abrirán automáticamente en la aplicación Qwant."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous les liens sur lesquels vous cliquez s’ouvriront automatiquement dans l’app Qwant."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutti i link su cui si fa clic si apriranno automaticamente nell'app Qwant."
+          }
+        }
+      }
+    },
+    "Qwant.Intro.DefaultBrowser.Title" : {
+      "comment" : "Title for the third panel 'Default Browser' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie Qwant als Standard-Browser-App aus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Qwant as your default browser app"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige Qwant como tu aplicación de navegación por defecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez Qwant comme navigateur par défaut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegliere Qwant come browser predefinito"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.General.Ignore" : {
+      "comment" : "Button to invite the user to ignore the onboarding of the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignore"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorare"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.General.Later" : {
+      "comment" : "Title of the Later button.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Später"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Después"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In seguito"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.General.LetsGo" : {
+      "comment" : "Title of the Let's go button.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los geht's!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's get started!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Vamos!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C'est parti !"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andiamo!"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.General.Next" : {
+      "comment" : "Button to invite the user to go to the next screen for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siguiente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuare"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.General.Settings" : {
+      "comment" : "Title of the settings button.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir la configuración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les réglages"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprire le impostazioni"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.QwantVIP.Bullet1" : {
+      "comment" : "Bullet point #1 for the second panel 'Qwant VIP' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weniger Cookies, keine aufdringlichen Banner mehr!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fewer cookies, no more intrusive banners!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Menos cookies y no más banners intrusivos!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moins de cookies, fini les bandeaux intrusifs !"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meno cookie, niente più banner intrusivi!"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.QwantVIP.Bullet2" : {
+      "comment" : "Bullet point #2 for the second panel 'Qwant VIP' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blockieren von Trackern, endlich Freiheit!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fewer trackers, finally free!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menos rastreadores, ¡por fin libre!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moins de traqueurs, enfin libre !"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocco dei software di tracciamento, finalmente sei libero!"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.QwantVIP.Title" : {
+      "comment" : "Title for the second panel 'Qwant VIP' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surfen Sie geschützt auf allen Websites, wenn Sie Qwant VIPrivacy installieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surf safely on all websites with our Qwant VIPrivacy extension"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navega con seguridad con Qwant VIPrivacy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naviguez protégés grâce à Qwant VIPrivacy"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naviga su internet in modo protetto con Qwant VIPrivacy"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.Welcome.Bullet1" : {
+      "comment" : "Bullet point #1 for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Kein** Tracking Ihrer Suchanfragen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** tracking of your searches"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Cero** seguimiento de tus búsquedas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zéro** tracking de vos recherches"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** tracciamento delle tue ricerche"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.Welcome.Bullet2" : {
+      "comment" : "Bullet point #2 for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Kein** Werbetracking"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** advertising tracking"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Cero** seguimiento de publicidad"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zéro** tracking publicitaire"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** tracciamento pubblicitario"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.Welcome.Bullet3" : {
+      "comment" : "Bullet point #3 for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Kein** Verkauf Ihrer persönlichen Daten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** sale of your personal data"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Cero** venta de tus datos personales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zéro** vente de vos données personnelles"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Zero** vendita dei tuoi dati personali"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.Welcome.Subtitle" : {
+      "comment" : "Subtitle for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hier können Sie völlig sicher und anonym suchen:"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search in complete privacy:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí puede buscar con total confidencialidad:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ici, faites vos recherches en toute confidentialité :"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qui puoi fare le tue ricerche con la massima riservatezza:"
+          }
+        }
+      }
+    },
+    "Qwant.Intro.Welcome.Title" : {
+      "comment" : "Title for the first panel 'Welcome' in the First Run tour.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen bei Qwant, lieber Anonymus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Qwant, dear unknown user"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenido a Qwant querido anónimo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue chez Qwant, cher inconnu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caro anonimo, benvenuto su Qwant"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
