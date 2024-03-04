@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import Common
 import Foundation
 import CoreSpotlight
 import Shared
@@ -26,6 +27,10 @@ final class RouteBuilder {
             let isPrivate = Bool(urlScanner.value(query: "private") ?? "") ?? isPrivate
 
             recordTelemetry(input: host, isPrivate: isPrivate)
+
+            if host.rawValue.starts(with: "widget-") {
+                UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
+            }
 
             switch host {
             case .deepLink:
