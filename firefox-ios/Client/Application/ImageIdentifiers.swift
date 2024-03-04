@@ -12,7 +12,7 @@ struct ImageIdentifiers {
     public static let badgeMask = "badge-mask"
     public static let firefoxFavicon = "faviconFox"
     public static let foxConfirmation = "foxConfirmation"
-    public static let homeHeaderLogoBall = "fxHomeHeaderLogoBall"
+    public static let homeHeaderLogoBall = "qwant_Q"
     public static let homeHeaderLogoText = "fxHomeHeaderLogoText"
     public static let homepagePocket = "homepage-pocket"
     public static let logo = "splash"

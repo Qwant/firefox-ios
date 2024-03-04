@@ -213,7 +213,7 @@ final class NimbusFeatureFlagLayer {
 
     private func checkToolbarRefactorFeature(from nimbus: FxNimbus) -> Bool {
         let config = nimbus.features.toolbarRefactorFeature.value()
-        return config.enabled
+        return config.enabled && false
     }
 
     private func checkUnifiedAdsFeature(from nimbus: FxNimbus) -> Bool {

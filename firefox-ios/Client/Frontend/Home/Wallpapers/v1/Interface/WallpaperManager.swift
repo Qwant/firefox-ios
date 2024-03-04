@@ -75,7 +75,7 @@ class WallpaperManager: WallpaperManagerInterface {
 
         guard thumbnailUtility.areThumbnailsAvailable else { return false }
 
-        return true
+        return false
     }
 
     /// Determines whether the wallpaper onboarding can be shown

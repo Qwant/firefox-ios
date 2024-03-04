@@ -9,7 +9,7 @@ import Shared
 struct NewTabAccessors {
     static let NewTabPrefKey = PrefsKeys.KeyNewTab
     static let HomePrefKey = PrefsKeys.HomePageTab
-    static let Default = NewTabPage.topSites
+    static let Default = NewTabPage.homePage
 
     static func getNewTabPage(_ prefs: Prefs) -> NewTabPage {
         guard let raw = prefs.stringForKey(NewTabPrefKey) else { return Default }

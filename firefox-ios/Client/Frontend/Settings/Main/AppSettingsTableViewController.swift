@@ -193,7 +193,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         let studiesSetting = SendDataSetting(
             prefs: profile.prefs,
             prefKey: AppConstants.prefStudiesToggle,
-            defaultValue: true,
+            defaultValue: false,
             titleText: .StudiesSettingTitleV2,
             subtitleText: .StudiesSettingMessageV2,
             learnMoreText: .StudiesSettingLinkV2,
@@ -201,7 +201,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
             a11yId: AccessibilityIdentifiers.Settings.SendData.studiesTitle,
             learnMoreA11yId: AccessibilityIdentifiers.Settings.SendData.studiesLearnMoreButton,
             settingsDelegate: parentCoordinator,
-            isStudiesCase: true
+            isStudiesCase: false
         )
         studiesSetting.settingDidChange = {
             Experiments.setStudiesSetting($0)
@@ -210,7 +210,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         let sendTechnicalDataSettings = SendDataSetting(
             prefs: profile.prefs,
             prefKey: AppConstants.prefSendUsageData,
-            defaultValue: true,
+            defaultValue: false,
             titleText: .SendTechnicalDataSettingTitleV2,
             subtitleText: String(format: .SendTechnicalDataSettingMessageV2, AppName.shortName.rawValue),
             learnMoreText: .SendTechnicalDataSettingLinkV2,
@@ -231,7 +231,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         let sendDailyUsagePingSettings = SendDataSetting(
             prefs: profile.prefs,
             prefKey: AppConstants.prefSendDailyUsagePing,
-            defaultValue: true,
+            defaultValue: false,
             titleText: .SendDailyUsagePingSettingTitle,
             subtitleText: String(format: .SendDailyUsagePingSettingMessage, MozillaName.shortName.rawValue),
             learnMoreText: .SendDailyUsagePingSettingLinkV2,
@@ -252,7 +252,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         let sendCrashReportsSettings = SendDataSetting(
             prefs: profile.prefs,
             prefKey: AppConstants.prefSendCrashReports,
-            defaultValue: true,
+            defaultValue: false,
             titleText: .SendCrashReportsSettingTitle,
             subtitleText: String(format: .SendCrashReportsSettingMessageV2, MozillaName.shortName.rawValue),
             learnMoreText: .SendCrashReportsSettingLinkV2,
@@ -271,8 +271,8 @@ class AppSettingsTableViewController: SettingsTableViewController,
     override func generateSettings() -> [SettingSection] {
         setupDataSettings()
         var settings = [SettingSection]()
-        settings += getDefaultBrowserSetting()
-        settings += getAccountSetting()
+//        settings += getDefaultBrowserSetting()
+//        settings += getAccountSetting()
         settings += getGeneralSettings()
         settings += getPrivacySettings()
         settings += getSupportSettings()
@@ -343,7 +343,6 @@ class AppSettingsTableViewController: SettingsTableViewController,
         generalSettings += [
             SiriPageSetting(settings: self, settingsDelegate: parentCoordinator)
         ]
-
         return [SettingSection(title: NSAttributedString(string: .SettingsGeneralSectionTitle),
                                children: generalSettings)]
     }
@@ -487,7 +486,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
     func pressedShowTour() {
         parentCoordinator?.didFinishShowingSettings()
 
-        let urlString = URL.mozInternalScheme + "://deep-link?url=/action/show-intro-onboarding"
+        let urlString = URL.mozPublicScheme + "://deep-link?url=/action/show-intro-onboarding"
         guard let url = URL(string: urlString) else { return }
         applicationHelper.open(url, inWindow: windowUUID)
     }

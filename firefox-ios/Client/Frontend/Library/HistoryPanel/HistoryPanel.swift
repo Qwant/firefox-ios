@@ -601,8 +601,8 @@ class HistoryPanel: UIViewController,
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: theme.colors.textPrimary
         ]
-        bottomSearchButton.tintColor = theme.colors.iconPrimary
-        bottomDeleteButton.tintColor = theme.colors.iconPrimary
+        bottomSearchButton.tintColor = theme.colors.actionPrimary
+        bottomDeleteButton.tintColor = theme.colors.actionPrimary
         applyEmptyStateViewTheme(theme)
 
         tableView.reloadData()
@@ -789,6 +789,8 @@ extension HistoryPanel {
 
     private func resyncHistory() {
         profile.syncManager?.syncHistory().uponQueue(.main) { syncResult in
+        // Nope.
+        if true { return }
             self.endRefreshing()
 
             if syncResult.isSuccess {

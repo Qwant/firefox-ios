@@ -183,8 +183,8 @@ class IntroViewController: UIViewController,
         guard let viewModel = viewModel as? IntroViewModel else { return }
         viewModel.saveHasSeenOnboarding()
         didFinishFlow?()
-        viewModel.telemetryUtility.sendDismissOnboardingTelemetry(
-            from: viewModel.availableCards[pageControl.currentPage].viewModel.name)
+//        viewModel.telemetryUtility.sendDismissOnboardingTelemetry(
+//            from: viewModel.availableCards[pageControl.currentPage].viewModel.name)
     }
 
     @objc

@@ -10,22 +10,22 @@ import UIKit
 public struct SupportUtils {
     public static var URLForPrivateBrowsingLearnMore: URL? {
         // Returns the predefined URL associated to private homepage message card learn more action.
-        return URL(string: "https://support.mozilla.org/en-US/kb/common-myths-about-private-browsing?as=u&utm_source=inproduct")
+        return URL(string: "https://help.qwant.com/docs/mobile/")
     }
 
     public static var URLForWhatsNew: URL? {
         // Returns the predefined URL associated to what's new button action.
-        return URL(string: "https://www.mozilla.org/en-US/firefox/ios/notes/")
+        return URL(string: "https://help.qwant.com/docs/mobile/")
     }
 
     public static var URLForGetHelp: URL? {
         // Returns the predefined URL associated to the menu's Get Help button action.
-        return URL(string: "https://support.mozilla.org/products/ios")
+        return URL(string: "https://help.qwant.com/docs/mobile/")
     }
 
     public static var URLForPocketLearnMore: URL? {
         // Returns the predefined URL associated to homepage Pocket's Learn more action.
-        return URL(string: "https://www.mozilla.org/firefox/pocket/?utm_source=ff_ios")
+        return URL(string: "https://help.qwant.com/docs/mobile/")
     }
 
     public static func URLForTopic(_ topic: String) -> URL? {
@@ -34,23 +34,25 @@ public struct SupportUtils {
         //
         // The resulting NSURL will include the app version, operating system and locale code. For example, a topic
         // "cheese" will be turned into a link that looks like https://support.mozilla.org/1/mobile/2.0/iOS/en-US/cheese
-        guard let escapedTopic = topic.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-              let languageIdentifier = Locale.preferredLanguages.first
+        guard let escapedTopic = topic
+            .replacingOccurrences(of: " ", with: "+")
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?
+            .replacingOccurrences(of: "&", with: "%26")
         else {
             return nil
         }
-        return URL(string: "https://support.mozilla.org/1/mobile/\(AppInfo.appVersion)/iOS/\(languageIdentifier)/\(escapedTopic)")
+        return URL(string: "https://help.qwant.com/?s=\(escapedTopic)")
     }
 
     public static func URLForPrivacyNotice(source: String, campaign: String, content: String?) -> URL? {
-        let defaultURL = URL(string: "https://www.mozilla.org/privacy/firefox")
+        let defaultURL = URL(string: "https://about.qwant.com/en/legal/confidentialite/")
 
         guard let languageIdentifier = Locale.preferredLanguages.first else {
             return defaultURL
         }
 
         var privacyNoticeString =
-                    "https://www.mozilla.org/\(languageIdentifier)/privacy/firefox/?utm_medium=firefox-mobile&utm_source=\(source)&utm_campaign=\(campaign)"
+            "https://about.qwant.com/\(languageIdentifier)/legal/confidentialite/"
 
         if let content {
             privacyNoticeString.append("&utm_content=\(content)")

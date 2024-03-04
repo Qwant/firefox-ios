@@ -12,6 +12,8 @@ protocol QRCodeNavigationHandler: AnyObject {
 
 extension QRCodeNavigationHandler {
     func showQRCode(delegate: QRCodeViewControllerDelegate, rootNavigationController: UINavigationController? = nil) {
+        // Nope.
+        if true { return }
         showQRCode(delegate: delegate, rootNavigationController: rootNavigationController)
     }
 }

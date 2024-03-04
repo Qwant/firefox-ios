@@ -265,4 +265,12 @@ public final class HeaderView: UIView, ThemeApplicable {
         closeButton.backgroundColor = theme.colors.layer2
         horizontalLine.backgroundColor = theme.colors.borderPrimary
     }
+
+    public func qwantHideAllExceptClose() {
+        titleLabel.isHidden = true
+        subtitleLabel.isHidden = true
+        favicon.isHidden = true
+        warningIconView.isHidden = true
+        iconMask.isHidden = true
+    }
 }

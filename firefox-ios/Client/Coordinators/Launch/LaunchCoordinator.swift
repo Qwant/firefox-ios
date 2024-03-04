@@ -57,11 +57,11 @@ class LaunchCoordinator: BaseCoordinator,
             manager.setAccepted()
             TermsOfServiceTelemetry().termsOfServiceAcceptButtonTapped()
 
-            let sendTechnicalData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+            let sendTechnicalData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
             manager.shouldSendTechnicalData(value: sendTechnicalData)
             self.profile.prefs.setBool(sendTechnicalData, forKey: AppConstants.prefSendUsageData)
 
-            let sendCrashReports = profile.prefs.boolForKey(AppConstants.prefSendCrashReports) ?? true
+            let sendCrashReports = profile.prefs.boolForKey(AppConstants.prefSendCrashReports) ?? false
             self.profile.prefs.setBool(sendCrashReports, forKey: AppConstants.prefSendCrashReports)
             self.logger.setup(sendCrashReports: sendCrashReports)
 

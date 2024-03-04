@@ -18,4 +18,6 @@ class ExperimentsSettings: HiddenSetting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedExperiments()
     }
+
+    override var hidden: Bool { return true }
 }

@@ -62,6 +62,7 @@ struct ImageButtonWithLabel: View {
 
     var body: some View {
         Link(destination: isSmall ? link.smallWidgetUrl : link.mediumWidgetUrl) {
+            let foregroundColor = link == .search ? Color("AccentColorReversed") : Color("AccentColor")
             ZStack(alignment: .leading) {
                 if !isSmall {
                     background
@@ -71,13 +72,31 @@ struct ImageButtonWithLabel: View {
                     HStack(alignment: .top) {
                         label
                         Spacer()
-                        logo
+                        if link == .search && isSmall {
+                            Image(decorative: StandardImageIdentifiers.Large.search)
+                                .scaledToFit()
+                                .frame(height: 24.0)
+                                .tint(Color("AccentColorReversed"))
+                        } else {
+                            Image(decorative: link.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 24.0)
+                                .tint(Color("AccentColor"))
+                        }
                     }
                     if isSmall {
-                        icon
+                        HStack(alignment: .bottom) {
+                            Spacer()
+                            Image(decorative: "qwant_Q")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 24.0)
+                                .tint(Color("AccentColor"))
+                        }
                     }
                 }
-                .foregroundColor(Color("widgetLabelColors"))
+                .foregroundColor(foregroundColor)
                 .padding([.horizontal, .vertical], paddingValue)
             }
         }

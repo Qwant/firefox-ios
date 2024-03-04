@@ -31,7 +31,7 @@ final class SendDataSetting: BoolSetting {
         learnMoreA11yId: String?,
         settingsDelegate: SupportSettingsDelegate?,
         featureFlagName: NimbusFeatureFlagID? = nil,
-        enabled: Bool = true,
+        enabled: Bool = false,
         isStudiesCase: Bool = false
     ) {
         self.learnMoreText = learnMoreText
@@ -42,12 +42,12 @@ final class SendDataSetting: BoolSetting {
         self.featureFlagName = featureFlagName
         super.init(prefs: prefs,
                    prefKey: prefKey,
-                   defaultValue: defaultValue,
+                   defaultValue: false,
                    attributedTitleText: NSAttributedString(string: titleText),
                    attributedStatusText: NSAttributedString(string: subtitleText))
 
         if isStudiesCase {
-            let sendUsageDataPref = prefs?.boolForKey(AppConstants.prefSendUsageData) ?? true
+            let sendUsageDataPref = prefs?.boolForKey(AppConstants.prefSendUsageData) ?? false && false
             // Special Case (EXP-4780, FXIOS-10534) disable studies if usage data is disabled
             // and studies should be toggled back on after re-enabling Telemetry
             self.enabled = sendUsageDataPref
@@ -55,7 +55,7 @@ final class SendDataSetting: BoolSetting {
             // We make sure to set this on initialization, in case the setting is turned off
             // in which case, we would to make sure that users are opted out of experiments
             guard let key = prefKey else { return }
-            Experiments.setTelemetrySetting(prefs?.boolForKey(key) ?? true)
+            Experiments.setTelemetrySetting(prefs?.boolForKey(key) ?? false)
         }
     }
 
@@ -96,6 +96,7 @@ final class SendDataSetting: BoolSetting {
     }
 
     func updateSetting(for isUsageEnabled: Bool) {
+        let isUsageEnabled = false
         self.enabled = isUsageEnabled
         // We make sure to set this on initialization, in case the setting is turned off
         // in which case, we would to make sure that users are opted out of experiments
@@ -105,7 +106,7 @@ final class SendDataSetting: BoolSetting {
         // Set experiments study setting based on usage enabled state
         // Special Case (EXP-4780, FXIOS-10534) disable Studies if usage data is disabled
         // and studies should be toggled back on after re-enabling Telemetry
-        let studiesEnabled = isUsageEnabled && (prefs?.boolForKey(AppConstants.prefStudiesToggle) ?? true)
+        let studiesEnabled = isUsageEnabled && (prefs?.boolForKey(AppConstants.prefStudiesToggle) ?? false)
         Experiments.setStudiesSetting(studiesEnabled)
     }
 
@@ -113,5 +114,9 @@ final class SendDataSetting: BoolSetting {
         control.setSwitchTappable(to: isEnabled)
         control.toggleSwitch(to: isEnabled)
         writeBool(control.switchView)
+    }
+
+    override var hidden: Bool {
+        return true
     }
 }

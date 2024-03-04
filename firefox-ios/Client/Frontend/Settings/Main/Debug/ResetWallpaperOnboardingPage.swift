@@ -25,4 +25,6 @@ class ResetWallpaperOnboardingPage: HiddenSetting {
         UserDefaults.standard.set(false, forKey: PrefsKeys.Wallpapers.OnboardingSeenKey)
         settingsDelegate?.askedToReload()
     }
+
+    override var hidden: Bool { return true }
 }

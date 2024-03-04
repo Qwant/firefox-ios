@@ -21,4 +21,6 @@ class ChangeToChinaSetting: HiddenSetting {
             UserDefaults.standard.set(true, forKey: AppInfo.debugPrefIsChinaEdition)
         }
     }
+
+    override var hidden: Bool { return true }
 }

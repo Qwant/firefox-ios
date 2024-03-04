@@ -27,4 +27,6 @@ class ResetContextualHints: HiddenSetting {
             self.profile?.prefs.removeObjectForKey($0.rawValue)
         }
     }
+
+    override var hidden: Bool { return true }
 }

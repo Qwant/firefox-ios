@@ -17,7 +17,7 @@
 //         telemetryHelper: AdjustTelemetryProtocol = AdjustTelemetryHelper()) {
 //        self.profile = profile
 //        self.telemetryHelper = telemetryHelper
-//        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+//        let sendUsageData = profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 //
 //        // This is required for adjust to work properly with ASA and we avoid directly disabling
 //        // third-party sharing as there is a specific method provided to us by adjust for that.
@@ -83,7 +83,7 @@
 //    /// Return true if retention (session) tracking should be enabled.
 //    /// This follows the Send Anonymous Usage Data setting.
 //    private var shouldTrackRetention: Bool {
-//        return profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+//        return profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 //    }
 //
     // MARK: - UserDefaults

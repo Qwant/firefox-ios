@@ -29,4 +29,8 @@ class SendFeedbackSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.askedToOpen(url: url, withTitle: title)
     }
+
+    override var hidden: Bool {
+        return true
+    }
 }

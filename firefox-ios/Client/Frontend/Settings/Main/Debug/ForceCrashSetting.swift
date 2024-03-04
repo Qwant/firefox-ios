@@ -16,4 +16,6 @@ class ForceCrashSetting: HiddenSetting {
     override func onClick(_ navigationController: UINavigationController?) {
         fatalError("Force crash")
     }
+
+    override var hidden: Bool { return true }
 }

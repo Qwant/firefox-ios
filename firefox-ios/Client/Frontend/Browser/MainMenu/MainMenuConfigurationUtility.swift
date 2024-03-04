@@ -497,8 +497,8 @@ struct MainMenuConfigurationUtility: Equatable, FeatureFlaggable {
                 : .MainMenu.Submenus.Tools.WebsiteDarkModeOn
         } else {
             return isNightModeOn
-                ? .MainMenu.Submenus.Tools.NightModeOff
-                : .MainMenu.Submenus.Tools.NightModeOn
+                ? .QwantSettings.NightModeTitleOn
+                : .QwantSettings.NightModeTitleOff
         }
     }
 
@@ -506,11 +506,13 @@ struct MainMenuConfigurationUtility: Equatable, FeatureFlaggable {
         typealias A11y = String.MainMenu.Submenus.Tools.AccessibilityLabels
 
         let nightModeIsOn = NightModeHelper.isActivated()
+        let subtitle = String.QwantSettings.NightModeSubtitle
         let icon = nightModeIsOn ? Icons.nightModeOn : Icons.nightModeOff
         let a11yLabel = nightModeIsOn ? A11y.NightModeOff : A11y.NightModeOn
 
         return MenuElement(
             title: getNightModeTitle(nightModeIsOn),
+            description: subtitle,
             iconName: icon,
             isEnabled: true,
             isActive: nightModeIsOn,

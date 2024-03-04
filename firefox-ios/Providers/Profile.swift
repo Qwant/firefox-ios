@@ -314,6 +314,10 @@ open class BrowserProfile: Profile {
                 MZKeychainWrapper.wipeKeychain()
             }
             prefs.clearAll()
+
+            prefs.setString("HomePage", forKey: PrefsKeys.KeyNewTab)
+            prefs.setString("https://www.qwant.com/", forKey: PrefsKeys.NewTabCustomUrlPrefKey)
+            prefs.setString("https://www.qwant.com", forKey: PrefsKeys.HomeButtonHomePageURL)
         }
 
         setLogger(logger: ForwardOnLog(logger: self.logger))
@@ -337,6 +341,21 @@ open class BrowserProfile: Profile {
         // Remove the default homepage. This does not change the user's preference,
         // just the behaviour when there is no homepage.
         prefs.removeObjectForKey(PrefsKeys.KeyDefaultHomePageURL)
+
+        // Hide the "__leanplum.sqlite" file in the documents directory.
+        if var leanplumFile = try? FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: false).appendingPathComponent("__leanplum.sqlite"),
+            FileManager.default.fileExists(atPath: leanplumFile.path) {
+            let isHidden = (try? leanplumFile.resourceValues(forKeys: [.isHiddenKey]))?.isHidden ?? false
+            if !isHidden {
+                var resourceValues = URLResourceValues()
+                resourceValues.isHidden = true
+                try? leanplumFile.setResourceValues(resourceValues)
+            }
+        }
 
         // Create the "Downloads" folder in the documents directory.
         if let downloadsPath = try? FileManager.default.url(

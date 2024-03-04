@@ -26,4 +26,6 @@ class AppReviewPromptSetting: HiddenSetting {
         UserDefaults.standard.set(true, forKey: PrefsKeys.ForceShowAppReviewPromptOverride)
         settingsDelegate?.askedToReload()
     }
+
+    override var hidden: Bool { return true }
 }

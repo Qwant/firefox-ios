@@ -49,18 +49,24 @@ class BrowsingSettingsViewController: SettingsTableViewController, FeatureFlagga
             )
         }
 
+        var searchSettings = [Setting]()
         var linksSettings: [Setting] = [OpenWithSetting(settings: self, settingsDelegate: parentCoordinator)]
         var mediaSection = [Setting]()
         if let profile {
             let theme = themeManager.getCurrentTheme(for: windowUUID)
-            let offerToOpenCopiedLinksSettings = BoolSetting(
+
+            let suggestSetting = BoolSetting(
                 prefs: profile.prefs,
-                theme: theme,
-                prefKey: PrefsKeys.ShowClipboardBar,
-                defaultValue: false,
-                titleText: .SettingsOfferClipboardBarTitle,
-                statusText: String(format: .SettingsOfferClipboardBarStatus, AppName.shortName.rawValue)
+                theme: themeManager.getCurrentTheme(for: windowUUID),
+                prefKey: "search.suggestions.show",
+                defaultValue: true,
+                titleText: .Settings.Search.ShowSearchSuggestions,
+                settingDidChange: { (newValue) in
+                    profile.searchEnginesManager.shouldShowSearchSuggestions = newValue
+                }
             )
+
+            searchSettings += [suggestSetting]
 
             let showLinksPreviewSettings = BoolSetting(
                 prefs: profile.prefs,
@@ -71,8 +77,7 @@ class BrowsingSettingsViewController: SettingsTableViewController, FeatureFlagga
                 statusText: .SettingsShowLinkPreviewsStatus
             )
 
-            linksSettings += [offerToOpenCopiedLinksSettings,
-                              showLinksPreviewSettings]
+            linksSettings += [showLinksPreviewSettings]
 
             let blockOpeningExternalAppsSettings = BoolSetting(
                 prefs: profile.prefs,
@@ -93,6 +98,10 @@ class BrowsingSettingsViewController: SettingsTableViewController, FeatureFlagga
                 blockOpeningExternalAppsSettings
             ]
         }
+
+        settings.insert(SettingSection(title: NSAttributedString(string: .Settings.Search.Title),
+                                       children: searchSettings),
+                        at: 0)
 
         settings += [SettingSection(title: NSAttributedString(string: .Settings.Browsing.Links),
                                     children: linksSettings),

@@ -112,4 +112,6 @@ class AppDataUsageReportSetting: HiddenSetting {
         }
         return result
     }
+
+    override var hidden: Bool { return true }
 }

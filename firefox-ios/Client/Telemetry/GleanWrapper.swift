@@ -51,6 +51,8 @@ struct DefaultGleanWrapper: GleanWrapper {
     }
 
     func setUpload(isEnabled: Bool) {
+        // Nope.
+        let isEnabled = false
         glean.setCollectionEnabled(isEnabled)
     }
 
@@ -126,6 +128,8 @@ struct DefaultGleanWrapper: GleanWrapper {
     // MARK: Pings
 
     func submit<ReasonCodesEnum>(ping: Ping<ReasonCodesEnum>) where ReasonCodesEnum: ReasonCodes {
+        // Nope.
+        if true { return }
         ping.submit()
     }
 }

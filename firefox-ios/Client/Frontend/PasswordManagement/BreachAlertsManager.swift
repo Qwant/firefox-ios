@@ -44,6 +44,9 @@ final class BreachAlertsManager {
     ///    - Parameters:
     ///         - completion: a completion handler for the processed breaches
     func loadBreaches(completion: @escaping (Maybe<Set<BreachRecord>>) -> Void) {
+        // Nope.
+        if true { return }
+
         guard let cacheURL = self.cacheURL else {
             self.fetchAndSaveBreaches(completion)
             return

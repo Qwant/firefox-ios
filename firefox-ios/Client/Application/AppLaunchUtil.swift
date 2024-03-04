@@ -38,7 +38,7 @@ class AppLaunchUtil {
         DefaultBrowserUtil().processUserDefaultState(isFirstRun: introScreenManager.shouldShowIntroScreen)
 
         // Need to get "settings.sendCrashReports" this way so that Sentry can be initialized before getting the Profile.
-        let sendCrashReports = NSUserDefaultsPrefs(prefix: "profile").boolForKey(AppConstants.prefSendCrashReports) ?? true
+        let sendCrashReports = NSUserDefaultsPrefs(prefix: "profile").boolForKey(AppConstants.prefSendCrashReports) ?? false
 
         if termsOfServiceManager.isAffectedUser {
             logger.setup(sendCrashReports: sendCrashReports)

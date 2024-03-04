@@ -20,7 +20,7 @@ public struct PrefsKeys {
     public static let KeyMailToOption = "MailToOption"
     public static let HasFocusInstalled = "HasFocusInstalled"
     public static let HasPocketInstalled = "HasPocketInstalled"
-    public static let IntroSeen = "IntroViewControllerSeen"
+    public static let IntroSeen = "IntroViewControllerSeenv2"
     public static let TermsOfServiceAccepted = "TermsOfServiceAccepted"
     public static let HomePageTab = "HomePageTab"
     public static let HomeButtonHomePageURL = "HomeButtonHomepageURL"

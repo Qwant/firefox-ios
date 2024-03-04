@@ -36,7 +36,7 @@ class StudiesToggleSetting: BoolSetting {
         super.init(
             prefs: prefs,
             prefKey: AppConstants.prefStudiesToggle,
-            defaultValue: true,
+            defaultValue: false,
             attributedTitleText: NSAttributedString(string: title),
             attributedStatusText: statusText,
             settingDidChange: {
@@ -46,7 +46,7 @@ class StudiesToggleSetting: BoolSetting {
 
         setupSettingDidChange()
 
-        let sendUsageDataPref = prefs.boolForKey(AppConstants.prefSendUsageData) ?? true
+        let sendUsageDataPref = prefs.boolForKey(AppConstants.prefSendUsageData) ?? false
 
         // Special Case (EXP-4780, FXIOS-10534) disable studies if usage data is disabled
         // and studies should be toggled back on after re-enabling Telemetry
@@ -60,6 +60,7 @@ class StudiesToggleSetting: BoolSetting {
     }
 
     func updateSetting(for isUsageEnabled: Bool) {
+        let isUsageEnabled = false
         self.enabled = isUsageEnabled
         // We make sure to set this on initialization, in case the setting is turned off
         // in which case, we would to make sure that users are opted out of experiments
@@ -69,7 +70,7 @@ class StudiesToggleSetting: BoolSetting {
         // Set experiments study setting based on usage enabled state
         // Special Case (EXP-4780, FXIOS-10534) disable Studies if usage data is disabled
         // and studies should be toggled back on after re-enabling Telemetry
-        let studiesEnabled = isUsageEnabled && (prefs?.boolForKey(AppConstants.prefStudiesToggle) ?? true)
+        let studiesEnabled = isUsageEnabled && (prefs?.boolForKey(AppConstants.prefStudiesToggle) ?? false)
         Experiments.setStudiesSetting(studiesEnabled)
     }
 
@@ -89,5 +90,9 @@ class StudiesToggleSetting: BoolSetting {
 
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.askedToOpen(url: url, withTitle: title)
+    }
+
+    override var hidden: Bool {
+        return true
     }
 }

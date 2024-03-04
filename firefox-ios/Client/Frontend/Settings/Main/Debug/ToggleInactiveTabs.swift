@@ -25,4 +25,6 @@ class ToggleInactiveTabs: HiddenSetting, FeatureFlaggable {
         featureFlags.set(feature: .inactiveTabs, to: newStatus)
         settingsDelegate?.askedToReload()
     }
+
+    override var hidden: Bool { return true }
 }

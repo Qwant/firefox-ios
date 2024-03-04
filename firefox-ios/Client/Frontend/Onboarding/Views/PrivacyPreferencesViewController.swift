@@ -48,11 +48,11 @@ final class PrivacyPreferencesViewController: UIViewController,
     private lazy var contentView: UIView = .build()
 
     private lazy var crashReportsSwitch: SwitchDetailedView = .build { [weak self] view in
-        view.setSwitchValue(isOn: self?.profile.prefs.boolForKey(AppConstants.prefSendCrashReports) ?? true)
+        view.setSwitchValue(isOn: self?.profile.prefs.boolForKey(AppConstants.prefSendCrashReports) ?? false)
     }
 
     private lazy var technicalDataSwitch: SwitchDetailedView = .build { [weak self] view in
-        view.setSwitchValue(isOn: self?.profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? true)
+        view.setSwitchValue(isOn: self?.profile.prefs.boolForKey(AppConstants.prefSendUsageData) ?? false)
     }
 
     // MARK: - Initializers

@@ -95,6 +95,8 @@ class SettingsCoordinator: BaseCoordinator,
     private func getSettingsViewController(settingsSection section: Route.SettingsSection) -> UIViewController? {
         switch section {
         case .appIcon:
+            // Nope.
+            if true { return nil }
             let viewController = UIHostingController(
                 rootView: AppIconSelectionView(
                     windowUUID: windowUUID
@@ -113,12 +115,16 @@ class SettingsCoordinator: BaseCoordinator,
             )
             return viewController
         case .newTab:
+            // Nope.
+            if true { return nil }
             let viewController = NewTabContentSettingsViewController(prefs: profile.prefs,
                                                                      windowUUID: windowUUID)
             viewController.profile = profile
             return viewController
 
         case .homePage:
+            // Nope.
+            if true { return nil }
             let viewController = HomePageSettingViewController(prefs: profile.prefs,
                                                                settingsDelegate: self,
                                                                tabManager: tabManager)
@@ -130,6 +136,8 @@ class SettingsCoordinator: BaseCoordinator,
             return viewController
 
         case .search:
+            // Nope.
+            if true { return nil }
             let viewController = SearchSettingsTableViewController(profile: profile, windowUUID: windowUUID)
             return viewController
 
@@ -138,6 +146,8 @@ class SettingsCoordinator: BaseCoordinator,
             return viewController
 
         case .fxa:
+            // Nope.
+            if true { return nil }
             let fxaParams = FxALaunchParams(entrypoint: .fxaDeepLinkSetting, query: [:])
             let viewController = FirefoxAccountSignInViewController.getSignInOrFxASettingsVC(
                 fxaParams,
@@ -155,6 +165,8 @@ class SettingsCoordinator: BaseCoordinator,
                : ThemeSettingsController(windowUUID: windowUUID)
 
         case .wallpaper:
+            // Nope.
+            if true { return nil }
             if wallpaperManager.canSettingsBeShown {
                 let viewModel = WallpaperSettingsViewModel(
                     wallpaperManager: wallpaperManager,
@@ -170,15 +182,17 @@ class SettingsCoordinator: BaseCoordinator,
             }
 
         case .contentBlocker:
-            let contentBlockerVC = ContentBlockerSettingViewController(windowUUID: windowUUID,
-                                                                       prefs: profile.prefs,
-                                                                       isShownFromSettings: false)
+            let contentBlockerVC = QwantContentBlockerSettingViewController(windowUUID: windowUUID,
+                                                                            prefs: profile.prefs,
+                                                                            isShownFromSettings: false)
             contentBlockerVC.settingsDelegate = self
             contentBlockerVC.profile = profile
             contentBlockerVC.tabManager = tabManager
             return contentBlockerVC
 
         case .browser:
+            // Nope.
+            if true { return nil }
             return BrowsingSettingsViewController(profile: profile, windowUUID: windowUUID)
 
         case .toolbar:
@@ -312,7 +326,7 @@ class SettingsCoordinator: BaseCoordinator,
     }
 
     func pressedContentBlocker() {
-        let viewController = ContentBlockerSettingViewController(windowUUID: windowUUID, prefs: profile.prefs)
+        let viewController = QwantContentBlockerSettingViewController(windowUUID: windowUUID, prefs: profile.prefs)
         viewController.settingsDelegate = self
         viewController.profile = profile
         viewController.tabManager = tabManager

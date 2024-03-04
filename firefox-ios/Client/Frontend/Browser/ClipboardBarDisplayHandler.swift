@@ -110,6 +110,9 @@ class ClipboardBarDisplayHandler: NSObject {
     }
 
     func checkIfShouldDisplayBar() {
+        // Nope.
+        if true { return }
+
         // Clipboard bar feature needs to be enabled by users to be activated in the user settings
         guard prefs.boolForKey(PrefsKeys.ShowClipboardBar) ?? false,
               UIPasteboard.general.hasURLs

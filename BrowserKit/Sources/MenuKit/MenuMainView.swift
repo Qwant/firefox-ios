@@ -89,5 +89,7 @@ public final class MenuMainView: UIView,
         tableView.applyTheme(theme: theme)
         accountHeaderView.applyTheme(theme: theme)
         accountHeaderView.setIconTheme(with: theme)
+        accountHeaderView.qwantHideAllExceptClose()
+        accountHeaderView.mainButtonCallback = nil
     }
 }

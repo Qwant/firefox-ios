@@ -31,7 +31,7 @@ class SearchBarSettingsViewModelTests: XCTestCase {
     // MARK: Default
     func testDefaultSearchPosition() {
         let viewModel = createViewModel()
-        XCTAssertEqual(viewModel.searchBarPosition, .top)
+        XCTAssertEqual(viewModel.searchBarPosition, .bottom)
     }
 
     // MARK: Saved
@@ -40,7 +40,7 @@ class SearchBarSettingsViewModelTests: XCTestCase {
         let viewModel = createViewModel()
         viewModel.topSetting.onChecked()
 
-        XCTAssertEqual(viewModel.searchBarPosition, .top)
+        XCTAssertEqual(viewModel.searchBarPosition, .bottom)
     }
 
     func testSavedSearchPosition_onBottomSavesOnBottom() {

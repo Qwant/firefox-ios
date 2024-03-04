@@ -52,16 +52,16 @@ class FeatureFlagManagerTests: XCTestCase, FeatureFlaggable {
         LegacyFeatureFlagsManager.shared.initializeDeveloperFeatures(with: mockProfile)
 
         // Search Bar position
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        mockProfile.prefs.setString(SearchBarPosition.bottom.rawValue,
-                                    forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
         XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
+        mockProfile.prefs.setString(SearchBarPosition.top.rawValue,
+                                    forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
     }
 
     func testManagerInterfaceForUpdatingCustomFlags() {
         // Search Bar
-        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
-        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.bottom)
         XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.bottom)
+        featureFlags.set(feature: .searchBarPosition, to: SearchBarPosition.top)
+        XCTAssertEqual(featureFlags.getCustomState(for: .searchBarPosition), SearchBarPosition.top)
     }
 }

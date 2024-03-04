@@ -34,4 +34,6 @@ class AppIconSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedCustomizeAppIcon()
     }
+
+    override var hidden: Bool { return true }
 }

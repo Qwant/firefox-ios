@@ -8,7 +8,7 @@ import IntentsUI
 
 class SiriShortcuts {
     enum activityType: String {
-        case openURL = "org.mozilla.ios.Firefox.newTab"
+        case openURL = "com.qwant.mobile.newTab"
     }
 
     func getActivity(for type: activityType) -> NSUserActivity? {

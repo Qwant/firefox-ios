@@ -8,7 +8,7 @@ import UIKit
 class SendToDeviceActivity: CustomAppActivity {
     // Send to Device is only available for URLs that are not files
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        return !url.isFileURL
+        return !url.isFileURL && false
     }
 
     override func prepare(withActivityItems activityItems: [Any]) {}

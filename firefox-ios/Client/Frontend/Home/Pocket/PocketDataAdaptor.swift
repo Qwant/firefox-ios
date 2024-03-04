@@ -29,7 +29,7 @@ class PocketDataAdaptorImplementation: PocketDataAdaptor, FeatureFlaggable {
          dataCompletion: (() -> Void)? = nil) {
         self.pocketAPI = pocketAPI
         self.notificationCenter = notificationCenter
-        self.storyProvider = StoryProvider(pocketAPI: pocketAPI)
+        self.storyProvider = StoryProvider(pocketAPI: pocketAPI, numberOfPocketStories: 0)
         self.dataCompletion = dataCompletion
 
         setupNotifications(forObserver: self, observing: [UIApplication.didBecomeActiveNotification])

@@ -401,6 +401,8 @@ class BrowserCoordinator: BaseCoordinator,
         case .downloads:
             browserViewController.showLibrary(panel: .downloads)
         case .topSites:
+            // Nope.
+            if true { return }
             browserViewController.openURLInNewTab(HomePanelType.topSites.internalUrl)
         case .newPrivateTab:
             browserViewController.openBlankNewTab(focusLocationField: true, isPrivate: true)
@@ -518,7 +520,7 @@ class BrowserCoordinator: BaseCoordinator,
     }
 
     func openDebugTestTabs(count: Int) {
-        guard let url = URL(string: "https://www.mozilla.org") else { return }
+        guard let url = URL(string: "https://www.qwant.com/?q=serp") else { return }
         browserViewController.debugOpen(numberOfNewTabs: count, at: url)
     }
 

@@ -36,4 +36,6 @@ class SentryIDSetting: HiddenSetting {
 
         settingsDelegate?.askedToShow(alert: alert)
     }
+
+    override var hidden: Bool { return true }
 }

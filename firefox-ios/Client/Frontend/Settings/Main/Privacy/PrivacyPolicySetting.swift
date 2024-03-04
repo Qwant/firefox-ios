@@ -9,7 +9,7 @@ class PrivacyPolicySetting: Setting {
     private weak var settingsDelegate: PrivacySettingsDelegate?
 
     override var url: URL? {
-        return URL(string: "https://www.mozilla.org/privacy/firefox/")
+        return URL(string: "https://about.qwant.com/legal/confidentialite/")
     }
 
     override var accessibilityIdentifier: String? {

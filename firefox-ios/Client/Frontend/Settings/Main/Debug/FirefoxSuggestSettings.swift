@@ -19,4 +19,6 @@ class FirefoxSuggestSettings: HiddenSetting {
     override func onClick(_: UINavigationController?) {
         settingsDelegate?.pressedFirefoxSuggest()
     }
+
+    override var hidden: Bool { return true }
 }

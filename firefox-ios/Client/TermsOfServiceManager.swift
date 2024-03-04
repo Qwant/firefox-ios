@@ -33,7 +33,7 @@ struct TermsOfServiceManager: FeatureFlaggable {
     var shouldShowScreen: Bool {
         guard featureFlags.isFeatureEnabled(.tosFeature, checking: .buildAndUser) else { return false }
 
-        return prefs.intForKey(PrefsKeys.TermsOfServiceAccepted) == nil
+        return prefs.intForKey(PrefsKeys.TermsOfServiceAccepted) == nil && false
     }
 
     func setAccepted() {
