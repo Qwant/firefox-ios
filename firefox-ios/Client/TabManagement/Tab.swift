@@ -860,6 +860,13 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
             return assertionFailure("Unhandled KVO key: \(keyPath ?? "nil")")
         }
 
+        if let url = self.webView?.url, path == KVOConstants.URL.rawValue {
+            if url.missesClientContext {
+                self.webView?.relaunchNavigationWithContext()
+                return
+            }
+        }
+
         if let title = self.webView?.title, !title.isEmpty,
            path == KVOConstants.title.rawValue {
             // `Tab.toRemoteTab` was added for FXIOS-8241

@@ -41,6 +41,10 @@ final class RouteBuilder: FeatureFlaggable {
 
             recordTelemetry(input: host, isPrivate: isPrivate)
 
+            if host.rawValue.starts(with: "widget-") {
+                UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
+            }
+
             switch host {
             case .deepLink:
                 let deepLinkURL = urlScanner.fullURLQueryItem()?.lowercased()
