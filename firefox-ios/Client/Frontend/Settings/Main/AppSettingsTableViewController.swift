@@ -141,7 +141,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         case .creditCard:
             authenticateUserFor(route: route)
         case .rateApp:
-            RatingPromptManager.goToAppStoreReview()
+            QwantRatingPromptManager.goToAppStoreReview()
         default:
             break
         }

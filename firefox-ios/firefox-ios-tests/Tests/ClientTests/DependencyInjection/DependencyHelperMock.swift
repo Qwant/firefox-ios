@@ -41,6 +41,9 @@ class DependencyHelperMock {
         let themeManager: ThemeManager = MockThemeManager()
         AppContainer.shared.register(service: themeManager)
 
+        let ratingPromptManager = QwantRatingPromptManager()
+        AppContainer.shared.register(service: ratingPromptManager)
+
         let downloadQueue = DownloadQueue()
         AppContainer.shared.register(service: downloadQueue)
 

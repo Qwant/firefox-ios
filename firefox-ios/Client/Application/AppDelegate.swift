@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FeatureFlaggable {
         isNewAppearanceMenuOnClosure: { self.featureFlags.isFeatureEnabled(.appearanceMenu, checking: .buildOnly) }
     )
     lazy var documentLogger = DocumentLogger(logger: logger)
+    lazy var ratingPromptManager = QwantRatingPromptManager()
     lazy var appSessionManager: AppSessionProvider = AppSessionManager()
     lazy var notificationSurfaceManager = NotificationSurfaceManager()
     lazy var tabDataStore = DefaultTabDataStore()

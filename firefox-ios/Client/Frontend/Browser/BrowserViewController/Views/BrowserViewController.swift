@@ -295,7 +295,7 @@ class BrowserViewController: UIViewController,
     let profile: Profile
     let tabManager: TabManager
     let crashTracker: CrashTracker
-    let ratingPromptManager: RatingPromptManager
+    let ratingPromptManager: QwantRatingPromptManager
     private var browserViewControllerState: BrowserViewControllerState?
     var appAuthenticator: AppAuthenticationProtocol
     private var keyboardState: KeyboardState?
@@ -351,7 +351,7 @@ class BrowserViewController: UIViewController,
         self.themeManager = themeManager
         self.notificationCenter = notificationCenter
         self.crashTracker = DefaultCrashTracker()
-        self.ratingPromptManager = RatingPromptManager(prefs: profile.prefs, crashTracker: crashTracker)
+        self.ratingPromptManager = AppContainer.shared.resolve()
         self.downloadQueue = downloadQueue
         self.logger = logger
         self.documentLogger = documentLogger
