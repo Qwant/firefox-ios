@@ -36,7 +36,7 @@ class LaunchCoordinator: BaseCoordinator,
         case .update(let viewModel):
             presentUpdateOnboarding(with: viewModel, isFullScreen: isFullScreen)
         case .defaultBrowser:
-            presentDefaultBrowserOnboarding()
+            presentDefaultBrowserOnboarding(isFullScreen: isFullScreen)
         case .survey(let manager):
             presentSurvey(with: manager)
         }
@@ -94,24 +94,25 @@ class LaunchCoordinator: BaseCoordinator,
     }
 
     // MARK: - Default Browser
-    func presentDefaultBrowserOnboarding() {
-        let defaultOnboardingViewController = DefaultBrowserOnboardingViewController()
-        defaultOnboardingViewController.viewModel.goToSettings = { [weak self] in
+    func presentDefaultBrowserOnboarding(isFullScreen: Bool) {
+        let defaultOnboardingViewController = QwantDefaultBrowserOnboardingViewController()
+        defaultOnboardingViewController.goToSettings = { [weak self] in
             guard let self = self else { return }
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
             self.parentCoordinator?.didFinishLaunch(from: self)
+            self.parentCoordinator?.reloadIfPossible()
         }
 
-        defaultOnboardingViewController.viewModel.didAskToDismissView = { [weak self] in
-            guard let self = self else { return }
-            self.parentCoordinator?.didFinishLaunch(from: self)
+        if isFullScreen {
+            defaultOnboardingViewController.modalPresentationStyle = .popover
+            router.present(defaultOnboardingViewController, animated: false)
+        } else {
+            defaultOnboardingViewController.preferredContentSize = CGSize(
+                width: ViewControllerConsts.PreferredSize.DBOnboardingViewController.width,
+                height: ViewControllerConsts.PreferredSize.DBOnboardingViewController.height)
+            defaultOnboardingViewController.modalPresentationStyle = .formSheet
+            router.present(defaultOnboardingViewController, animated: true)
         }
-
-        defaultOnboardingViewController.preferredContentSize = CGSize(
-            width: ViewControllerConsts.PreferredSize.DBOnboardingViewController.width,
-            height: ViewControllerConsts.PreferredSize.DBOnboardingViewController.height)
-        let isiPhone = UIDevice.current.userInterfaceIdiom == .phone
-        defaultOnboardingViewController.modalPresentationStyle = isiPhone ? .fullScreen : .formSheet
-        router.present(defaultOnboardingViewController)
     }
 
     // MARK: - Survey

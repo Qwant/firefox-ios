@@ -99,4 +99,7 @@ public protocol ThemeColourPalette {
     var onboarding_paleGreen: UIColor { get }
     var onboarding_blackText: UIColor { get }
     var onboarding_whiteText: UIColor { get }
+
+    // MARK: - Qwant Default Browser
+    var defaultBrowser_paleViolet: UIColor { get }
 }

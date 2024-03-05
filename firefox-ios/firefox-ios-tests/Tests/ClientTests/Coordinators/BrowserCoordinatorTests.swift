@@ -546,7 +546,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         let result = testCanHandleAndHandle(subject, route: route)
 
         XCTAssertTrue(result)
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
         XCTAssertEqual(subject.childCoordinators.count, 1)
         XCTAssertNotNil(subject.childCoordinators[0] as? LaunchCoordinator)
@@ -749,7 +749,7 @@ final class BrowserCoordinatorTests: XCTestCase {
 
         subject.browserHasLoaded()
 
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
     }
 
@@ -782,7 +782,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         tabManager.isRestoringTabs = false
         subject.tabManagerDidRestoreTabs(tabManager)
 
-        XCTAssertNotNil(mockRouter.presentedViewController as? DefaultBrowserOnboardingViewController)
+        XCTAssertNotNil(mockRouter.presentedViewController as? QwantDefaultBrowserOnboardingViewController)
         XCTAssertEqual(mockRouter.presentCalled, 1)
     }
 

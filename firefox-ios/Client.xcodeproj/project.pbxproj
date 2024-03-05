@@ -531,6 +531,7 @@
 		683603E42B96157F00985FEE /* QwantIntroScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E32B96157F00985FEE /* QwantIntroScreen2.swift */; };
 		683603E62B96159200985FEE /* QwantIntroScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E52B96159200985FEE /* QwantIntroScreen1.swift */; };
 		683603E82B9615B700985FEE /* Onboarding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683603E72B9615B700985FEE /* Onboarding.xcassets */; };
+		688A86B82B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2584,6 +2585,7 @@
 		683603E52B96159200985FEE /* QwantIntroScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroScreen1.swift; sourceTree = "<group>"; };
 		683603E72B9615B700985FEE /* Onboarding.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Onboarding.xcassets; sourceTree = "<group>"; };
 		6855435EA1F3E75E86BE92C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FindInPage.strings; sourceTree = "<group>"; };
+		688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDefaultBrowserOnboardingViewController.swift; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
@@ -4239,6 +4241,7 @@
 			children = (
 				431C0CA825C890E500395CE4 /* DefaultBrowserOnboardingViewModel.swift */,
 				23ED80FE25C89C9800D0E9D5 /* DefaultBrowserOnboardingViewController.swift */,
+				688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */,
 			);
 			path = DefaultBrowserOnboarding;
 			sourceTree = "<group>";
@@ -9910,6 +9913,7 @@
 				8AB8574A27D97CE90075C173 /* HomePanelDelegate.swift in Sources */,
 				2137786529832C8900D01309 /* OverlayModeManager.swift in Sources */,
 				8AF99B4D29EF076800108DEC /* WebviewViewController.swift in Sources */,
+				688A86B82B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */,
 				3B39EDCB1E16E1AA00EF029F /* CustomSearchViewController.swift in Sources */,
 				C8B0F5F7283B7CCE007AE65D /* PocketFeedStory.swift in Sources */,
 				96A562A027D6D0E80045144A /* ContileProvider.swift in Sources */,

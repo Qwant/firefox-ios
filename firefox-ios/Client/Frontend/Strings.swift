@@ -6019,6 +6019,12 @@ extension String {
         public static let DefaultBrowserBullet3 = QwantString(key: "Qwant.Intro.DefaultBrowser.Bullet3")
     }
 
+    public struct QwantDefaultBrowser {
+        public static let DefaultBrowserTitle = QwantString(key: "Qwant.DefaultBrowserOnboarding.Title")
+        public static let DefaultBrowserDescription = QwantString(key: "Qwant.DefaultBrowserOnboarding.Description")
+        public static let DefaultBrowserButtonSettings = QwantString(key: "Qwant.DefaultBrowserOnboarding.ButtonSettings")
+        public static let DefaultBrowserButtonIgnore = QwantString(key: "Qwant.DefaultBrowserOnboarding.ButtonIgnore")
+    }
 }
 
 // swiftlint:enable line_length

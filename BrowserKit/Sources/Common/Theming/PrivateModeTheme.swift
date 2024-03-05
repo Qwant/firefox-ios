@@ -113,4 +113,7 @@ private struct PrivateModeColorPalette: ThemeColourPalette {
     var onboarding_paleGreen = UIColor(rgb: 0xb3e6cc)
     var onboarding_blackText = UIColor(rgb: 0x050506)
     var onboarding_whiteText = UIColor.white
+
+    // MARK: - Qwant Default Browser
+    var defaultBrowser_paleViolet = UIColor(rgb: 0xDED6FF)
 }

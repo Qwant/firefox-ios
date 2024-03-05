@@ -1,110 +1,110 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Qwant.NightMode.Subtitle" : {
-      "comment" : "Row subtitle for night mode, to give some more context",
+    "Qwant.DefaultBrowserOnboarding.ButtonIgnore" : {
+      "comment" : "Button string to ignore the default browser capability.",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farben der Website umkehren"
+            "value" : "Überspringen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invert website colors"
+            "value" : "Ignore"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invertir los colores del sitio web"
+            "value" : "Omitir"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inverser les couleurs du site"
+            "value" : "Ignorer"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inverti i colori dei siti web"
+            "value" : "Ignora"
           }
         }
       }
     },
-    "Qwant.NightMode.Title.Off" : {
-      "comment" : "Row title for night mode when it's off",
+    "Qwant.DefaultBrowserOnboarding.ButtonSettings" : {
+      "comment" : "Button string to open settings that allows user to switch their default browser to Qwant.",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nachtmodus erzwingen"
+            "value" : "Einstellungen öffnen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Force dark mode"
+            "value" : "Go to Settings"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Modo oscuro"
+            "value" : "Ir a ajustes"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forcer le mode sombre"
+            "value" : "Ouvrir les réglages"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Imponi modalità scura"
+            "value" : "Apri Impostazioni"
           }
         }
       }
     },
-    "Qwant.NightMode.Title.On" : {
-      "comment" : "Row title for night mode when it's on",
+    "Qwant.DefaultBrowserOnboarding.Description" : {
+      "comment" : "Description to help users understand that they can set Qwant as their default browser.",
       "extractionState" : "manual",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nachtmodus ausschalten"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turn off dark mode"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desactivar modo oscuro"
+            "value" : "Set links to open automatically in Qwant!"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Désactiver le mode sombre"
+            "value" : "Ouvrez tous vos liens dans l'app Qwant !"
           }
-        },
-        "it" : {
+        }
+      }
+    },
+    "Qwant.DefaultBrowserOnboarding.Title" : {
+      "comment" : "Title to help users understand that they can set Qwant as their default browser.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disattiva modalità scura"
+            "value" : "Make the Qwant app your default browser"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faites de l'app Qwant votre navigateur par défaut"
           }
         }
       }
@@ -753,6 +753,114 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Caro anonimo, benvenuto su Qwant"
+          }
+        }
+      }
+    },
+    "Qwant.NightMode.Subtitle" : {
+      "comment" : "Row subtitle for night mode, to give some more context",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farben der Website umkehren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invert website colors"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invertir los colores del sitio web"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inverser les couleurs du site"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inverti i colori dei siti web"
+          }
+        }
+      }
+    },
+    "Qwant.NightMode.Title.Off" : {
+      "comment" : "Row title for night mode when it's off",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachtmodus erzwingen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Force dark mode"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modo oscuro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forcer le mode sombre"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imponi modalità scura"
+          }
+        }
+      }
+    },
+    "Qwant.NightMode.Title.On" : {
+      "comment" : "Row title for night mode when it's on",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachtmodus ausschalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn off dark mode"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desactivar modo oscuro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver le mode sombre"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disattiva modalità scura"
           }
         }
       }
