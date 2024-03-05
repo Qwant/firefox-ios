@@ -532,6 +532,14 @@
 		683603E62B96159200985FEE /* QwantIntroScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E52B96159200985FEE /* QwantIntroScreen1.swift */; };
 		683603E82B9615B700985FEE /* Onboarding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683603E72B9615B700985FEE /* Onboarding.xcassets */; };
 		688A86B82B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */; };
+		688A86C12B975E7100FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86BD2B975E3E00FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift */; };
+		688A86C22B975E7500FFB4C4 /* QwantDaysAfterInstallCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86BB2B975E2400FFB4C4 /* QwantDaysAfterInstallCounterTests.swift */; };
+		688A86C32B975E7900FFB4C4 /* QwantRatingPromptManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86BF2B975E5800FFB4C4 /* QwantRatingPromptManagerTests.swift */; };
+		688A86C42B975E7C00FFB4C4 /* QwantUsesInDayCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86B92B975E1000FFB4C4 /* QwantUsesInDayCounterTests.swift */; };
+		688A86C62B975ECE00FFB4C4 /* QwantUsesInDayCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86C52B975ECE00FFB4C4 /* QwantUsesInDayCounter.swift */; };
+		688A86C82B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86C72B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift */; };
+		688A86CA2B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86C92B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift */; };
+		688A86CC2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2586,6 +2594,14 @@
 		683603E72B9615B700985FEE /* Onboarding.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Onboarding.xcassets; sourceTree = "<group>"; };
 		6855435EA1F3E75E86BE92C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FindInPage.strings; sourceTree = "<group>"; };
 		688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDefaultBrowserOnboardingViewController.swift; sourceTree = "<group>"; };
+		688A86B92B975E1000FFB4C4 /* QwantUsesInDayCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantUsesInDayCounterTests.swift; sourceTree = "<group>"; };
+		688A86BB2B975E2400FFB4C4 /* QwantDaysAfterInstallCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDaysAfterInstallCounterTests.swift; sourceTree = "<group>"; };
+		688A86BD2B975E3E00FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantCumulativeDaysOfUseCounterTests.swift; sourceTree = "<group>"; };
+		688A86BF2B975E5800FFB4C4 /* QwantRatingPromptManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantRatingPromptManagerTests.swift; sourceTree = "<group>"; };
+		688A86C52B975ECE00FFB4C4 /* QwantUsesInDayCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantUsesInDayCounter.swift; sourceTree = "<group>"; };
+		688A86C72B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDaysAfterInstallCounter.swift; sourceTree = "<group>"; };
+		688A86C92B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantCumulativeDaysOfUseCounter.swift; sourceTree = "<group>"; };
+		688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantRatingPromptManager.swift; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
@@ -4569,6 +4585,7 @@
 				962F39492672D57A006BDA2A /* RecentItemsHelper.swift */,
 				39A359E31BFCCE94006B9E87 /* UserActivityHandler.swift */,
 				E18259DE29B25E4F00E6BE76 /* UserNotificationCenterProtocol.swift */,
+				688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -5144,6 +5161,10 @@
 				8A13FA8E2AD83F00007527AB /* DefaultBackgroundTabLoaderTests.swift */,
 				961D6B822995AF84001B9CF1 /* GeneralizedImageFetcherTests.swift */,
 				C8E78BDC27F4A1E700C48BAA /* HistoryDeletionUtilityTests.swift */,
+				688A86BD2B975E3E00FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift */,
+				688A86BB2B975E2400FFB4C4 /* QwantDaysAfterInstallCounterTests.swift */,
+				688A86BF2B975E5800FFB4C4 /* QwantRatingPromptManagerTests.swift */,
+				688A86B92B975E1000FFB4C4 /* QwantUsesInDayCounterTests.swift */,
 				8A1E3BE128CBACD7003388C4 /* SponsoredContentFilterUtilityTests.swift */,
 				8ACA8F7529198D6400D3075D /* ThrottlerTests.swift */,
 			);
@@ -7213,6 +7234,9 @@
 				C2296FCB2A601C190046ECA6 /* IntensityVisualEffectView.swift */,
 				F85C7F112721048E004BDBA4 /* Layout.swift */,
 				C8DC90B92A0669540008832B /* MarkupParser */,
+				688A86C92B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift */,
+				688A86C72B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift */,
+				688A86C52B975ECE00FFB4C4 /* QwantUsesInDayCounter.swift */,
 				4345441C26D2E52600D5EEAA /* SearchTermGroupsUtility.swift */,
 				8A1E3BDE28CBA81E003388C4 /* SponsoredContentFilterUtility.swift */,
 				E650755A1E37F747006961AC /* Swizzling.h */,
@@ -9504,6 +9528,7 @@
 				E16AD22C2A8A7AE800F0AA58 /* FakespotHighlightsCardView.swift in Sources */,
 				B2999FF12B194A5800F0FEC1 /* CreditCardPayload.swift in Sources */,
 				E1877A81286E0EFD00F5BDF2 /* WebViewNavigationHandler.swift in Sources */,
+				688A86C62B975ECE00FFB4C4 /* QwantUsesInDayCounter.swift in Sources */,
 				274A36CC239EB99400A21587 /* LibraryPanelContextMenu.swift in Sources */,
 				D314E7F71A37B98700426A76 /* TabToolbar.swift in Sources */,
 				43D00493296FC48F00CB0F31 /* CreditCardSettingsEmptyView.swift in Sources */,
@@ -9649,6 +9674,7 @@
 				C2506C932A6A863600F2B76E /* HistoryCoordinator.swift in Sources */,
 				8A3EF8012A2FCFC900796E3A /* FasterInactiveTabs.swift in Sources */,
 				CA7FC7D324A6A9B70012F347 /* PasswordManagerDataSourceHelper.swift in Sources */,
+				688A86CA2B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift in Sources */,
 				43AB6FA425DC53D30016B015 /* LabelButtonHeaderView.swift in Sources */,
 				43D16B7C29831CD0009F8279 /* CreditCardItemRow.swift in Sources */,
 				965C3C942933A860006499ED /* LaunchSessionProvider.swift in Sources */,
@@ -9853,6 +9879,7 @@
 				2165B2C22860C2F4004C0786 /* AdjustTelemetryHelper.swift in Sources */,
 				8A2D593E27DC0AA100713EC9 /* TopSite.swift in Sources */,
 				8A0A1BA32B22030100E8706F /* PrivateMessageCardCell.swift in Sources */,
+				688A86CC2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift in Sources */,
 				213BF7532AC21D1B00C53A64 /* TabDisplayPanel.swift in Sources */,
 				434E733725EED32E006D3BDE /* BrowserViewController+URLBarDelegate.swift in Sources */,
 				C88E7A5B2A0553510072E638 /* OnboardingLinkInfoModel.swift in Sources */,
@@ -9901,6 +9928,7 @@
 				8A9AC465276CEC4E0047F5B0 /* JumpBackInCell.swift in Sources */,
 				4347B398298D6D7B0045F677 /* CreditCardTableViewModel.swift in Sources */,
 				1DFE57FD27BADD7D0025DE58 /* HomepageViewModel.swift in Sources */,
+				688A86C82B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift in Sources */,
 				D3A9949D1A3686BD008AD1AC /* Tab.swift in Sources */,
 				8AD40FD127BADCBA00672675 /* ToolbarButton.swift in Sources */,
 				A93067E81D0FE18E00C49C6E /* NightModeHelper.swift in Sources */,
@@ -10087,6 +10115,7 @@
 			files = (
 				E4CD9F1D1A6D9C2800318571 /* WebServerTests.swift in Sources */,
 				C869916528918C8E007ACC5C /* WallpaperURLSessionMock.swift in Sources */,
+				688A86C42B975E7C00FFB4C4 /* QwantUsesInDayCounterTests.swift in Sources */,
 				961577942A39008100391E8D /* SponsoredTileDataUtilityTests.swift in Sources */,
 				8A093D812A4B58330099ABA5 /* MockSettingsFlowDelegate.swift in Sources */,
 				431C0D1E25C9DC4D00395CE4 /* DefaultBrowserOnboardingTests.swift in Sources */,
@@ -10162,6 +10191,7 @@
 				C2A72A6B2A77AC10002ACCE2 /* ReadingListCoordinatorTests.swift in Sources */,
 				E19B38B128A3E69300D8C541 /* WallpaperCollectionAvailabilityTests.swift in Sources */,
 				8A359EF62A1FE840004A5BB7 /* MockAdjustWrapper.swift in Sources */,
+				688A86C12B975E7100FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift in Sources */,
 				8AC225662B6D403200CDA7FD /* HomepageTelemetryTests.swift in Sources */,
 				C8DC90D22A067C6D0008832B /* MarkupAttributionUtilityTests.swift in Sources */,
 				21737FB72878A4BD000A9A92 /* HistoryPanelViewModelTests.swift in Sources */,
@@ -10178,6 +10208,7 @@
 				8ABA9C8D28931223002C0077 /* MockDispatchQueue.swift in Sources */,
 				C81C66C429F00D1000F6422F /* UserActivityRouteTests.swift in Sources */,
 				8AFCE50529DDF38300B1B253 /* LaunchScreenViewControllerTests.swift in Sources */,
+				688A86C32B975E7900FFB4C4 /* QwantRatingPromptManagerTests.swift in Sources */,
 				D3FA777B1A43B2990010CD32 /* SearchTests.swift in Sources */,
 				D3BA41681BD82F2200DA5457 /* XCTestCaseExtensions.swift in Sources */,
 				8A86DAD8277298DE00D7BFFF /* ClosedTabsStoreTests.swift in Sources */,
@@ -10206,6 +10237,7 @@
 				C889D7CE2858C4B500121E1D /* ContextMenuHelperTests.swift in Sources */,
 				C838FD612899A9BB0068F60B /* WallpaperURLProviderTests.swift in Sources */,
 				8A11C8112731CFD700AC7318 /* ReaderModeStyleTests.swift in Sources */,
+				688A86C22B975E7500FFB4C4 /* QwantDaysAfterInstallCounterTests.swift in Sources */,
 				8ABA9C8E28931288002C0077 /* JumpBackInDataAdaptorTests.swift in Sources */,
 				3943A81D1E9807C700D4F6DC /* FxAPushMessageTest.swift in Sources */,
 				212985E72A72B39D00546684 /* ThemeSettingsControllerTests.swift in Sources */,

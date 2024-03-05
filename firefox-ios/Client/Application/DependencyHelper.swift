@@ -29,7 +29,7 @@ class DependencyHelper {
         let themeManager: ThemeManager = appDelegate.themeManager
         AppContainer.shared.register(service: themeManager)
 
-        let ratingPromptManager: RatingPromptManager = appDelegate.ratingPromptManager
+        let ratingPromptManager: QwantRatingPromptManager = appDelegate.ratingPromptManager
         AppContainer.shared.register(service: ratingPromptManager)
 
         let downloadQueue: DownloadQueue = appDelegate.appSessionManager.downloadQueue

@@ -56,6 +56,9 @@ extension AppInfo {
     // The App Store page identifier for the Firefox iOS application
     public static var appStoreId = "id989804926"
 
+    // The App Store page identifier for the Qwant iOS application
+    public static var qwantAppStoreId = "id924470452"
+
     /// Return the shared container identifier (also known as the app group) to be used with for example background
     /// http requests. It is the base bundle identifier with a "group." prefix.
     public static var sharedContainerIdentifier: String {
