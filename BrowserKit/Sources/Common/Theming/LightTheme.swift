@@ -114,4 +114,18 @@ private struct LightColourPalette: ThemeColourPalette {
 
     // MARK: - Qwant Default Browser
     var defaultBrowser_paleViolet = UIColor(rgb: 0xDED6FF)
+
+    // MARK: - Qwant VIP
+    var vip_background = UIColor.white
+    var vip_sectionColor = UIColor(rgb: 0xf4f5f6)
+    var vip_textColor = UIColor(rgb: 0x050506)
+    var vip_subtextColor = UIColor(rgb: 0x676e79)
+    var vip_greenText = UIColor(rgb: 0x297a52)
+    var vip_redText = UIColor(rgb: 0xe00004)
+    var vip_blackText = UIColor(rgb: 0x050506)
+    var vip_horizontalLine = UIColor(rgb: 0xc8cbd0)
+    var vip_switchAndButtonTint = UIColor(rgb: 0x0051e0)
+    var vip_greenIcon = UIColor(rgb: 0x38a870)
+    var vip_redIcon = UIColor(rgb: 0xff5c5f)
+    var vip_grayIcon = UIColor(rgb: 0xa7acb4)
 }

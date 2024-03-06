@@ -6,4 +6,5 @@ import Foundation
 
 extension Notification.Name {
     public static let ThemeDidChange = Notification.Name("ThemeDidChange")
+    public static let ContentBlockerDidBlock = Notification.Name("contentBlockerDidBlock")
 }

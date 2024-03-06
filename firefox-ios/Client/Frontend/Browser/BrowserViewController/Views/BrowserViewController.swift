@@ -270,6 +270,13 @@ class BrowserViewController: UIViewController,
     }
 
     @objc
+    func contentBlockerDidBlock(notification: Notification) {
+        if let tab = tabManager.selectedTab {
+            urlBar.locationView.tabDidChangeContentBlocking(tab)
+        }
+    }
+
+    @objc
     func didFinishAnnouncement(notification: Notification) {
         if let userInfo = notification.userInfo,
             let announcementText =  userInfo[UIAccessibility.announcementStringValueUserInfoKey] as? String {
@@ -691,6 +698,10 @@ class BrowserViewController: UIViewController,
         notificationCenter.addObserver(self,
                                        selector: #selector(didAddPendingBlobDownloadToQueue),
                                        name: .PendingBlobDownloadAddedToQueue,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(contentBlockerDidBlock),
+                                       name: .ContentBlockerDidBlock,
                                        object: nil)
     }
 
@@ -2024,6 +2035,9 @@ class BrowserViewController: UIViewController,
         let tabs = tabManager.tabs
         tabs.forEach {
             $0.applyTheme(theme: currentTheme)
+            if $0 == tabManager.selectedTab {
+                urlBar.locationView.tabDidChangeContentBlocking($0)
+            }
         }
 
         guard let contentScript = tabManager.selectedTab?.getContentScript(name: ReaderMode.name()) else { return }
@@ -2256,9 +2270,9 @@ extension BrowserViewController: LegacyTabDelegate {
 
         tab.addContentScript(LocalRequestHelper(), name: LocalRequestHelper.name())
 
-        let blocker = FirefoxTabContentBlocker(tab: tab, prefs: profile.prefs)
+        let blocker = QwantTabContentBlocker(tab: tab, prefs: profile.prefs)
         tab.contentBlocker = blocker
-        tab.addContentScript(blocker, name: FirefoxTabContentBlocker.name())
+        tab.addContentScript(blocker, name: QwantTabContentBlocker.name())
 
         tab.addContentScript(FocusHelper(tab: tab), name: FocusHelper.name())
     }

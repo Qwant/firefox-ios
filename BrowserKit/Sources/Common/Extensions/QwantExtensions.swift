@@ -140,3 +140,24 @@ public extension String {
         return attributedStr
     }
 }
+
+public extension Date {
+    private var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self) ?? Date()
+    }
+
+    func isWithinLast30Days() -> Bool {
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -29, to: Date().noon) ?? Date()
+        return (thirtyDaysAgo ... Date().noon).contains(self)
+    }
+}
+
+public extension UIView {
+    func increaseAnimation() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.1
+        animation.values = [3.0, 0.0]
+        layer.add(animation, forKey: "increaseAnimation")
+    }
+}

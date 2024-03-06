@@ -197,7 +197,7 @@ final class BrowserCoordinatorTests: XCTestCase {
         XCTAssertEqual(subject.childCoordinators.count, 1)
         XCTAssertNotNil(subject.childCoordinators[0] as? EnhancedTrackingProtectionCoordinator)
         XCTAssertEqual(mockRouter.presentCalled, 1)
-        XCTAssertTrue(mockRouter.presentedViewController is EnhancedTrackingProtectionMenuVC)
+        XCTAssertTrue(mockRouter.presentedViewController is ThemedNavigationController)
     }
 
     func testShowShareExtension_addsShareExtensionCoordinator() {

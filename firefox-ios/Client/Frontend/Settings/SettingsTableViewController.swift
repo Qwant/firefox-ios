@@ -648,6 +648,16 @@ enum CheckmarkSettingStyle {
     case rightSide
 }
 
+class QwantCheckmarkSetting: CheckmarkSetting {
+    override func onConfigureCell(_ cell: UITableViewCell, theme: Theme) {
+        super.onConfigureCell(cell, theme: theme)
+        cell.accessoryView = UIImageView(image: UIImage(named: "icon_checkmark"))
+        cell.accessoryView?.isHidden = !isChecked()
+        cell.textLabel?.text = nil
+        cell.detailTextLabel?.text = nil
+    }
+}
+
 class CheckmarkSetting: Setting {
     private struct UX {
         static let defaultInset: CGFloat = 0
@@ -854,6 +864,42 @@ class WithoutAccountSetting: AccountSetting {
 protocol SettingsDelegate: AnyObject {
     func settingsOpenURLInNewTab(_ url: URL)
     func didFinish()
+}
+
+// The base settings view controller.
+class QwantSettingsTableViewController: SettingsTableViewController {
+    fileprivate let QwantSectionHeaderIdentifier = "QwantSectionHeaderIdentifier"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(QwantThemedTableSectionHeaderFooterView.self,
+                           forHeaderFooterViewReuseIdentifier: QwantSectionHeaderIdentifier)
+    }
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let sectionSetting = settings[section]
+        guard let sectionFooter = sectionSetting.footerTitle?.string else {
+            return nil
+        }
+        let footerView = QwantThemedTableSectionHeaderFooterView()
+        footerView.titleLabel.text = sectionFooter
+        footerView.titleAlignment = .top
+        footerView.applyTheme(theme: themeManager.currentTheme)
+        return footerView
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = settings[indexPath.section]
+        if let setting = section[indexPath.row] {
+            let cell = LargeSubtitleCell(style: setting.style, reuseIdentifier: nil)
+            setting.onConfigureCell(cell, theme: themeManager.currentTheme)
+            cell.title.text = setting.title?.string ?? ""
+            cell.subtitle.text = setting.status?.string ?? ""
+            cell.backgroundColor = themeManager.currentTheme.colors.vip_sectionColor
+            return cell
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
+    }
 }
 
 // The base settings view controller.
