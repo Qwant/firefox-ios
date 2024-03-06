@@ -104,7 +104,7 @@ class TabLocationView: UIView, FeatureFlaggable {
         )
     }
 
-    lazy var trackingProtectionButton: LockButton = .build { trackingProtectionButton in
+    lazy var trackingProtectionButton: QwantVIPButton = .build { trackingProtectionButton in
         trackingProtectionButton.addTarget(
             self,
             action: #selector(self.didPressTPShieldButton(_:)),
@@ -530,7 +530,10 @@ extension TabLocationView: TabEventHandler {
             let themeManager: ThemeManager = AppContainer.shared.resolve()
             self.blockerStatus = blocker.status
             self.hasSecureContent = (tab.webView?.hasOnlySecureContent ?? false)
-            setTrackingProtection(theme: themeManager.currentTheme)
+            self.trackingProtectionButton.setImage(blocker.status.image, for: .normal)
+            self.trackingProtectionButton.setBadgeValue(value: blocker.status.badgeValue(basedOn: blocker.stats.total))
+            self.trackingProtectionButton.setBadgeColor(color: blocker.status.color(for: themeManager.currentTheme))
+            self.trackingProtectionButton.animateIfNeeded()
         }
     }
 

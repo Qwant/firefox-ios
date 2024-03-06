@@ -361,7 +361,7 @@ class Tab: NSObject, ThemeApplicable {
         }
     }
 
-    var contentBlocker: FirefoxTabContentBlocker?
+    var contentBlocker: QwantTabContentBlocker?
 
     /// The last title shown by this tab. Used by the tab tray to show titles for zombie tabs.
     var lastTitle: String?
@@ -596,15 +596,21 @@ class Tab: NSObject, ThemeApplicable {
         webView = nil
     }
 
+    // Qwant VIP stats
+    var restoreStatsIfPossible = false
+
     func goBack() {
+        restoreStatsIfPossible = true
         _ = webView?.goBack()
     }
 
     func goForward() {
+        restoreStatsIfPossible = true
         _ = webView?.goForward()
     }
 
     func goToBackForwardListItem(_ item: WKBackForwardListItem) {
+        restoreStatsIfPossible = true
         _ = webView?.go(to: item)
     }
 

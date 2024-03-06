@@ -123,3 +123,11 @@ class ThemedHeaderFooterViewBordersHelper: ThemeApplicable {
         bottomBorder.backgroundColor = theme.colors.borderPrimary
     }
 }
+
+class QwantThemedTableSectionHeaderFooterView: ThemedTableSectionHeaderFooterView {
+    override func applyTheme(theme: Theme) {
+        super.applyTheme(theme: theme)
+        contentView.backgroundColor = theme.colors.vip_background
+        titleLabel.textColor = theme.colors.vip_subtextColor
+    }
+}

@@ -102,4 +102,18 @@ public protocol ThemeColourPalette {
 
     // MARK: - Qwant Default Browser
     var defaultBrowser_paleViolet: UIColor { get }
+
+    // MARK: - Qwant VIP
+    var vip_background: UIColor { get }
+    var vip_sectionColor: UIColor { get }
+    var vip_textColor: UIColor { get }
+    var vip_subtextColor: UIColor { get }
+    var vip_greenText: UIColor { get }
+    var vip_redText: UIColor { get }
+    var vip_blackText: UIColor { get }
+    var vip_horizontalLine: UIColor { get }
+    var vip_switchAndButtonTint: UIColor { get }
+    var vip_greenIcon: UIColor { get }
+    var vip_redIcon: UIColor { get }
+    var vip_grayIcon: UIColor { get }
 }

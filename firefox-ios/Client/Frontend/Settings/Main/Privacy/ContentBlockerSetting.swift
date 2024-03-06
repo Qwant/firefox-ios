@@ -41,7 +41,7 @@ class ContentBlockerSetting: Setting {
         self.settingsDelegate = settingsDelegate
         super.init(
             title: NSAttributedString(
-                string: .SettingsTrackingProtectionSectionName,
+                string: .QwantVIP.GlobalProtection,
                 attributes: [
                     NSAttributedString.Key.foregroundColor: settings.themeManager.currentTheme.colors.textPrimary
                 ]

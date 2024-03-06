@@ -864,6 +864,1104 @@
           }
         }
       }
+    },
+    "Qwant.VIP.ConnectionNotSecure" : {
+      "comment" : "Header - SSL Cert status when the connection is not secured",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung ist nicht sicher"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection is not secure"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conexión no segura"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion non sécurisée"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connessione non è sicura"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ConnectionSecure" : {
+      "comment" : "Header - SSL Cert status when the connection is secured",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung ist sicher"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection is secure"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conexión segura"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion sécurisée"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connessione è sicura"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Feedback.Title" : {
+      "comment" : "Title of the Feedback row",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback senden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar comentarios"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donner mon avis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia feedback"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.GlobalProtection.About" : {
+      "comment" : "Cell title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn about Qwant VIP"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout savoir sur Qwant VIPrivacy"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.GlobalProtection.Experience" : {
+      "comment" : "Cell title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share your experience"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partagez votre expérience"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.GlobalProtection.Help" : {
+      "comment" : "Header of the help section",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayuda"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporto"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.GlobalProtection.ScreenTitle" : {
+      "comment" : "Title of the global tracking protection page",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qwant VIPrivacy"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qwant VIPrivacy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qwant VIPrivacy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qwant VIPrivacy"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qwant VIPrivacy"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Information.DeveloperNotes" : {
+      "comment" : "Title of the Github row",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Developer Notes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes du développeur"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Information.GetToKnow" : {
+      "comment" : "Title of the Learn More row",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn about Qwant VIPrivacy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout savoir sur Qwant VIPrivacy"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Information.Title" : {
+      "comment" : "Title of the Information row",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Information"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informations"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.BlockedItems" : {
+      "comment" : "Row title label to explain that the righthand-sight of the cell represents the # of blocked items for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items blocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éléments bloqués"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.DisabledSubtitle" : {
+      "comment" : "Gray subtitle when the tracking protection is disabled for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivated for this website."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivée pour ce site."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.DisabledTitle" : {
+      "comment" : "Red title when the tracking protection is disabled for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection disabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection désactivée"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.DisablingTitle" : {
+      "comment" : "Pale red title when the tracking protection is disabling for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disabling protection..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivation..."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.DomainsTitle" : {
+      "comment" : "Title to describle the value underneath it is the number of domains blocked within the current website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domains"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domaines"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.EmptyListTrackersBlocked" : {
+      "comment" : "Placeholder text when the # of blocked trackers is 0",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is nothing to block here, this is a pretty nice website!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n'y a rien à bloquer ici, voilà un site web plutôt sympa !"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.EnabledSubtitle" : {
+      "comment" : "Gray subtitle when the tracking protection is enabled for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A problem on this website? Try to deactivate."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un problème sur ce site ? Essayez de désactiver."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.EnabledTitle" : {
+      "comment" : "Green title when the tracking protection is enabled for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection enabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection activée"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.EnablingTitle" : {
+      "comment" : "Pale green title when the tracking protection is enabling for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enabling protection..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activation..."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.Inactive" : {
+      "comment" : "Local protection is deactivated for the currently visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactif"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.LoadingSubtitle" : {
+      "comment" : "Gray subtitle when the tracking protection is either enabling or disabling for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This operation can take up to 5 seconds, please wait."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette opération peut prendre jusqu'à 5 secondes, veuillez patienter."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.LongerLoadingSubtitle" : {
+      "comment" : "Gray subtitle when the tracking protection is either enabling or disabling for the current visited website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight. We're almost there..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encore un peu de patience. On y est presque..."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.OnDomain" : {
+      "comment" : "Represents the currently visited domain. example: on mywebsite.com",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "on %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sur %@"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.ScreenTitle" : {
+      "comment" : "Title of the local protection details page",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items blocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éléments bloqués"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.TrackersCookiesTitle" : {
+      "comment" : "Header title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackers/Cookies"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traqueurs/Cookies"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.LocalProtection.TrackersTitle" : {
+      "comment" : "Title to describle the value underneath it is the number of items blocked within the current website",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackers"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traqueurs"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.DisabledDescription" : {
+      "comment" : "Description of the disabled protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The browsing protection is disabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La navigation protégée est désactivée"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.DisabledTitle" : {
+      "comment" : "Disabled protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivé"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.Reactivate" : {
+      "comment" : "Button title to reactivate protection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reactivate protection"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réactiver la protection"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.StandardDescription" : {
+      "comment" : "Description of the standard protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks most trackers and cookies efficiently"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloque la plupart des traqueurs efficacement"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.StandardTitle" : {
+      "comment" : "Standard protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estándar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Normale"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.StrictDescription" : {
+      "comment" : "Description of the strict protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks all trackers and cookies, may affect some websites"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloque tous les traqueurs, peut modifier les fonctionnalités de certains sites"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.StrictFooter" : {
+      "comment" : "Footer information for strict protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn eine Website nicht wie erwartet funktioniert, tippen Sie auf das Schild in der Adressleiste und deaktivieren Sie den Qwant VIP für diese Seite."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If a site doesn’t work as expected, tap the shield in the address bar and turn off Qwant VIP for that page."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si un sitio no funciona como se esperaba, toca el escudo en la barra de direcciones y desactiva Qwant VIP para esa página."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si un site ne fonctionne pas comme prévu, appuyez sur le bouclier dans la barre d’adresse et désactivez Qwant VIP pour cette page."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se un sito non funziona come previsto, tocca il scudo nella barra degli indirizzi e disattiva Qwant VIP per quella pagina."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.StrictTitle" : {
+      "comment" : "Strict protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streng"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strict"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estricta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strict"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protezione massima"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.ProtectionLevel.Title" : {
+      "comment" : "Row title label to explain that the righthand-sight of the cell represents the current protection level",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schutzstufe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level of protection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nivel de protección"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niveau de protection"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Livello di protezione"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Deactivate" : {
+      "comment" : "Button title to deactivate stats",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate statistics"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver les statistiques"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Deactivate.Cancel" : {
+      "comment" : "Cancel action button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Deactivate.Confirm" : {
+      "comment" : "Confirmation action button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm disable statistics"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmer la désactivation"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.DeactivateDetails" : {
+      "comment" : "Confirmation text before deactivating stats",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate statistics will result in deleting all cumulated statistics so far."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver les statistiques supprimera toutes les statistiques cumulées jusqu'ici."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.DeactivateForNow" : {
+      "comment" : "Placeholder text explaining that stats are deactivated",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currently disabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivées pour le moment"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Delete" : {
+      "comment" : "Button title to delete stats",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Empty" : {
+      "comment" : "Placeholder text explaining that stats are empty",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing yet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien pour le moment"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.ItemsBlocked" : {
+      "comment" : "Represents the # of items blocked by the tracking protection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items blocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éléments bloqués"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.JustActivated" : {
+      "comment" : "Placeholder text explaining that stats has just been reactivated",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics activated! Start browsing the web, and your numbers will be displayed here."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistiques bien activées ! Commencez à naviguer sur le web pour avoir des chiffres ici."
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.LastThirtyDays" : {
+      "comment" : "Header of the statistics section",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzter Monat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 30 days"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Último mes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les 30 derniers jours"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo mese"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.Reactivate" : {
+      "comment" : "Button title to reactivate stats",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reactivate statistics"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réactiver les statistiques"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.ScreenTitle" : {
+      "comment" : "Title of the statistics details page",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your statistics"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos statistiques cumulées"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.SeeDetails" : {
+      "comment" : "Buttons to redirect to the details of the statistics",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See details"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir les statistiques"
+          }
+        }
+      }
+    },
+    "Qwant.VIP.Statistics.TimeSaved" : {
+      "comment" : "Represents the time saved by the tracking protection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time saved"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temps économisé"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
