@@ -29,7 +29,7 @@ final class RouteBuilder {
             recordTelemetry(input: host, isPrivate: isPrivate)
 
             if host.rawValue.starts(with: "widget-") {
-                UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
+                UserDefaults.standard.setValue(true, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
             }
 
             switch host {

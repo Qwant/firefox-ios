@@ -247,6 +247,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         shutdownWebServer = singleShotTimer
         backgroundWorkUtility?.scheduleOnAppBackground()
 
+        profile.prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
+
         logger.log("applicationDidEnterBackground end",
                    level: .info,
                    category: .lifecycle)

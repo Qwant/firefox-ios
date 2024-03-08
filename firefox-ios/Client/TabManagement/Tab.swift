@@ -831,8 +831,20 @@ class Tab: NSObject, ThemeApplicable {
         }
 
         if let url = self.webView?.url, path == KVOConstants.URL.rawValue {
-            if url.missesClientContext {
-                self.webView?.relaunchNavigationWithContext()
+            let prefs = self.profile.prefs
+            let completion: ((String) -> Void) = { clValue in
+                prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
+                prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
+                prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
+            }
+            if url.missesQwantContext(hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
+                                      campaign: prefs.stringForKey(PrefsKeys.QwantCampaign),
+                                      isFirstRun: prefs.boolForKey(PrefsKeys.QwantIsFirstRun),
+                                      completion: completion) {
+                self.webView?.relaunchNavigationWithContext(
+                    hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
+                    campaign: prefs.stringForKey(PrefsKeys.QwantCampaign))
+                self.profile.prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
                 return
             }
             self.urlDidChangeDelegate?.tab(self, urlDidChangeTo: url)
