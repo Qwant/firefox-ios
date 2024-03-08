@@ -17,7 +17,7 @@ struct NewTabAccessors {
         let option = NewTabPage(rawValue: raw) ?? Default
         // Check if the user has chosen to open a homepage, but no homepage is set,
         // then use the default.
-        if option == .homePage && NewTabHomePageAccessors.getHomePage(prefs) == nil {
+        if option == .homePage {
             return Default
         }
         return option

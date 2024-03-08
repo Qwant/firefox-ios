@@ -7,112 +7,557 @@ import WebKit
 @testable import Common
 
 class QwantExtensionsTests: XCTestCase {
+    var expectation: XCTestExpectation?
+    var hasOpenedAppViaTheWidget: Bool?
+    var campaign: String?
+    var isFirstRun: Bool?
+    var completion: ((String) -> Void)?
+    var url: URL!
+
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        hasOpenedAppViaTheWidget = false
+        campaign = nil
+        isFirstRun = false
+        completion = { [weak self] clValue in
+            self?.campaign = clValue
+            self?.isFirstRun = false
+        }
+    }
+
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(false)
+        expectation = nil
+        hasOpenedAppViaTheWidget = nil
+        campaign = nil
+        isFirstRun = nil
+        completion = nil
     }
 
-    func testMissesClientContext_defaultCase() {
-        var url = URL(string: "https://www.wikipedia.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.duckduckgo.com?q=qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com")!
-        XCTAssertTrue(url.missesClientContext)
+    func testMissesQwantContext_failingCases() {
+        url = URL(string: "https://www.wikipedia.com")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
 
         url = URL(string: "https://www.maps.qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
 
         url = URL(string: "https://www.qwantmaps.com")!
-        XCTAssertFalse(url.missesClientContext)
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
 
         url = URL(string: "https://www.qwantjunior.com")!
-        XCTAssertFalse(url.missesClientContext)
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
 
         url = URL(string: "https://www.qwa.qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com?q=wikipedia")!
-        XCTAssertTrue(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com?q=wikipedia&client=qwantbrowser")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com?client=qwantwidget")!
-        XCTAssertFalse(url.missesClientContext)
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
     }
 
-    func testMissesClientContext_whenOpeningTheAppViaTheWidget() {
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
-
-        var url = URL(string: "https://www.wikipedia.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.duckduckgo.com?q=qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
+    func testMissesQwantContext_clientCases_qwantbrowser() {
+        hasOpenedAppViaTheWidget = false
+        campaign = nil
+        isFirstRun = false
 
         url = URL(string: "https://www.qwant.com")!
-        XCTAssertTrue(url.missesClientContext)
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
 
-        url = URL(string: "https://www.maps.qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwantmaps.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwantjunior.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwa.qwant.com")!
-        XCTAssertFalse(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com?q=wikipedia")!
-        XCTAssertTrue(url.missesClientContext)
-
-        url = URL(string: "https://www.qwant.com?q=wikipedia&client=qwantbrowser")!
-        XCTAssertTrue(url.missesClientContext)
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
 
         url = URL(string: "https://www.qwant.com?client=qwantwidget")!
-        XCTAssertTrue(url.missesClientContext)
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantrandom")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        // &cl cases
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
     }
 
-    func testRelaunchNavigationWithClientContext_failingCase() {
-        let url = URL(string: "https://www.duckduckgo.com?q=qwant.com")!
-        let request = URLRequest(url: url)
-        let webview = WKWebView()
-        webview.load(request)
+    func testMissesQwantContext_clientCases_qwantwidget() {
+        hasOpenedAppViaTheWidget = true
 
-        XCTAssertFalse(webview.url!.missesClientContext)
-        webview.relaunchNavigationWithContext()
-        XCTAssertFalse(webview.url!.missesClientContext)
-        XCTAssertFalse(webview.url!.absoluteString.contains("qwantbrowser"))
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantwidget")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantrandom")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        // &cl cases
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
     }
 
-    func testRelaunchNavigationWithClientContext_defaultCase() {
-        let url = URL(string: "https://www.qwant.com?q=wikipedia")!
-        let request = URLRequest(url: url)
-        let webview = WKWebView()
-        webview.load(request)
+    func testMissesQwantContext_firstRun() {
+        // first run
+        isFirstRun = true
 
-        XCTAssertTrue(webview.url!.missesClientContext)
-        webview.relaunchNavigationWithContext()
-        XCTAssertFalse(webview.url!.missesClientContext)
-        XCTAssertTrue(webview.url!.absoluteString.contains("qwantbrowser"))
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm&fs=1")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        // not first run
+        campaign = nil
+        isFirstRun = false
+
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=utm&fs=1")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
     }
 
-    func testRelaunchNavigationWithClientContext_whenOpeningTheAppViaTheWidget() {
-        UserDefaults.standard.setHasOpenedAppViaTheWidget(true)
-        let url = URL(string: "https://www.qwant.com?q=wikipedia")!
+    func testMissesQwantContext_clCases() {
+        // nil case
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=random_utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        // empty case
+        campaign = ""
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=random_utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        // value case
+        campaign = "random_utm"
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=random_utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+
+        // &client=qwantwidget cases
+        hasOpenedAppViaTheWidget = true
+        url = URL(string: "https://www.qwant.com")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantbrowser&cl=random_utm")!
+        XCTAssertTrue(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                             campaign: campaign,
+                                             isFirstRun: isFirstRun,
+                                             completion: completion))
+
+        url = URL(string: "https://www.qwant.com?client=qwantwidget&cl=random_utm")!
+        XCTAssertFalse(url.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign,
+                                              isFirstRun: isFirstRun,
+                                              completion: completion))
+    }
+
+    private func createAndLoadWebview(with urlString: String) -> WKWebView {
+        let url = URL(string: urlString)!
         let request = URLRequest(url: url)
         let webview = WKWebView()
+        webview.navigationDelegate = self
         webview.load(request)
+        return webview
+    }
 
-        XCTAssertTrue(webview.url!.missesClientContext)
-        webview.relaunchNavigationWithContext()
-        XCTAssertFalse(webview.url!.missesClientContext)
-        XCTAssertTrue(webview.url!.absoluteString.contains("qwantwidget"))
+    func testRelaunchNavigationWithQwantContext_failingCase() {
+        campaign = "random_utm"
+        let webview = createAndLoadWebview(with: "https://www.duckduckgo.com?q=qwant.com")
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("cl="))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client="))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        // No need to wait as nothing is going to be reloaded
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("cl="))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client="))
+    }
+
+    func testRelaunchNavigationWithQwantContext_isFirstRun() {
+        isFirstRun = true
+        let webview = createAndLoadWebview(with: "https://www.qwant.com")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("fs=1"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("fs=1"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_isFirstRun_savingCl() {
+        isFirstRun = true
+        let webview = createAndLoadWebview(with: "https://www.qwant.com?cl=12345&fs=1")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("fs=1"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=12345"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("fs=1"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=12345"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_realCl() {
+        campaign = "12345"
+        let webview = createAndLoadWebview(with: "https://www.qwant.com?client=qwantbrowser&cl=12345")
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=12345"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        // No need to wait as nothing is going to be reloaded
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=12345"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_overriddenCl() {
+        campaign = "12345"
+        let webview = createAndLoadWebview(with: "https://www.qwant.com?client=qwantbrowser&cl=67890")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=67890"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=12345"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_addingClient_qwantbrowser() {
+        let webview = createAndLoadWebview(with: "https://www.qwant.com")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantbrowser"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_addingClient_qwantwidget() {
+        hasOpenedAppViaTheWidget = true
+
+        let webview = createAndLoadWebview(with: "https://www.qwant.com?q=wikipedia&cl=random_utm")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantwidget"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("q=wikipedia"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=random_utm"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantwidget"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("q=wikipedia"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=random_utm"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_addingCl_qwantbrowser() {
+        campaign = "random_utm"
+
+        let webview = createAndLoadWebview(with: "https://www.qwant.com")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("cl=random_utm"))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("cl=random_utm"))
+    }
+
+    func testRelaunchNavigationWithQwantContext_notAddingCl_qwantwidget() {
+        hasOpenedAppViaTheWidget = true
+        campaign = ""
+
+        let webview = createAndLoadWebview(with: "https://www.qwant.com?q=wikipedia&client=qwantbrowser")
+
+        XCTAssertTrue(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                      campaign: campaign,
+                                                      isFirstRun: isFirstRun,
+                                                      completion: completion))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantwidget"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("cl="))
+
+        webview.relaunchNavigationWithContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                              campaign: campaign)
+        expectation = self.expectation(description: "WebView did finish loading, and qwantbrowser query param exist")
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertFalse(webview.url!.missesQwantContext(hasOpenedAppViaTheWidget: hasOpenedAppViaTheWidget,
+                                                       campaign: campaign,
+                                                       isFirstRun: isFirstRun,
+                                                       completion: completion))
+        XCTAssertFalse(webview.url!.absoluteString.contains("client=qwantbrowser"))
+        XCTAssertTrue(webview.url!.absoluteString.contains("client=qwantwidget"))
+        XCTAssertFalse(webview.url!.absoluteString.contains("cl="))
     }
 
     func testIsQwantUrl() {
@@ -214,5 +659,11 @@ class QwantExtensionsTests: XCTestCase {
         XCTAssertNil(URL(string: "https://www.qwantjunior.com/?q=&client=qwantbrowser")!.qwantSearchTerm)
         XCTAssertNil(URL(string: "https://www.qwnt.com/?q=&client=qwantbrowser")!.qwantSearchTerm)
         XCTAssertNil(URL(string: "https://www.wikipedia.com/?q=&client=qwantbrowser")!.qwantSearchTerm)
+    }
+}
+
+extension QwantExtensionsTests: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        expectation?.fulfill()
     }
 }

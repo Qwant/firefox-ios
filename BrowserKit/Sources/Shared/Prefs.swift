@@ -214,6 +214,11 @@ public struct PrefsKeys {
     public struct Usage {
         public static let profileId = "profileId"
     }
+
+    public static let QwantIsFirstRun = "QwantIsFirstRun"
+    public static let QwantCampaign = "QwantCampaign"
+    public static let QwantCampaignTimestamp = "QwantCampaignTimestamp"
+    public static let QwantHasBeenOpenedViaTheWidget = "QwantHasBeenOpenedViaTheWidget"
 }
 
 public protocol Prefs {
