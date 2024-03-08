@@ -95,6 +95,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url,
               let route = routeBuilder.makeRoute(url: url) else { return }
         handle(route: route)
+
+        if UserDefaults.standard.bool(forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget) {
+            profile.prefs.setBool(true, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+            UserDefaults.standard.setValue(nil, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+        }
     }
 
     // MARK: - Continuing User Activities
