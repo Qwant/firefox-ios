@@ -9,8 +9,8 @@ import Shared
 class ToolbarButton: UIButton {
     // MARK: - Variables
 
-    private var selectedTintColor: UIColor!
-    private var unselectedTintColor: UIColor!
+    var selectedTintColor: UIColor!
+    var unselectedTintColor: UIColor!
     private var disabledTintColor: UIColor!
 
     // Optionally can associate a separator line that hide/shows along with the button
@@ -57,12 +57,17 @@ class ToolbarButton: UIButton {
 
 // MARK: - Theme protocols
 
-extension ToolbarButton: ThemeApplicable {
+extension ToolbarButton: ThemeApplicable, PrivateModeUI {
     func applyTheme(theme: Theme) {
-        selectedTintColor = theme.colors.actionPrimary
         disabledTintColor = theme.colors.iconDisabled
-        unselectedTintColor = theme.colors.iconPrimary
         tintColor = isEnabled ? unselectedTintColor : disabledTintColor
         imageView?.tintColor = tintColor
+        tintAdjustmentMode = .normal
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        selectedTintColor = theme.colors.omnibar_highlightedTintColor(isPrivate)
+        unselectedTintColor = theme.colors.omnibar_tintColor(isPrivate)
+        applyTheme(theme: theme)
     }
 }

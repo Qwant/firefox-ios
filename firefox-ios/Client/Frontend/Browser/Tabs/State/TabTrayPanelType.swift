@@ -3,6 +3,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 import Foundation
+import Common
+import Shared
 
 enum TabTrayPanelType: Int, CaseIterable {
     case tabs
@@ -17,6 +19,15 @@ enum TabTrayPanelType: Int, CaseIterable {
             return .TabTrayPrivateBrowsingTitle
         case .syncedTabs:
             return .AppMenu.AppMenuSyncedTabsTitleString
+        }
+    }
+
+    func buttonsColor(for theme: Theme) -> UIColor {
+        switch self {
+        case .tabs, .syncedTabs:
+            return theme.colors.omnibar_blue
+        case .privateTabs:
+            return theme.colors.omnibar_purple
         }
     }
 
@@ -36,7 +47,7 @@ enum TabTrayPanelType: Int, CaseIterable {
         case .tabs:
             return UIImage(named: ImageIdentifiers.navTabCounter)
         case .privateTabs:
-            return UIImage(named: ImageIdentifiers.privateMaskSmall)
+            return UIImage(named: "qwant_private")?.createScaled(CGSize(width: 24, height: 24))
         case .syncedTabs:
             return UIImage(named: ImageIdentifiers.syncedDevicesIcon)
         }

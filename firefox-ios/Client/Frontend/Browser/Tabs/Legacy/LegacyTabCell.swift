@@ -221,11 +221,12 @@ class LegacyTabCell: UICollectionViewCell,
     func applyTheme(theme: Theme) {
         title.effect = UIBlurEffect(style: theme.type.tabTitleBlurStyle())
         backgroundHolder.backgroundColor = theme.colors.layer1
-        closeButton.tintColor = theme.colors.indicatorActive
+        closeButton.tintColor = theme.colors.omnibar_gray
         titleText.textColor = theme.colors.textPrimary
         screenshotView.backgroundColor = theme.colors.layer1
         favicon.tintColor = theme.colors.textPrimary
         smallFaviconView.tintColor = theme.colors.textPrimary
+        title.setNeedsLayout()
     }
 
     override func prepareForReuse() {
@@ -265,7 +266,7 @@ class LegacyTabCell: UICollectionViewCell,
                                      left: LegacyTabCell.borderWidth,
                                      bottom: LegacyTabCell.borderWidth,
                                      right: LegacyTabCell.borderWidth)
-        layer.borderColor = (isPrivate ? theme.colors.borderAccentPrivate : theme.colors.borderAccent).cgColor
+        layer.borderColor = theme.colors.omnibar_tintColor(isPrivate).cgColor
         layer.borderWidth = LegacyTabCell.borderWidth
         layer.cornerRadius = LegacyGridTabViewController.UX.cornerRadius + LegacyTabCell.borderWidth
     }

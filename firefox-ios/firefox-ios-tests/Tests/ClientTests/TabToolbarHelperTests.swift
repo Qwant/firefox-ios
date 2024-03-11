@@ -13,13 +13,11 @@ class TabToolbarHelperTests: XCTestCase {
     var subject: TabToolbarHelper!
     var mockToolbar: MockTabToolbar!
 
-    let backButtonImage = UIImage.templateImageNamed(StandardImageIdentifiers.Large.back)?
-        .imageFlippedForRightToLeftLayoutDirection()
-    let forwardButtonImage = UIImage.templateImageNamed(StandardImageIdentifiers.Large.forward)?
-        .imageFlippedForRightToLeftLayoutDirection()
-    let menuButtonImage = UIImage.templateImageNamed(StandardImageIdentifiers.Large.appMenu)
+    let backButtonImage = UIImage.templateImageNamed("qwant_back")?.imageFlippedForRightToLeftLayoutDirection()
+    let forwardButtonImage = UIImage.templateImageNamed("qwant_forward")?.imageFlippedForRightToLeftLayoutDirection()
+    let menuButtonImage = UIImage.templateImageNamed("qwant_settings")
     let searchButtonImage = UIImage.templateImageNamed("search")
-    let imageNewTab = UIImage.templateImageNamed(StandardImageIdentifiers.Large.plus)
+    let imageNewTab = UIImage.templateImageNamed("qwant_add")
     let imageHome = UIImage.templateImageNamed(StandardImageIdentifiers.Large.home)
 
     override func setUp() {
@@ -84,6 +82,16 @@ class MockToolbarButton: ToolbarButton {
     }
 }
 
+class MockZapButton: ZapButton {
+    init() {
+        super.init(frame: .zero)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class MockTabToolbar: TabToolbarProtocol {
     var profile: MockProfile!
     var tabManager: TabManager!
@@ -119,7 +127,10 @@ class MockTabToolbar: TabToolbarProtocol {
 
     var _multiStateButton = MockToolbarButton()
     var multiStateButton: ToolbarButton { return _multiStateButton }
-    var actionButtons: [ThemeApplicable & UIButton] { return [] }
+
+    var _zapButton = MockZapButton()
+    var zapButton: ZapButton { return _zapButton }
+    var actionButtons: [ThemeApplicable & PrivateModeUI & UIButton] { return [] }
 
     init() {
         profile = MockProfile()

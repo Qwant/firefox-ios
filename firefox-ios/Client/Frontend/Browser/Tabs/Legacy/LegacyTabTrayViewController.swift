@@ -46,28 +46,28 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
 
     // Buttons & Menus
     private lazy var deleteButtonIpad: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.delete,
+        return createButtonItem(imageName: "qwant_delete",
                                 action: #selector(didTapDeleteTabs(_:)),
                                 a11yId: AccessibilityIdentifiers.TabTray.closeAllTabsButton,
                                 a11yLabel: .AppMenu.Toolbar.TabTrayDeleteMenuButtonAccessibilityLabel)
     }()
 
     private lazy var newTabButtonIpad: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.plus,
+        return createButtonItem(imageName: "qwant_add",
                                 action: #selector(didTapAddTab(_:)),
                                 a11yId: AccessibilityIdentifiers.TabTray.newTabButton,
                                 a11yLabel: .TabTrayAddTabAccessibilityLabel)
     }()
 
     private lazy var deleteButtonIphone: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.delete,
+        return createButtonItem(imageName: "qwant_delete",
                                 action: #selector(didTapDeleteTabs(_:)),
                                 a11yId: AccessibilityIdentifiers.TabTray.closeAllTabsButton,
                                 a11yLabel: .AppMenu.Toolbar.TabTrayDeleteMenuButtonAccessibilityLabel)
     }()
 
     private lazy var newTabButtonIphone: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.plus,
+        return createButtonItem(imageName: "qwant_add",
                                 action: #selector(didTapAddTab(_:)),
                                 a11yId: AccessibilityIdentifiers.TabTray.newTabButton,
                                 a11yLabel: .TabTrayAddTabAccessibilityLabel)
@@ -287,6 +287,15 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
         }
     }
 
+    private func updateColors() {
+        let color = viewModel.buttonsColor(
+            for: segmentedControlIphone.selectedSegmentIndex,
+            with: themeManager.currentTheme)
+        navigationItem.leftBarButtonItems?.forEach { $0.tintColor = color }
+        navigationItem.rightBarButtonItems?.forEach { $0.tintColor = color }
+        toolbarItems?.forEach { $0.tintColor = color }
+    }
+
     func updateContainerConstraints(isCompact: Bool) {
         compactContainerTopConstraint.isActive = isCompact
         regularContainerTopConstraint.isActive = !isCompact
@@ -337,6 +346,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
         viewModel.tabTrayView.didTogglePrivateMode(privateMode)
         updatePrivateUIState()
         updateTitle()
+        updateColors()
     }
 
     private func showPanel(_ panel: UIViewController) {
@@ -356,6 +366,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
 
         panel.didMove(toParent: self)
         updateTitle()
+        updateColors()
     }
 
     private func hideCurrentPanel() {
@@ -471,6 +482,7 @@ class LegacyTabTrayViewController: UIViewController, Themeable, TabTrayControlle
 
         updateToolbarItems(forSyncTabs: viewModel.profile.hasSyncableAccount())
         updateTitle()
+        updateColors()
     }
 
     private func createButtonItem(imageName: String,

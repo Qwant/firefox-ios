@@ -39,7 +39,7 @@ extension HistoryPanel: LibraryPanelContextMenu {
             self.pinToTopSites(site)
         })
 
-        actions.append(PhotonRowActions(pinTopSite))
+//        actions.append(PhotonRowActions(pinTopSite))
         actions.append(PhotonRowActions(removeAction))
         return actions
     }

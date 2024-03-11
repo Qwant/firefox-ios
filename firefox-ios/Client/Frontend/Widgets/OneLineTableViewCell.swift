@@ -18,6 +18,16 @@ struct OneLineTableViewCellViewModel {
     let accessoryType: UITableViewCell.AccessoryType
 }
 
+class QwantOneLineTableViewCell: OneLineTableViewCell {
+    override func applyTheme(theme: Theme) {
+        selectedView.backgroundColor = theme.colors.layer5Hover
+        backgroundColor = theme.colors.layer5
+        titleLabel.textColor = theme.colors.textPrimary
+        bottomSeparatorView.backgroundColor = theme.colors.borderPrimary
+        accessoryView?.tintColor = theme.colors.actionSecondary
+    }
+}
+
 class OneLineTableViewCell: UITableViewCell,
                             ReusableCell,
                             ThemeApplicable {
@@ -39,7 +49,7 @@ class OneLineTableViewCell: UITableViewCell,
     var shouldLeftAlignTitle = false
     var customization: OneLineTableViewCustomization = .regular
 
-    private lazy var selectedView: UIView = .build { _ in }
+    fileprivate lazy var selectedView: UIView = .build { _ in }
     private lazy var containerView: UIView = .build { _ in }
 
     lazy var leftImageView: FaviconImageView = .build { _ in }
@@ -50,7 +60,7 @@ class OneLineTableViewCell: UITableViewCell,
         label.textAlignment = .natural
     }
 
-    private lazy var bottomSeparatorView: UIView = .build { separatorLine in
+    fileprivate lazy var bottomSeparatorView: UIView = .build { separatorLine in
         // separator hidden by default
         separatorLine.isHidden = true
     }

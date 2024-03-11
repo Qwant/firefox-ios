@@ -41,4 +41,6 @@ class SearchSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedSearchEngine()
     }
+
+    override var hidden: Bool { return true }
 }

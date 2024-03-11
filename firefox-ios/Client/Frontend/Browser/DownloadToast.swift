@@ -31,14 +31,14 @@ class DownloadToast: Toast {
     }
 
     private var titleLabel: UILabel = .build { label in
-        label.font = DefaultDynamicFontHelper.preferredBoldFont(withTextStyle: .body,
-                                                                size: ButtonToast.UX.titleFontSize)
+        label.font = DefaultDynamicFontHelper.preferredFont(withTextStyle: .body,
+                                                            size: ButtonToast.UX.titleFontSize)
         label.numberOfLines = 0
     }
 
     private var descriptionLabel: UILabel = .build { label in
-        label.font = DefaultDynamicFontHelper.preferredBoldFont(withTextStyle: .body,
-                                                                size: ButtonToast.UX.descriptionFontSize)
+        label.font = DefaultDynamicFontHelper.preferredFont(withTextStyle: .body,
+                                                            size: ButtonToast.UX.descriptionFontSize)
         label.numberOfLines = 0
     }
 
@@ -220,11 +220,12 @@ class DownloadToast: Toast {
     override func applyTheme(theme: Theme) {
         super.applyTheme(theme: theme)
 
-        titleLabel.textColor = theme.colors.textInverted
-        descriptionLabel.textColor = theme.colors.textInverted
-        imageView.tintColor = theme.colors.textInverted
-        closeButton.tintColor = theme.colors.textInverted
-        progressView.backgroundColor = theme.colors.actionPrimaryHover
+        let invertedColor: UIColor = theme.type == .dark ? .black : .white
+        titleLabel.textColor = invertedColor
+        descriptionLabel.textColor = invertedColor
+        imageView.tintColor = invertedColor
+        closeButton.tintColor = invertedColor
+        progressView.backgroundColor = theme.type == .dark ? .black.lighter() : .white.darker()
     }
 
     override func handleTap(_ gestureRecognizer: UIGestureRecognizer) {
