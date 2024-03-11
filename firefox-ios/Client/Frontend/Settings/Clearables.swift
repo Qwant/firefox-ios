@@ -144,16 +144,12 @@ class CookiesClearable: Clearable {
     }
 
     func clear() -> Success {
-        let dataTypes = Set(
-            [
-                WKWebsiteDataTypeCookies,
-                WKWebsiteDataTypeLocalStorage,
-                WKWebsiteDataTypeSessionStorage,
-                WKWebsiteDataTypeWebSQLDatabases,
-                WKWebsiteDataTypeIndexedDBDatabases
-            ]
-        )
-        WKWebsiteDataStore.default().removeData(ofTypes: dataTypes, modifiedSince: .distantPast, completionHandler: {})
+        let dataStore = WKWebsiteDataStore.default()
+        let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
+        dataStore.fetchDataRecords(ofTypes: dataTypes) { records in
+            let nonQwantRecords = records.filter { !$0.displayName.contains("qwant") }
+            dataStore.removeData(ofTypes: dataTypes, for: nonQwantRecords, completionHandler: {})
+        }
 
         logger.log("CookiesClearable succeeded.",
                    level: .debug,
@@ -165,15 +161,12 @@ class CookiesClearable: Clearable {
 class TrackingProtectionClearable: Clearable {
     // @TODO: re-using string because we are too late in cycle to change strings
     var label: String {
-        return .SettingsTrackingProtectionSectionName
+        return .QwantZap.ZapSettingsQwantVIP
     }
 
     func clear() -> Success {
-        let result = Success()
-        QwantVIP.shared.clearSafelist {
-            result.fill(Maybe(success: ()))
-        }
-        return result
+        QwantVIPGlobalStats().reset()
+        return succeed()
     }
 }
 
@@ -202,5 +195,46 @@ class DownloadedFilesClearable: Clearable {
         NotificationCenter.default.post(name: .PrivateDataClearedDownloadedFiles, object: nil)
 
         return succeed()
+    }
+}
+
+class AllTabsClearable: Clearable {
+    let tabManager: TabManager
+
+    init(tabManager: TabManager) {
+        self.tabManager = tabManager
+    }
+
+    var label: String { "Clear all tabs" }
+
+    func clear() -> Success {
+        return [removeAllTabs(isPrivate: true), removeAllTabs(isPrivate: false)].allSucceed()
+    }
+
+    private func removeAllTabs(isPrivate: Bool) -> Success {
+        let deferred = Deferred<Maybe<Void>>()
+        self.tabManager.backgroundRemoveAllTabs(isPrivate: isPrivate) { tabs, _, _ in
+            self.tabManager.cleanupClosedTabs(tabs, previous: nil, isPrivate: isPrivate)
+            deferred.fill(Maybe(success: ()))
+        }
+        return deferred
+    }
+}
+
+class AllTabsAndThenHistoryClearable: Clearable {
+    let profile: Profile
+    let tabManager: TabManager
+
+    init(profile: Profile, tabManager: TabManager) {
+        self.profile = profile
+        self.tabManager = tabManager
+    }
+
+    var label: String { .QwantZap.ZapSettingsTabsAndHistory }
+
+    func clear() -> Success {
+        AllTabsClearable(tabManager: self.tabManager).clear().bind { _ in
+            return HistoryClearable(profile: self.profile, tabManager: self.tabManager).clear()
+        }
     }
 }

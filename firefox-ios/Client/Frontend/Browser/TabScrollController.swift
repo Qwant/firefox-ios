@@ -39,6 +39,7 @@ class TabScrollingController: NSObject, FeatureFlaggable, SearchBarLocationProvi
     weak var header: BaseAlphaStackView?
     weak var overKeyboardContainer: BaseAlphaStackView?
     weak var bottomContainer: BaseAlphaStackView?
+    var onAnimating: (() -> Void)?
 
     weak var zoomPageBar: ZoomPageBar?
 
@@ -259,6 +260,7 @@ private extension TabScrollingController {
             setToolbarState(state: .visible)
         } else {
             setToolbarState(state: .animating)
+            onAnimating?()
         }
     }
 

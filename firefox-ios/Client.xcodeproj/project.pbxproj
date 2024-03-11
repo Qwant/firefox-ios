@@ -531,6 +531,19 @@
 		683603E42B96157F00985FEE /* QwantIntroScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E32B96157F00985FEE /* QwantIntroScreen2.swift */; };
 		683603E62B96159200985FEE /* QwantIntroScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683603E52B96159200985FEE /* QwantIntroScreen1.swift */; };
 		683603E82B9615B700985FEE /* Onboarding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683603E72B9615B700985FEE /* Onboarding.xcassets */; };
+		687E223F2B9B21DF009D9411 /* BrowserViewController+Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E223E2B9B21DF009D9411 /* BrowserViewController+Zap.swift */; };
+		687E22412B9B26B7009D9411 /* QwantSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22402B9B26B7009D9411 /* QwantSearchViewController.swift */; };
+		687E22432B9B26EE009D9411 /* QwantZap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22422B9B26EE009D9411 /* QwantZap.swift */; };
+		687E22452B9B29BC009D9411 /* QwantEmptyPrivateTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22442B9B29BC009D9411 /* QwantEmptyPrivateTabsView.swift */; };
+		687E22482B9EFDE9009D9411 /* AnyFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22472B9EFDE9009D9411 /* AnyFetcher.swift */; };
+		687E224A2B9EFDFF009D9411 /* BookmarksFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22492B9EFDFF009D9411 /* BookmarksFetcher.swift */; };
+		687E224C2B9EFE0F009D9411 /* HistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E224B2B9EFE0F009D9411 /* HistoryFetcher.swift */; };
+		687E224E2B9EFE1D009D9411 /* SuggestFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E224D2B9EFE1D009D9411 /* SuggestFetcher.swift */; };
+		687E22502B9EFE2C009D9411 /* TabsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E224F2B9EFE2C009D9411 /* TabsFetcher.swift */; };
+		687E22522B9EFFBA009D9411 /* ZapSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22512B9EFFBA009D9411 /* ZapSetting.swift */; };
+		687E22542B9EFFDE009D9411 /* QwantZapSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22532B9EFFDE009D9411 /* QwantZapSettingsTableViewController.swift */; };
+		687E22562B9F004F009D9411 /* ZapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22552B9F004F009D9411 /* ZapButton.swift */; };
+		687E22582B9F128A009D9411 /* QwantSearchTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687E22572B9F128A009D9411 /* QwantSearchTableViewHeader.swift */; };
 		688A86B82B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */; };
 		688A86C12B975E7100FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86BD2B975E3E00FFB4C4 /* QwantCumulativeDaysOfUseCounterTests.swift */; };
 		688A86C22B975E7500FFB4C4 /* QwantDaysAfterInstallCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86BB2B975E2400FFB4C4 /* QwantDaysAfterInstallCounterTests.swift */; };
@@ -2610,6 +2623,19 @@
 		683603E52B96159200985FEE /* QwantIntroScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantIntroScreen1.swift; sourceTree = "<group>"; };
 		683603E72B9615B700985FEE /* Onboarding.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Onboarding.xcassets; sourceTree = "<group>"; };
 		6855435EA1F3E75E86BE92C2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FindInPage.strings; sourceTree = "<group>"; };
+		687E223E2B9B21DF009D9411 /* BrowserViewController+Zap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrowserViewController+Zap.swift"; sourceTree = "<group>"; };
+		687E22402B9B26B7009D9411 /* QwantSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSearchViewController.swift; sourceTree = "<group>"; };
+		687E22422B9B26EE009D9411 /* QwantZap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantZap.swift; sourceTree = "<group>"; };
+		687E22442B9B29BC009D9411 /* QwantEmptyPrivateTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantEmptyPrivateTabsView.swift; sourceTree = "<group>"; };
+		687E22472B9EFDE9009D9411 /* AnyFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFetcher.swift; sourceTree = "<group>"; };
+		687E22492B9EFDFF009D9411 /* BookmarksFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksFetcher.swift; sourceTree = "<group>"; };
+		687E224B2B9EFE0F009D9411 /* HistoryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFetcher.swift; sourceTree = "<group>"; };
+		687E224D2B9EFE1D009D9411 /* SuggestFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestFetcher.swift; sourceTree = "<group>"; };
+		687E224F2B9EFE2C009D9411 /* TabsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsFetcher.swift; sourceTree = "<group>"; };
+		687E22512B9EFFBA009D9411 /* ZapSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapSetting.swift; sourceTree = "<group>"; };
+		687E22532B9EFFDE009D9411 /* QwantZapSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantZapSettingsTableViewController.swift; sourceTree = "<group>"; };
+		687E22552B9F004F009D9411 /* ZapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZapButton.swift; sourceTree = "<group>"; };
+		687E22572B9F128A009D9411 /* QwantSearchTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantSearchTableViewHeader.swift; sourceTree = "<group>"; };
 		688A86B72B97546C00FFB4C4 /* QwantDefaultBrowserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDefaultBrowserOnboardingViewController.swift; sourceTree = "<group>"; };
 		688A86B92B975E1000FFB4C4 /* QwantUsesInDayCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantUsesInDayCounterTests.swift; sourceTree = "<group>"; };
 		688A86BB2B975E2400FFB4C4 /* QwantDaysAfterInstallCounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantDaysAfterInstallCounterTests.swift; sourceTree = "<group>"; };
@@ -4226,6 +4252,7 @@
 			children = (
 				5A679E4A2B239FAE004F2B0D /* TabPeekViewController.swift */,
 				43162A2E2492DB7800F91658 /* EmptyPrivateTabsView.swift */,
+				687E22442B9B29BC009D9411 /* QwantEmptyPrivateTabsView.swift */,
 				1DEBC55D2AC4ED70006E4801 /* RemoteTabsPanel.swift */,
 				1D2F68AE2ACB272500524B92 /* RemoteTabsTableViewController.swift */,
 				1D2F68B02ACCA22000524B92 /* RemoteTabsEmptyView.swift */,
@@ -4462,6 +4489,7 @@
 				8AE1E1CE27B191160024C45E /* SearchBar */,
 				C22753422A3CA25100B9C0D1 /* WebsiteDataManagement */,
 				211046CC2A7D842A00A7309F /* TPAccessoryInfo.swift */,
+				687E22532B9EFFDE009D9411 /* QwantZapSettingsTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5040,6 +5068,18 @@
 			path = Qwant;
 			sourceTree = "<group>";
 		};
+		687E22462B9EFDDB009D9411 /* Qwant */ = {
+			isa = PBXGroup;
+			children = (
+				687E22472B9EFDE9009D9411 /* AnyFetcher.swift */,
+				687E22492B9EFDFF009D9411 /* BookmarksFetcher.swift */,
+				687E224B2B9EFE0F009D9411 /* HistoryFetcher.swift */,
+				687E224D2B9EFE1D009D9411 /* SuggestFetcher.swift */,
+				687E224F2B9EFE2C009D9411 /* TabsFetcher.swift */,
+			);
+			path = Qwant;
+			sourceTree = "<group>";
+		};
 		688A86CD2B9876EE00FFB4C4 /* QwantVIP */ = {
 			isa = PBXGroup;
 			children = (
@@ -5161,6 +5201,7 @@
 				C8F457A71F1FD75A000CB895 /* BrowserViewController+WebViewDelegates.swift */,
 				434E733625EED32E006D3BDE /* BrowserViewController+URLBarDelegate.swift */,
 				DAE6DF1A29AD78DA0094BD1B /* BrowserViewController+ZoomPage.swift */,
+				687E223E2B9B21DF009D9411 /* BrowserViewController+Zap.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5230,6 +5271,7 @@
 				8A19ACB72A329128001C2147 /* PrivacyPolicySetting.swift */,
 				8A093D822A4B68940099ABA5 /* PrivacySettingsDelegate.swift */,
 				B26ADF842B339ED000C6E127 /* AddressAutofillSetting.swift */,
+				687E22512B9EFFBA009D9411 /* ZapSetting.swift */,
 			);
 			path = Privacy;
 			sourceTree = "<group>";
@@ -5633,6 +5675,7 @@
 				0BF0DB931A8545800039F300 /* URLBarView.swift */,
 				8AD40FCE27BADC6A00672675 /* URLTextField.swift */,
 				2137786429832C8900D01309 /* OverlayModeManager.swift */,
+				687E22552B9F004F009D9411 /* ZapButton.swift */,
 			);
 			path = "Toolbar+URLBar";
 			sourceTree = "<group>";
@@ -6709,6 +6752,7 @@
 				D863C8E31F68BFC20058D95F /* GradientProgressBar.swift */,
 				0BF1B7E21AC60DEA00A7B407 /* InsetButton.swift */,
 				D0152244229855A8009DE753 /* OneLineTableViewCell.swift */,
+				687E22572B9F128A009D9411 /* QwantSearchTableViewHeader.swift */,
 				D38A1BEC1A9FA2CA00F6A386 /* SiteTableViewController.swift */,
 				E16E1C9728C25F1D00EE2EF5 /* SiteTableViewHeader.swift */,
 				0BB5B2861AC0A2B90052877D /* SnackBar.swift */,
@@ -6818,6 +6862,7 @@
 				D34510871ACF415700EC27F0 /* SearchLoader.swift */,
 				D31A0FC61A65D6D000DC8C7E /* SearchSuggestClient.swift */,
 				23D57E6D25ED6F2700883FAD /* SearchViewController.swift */,
+				687E22402B9B26B7009D9411 /* QwantSearchViewController.swift */,
 				3BF56D261CDBBE1F00AC4D75 /* SimpleToast.swift */,
 				E68AEDAF1B18F81A00133D99 /* SwipeAnimator.swift */,
 				213B67A527CE682B000542F5 /* StartAtHomeHelper.swift */,
@@ -6840,6 +6885,7 @@
 				DA4F826629AD221600189590 /* ZoomPageBar.swift */,
 				E1380B8C2AEA897C00630AFA /* SidebarEnabledView.swift */,
 				5A2918CC2B522381002B197E /* ToastType.swift */,
+				687E22422B9B26EE009D9411 /* QwantZap.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -7819,6 +7865,7 @@
 		F84B22211A09122500AAB793 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				687E22462B9EFDDB009D9411 /* Qwant */,
 				8A0A1BA12B22010200E8706F /* PrivateHome */,
 				C834ACD028D3ACA900203AD1 /* Blurrable.swift */,
 				8AB5958628412B620090F4AE /* CustomizeHome */,
@@ -9416,6 +9463,7 @@
 				EB9A179F20E6C1A200B12184 /* ThemedTableViewController.swift in Sources */,
 				E68E39BE1C46F42000B85F42 /* AppSettingsTableViewController.swift in Sources */,
 				E1A6AB4628CA6A4C00EBEBDD /* String+Extension.swift in Sources */,
+				687E223F2B9B21DF009D9411 /* BrowserViewController+Zap.swift in Sources */,
 				1D2F68AF2ACB272500524B92 /* RemoteTabsTableViewController.swift in Sources */,
 				210887CC293E8800000AB4EE /* LegacyRemoteTabsErrorCell.swift in Sources */,
 				8AABBCFC2A0010900089941E /* GleanWrapper.swift in Sources */,
@@ -9479,6 +9527,7 @@
 				E18259DF29B25E4F00E6BE76 /* UserNotificationCenterProtocol.swift in Sources */,
 				DFFC9AD12A681FA0002A6AAD /* NimbusFakespotFeatureLayer.swift in Sources */,
 				1DEBC55E2AC4ED70006E4801 /* RemoteTabsPanel.swift in Sources */,
+				687E22412B9B26B7009D9411 /* QwantSearchViewController.swift in Sources */,
 				435D660523D794B90046EFA2 /* UpdateViewModel.swift in Sources */,
 				9658143C29FAB610007339BD /* CreditCardInputFieldHelper.swift in Sources */,
 				5A9F83442B2B8CE900272819 /* TabPeekModel.swift in Sources */,
@@ -9486,6 +9535,7 @@
 				215B457F27D7FD4B00E5E800 /* LegacyTabGroupData.swift in Sources */,
 				E12BD0B028AC3A7E0029AAF0 /* UIEdgeInsets+Extension.swift in Sources */,
 				C2D80BE72AADE38100CDF7A9 /* CredentialAutofillCoordinator.swift in Sources */,
+				687E22482B9EFDE9009D9411 /* AnyFetcher.swift in Sources */,
 				C8BE692729BA2FBB0015C4A2 /* SurveySurfaceInfoModel.swift in Sources */,
 				D0152245229855A8009DE753 /* OneLineTableViewCell.swift in Sources */,
 				F018F84C2719AE8300B9A52D /* ThemedDefaultNavigationController.swift in Sources */,
@@ -9570,6 +9620,7 @@
 				D3BE7B461B054F8600641031 /* UITestAppDelegate.swift in Sources */,
 				C8DC90C72A06759E0008832B /* MarkupAttributionUtility.swift in Sources */,
 				219A0FD52ACC8506009A6D1A /* InactiveTabsCell.swift in Sources */,
+				687E22502B9EFE2C009D9411 /* TabsFetcher.swift in Sources */,
 				23D57E6E25ED6F2700883FAD /* SearchViewController.swift in Sources */,
 				C82A94F2269F68ED00624AA7 /* LegacyFeatureFlagsManager.swift in Sources */,
 				C8610DAA2A0EBF7100B79FF1 /* OnboardingCardDelegate.swift in Sources */,
@@ -9580,6 +9631,7 @@
 				810FF3562B1783B0009F062C /* FeltPrivacyManager.swift in Sources */,
 				C8B07A4128199500000AFCE7 /* NimbusFlaggableFeature.swift in Sources */,
 				0B62EFD21AD63CD100ACB9CD /* Clearables.swift in Sources */,
+				687E22522B9EFFBA009D9411 /* ZapSetting.swift in Sources */,
 				431C0CA925C890E500395CE4 /* DefaultBrowserOnboardingViewModel.swift in Sources */,
 				DFACBF81277B916B003D5F41 /* ConfigurableGradientView.swift in Sources */,
 				7482205C1DBAB56300EEEA72 /* MailProviders.swift in Sources */,
@@ -9603,9 +9655,11 @@
 				688A86FA2B988F5400FFB4C4 /* QwantVIPSettingsViewController.swift in Sources */,
 				BD4B2DE229BB4CD9005FAA50 /* SnackButton.swift in Sources */,
 				F85C7F0E2711C556004BDBA4 /* SettingsViewController.swift in Sources */,
+				687E22582B9F128A009D9411 /* QwantSearchTableViewHeader.swift in Sources */,
 				C8B509E3293FA39900AC013C /* AppVersionUpdateCheckerProtocol.swift in Sources */,
 				E1AFBAF9292EA0330065E35E /* SendToDeviceHelper.swift in Sources */,
 				21D151262AFC28960062D891 /* TabManagerMiddleware.swift in Sources */,
+				687E22452B9B29BC009D9411 /* QwantEmptyPrivateTabsView.swift in Sources */,
 				74C027451B2A348C001B1E88 /* LegacySessionData.swift in Sources */,
 				C84266752728462900382274 /* AccessibilityIdentifiers.swift in Sources */,
 				C8BD87622A0C257C00CD803A /* OnboardingCardInfoModelProtocol.swift in Sources */,
@@ -9658,6 +9712,7 @@
 				8A6A796D27F773550022D6C6 /* HomepageContextMenuHelper.swift in Sources */,
 				8A2783F1275FFDC50080D29D /* KeyboardPressesHandler.swift in Sources */,
 				E650755C1E37F747006961AC /* Swizzling.m in Sources */,
+				687E224A2B9EFDFF009D9411 /* BookmarksFetcher.swift in Sources */,
 				74821FC51DB56A2500EEEA72 /* OpenWithSettingsViewController.swift in Sources */,
 				C84656012887A0F700861B4A /* WallpaperMetadataUtility.swift in Sources */,
 				E1B04A9D28E20A8300670E54 /* InstructionsView.swift in Sources */,
@@ -9856,6 +9911,7 @@
 				E63ED7D81BFCD9990097D08E /* LoginDetailTableViewCell.swift in Sources */,
 				C855728229AE7F1700AF32B0 /* SurveySurfaceManager.swift in Sources */,
 				66CE54A820FCF6CF00CC310B /* WebsiteDataManagementViewController.swift in Sources */,
+				687E22432B9B26EE009D9411 /* QwantZap.swift in Sources */,
 				C8E2E80E23D20FD2005AACE6 /* FxAWebViewController.swift in Sources */,
 				E14F7DF2288F3F9F00E3722C /* ThemedTableSectionHeaderFooterView.swift in Sources */,
 				8A3EF7F22A2FCF4000796E3A /* DeleteExportedDataSetting.swift in Sources */,
@@ -9911,6 +9967,7 @@
 				C834330026BAD32800ABAAA6 /* EnhancedTrackingProtectionDetailsVM.swift in Sources */,
 				8A03309528C2653600286539 /* LegacyTabFileManager.swift in Sources */,
 				8AB5958A284145B30090F4AE /* HomepageSectionHandler.swift in Sources */,
+				687E224C2B9EFE0F009D9411 /* HistoryFetcher.swift in Sources */,
 				E1442FD0294782D9003680B0 /* UIAlertController+Extension.swift in Sources */,
 				8A76B01429F6E45600A82607 /* CoordinatorFlagManager.swift in Sources */,
 				E660BDD91BB06521009AC090 /* TabsButton.swift in Sources */,
@@ -10076,6 +10133,7 @@
 				213778632980448C00D01309 /* DownloadFileFetcher.swift in Sources */,
 				F85C7EDF2710B4DD004BDBA4 /* LoginOnboarding.swift in Sources */,
 				C8B0F5F5283B7CCE007AE65D /* PocketSponsoredStory.swift in Sources */,
+				687E22542B9EFFDE009D9411 /* QwantZapSettingsTableViewController.swift in Sources */,
 				8AF6D4E12A856B4500B0474B /* ContileNetworking.swift in Sources */,
 				8AB8571F27D931B40075C173 /* EmptyTopSiteCell.swift in Sources */,
 				CAC458F1249429C20042561A /* PasswordManagerSelectionHelper.swift in Sources */,
@@ -10196,10 +10254,12 @@
 				E16E1C9828C25F1D00EE2EF5 /* SiteTableViewHeader.swift in Sources */,
 				C8CD80D72A1E2C6E0097C3AE /* NimbusMessagingHelperUtilityProtocol.swift in Sources */,
 				8ACE9BFB2A54A010001E7A73 /* ExpandButtonState.swift in Sources */,
+				687E22562B9F004F009D9411 /* ZapButton.swift in Sources */,
 				8AC5D55F28BFE6C8001F6F7F /* Presenter.swift in Sources */,
 				8AEDB11529F9F00400F2A53B /* SceneContainer.swift in Sources */,
 				AB42CC742A1F5240003C9594 /* CreditCardBottomSheetViewController.swift in Sources */,
 				C8741FE928C4D30F00030029 /* FileManagerInterface.swift in Sources */,
+				687E224E2B9EFE1D009D9411 /* SuggestFetcher.swift in Sources */,
 				8A93F87229D3A5AD004159D9 /* BrowserCoordinator.swift in Sources */,
 				8A3233FE28627446003E1C33 /* LocalDesktopFolder.swift in Sources */,
 				8AD40FCA27BADC4B00672675 /* ReaderModeButton.swift in Sources */,

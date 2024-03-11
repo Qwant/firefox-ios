@@ -14,7 +14,7 @@ class Toast: UIView, ThemeApplicable {
         static let toastDelayBefore = DispatchTimeInterval.milliseconds(0) // 0 seconds
         static let toastPrivateModeDelayBefore = DispatchTimeInterval.milliseconds(750)
         static let toastAnimationDuration = 0.5
-        static let fontSize: CGFloat = 15
+        static let fontSize: CGFloat = 17
     }
 
     var animationConstraint: NSLayoutConstraint?
@@ -94,6 +94,6 @@ class Toast: UIView, ThemeApplicable {
     }
 
     func applyTheme(theme: Theme) {
-        toastView.backgroundColor = theme.colors.actionPrimary
+        toastView.backgroundColor = theme.type == .dark ? .white : .black
     }
 }

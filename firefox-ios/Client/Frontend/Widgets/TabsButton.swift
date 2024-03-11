@@ -6,11 +6,11 @@ import Foundation
 import Shared
 import Common
 
-class TabsButton: UIButton, ThemeApplicable {
+class TabsButton: UIButton, ThemeApplicable, PrivateModeUI {
     struct UX {
         static let cornerRadius: CGFloat = 2
         static let titleFont: UIFont = UIConstants.DefaultChromeSmallFontBold
-        static let insideButtonSize: CGFloat = 24
+        static let insideButtonSize: CGFloat = 32
 
         // Animation constants
         static let flipAnimationDuration: TimeInterval = 1.5
@@ -28,6 +28,14 @@ class TabsButton: UIButton, ThemeApplicable {
     private var selectedTintColor: UIColor!
     private var unselectedTintColor: UIColor!
     private var theme: Theme?
+    private var isPrivate: Bool?
+
+    var textColor = UIColor.Photon.Blue40 {
+        didSet {
+            countLabel.textColor = textColor
+            borderView.tintColor = textColor
+        }
+    }
 
     // When all animations are completed, this is the most-recently assigned tab count that is shown.
     // updateTabCount() can be called in rapid succession, this ensures only final tab count is displayed.
@@ -68,7 +76,7 @@ class TabsButton: UIButton, ThemeApplicable {
     }
 
     private lazy var borderView: UIImageView = .build { imageView in
-        imageView.image = UIImage(named: ImageIdentifiers.navTabCounter)?.withRenderingMode(.alwaysTemplate)
+        imageView.image = UIImage(named: "qwant_tabs")?.withRenderingMode(.alwaysTemplate)
     }
 
     // Used to temporarily store the cloned button so we can respond to layout changes during animation
@@ -98,8 +106,8 @@ class TabsButton: UIButton, ThemeApplicable {
             borderView.trailingAnchor.constraint(equalTo: insideButton.trailingAnchor),
             borderView.bottomAnchor.constraint(equalTo: insideButton.bottomAnchor),
 
-            countLabel.topAnchor.constraint(equalTo: insideButton.topAnchor),
-            countLabel.leadingAnchor.constraint(equalTo: insideButton.leadingAnchor),
+            countLabel.topAnchor.constraint(equalTo: insideButton.topAnchor, constant: 4),
+            countLabel.leadingAnchor.constraint(equalTo: insideButton.leadingAnchor, constant: 6),
             countLabel.trailingAnchor.constraint(equalTo: insideButton.trailingAnchor),
             countLabel.bottomAnchor.constraint(equalTo: insideButton.bottomAnchor),
 
@@ -124,8 +132,8 @@ class TabsButton: UIButton, ThemeApplicable {
         button.countLabel.font = countLabel.font
         button.countLabel.layer.cornerRadius = countLabel.layer.cornerRadius
         button.labelBackground.layer.cornerRadius = labelBackground.layer.cornerRadius
-        if let theme {
-            button.applyTheme(theme: theme)
+        if let theme, let isPrivate {
+            button.applyUIMode(isPrivate: isPrivate, theme: theme)
         }
 
         return button
@@ -135,7 +143,7 @@ class TabsButton: UIButton, ThemeApplicable {
                         animated: Bool = true) {
         let count = max(count, 1)
         let currentCount = countLabel.text
-        let infinity = UX.infinitySymbol
+        let infinity = ":)"
         countToBe = (count < UX.maxTabCountToShowInfinity) ? count.description : infinity
 
         // Only animate a tab count change if the tab count has actually changed
@@ -233,12 +241,19 @@ class TabsButton: UIButton, ThemeApplicable {
 
     // MARK: - ThemeApplicable
     func applyTheme(theme: Theme) {
-        let colors = theme.colors
-        borderView.tintColor = colors.iconPrimary
-        countLabel.textColor = colors.iconPrimary
+        unselectedTintColor = textColor
+        tintAdjustmentMode = .normal
+    }
 
-        selectedTintColor = colors.actionPrimary
-        unselectedTintColor = colors.iconPrimary
+    // MARK: - PrivateModeUI
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        self.isPrivate = isPrivate
+        self.theme = theme
+        let colors = theme.colors
+        textColor = colors.omnibar_tintColor(isPrivate)
+        borderView.tintColor = colors.omnibar_tintColor(isPrivate)
+        selectedTintColor = colors.omnibar_highlightedTintColor(isPrivate)
+        applyTheme(theme: theme)
     }
 
     private func updateHighlightColors(isHighlighted: Bool) {

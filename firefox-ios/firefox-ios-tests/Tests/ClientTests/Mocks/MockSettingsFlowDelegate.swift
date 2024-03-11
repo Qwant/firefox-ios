@@ -73,6 +73,8 @@ class MockSettingsFlowDelegate: SettingsFlowDelegate,
 
     func pressedClearPrivateData() {}
 
+    func pressedZap() {}
+
     func pressedContentBlocker() {}
 
     func pressedPasswords() {}

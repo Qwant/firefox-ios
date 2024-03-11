@@ -9,7 +9,7 @@ import Shared
 // Puts a backdrop (i.e. dark highlight) circle on the badged button.
 class BadgeWithBackdrop: ThemeApplicable {
     struct UX {
-        static let backdropAlpha: CGFloat = 0.05
+        static let backdropAlpha: CGFloat = 0.0
         static let badgeOffset: CGFloat = 10
         static let backdropCircleSize: CGFloat = 40
         static let badgeSize: CGFloat = 20
@@ -18,6 +18,7 @@ class BadgeWithBackdrop: ThemeApplicable {
     // MARK: - Variables
     var backdrop: UIView
     var badge: ToolbarBadge
+    private let backdropCircleColor: UIColor?
     private let backdropCircleSize: CGFloat
     private let isPrivateBadge: Bool
 
@@ -25,11 +26,20 @@ class BadgeWithBackdrop: ThemeApplicable {
     init(imageName: String,
          imageMask: String = ImageIdentifiers.badgeMask,
          isPrivateBadge: Bool = false,
-         backdropCircleSize: CGFloat = UX.backdropCircleSize) {
+         backdropCircleColor: UIColor? = nil,
+         backdropCircleSize: CGFloat = UX.backdropCircleSize,
+         badgeSize: CGFloat = UX.badgeSize,
+         badgePadding: CGFloat = 0) {
+        self.backdropCircleColor = backdropCircleColor
         self.backdropCircleSize = backdropCircleSize
         self.isPrivateBadge = isPrivateBadge
 
-        badge = ToolbarBadge(imageName: imageName, imageMask: imageMask, size: UX.badgeSize)
+        badge = ToolbarBadge(
+            imageName: imageName,
+            imageMask: imageMask,
+            size: badgeSize,
+            padding: badgePadding
+        )
         badge.isHidden = true
 
         backdrop = BadgeWithBackdrop.makeCircle(color: nil, size: backdropCircleSize)

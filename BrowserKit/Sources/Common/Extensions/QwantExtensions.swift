@@ -18,6 +18,14 @@ public extension URL {
         static let SEARCH_KEY = "q"
     }
 
+    var isQwantHPUrl: Bool {
+        return isQwantUrl && !isMapsUrl && (qwantSearchTerm == nil || qwantSearchTerm?.isEmptyOrWhitespace() == true)
+    }
+
+    var isQwantSERPUrl: Bool {
+        return isQwantUrl && !isMapsUrl && qwantSearchTerm?.isEmptyOrWhitespace() == false
+    }
+
     var isQwantUrl: Bool {
         return self.normalizedHost == Constants.QWANT_DOMAIN
     }
@@ -161,8 +169,23 @@ public extension WKWebView {
                     campaign: campaign)
         else { return }
 
+        print("[QWANT] reloading with \(urlWithContext)")
+
         self.stopLoading()
         self.load(URLRequest(url: urlWithContext))
+    }
+
+    func setQwantCookies() {
+        let omnibarCookie = HTTPCookie(properties: [
+            .domain: "www.qwant.com",
+            .path: "/",
+            .name: "omnibar",
+            .value: "1",
+            .secure: "FALSE",
+            .expires: NSDate(timeIntervalSinceNow: 31_556_926)
+        ])!
+
+        configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
     }
 }
 
@@ -181,6 +204,15 @@ public extension String {
             attributedStr.addAttributes([.font: UIFont.systemFont(ofSize: 15, weight: .bold)], range: cleanedRange)
         }
         return attributedStr
+    }
+
+    fileprivate func isEmptyOrWhitespace() -> Bool {
+        // Check empty string
+        if self.isEmpty {
+            return true
+        }
+        // Trim and check empty string
+        return self.trimmingCharacters(in: .whitespaces).isEmpty
     }
 }
 
@@ -202,5 +234,14 @@ public extension UIView {
         animation.duration = 0.1
         animation.values = [3.0, 0.0]
         layer.add(animation, forKey: "increaseAnimation")
+    }
+
+    func shouldUseiPadSetup(traitCollection: UITraitCollection? = nil) -> Bool {
+        let trait = traitCollection == nil ? self.traitCollection : traitCollection
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return trait!.horizontalSizeClass != .compact
+        }
+
+        return false
     }
 }

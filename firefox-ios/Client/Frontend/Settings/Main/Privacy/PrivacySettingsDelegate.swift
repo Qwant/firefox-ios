@@ -9,6 +9,7 @@ protocol PrivacySettingsDelegate: AnyObject {
     func pressedAddressAutofill()
     func pressedCreditCard()
     func pressedClearPrivateData()
+    func pressedZap()
     func pressedContentBlocker()
     func pressedPasswords()
     func pressedNotifications()

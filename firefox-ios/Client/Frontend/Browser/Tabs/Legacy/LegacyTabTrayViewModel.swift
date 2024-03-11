@@ -48,6 +48,11 @@ class LegacyTabTrayViewModel {
         return nil
     }
 
+    func buttonsColor(for segmentIndex: Int, with theme: Theme) -> UIColor {
+        let segment = TabTrayPanelType(rawValue: segmentIndex) ?? .tabs
+        return segment.buttonsColor(for: theme)
+    }
+
     func reloadRemoteTabs() {
         syncedTabsController.forceRefreshTabs()
     }

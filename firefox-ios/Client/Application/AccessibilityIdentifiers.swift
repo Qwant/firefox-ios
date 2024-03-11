@@ -31,6 +31,7 @@ public struct AccessibilityIdentifiers {
         static let stopButton = "TabToolbar.stopButton"
         static let bookmarksButton = "TabToolbar.libraryButton"
         static let shoppingButton = "TabLocationView.shoppingButton"
+        static let zapButton = "TabLocationView.zapButton"
     }
 
     struct Browser {

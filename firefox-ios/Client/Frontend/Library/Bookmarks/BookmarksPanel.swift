@@ -528,7 +528,7 @@ extension BookmarksPanel: LibraryPanelContextMenu {
                 }
             }
         }).items
-        actions.append(pinTopSite)
+//        actions.append(pinTopSite)
 
         let removeAction = SingleActionViewModel(title: .RemoveBookmarkContextMenuTitle,
                                                  iconString: StandardImageIdentifiers.Large.bookmarkSlash,

@@ -36,6 +36,7 @@ extension TabContentScript {
     func prepareForDeinit() {}
 }
 
+@objc
 protocol LegacyTabDelegate: AnyObject {
     func tab(_ tab: Tab, didAddSnackbar bar: SnackBar)
     func tab(_ tab: Tab, didRemoveSnackbar bar: SnackBar)
@@ -43,6 +44,8 @@ protocol LegacyTabDelegate: AnyObject {
     func tab(_ tab: Tab, didSelectSearchWithFirefoxForSelection selection: String)
     func tab(_ tab: Tab, didCreateWebView webView: WKWebView)
     func tab(_ tab: Tab, willDeleteWebView webView: WKWebView)
+    @objc
+    optional func tab(_ tab: Tab, didFinishLoading webView: WKWebView)
 }
 
 @objc
@@ -520,6 +523,12 @@ class Tab: NSObject, ThemeApplicable {
                 options: .new,
                 context: nil
             )
+            self.webView?.addObserver(
+                self,
+                forKeyPath: KVOConstants.loading.rawValue,
+                options: .new,
+                context: nil
+            )
             UserScriptManager.shared.injectUserScriptsIntoWebView(
                 webView,
                 nightMode: nightMode,
@@ -543,6 +552,7 @@ class Tab: NSObject, ThemeApplicable {
     deinit {
         webView?.removeObserver(self, forKeyPath: KVOConstants.URL.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.title.rawValue)
+        webView?.removeObserver(self, forKeyPath: KVOConstants.loading.rawValue)
         webView?.navigationDelegate = nil
 
         debugTabCount -= 1
@@ -586,6 +596,7 @@ class Tab: NSObject, ThemeApplicable {
 
         webView?.removeObserver(self, forKeyPath: KVOConstants.URL.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.title.rawValue)
+        webView?.removeObserver(self, forKeyPath: KVOConstants.loading.rawValue)
 
         if let webView = webView {
             tabDelegate?.tab(self, willDeleteWebView: webView)
@@ -824,36 +835,50 @@ class Tab: NSObject, ThemeApplicable {
         change: [NSKeyValueChangeKey: Any]?,
         context: UnsafeMutableRawPointer?
     ) {
+        let handledKVOs: [KVOConstants] = [.URL, .title, .loading]
+
         guard let webView = object as? WKWebView,
               webView == self.webView,
-              let path = keyPath else {
+              let path = keyPath,
+              handledKVOs.map({ $0.rawValue }).contains(path)
+        else {
             return assertionFailure("Unhandled KVO key: \(keyPath ?? "nil")")
         }
 
-        if let url = self.webView?.url, path == KVOConstants.URL.rawValue {
-            let prefs = self.profile.prefs
-            let completion: ((String) -> Void) = { clValue in
-                prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
-                prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
-                prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
-            }
-            if url.missesQwantContext(hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
-                                      campaign: prefs.stringForKey(PrefsKeys.QwantCampaign),
-                                      isFirstRun: prefs.boolForKey(PrefsKeys.QwantIsFirstRun),
-                                      completion: completion) {
-                self.webView?.relaunchNavigationWithContext(
+        switch KVOConstants(rawValue: path) {
+        case .URL:
+            if let url = webView.url {
+                let prefs = self.profile.prefs
+                let completion: ((String) -> Void) = { clValue in
+                    prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
+                    prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
+                    prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
+                }
+                if url.missesQwantContext(
                     hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
-                    campaign: prefs.stringForKey(PrefsKeys.QwantCampaign))
-                self.profile.prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
-                return
+                    campaign: prefs.stringForKey(PrefsKeys.QwantCampaign),
+                    isFirstRun: prefs.boolForKey(PrefsKeys.QwantIsFirstRun),
+                    completion: completion
+                ) {
+                    self.webView?.relaunchNavigationWithContext(
+                        hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
+                        campaign: prefs.stringForKey(PrefsKeys.QwantCampaign)
+                    )
+                    self.profile.prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+                    return
+                }
+                self.urlDidChangeDelegate?.tab(self, urlDidChangeTo: url)
             }
-            self.urlDidChangeDelegate?.tab(self, urlDidChangeTo: url)
-        }
-
-        if let title = self.webView?.title, !title.isEmpty,
-           path == KVOConstants.title.rawValue {
-            metadataManager?.updateObservationTitle(title)
-            _ = Tab.toRemoteTab(self)
+        case .loading:
+            if change?[.newKey] as? Bool == false && webView.url?.isQwantHPUrl == true {
+                self.tabDelegate?.tab?(self, didFinishLoading: webView)
+            }
+        case .title:
+            if let title = webView.title, !title.isEmpty {
+                metadataManager?.updateObservationTitle(title)
+                _ = Tab.toRemoteTab(self)
+            }
+        default: return
         }
     }
 
@@ -885,9 +910,7 @@ class Tab: NSObject, ThemeApplicable {
 
     // MARK: - ThemeApplicable
 
-    func applyTheme(theme: Theme) {
-        UITextField.appearance().keyboardAppearance = theme.type.keyboardAppearence(isPrivate: isPrivate)
-    }
+    func applyTheme(theme: Theme) {}
 }
 
 extension Tab: UIGestureRecognizerDelegate {

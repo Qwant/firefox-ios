@@ -100,7 +100,7 @@ final class BrowserCoordinatorTests: XCTestCase {
                                                     tabManager: tabManager,
                                                     overlayManager: overlayModeManager)
         XCTAssertFalse(subject.browserViewController.contentContainer.canAdd(content: secondHomepage))
-        XCTAssertNotNil(subject.homepageViewController)
+        XCTAssertNil(subject.homepageViewController)
         XCTAssertNil(subject.webviewController)
     }
 
@@ -113,7 +113,7 @@ final class BrowserCoordinatorTests: XCTestCase {
                              statusBarScrollDelegate: scrollDelegate,
                              overlayManager: overlayModeManager)
         let firstHomepage = subject.homepageViewController
-        XCTAssertNotNil(subject.homepageViewController)
+        XCTAssertNil(subject.homepageViewController)
 
         subject.showHomepage(inline: true,
                              toastContainer: UIView(),

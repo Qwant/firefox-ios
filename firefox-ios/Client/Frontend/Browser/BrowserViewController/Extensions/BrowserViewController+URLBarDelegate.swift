@@ -427,14 +427,16 @@ extension BrowserViewController: URLBarDelegate {
             showEmbeddedHomepage(inline: false, isPrivate: tabManager.selectedTab?.isPrivate ?? false)
         }
 
-        urlBar.applyTheme(theme: themeManager.currentTheme)
+        let isPrivate = tabManager.selectedTab?.isPrivate ?? false
+        urlBar.applyUIMode(isPrivate: isPrivate, theme: themeManager.currentTheme)
     }
 
     func urlBarDidLeaveOverlayMode(_ urlBar: URLBarView) {
         destroySearchController()
         updateInContentHomePanel(tabManager.selectedTab?.url as URL?)
 
-        urlBar.applyTheme(theme: themeManager.currentTheme)
+        let isPrivate = tabManager.selectedTab?.isPrivate ?? false
+        urlBar.applyUIMode(isPrivate: isPrivate, theme: themeManager.currentTheme)
     }
 
     func urlBarDidBeginDragInteraction(_ urlBar: URLBarView) {
