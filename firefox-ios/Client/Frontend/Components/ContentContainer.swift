@@ -54,6 +54,7 @@ class ContentContainer: UIView {
     ///   - viewController: The view controller to add to the container
     /// - Returns: True when we can add the view controller to the container
     func canAdd(content: ContentContainable) -> Bool {
+        guard !(content is HomepageViewController) else { return false }
         switch type {
         case .legacyHomepage:
             return !(content is LegacyHomepageViewController)

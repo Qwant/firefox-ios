@@ -35,4 +35,6 @@ class ClearPrivateDataSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedClearPrivateData()
     }
+
+    override var hidden: Bool { return true }
 }

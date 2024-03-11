@@ -5,6 +5,7 @@
 import Common
 import Redux
 import UIKit
+import SwiftUI
 
 protocol TabTrayThemeable {
     func retrieveTheme() -> Theme
@@ -50,16 +51,10 @@ class TabDisplayPanelViewController: UIViewController,
         return view
     }()
     private var backgroundPrivacyOverlay: UIView = .build()
-    private lazy var emptyPrivateTabsView: EmptyPrivateTabView = {
-        if isTabTrayUIExperimentsEnabled {
-            let view = ExperimentEmptyPrivateTabsView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        } else {
-            let view = EmptyPrivateTabsView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }
+    private lazy var emptyPrivateTabsView: UIView = {
+        var view = UIHostingController(rootView: QwantEmptyPrivateTabsView()).view!
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     private lazy var fadeView: UIView = .build { view in
@@ -147,7 +142,7 @@ class TabDisplayPanelViewController: UIViewController,
             return
         }
 
-        emptyPrivateTabsView.delegate = self
+//        emptyPrivateTabsView.delegate = self
         view.insertSubview(emptyPrivateTabsView, aboveSubview: tabDisplayView)
         NSLayoutConstraint.activate([
             emptyPrivateTabsView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -176,7 +171,8 @@ class TabDisplayPanelViewController: UIViewController,
         let theme = retrieveTheme()
         backgroundPrivacyOverlay.backgroundColor = theme.colors.layerScrim
         tabDisplayView.applyTheme(theme: theme)
-        emptyPrivateTabsView.applyTheme(theme: theme)
+//        emptyPrivateTabsView.applyTheme(theme: theme)
+        emptyPrivateTabsView.backgroundColor = UIColor(rgb: 0x1C0E58)
         adjustFadeView(theme: theme)
     }
 
@@ -211,8 +207,6 @@ class TabDisplayPanelViewController: UIViewController,
         let shouldShow = !tabsState.isPrivateMode || isPrivateModeFadeViewNeeded
         fadeView.isHidden = !shouldShow
     }
-
-    // MARK: Themeable
 
     private func adjustFadeView(theme: Theme) {
         guard isTabTrayUIExperimentsEnabled else { return }
@@ -261,7 +255,8 @@ class TabDisplayPanelViewController: UIViewController,
     func applyTheme(_ theme: Theme) {
         backgroundPrivacyOverlay.backgroundColor = theme.colors.layerScrim
         tabDisplayView.applyTheme(theme: theme)
-        emptyPrivateTabsView.applyTheme(theme: theme)
+//        emptyPrivateTabsView.applyTheme(theme: theme)
+        emptyPrivateTabsView.backgroundColor = UIColor(rgb: 0x1C0E58)
 
         // Hide the fadeview when animating the transition of panels
         fadeView.isHidden = true

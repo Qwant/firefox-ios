@@ -651,13 +651,13 @@ class HistoryPanel: UIViewController,
             self.removeHistoryItem(at: indexPath)
         })
 
-        let pinTopSite = SingleActionViewModel(title: .AddToShortcutsActionTitle,
-                                               iconString: StandardImageIdentifiers.Large.pin,
-                                               tapHandler: { _ in
-            self.pinToTopSites(site)
-        })
-
-        actions.append(PhotonRowActions(pinTopSite))
+//        let pinTopSite = SingleActionViewModel(title: .AddToShortcutsActionTitle,
+//                                               iconString: StandardImageIdentifiers.Large.pin,
+//                                               tapHandler: { _ in
+//            self.pinToTopSites(site)
+//        })
+//
+//        actions.append(PhotonRowActions(pinTopSite))
         actions.append(PhotonRowActions(removeAction))
 
         let cell = tableView.cellForRow(at: indexPath)

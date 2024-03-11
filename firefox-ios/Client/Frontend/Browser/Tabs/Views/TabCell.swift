@@ -157,7 +157,7 @@ class TabCell: UICollectionViewCell, ThemeApplicable, ReusableCell {
     func applyTheme(theme: Theme) {
         headerView.effect = UIBlurEffect(style: theme.type.tabTitleBlurStyle())
         backgroundHolder.backgroundColor = theme.colors.layer1
-        closeButton.tintColor = theme.colors.indicatorActive
+        closeButton.tintColor = theme.colors.omnibar_gray
         titleText.textColor = theme.colors.textPrimary
         screenshotView.backgroundColor = theme.colors.layer1
         favicon.tintColor = theme.colors.textPrimary
@@ -215,7 +215,8 @@ class TabCell: UICollectionViewCell, ThemeApplicable, ReusableCell {
                                          left: UX.borderWidth,
                                          bottom: UX.borderWidth,
                                          right: UX.borderWidth)
-            layer.borderColor = (isPrivate ? theme.colors.borderAccentPrivate : theme.colors.borderAccent).cgColor
+            let borderColor = isPrivate ? theme.colors.omnibar_tintColor(isPrivate) : theme.colors.actionPrimary
+            layer.borderColor = borderColor.cgColor
             layer.borderWidth = UX.borderWidth
             layer.cornerRadius = UX.cornerRadius
         } else {

@@ -32,7 +32,7 @@ final class ContentContainerTests: XCTestCase {
         let subject = ContentContainer(frame: .zero)
         let homepage = createHomepage()
 
-        XCTAssertTrue(subject.canAdd(content: homepage))
+        XCTAssertFalse(subject.canAdd(content: homepage))
     }
 
     func testCanAddHomepageOnceOnly() {

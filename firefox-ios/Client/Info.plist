@@ -158,7 +158,7 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>plusLarge</string>
+			<string>qwant_add</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>New Tab</string>
 			<key>UIApplicationShortcutItemType</key>
@@ -166,7 +166,7 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>privateModeLarge</string>
+			<string>qwant_private</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>New Private Tab</string>
 			<key>UIApplicationShortcutItemType</key>

@@ -114,7 +114,7 @@ final class BrowserCoordinatorTests: XCTestCase, FeatureFlaggable {
             overlayManager: overlayModeManager
         )
         XCTAssertFalse(subject.browserViewController.contentContainer.canAdd(content: secondHomepage))
-        XCTAssertNotNil(subject.legacyHomepageViewController)
+        XCTAssertNil(subject.legacyHomepageViewController)
         XCTAssertNil(subject.webviewController)
     }
 
@@ -167,7 +167,7 @@ final class BrowserCoordinatorTests: XCTestCase, FeatureFlaggable {
             toastContainer: UIView()
         )
         let firstHomepage = subject.homepageViewController
-        XCTAssertNotNil(subject.homepageViewController)
+        XCTAssertNil(subject.homepageViewController)
 
         subject.showHomepage(
             overlayManager: overlayModeManager,

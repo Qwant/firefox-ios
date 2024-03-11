@@ -219,6 +219,7 @@ public struct PrefsKeys {
     public static let QwantCampaign = "QwantCampaign"
     public static let QwantCampaignTimestamp = "QwantCampaignTimestamp"
     public static let QwantHasBeenOpenedViaTheWidget = "QwantHasBeenOpenedViaTheWidget"
+    public static let QwantHasTappedZap = "QwantHasTappedZap"
 }
 
 public protocol Prefs {

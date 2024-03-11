@@ -85,6 +85,10 @@ class AppLaunchUtil {
         // Initialize app services ( including NSS ). Must be called before any other calls to rust components.
         MozillaAppServices.initialize()
 
+        if let qwantEngine = profile.searchEnginesManager.orderedEngines.first(where: { $0.shortName == "Qwant" }) {
+            profile.searchEnginesManager.defaultEngine = qwantEngine
+        }
+
         // Start initializing the Nimbus SDK. This should be done after Glean
         // has been started.
         initializeExperiments()

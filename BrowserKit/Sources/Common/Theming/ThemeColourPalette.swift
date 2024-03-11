@@ -99,4 +99,24 @@ public protocol ThemeColourPalette {
     var shadowSubtle: UIColor { get }
     var shadowDefault: UIColor { get }
     var shadowStrong: UIColor { get }
+
+    // MARK: - Qwant Omnibar
+    var omnibar_tableViewSeparator: UIColor { get }
+    var omnibar_keyboardBackground: UIColor { get }
+    var omnibar_blue: UIColor { get }
+    var omnibar_purple: UIColor { get }
+    var omnibar_gray: UIColor { get }
+    func omnibar_tableViewBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellPrimaryText(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellSecondaryText(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewCellBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_tableViewSelectedCellBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_qwantLogo(_ isPrivate: Bool) -> UIColor
+    func omnibar_qwantLogoTint(_ isPrivate: Bool) -> UIColor
+    func omnibar_tintColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_highlightedTintColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_borderColor(_ isPrivate: Bool) -> UIColor
+    func omnibar_urlBarBackground(_ isPrivate: Bool) -> UIColor
+    func omnibar_urlBarText(_ isPrivate: Bool) -> UIColor
+    func omnibar_gray(_ isPrivate: Bool) -> UIColor
 }

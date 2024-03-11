@@ -146,6 +146,53 @@ struct TabTrayPanelSwipePalette: ThemeColourPalette {
     var shadowSubtle: UIColor { base.shadowSubtle }
     var shadowStrong: UIColor { base.shadowStrong }
 
+    // MARK: - Qwant Omnibar
+    var omnibar_tableViewSeparator = UIColor(rgb: 0x3C3C43).withAlphaComponent(0.36)
+    var omnibar_keyboardBackground = UIColor(rgb: 0xD2D4DA)
+    var omnibar_blue = QwantColors.grey1100
+    var omnibar_purple = UIColor(rgb: 0x7B5CFF)
+    var omnibar_gray = UIColor(rgb: 0x8E8E93)
+    func omnibar_tableViewBackground(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? UIColor(rgb: 0xF4F5F6) : UIColor(rgb: 0x140a3d)
+    }
+    func omnibar_tableViewCellPrimaryText(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? .black : .white
+    }
+    func omnibar_tableViewCellSecondaryText(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? UIColor(rgb: 0x636366) : .white
+    }
+    func omnibar_tableViewCellBackground(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? .white : UIColor(rgb: 0x1C0E58)
+    }
+    func omnibar_tableViewSelectedCellBackground(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? UIColor(rgb: 0xC7C7CC) : UIColor(rgb: 0x4D3195)
+    }
+    func omnibar_qwantLogo(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? QwantColors.grey1100 : omnibar_purple
+    }
+    func omnibar_qwantLogoTint(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? QwantColors.grey000 : QwantColors.grey1100
+    }
+    func omnibar_tintColor(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? omnibar_blue : omnibar_purple
+    }
+    func omnibar_highlightedTintColor(_ isPrivate: Bool) -> UIColor {
+        omnibar_tintColor(isPrivate).withAlphaComponent(0.8)
+    }
+    func omnibar_borderColor(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? UIColor(rgba: 0x0c0c0d19) : omnibar_purple
+    }
+    func omnibar_urlBarBackground(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? .white : UIColor(rgb: 0x48484a)
+    }
+    func omnibar_urlBarText(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ? UIColor(rgb: 0x2a2a2e) : UIColor(rgb: 0xf9f9fb)
+    }
+    func omnibar_gray(_ isPrivate: Bool) -> UIColor {
+        return !isPrivate ?
+        UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6) :
+        UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 245.0/255.0, alpha: 0.6)
+    }
     init(base: ThemeColourPalette, overrides: PartialOverrides) {
         self.base = base
         self.partialOverrides = overrides

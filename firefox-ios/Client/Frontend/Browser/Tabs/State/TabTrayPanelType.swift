@@ -4,6 +4,7 @@
 
 import Foundation
 import Common
+import Shared
 
 enum TabTrayPanelType: Int, CaseIterable {
     case tabs
@@ -18,6 +19,15 @@ enum TabTrayPanelType: Int, CaseIterable {
             return .TabTrayPrivateBrowsingTitle
         case .syncedTabs:
             return .LegacyAppMenu.AppMenuSyncedTabsTitleString
+        }
+    }
+
+    func buttonsColor(for theme: Theme) -> UIColor {
+        switch self {
+        case .tabs, .syncedTabs:
+            return theme.colors.omnibar_blue
+        case .privateTabs:
+            return theme.colors.omnibar_purple
         }
     }
 
@@ -37,7 +47,7 @@ enum TabTrayPanelType: Int, CaseIterable {
         case .tabs:
             return UIImage(named: StandardImageIdentifiers.Large.tab)
         case .privateTabs:
-            return UIImage(named: StandardImageIdentifiers.Large.privateMode)
+            return UIImage(named: "qwant_private")?.createScaled(CGSize(width: 24, height: 24))
         case .syncedTabs:
             return UIImage(named: StandardImageIdentifiers.Large.syncTabs)
         }

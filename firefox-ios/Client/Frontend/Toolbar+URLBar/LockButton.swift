@@ -50,9 +50,13 @@ class LockButton: UIButton {
 // MARK: - Theme protocols
 extension LockButton: ThemeApplicable {
     func applyTheme(theme: Theme) {
-        selectedTintColor = theme.colors.actionPrimary
-        disabledTintColor = theme.colors.iconDisabled
-        unselectedTintColor = theme.colors.textPrimary
         tintColor = isEnabled ? unselectedTintColor : disabledTintColor
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        selectedTintColor = theme.colors.omnibar_gray(isPrivate)
+        disabledTintColor = theme.colors.iconDisabled
+        unselectedTintColor = theme.colors.omnibar_gray(isPrivate)
+        applyTheme(theme: theme)
     }
 }

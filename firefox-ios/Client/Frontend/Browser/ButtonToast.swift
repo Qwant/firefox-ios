@@ -18,10 +18,12 @@ class ButtonToast: Toast {
         static let delay = DispatchTimeInterval.milliseconds(900)
         static let stackViewSpacing: CGFloat = 8
         static let spacing: CGFloat = 8
-        static let buttonPadding: CGFloat = 8
-        static let buttonBorderRadius: CGFloat = 8
-        static let buttonBorderWidth: CGFloat = 1
         static let topBottomButtonPadding: CGFloat = 8
+        static let padding: CGFloat = QwantUX.Spacing.s
+        static let buttonPadding: CGFloat = QwantUX.Spacing.m
+        static let buttonBorderRadius: CGFloat = QwantUX.SystemDesign.Button.cornerRadius
+        static let buttonBorderWidth: CGFloat = QwantUX.SystemDesign.Button.borderWidth
+        static let widthOffset: CGFloat = 20
     }
 
     // MARK: - UI
@@ -39,7 +41,7 @@ class ButtonToast: Toast {
     }
 
     private var titleLabel: UILabel = .build { label in
-        label.font = FXFontStyles.Regular.subheadline.scaledFont()
+        label.font = FXFontStyles.Regular.body.scaledFont()
         label.numberOfLines = 0
     }
 
@@ -127,8 +129,7 @@ class ButtonToast: Toast {
         roundedButton.setTitle(buttonText, for: [])
 
         NSLayoutConstraint.activate([
-            roundedButton.heightAnchor.constraint(
-                equalToConstant: roundedButton.titleLabel!.intrinsicContentSize.height + 2 * UX.buttonPadding),
+            roundedButton.heightAnchor.constraint(equalToConstant: QwantUX.SystemDesign.Button.height),
             roundedButton.widthAnchor.constraint(
                 equalToConstant: roundedButton.titleLabel!.intrinsicContentSize.width + 2 * UX.buttonPadding)
         ])
@@ -139,11 +140,12 @@ class ButtonToast: Toast {
     override func applyTheme(theme: Theme) {
         super.applyTheme(theme: theme)
 
-        titleLabel.textColor = theme.colors.textInverted
-        descriptionLabel.textColor = theme.colors.textInverted
-        imageView.tintColor = theme.colors.textInverted
-        roundedButton.setTitleColor(theme.colors.textInverted, for: [])
-        roundedButton.layer.borderColor = theme.colors.borderInverted.cgColor
+        let invertedColor: UIColor = theme.type == .dark ? .black : .white
+        titleLabel.textColor = invertedColor
+        descriptionLabel.textColor = invertedColor
+        imageView.tintColor = invertedColor
+        roundedButton.setTitleColor(invertedColor, for: [])
+        roundedButton.layer.borderColor = invertedColor.cgColor
     }
 
     override func adjustLayoutForA11ySizeCategory() {

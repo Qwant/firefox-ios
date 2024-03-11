@@ -41,6 +41,7 @@ extension TabContentScript {
     func prepareForDeinit() {}
 }
 
+@objc
 protocol LegacyTabDelegate: AnyObject {
     func tab(_ tab: Tab, didAddLoginAlert alert: SaveLoginAlert)
     func tab(_ tab: Tab, didRemoveLoginAlert alert: SaveLoginAlert)
@@ -48,6 +49,8 @@ protocol LegacyTabDelegate: AnyObject {
     func tab(_ tab: Tab, didSelectSearchWithFirefoxForSelection selection: String)
     func tab(_ tab: Tab, didCreateWebView webView: WKWebView)
     func tab(_ tab: Tab, willDeleteWebView webView: WKWebView)
+    @objc
+    optional func tab(_ tab: Tab, didFinishLoading webView: WKWebView)
 }
 
 struct TabState {
@@ -579,6 +582,12 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
                 options: .new,
                 context: nil
             )
+            self.webView?.addObserver(
+                self,
+                forKeyPath: KVOConstants.loading.rawValue,
+                options: .new,
+                context: nil
+            )
             UserScriptManager.shared.injectUserScriptsIntoWebView(
                 webView,
                 nightMode: nightMode,
@@ -613,6 +622,7 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
         webView?.removeObserver(self, forKeyPath: KVOConstants.URL.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.title.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.hasOnlySecureContent.rawValue)
+        webView?.removeObserver(self, forKeyPath: KVOConstants.loading.rawValue)
         webView?.navigationDelegate = nil
 
         debugTabCount -= 1
@@ -650,6 +660,7 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
         webView?.removeObserver(self, forKeyPath: KVOConstants.URL.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.title.rawValue)
         webView?.removeObserver(self, forKeyPath: KVOConstants.hasOnlySecureContent.rawValue)
+        webView?.removeObserver(self, forKeyPath: KVOConstants.loading.rawValue)
 
         if let webView = webView {
             tabDelegate?.tab(self, willDeleteWebView: webView)
@@ -854,29 +865,44 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
         change: [NSKeyValueChangeKey: Any]?,
         context: UnsafeMutableRawPointer?
     ) {
+        let handledKVOs: [KVOConstants] = [.URL, .title, .hasOnlySecureContent, .loading]
+
         guard let webView = object as? WKWebView,
               webView == self.webView,
-              let path = keyPath else {
+              let path = keyPath,
+              handledKVOs.map({ $0.rawValue }).contains(path)
+        else {
             return assertionFailure("Unhandled KVO key: \(keyPath ?? "nil")")
         }
 
-        if let url = self.webView?.url, path == KVOConstants.URL.rawValue {
-            let prefs = self.profile.prefs
-            let completion: ((String) -> Void) = { clValue in
-                prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
-                prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
-                prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
-            }
-            if url.missesQwantContext(hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
-                                      campaign: prefs.stringForKey(PrefsKeys.QwantCampaign),
-                                      isFirstRun: prefs.boolForKey(PrefsKeys.QwantIsFirstRun),
-                                      completion: completion) {
-                self.webView?.relaunchNavigationWithContext(
+        switch KVOConstants(rawValue: path) {
+        case .URL:
+            if let url = webView.url {
+                let prefs = self.profile.prefs
+                let completion: ((String) -> Void) = { clValue in
+                    prefs.setString(clValue, forKey: PrefsKeys.QwantCampaign)
+                    prefs.setLong(Date().toTimestamp(), forKey: PrefsKeys.QwantCampaignTimestamp)
+                    prefs.setBool(false, forKey: PrefsKeys.QwantIsFirstRun)
+                }
+                if url.missesQwantContext(
                     hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
-                    campaign: prefs.stringForKey(PrefsKeys.QwantCampaign))
-                self.profile.prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
-                return
+                    campaign: prefs.stringForKey(PrefsKeys.QwantCampaign),
+                    isFirstRun: prefs.boolForKey(PrefsKeys.QwantIsFirstRun),
+                    completion: completion
+                ) {
+                    self.webView?.relaunchNavigationWithContext(
+                        hasOpenedAppViaTheWidget: prefs.boolForKey(PrefsKeys.QwantHasBeenOpenedViaTheWidget),
+                        campaign: prefs.stringForKey(PrefsKeys.QwantCampaign)
+                    )
+                    self.profile.prefs.setBool(false, forKey: PrefsKeys.QwantHasBeenOpenedViaTheWidget)
+                    return
+                }
             }
+        case .loading:
+            if change?[.newKey] as? Bool == false && webView.url?.isQwantHPUrl == true {
+                self.tabDelegate?.tab?(self, didFinishLoading: webView)
+            }
+        default: break
         }
 
         if let title = self.webView?.title, !title.isEmpty,
@@ -903,17 +929,7 @@ class Tab: NSObject, ThemeApplicable, FeatureFlaggable, ShareTab {
     }
 
     // MARK: - ThemeApplicable
-
-    func applyTheme(theme: Theme) {
-        UITextField.appearance().keyboardAppearance = theme.type.keyboardAppearence(isPrivate: isPrivate)
-        webView?.applyTheme(theme: theme)
-        /// Configures the web view's background to prevent a white flash during initial load in night mode.
-        /// Note: Background colors are only visible when `isOpaque` is false — setting them while it's true has no effect.
-        webView?.backgroundColor =  theme.colors.layer1
-        webView?.scrollView.backgroundColor = theme.colors.layer1
-        webView?.isOpaque = !nightMode
-        webView?.underPageBackgroundColor = nightMode ? .black : nil
-    }
+    func applyTheme(theme: Theme) {}
 
     // MARK: - Static Helpers
 

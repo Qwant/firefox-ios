@@ -12,6 +12,8 @@ class ThemedNavigationController: DismissableNavigationViewController, Themeable
     let windowUUID: WindowUUID
     var currentWindowUUID: UUID? { windowUUID }
 
+    weak var donePresentingDelegate: DonePresentingDelegate?
+
     init(windowUUID: WindowUUID,
          themeManager: ThemeManager = AppContainer.shared.resolve(),
          notificationCenter: NotificationProtocol = NotificationCenter.default) {
@@ -33,6 +35,11 @@ class ThemedNavigationController: DismissableNavigationViewController, Themeable
         self.themeManager = themeManager
         self.notificationCenter = notificationCenter
         super.init(rootViewController: rootViewController)
+    }
+
+    @objc
+    func done() {
+        donePresentingDelegate?.donePresenting()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -64,6 +71,10 @@ class ThemedNavigationController: DismissableNavigationViewController, Themeable
         setupNavigationBarAppearance(theme: themeManager.getCurrentTheme(for: windowUUID))
         setNeedsStatusBarAppearanceUpdate()
     }
+}
+
+protocol DonePresentingDelegate: AnyObject {
+    func donePresenting()
 }
 
 class ModalSettingsNavigationController: UINavigationController {

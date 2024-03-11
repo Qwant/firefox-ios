@@ -16,6 +16,16 @@ public extension URL {
         static let CLIENT_CONTEXT_WIDGET = "qwantwidget"
         static let CL_CONTEXT_KEY = "cl"
         static let SEARCH_KEY = "q"
+        static let TAB_KEY = "t"
+        static let TAB_DEFAULT_VALUE = "web"
+    }
+
+    var isQwantHPUrl: Bool {
+        return isQwantUrl && (qwantSearchTerm == nil || qwantSearchTerm?.isEmptyOrWhitespace() == true)
+    }
+
+    var isQwantSERPUrl: Bool {
+        return isQwantUrl && qwantSearchTerm?.isEmptyOrWhitespace() == false
     }
 
     var isQwantUrl: Bool {
@@ -59,7 +69,7 @@ public extension URL {
         }
 
         // Client
-        let clientQueryParam = components.queryItems?.first(where: { $0.name == Constants.CLIENT_CONTEXT_KEY })
+        let clientQueryParam = components.percentEncodedQueryItems?.first(where: { $0.name == Constants.CLIENT_CONTEXT_KEY })
         let clientQueryValue = clientQueryParam?.value ?? ""
 
         // Widget
@@ -67,7 +77,7 @@ public extension URL {
         let clientIsNotWidget = clientQueryValue != Constants.CLIENT_CONTEXT_WIDGET
 
         // Cl
-        let clQueryParam = components.queryItems?.first(where: { $0.name == Constants.CL_CONTEXT_KEY })
+        let clQueryParam = components.percentEncodedQueryItems?.first(where: { $0.name == Constants.CL_CONTEXT_KEY })
         let clPrefsValue = campaign ?? ""
         let clDiffersFromPrefs = clQueryParam?.value != clPrefsValue
 
@@ -90,9 +100,12 @@ public extension URL {
             return item.name == Constants.SEARCH_KEY && item.value != nil
         }
 
-        return components.queryItems?.first(where: nonNilSearchQueryExists)?
+        return components
+            .percentEncodedQueryItems?
+            .first(where: nonNilSearchQueryExists)?
             .value?
-            .replacingOccurrences(of: " ", with: "+")
+            .replacingOccurrences(of: "+", with: " ")
+            .removingPercentEncoding
     }
 
     /// Appends the client context as a query parameter to the URL, ensuring the URL is valid beforehand.
@@ -111,7 +124,7 @@ public extension URL {
         let context = hasOpenedAppViaTheWidget == true ? widgetContext : browserContext
 
         var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        var queryItems = (components?.queryItems ?? [])
+        var queryItems = (components?.percentEncodedQueryItems ?? [])
             .filter { $0.name != Constants.CLIENT_CONTEXT_KEY }
         + [URLQueryItem(name: Constants.CLIENT_CONTEXT_KEY, value: context)]
 
@@ -121,7 +134,23 @@ public extension URL {
             + [URLQueryItem(name: Constants.CL_CONTEXT_KEY, value: campaign)]
         }
 
-        components?.queryItems = queryItems
+        components?.percentEncodedQueryItems = queryItems
+        return components?.url
+    }
+
+    func appendingQwantTab(value: String) -> URL? {
+        // Ensure it's a qwant.com url
+        guard self.isQwantUrl && !self.isAntiscrapUrl else { return self }
+
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        var queryItems = components?.percentEncodedQueryItems ?? []
+
+        // Re-append the current tab
+        queryItems = queryItems
+            .filter { $0.name != Constants.TAB_KEY }
+        + [URLQueryItem(name: Constants.TAB_KEY, value: value)]
+
+        components?.percentEncodedQueryItems = queryItems
         return components?.url
     }
 
@@ -138,7 +167,8 @@ public extension URL {
         guard self.isQwantUrl && !self.isAntiscrapUrl else { return }
 
         // Ensure there are query items
-        guard let items = URLComponents(url: self, resolvingAgainstBaseURL: false)?.queryItems else { return }
+        guard let items = URLComponents(url: self, resolvingAgainstBaseURL: false)?
+            .percentEncodedQueryItems else { return }
 
         // Ensure cl query params exists and is not empty
         guard let clParam = items.first(where: { $0.name == Constants.CL_CONTEXT_KEY }),
@@ -146,6 +176,22 @@ public extension URL {
 
         // Finally save the value and the associated timestamp onto the prefs
         completion?(clValue)
+    }
+
+    func extractQwantTab() -> String? {
+        // Ensure it's a qwant.com url
+        guard self.isQwantUrl && !self.isAntiscrapUrl else { return nil }
+
+        // Ensure there are query items
+        guard let items = URLComponents(url: self, resolvingAgainstBaseURL: false)?
+            .percentEncodedQueryItems else { return nil }
+
+        // Ensure t query params exists and is not empty
+        guard let tParam = items.first(where: { $0.name == Constants.TAB_KEY }),
+              let tValue = tParam.value, !tValue.isEmpty else { return nil }
+
+        // Finally return the value
+        return tValue
     }
 }
 
@@ -161,8 +207,23 @@ public extension WKWebView {
                     campaign: campaign)
         else { return }
 
+        print("[QWANT] reloading with \(urlWithContext)")
+
         self.stopLoading()
         self.load(URLRequest(url: urlWithContext))
+    }
+
+    func setQwantCookies() {
+        let omnibarCookie = HTTPCookie(properties: [
+            .domain: ".qwant.com",
+            .path: "/",
+            .name: "omnibar",
+            .value: "1",
+            .secure: "FALSE",
+            .expires: NSDate(timeIntervalSinceNow: 31_556_926)
+        ])!
+
+        configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
     }
 }
 
@@ -177,5 +238,46 @@ public extension UserDefaults {
 
     func setHasOpenedAppViaTheWidget(_ value: Bool) {
         setValue(value, forKey: Constants.HAS_OPENED_APP_VIA_THE_WIDGET)
+    }
+}
+
+extension String {
+    func isEmptyOrWhitespace() -> Bool {
+        // Check empty string
+        if self.isEmpty {
+            return true
+        }
+        // Trim and check empty string
+        return self.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+}
+
+public extension Date {
+    private var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self) ?? Date()
+    }
+
+    func isWithinLast30Days() -> Bool {
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -29, to: Date().noon) ?? Date()
+        return (thirtyDaysAgo ... Date().noon).contains(self)
+    }
+}
+
+public extension UIView {
+    func increaseAnimation() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.1
+        animation.values = [3.0, 0.0]
+        layer.add(animation, forKey: "increaseAnimation")
+    }
+
+    func shouldUseiPadSetup(traitCollection: UITraitCollection? = nil) -> Bool {
+        let trait = traitCollection == nil ? self.traitCollection : traitCollection
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return trait!.horizontalSizeClass != .compact
+        }
+
+        return false
     }
 }

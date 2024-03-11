@@ -40,7 +40,7 @@ class SearchViewModel: FeatureFlaggable, LoaderListener {
 
     private let maxNumOfFirefoxSuggestions: Int32 = 1
     weak var delegate: SearchViewDelegate?
-    private let isPrivate: Bool
+    let isPrivate: Bool
     let isBottomSearchBar: Bool
     var savedQuery = ""
     var searchQuery = "" {

@@ -31,7 +31,6 @@ class ClearPrivateDataTableViewController: ThemedTableViewController {
             (CacheClearable(), true),
             (CookiesClearable(), true),
             (SiteDataClearable(), true),
-            (TrackingProtectionClearable(), true),
             (DownloadedFilesClearable(), false), // Don't clear downloaded files by default
         ]
 

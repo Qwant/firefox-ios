@@ -29,7 +29,7 @@ class StatefulButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var savedReloadButtonState = ReloadButtonState.disabled
+    private var savedReloadButtonState = ReloadButtonState.reload
 
     var reloadButtonState: ReloadButtonState {
         get {
@@ -39,7 +39,7 @@ class StatefulButton: UIButton {
             savedReloadButtonState = newReloadButtonState
             switch savedReloadButtonState {
             case .reload:
-                setImage(UIImage.templateImageNamed(StandardImageIdentifiers.Large.arrowClockwise), for: .normal)
+                setImage(UIImage.templateImageNamed("qwant_reload"), for: .normal)
             case .stop:
                 setImage(UIImage.templateImageNamed(StandardImageIdentifiers.Large.cross), for: .normal)
             case .disabled:
@@ -50,9 +50,13 @@ class StatefulButton: UIButton {
 }
 
 // MARK: - Theme protocols
-extension StatefulButton: ThemeApplicable {
+extension StatefulButton: ThemeApplicable, PrivateModeUI {
     func applyTheme(theme: Theme) {
-        tintColor = isEnabled ? theme.colors.iconSecondary : theme.colors.iconDisabled
         imageView?.tintColor = tintColor
+    }
+
+    func applyUIMode(isPrivate: Bool, theme: Theme) {
+        tintColor = isEnabled ? theme.colors.omnibar_gray(isPrivate) : theme.colors.iconDisabled
+        applyTheme(theme: theme)
     }
 }

@@ -19,7 +19,7 @@ struct SimpleToast: ThemeApplicable {
     }
 
     private let toastLabel: UILabel = .build { label in
-        label.font = FXFontStyles.Regular.subheadline.scaledFont()
+        label.font = FXFontStyles.Regular.body.scaledFont()
         label.numberOfLines = 0
         label.backgroundColor = .clear
         label.adjustsFontSizeToFitWidth = true
@@ -87,8 +87,8 @@ struct SimpleToast: ThemeApplicable {
     }
 
     func applyTheme(theme: Theme) {
-        toastLabel.textColor = theme.colors.textInverted
-        shadowView.backgroundColor = theme.colors.actionPrimary
+        toastLabel.textColor = theme.type == .dark ? .black : .white
+        shadowView.backgroundColor = theme.type == .dark ? .white : .black
         setupShadow(theme: theme)
     }
 

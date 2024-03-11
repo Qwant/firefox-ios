@@ -163,14 +163,14 @@ class TabTrayViewController: UIViewController,
     }
 
     private lazy var deleteButton: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.delete,
+        return createButtonItem(imageName: "qwant_delete",
                                 action: #selector(deleteTabsButtonTapped),
                                 a11yId: AccessibilityIdentifiers.TabTray.closeAllTabsButton,
                                 a11yLabel: .LegacyAppMenu.Toolbar.TabTrayDeleteMenuButtonAccessibilityLabel)
     }()
 
     private lazy var newTabButton: UIBarButtonItem = {
-        return createButtonItem(imageName: StandardImageIdentifiers.Large.plus,
+        return createButtonItem(imageName: "qwant_add",
                                 action: #selector(newTabButtonTapped),
                                 a11yId: AccessibilityIdentifiers.TabTray.newTabButton,
                                 a11yLabel: .TabTrayAddTabAccessibilityLabel)
@@ -328,6 +328,18 @@ class TabTrayViewController: UIViewController,
         updateToolbarItems()
     }
 
+    private func updateColors() {
+        let segment = segmentedControl.selectedSegmentIndex
+        let theme = themeManager.getCurrentTheme(for: windowUUID)
+        let color = (TabTrayPanelType(rawValue: segment) ?? .tabs).buttonsColor(for: theme)
+        let isCompact = !isRegularLayout
+        let isPrivate = TabTrayPanelType(rawValue: segment) == .privateTabs
+        let actionColor = isCompact && !isPrivate ? theme.colors.actionPrimary : color
+        navigationItem.leftBarButtonItems?.forEach { $0.tintColor = color }
+        navigationItem.rightBarButtonItems?.forEach { $0.tintColor = actionColor }
+        toolbarItems?.forEach { $0.tintColor = color }
+    }
+
     // MARK: - Redux
 
     func subscribeToRedux() {
@@ -462,6 +474,7 @@ class TabTrayViewController: UIViewController,
     private func setupForiPhone() {
         navigationItem.titleView = nil
         updateTitle()
+        updateColors()
         view.addSubviews(containerView)
         if isTabTrayUIExperimentsEnabled {
             containerView.addSubview(segmentedControl)
@@ -658,6 +671,7 @@ class TabTrayViewController: UIViewController,
 
         segmentedControl.selectedSegmentIndex = panelType.rawValue
         updateTitle()
+        updateColors()
         updateLayout()
 
         if !isTabTrayUIExperimentsEnabled {
@@ -695,6 +709,7 @@ class TabTrayViewController: UIViewController,
 
         panel.didMove(toParent: self)
         updateTitle()
+        updateColors()
     }
 
     func setupSlidingPanel() {

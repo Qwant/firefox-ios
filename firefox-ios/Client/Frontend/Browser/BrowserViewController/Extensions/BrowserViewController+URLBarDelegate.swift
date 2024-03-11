@@ -119,7 +119,7 @@ extension BrowserViewController: URLBarDelegate {
             configureOverlayView()
         }
 
-        searchController?.viewModel.searchQuery = text
+        searchController?.searchQuery = text
         searchController?.searchTelemetry?.searchQuery = text
         searchController?.searchTelemetry?.interactionType = .refined
         searchLoader?.setQueryWithoutAutocomplete(text)
@@ -139,10 +139,14 @@ extension BrowserViewController: URLBarDelegate {
 
     func submitSearchText(_ text: String, forTab tab: Tab) {
         guard let engine = profile.searchEnginesManager.defaultEngine,
-              let searchURL = engine.searchURLForQuery(text)
+              var searchURL = engine.searchURLForQuery(text)
         else {
             DefaultLogger.shared.log("Error handling URL entry: \"\(text)\".", level: .warning, category: .tabs)
             return
+        }
+
+        if let currentQwantTab = tab.url?.extractQwantTab() {
+            searchURL = searchURL.appendingQwantTab(value: currentQwantTab) ?? searchURL
         }
 
         let conversionMetrics = UserConversionMetrics()
@@ -162,6 +166,9 @@ extension BrowserViewController: URLBarDelegate {
     func urlBarDidEnterOverlayMode(_ urlBar: URLBarView) {
         urlBar.searchEnginesDidUpdate()
         addressToolbarDidEnterOverlayMode(urlBar)
+        legacyUrlBar?.applyUIMode(
+            isPrivate: tabManager.selectedTab?.isPrivate ?? false,
+            theme: currentTheme())
     }
 
     func urlBar(_ urlBar: URLBarView, didLeaveOverlayModeForReason reason: URLBarLeaveOverlayModeReason) {
@@ -170,5 +177,11 @@ extension BrowserViewController: URLBarDelegate {
 
     func urlBarDidBeginDragInteraction(_ urlBar: URLBarView) {
         dismissVisibleMenus()
+    }
+
+    func urlBarDidTapQwantIcon(_ urlBar: URLBarView) {
+        leaveOverlayModeIfPossible()
+        guard let currentTab = tabManager.selectedTab else { return }
+        self.submitSearchText("", forTab: currentTab)
     }
 }

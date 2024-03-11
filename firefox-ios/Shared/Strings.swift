@@ -7856,6 +7856,22 @@ extension String {
         public static let NightModeTitleOff = QwantString(key: "Qwant.NightMode.Title.Off")
         public static let NightModeSubtitle = QwantString(key: "Qwant.NightMode.Subtitle")
     }
+
+    public struct QwantOmnibar {
+        public static let SearchHeaderTitle = QwantString(key: "Qwant.Search.HeaderTitle")
+        public static let Placeholder = QwantString(key: "Qwant.Omnibar.Placeholder")
+        public static let PrivateTabsTitle = QwantString(key: "Qwant.Omnibar.PrivateTabs.Title")
+        public static let PrivateTabsDescription = QwantString(key: "Qwant.Omnibar.PrivateTabs.Description")
+    }
+
+    public struct QwantZap {
+        public static let ZapAlertTitle = QwantString(key: "Qwant.Zap.Alert.Title")
+        public static let ZapAlertOK = QwantString(key: "Qwant.Zap.Alert.OK")
+        public static let ZapAlertCancel = QwantString(key: "Qwant.Zap.Alert.Cancel")
+        public static let ZapToast = QwantString(key: "Qwant.Zap.Toast")
+        public static let ZapSettings = QwantString(key: "Qwant.Zap.Settings")
+        public static let ZapSettingsTabsAndHistory = QwantString(key: "Qwant.Zap.Settings.TabsAndHistory")
+    }
 }
 
 // swiftlint:enable line_length

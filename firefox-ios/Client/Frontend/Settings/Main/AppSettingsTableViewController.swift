@@ -54,6 +54,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
     private var hasAppearedBefore = false
 
     weak var parentCoordinator: SettingsFlowDelegate?
+    weak var donePresentingDelegate: DonePresentingDelegate?
 
     // MARK: - Data Settings
     private var sendTechnicalDataSetting: SendDataSetting?
@@ -114,6 +115,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
     @objc
     private func done() {
         settingsDelegate?.didFinish()
+        donePresentingDelegate?.donePresenting()
     }
 
     // MARK: - Navigation Bar Setup
@@ -353,6 +355,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         privacySettings.append(AutofillPasswordSetting(settings: self, settingsDelegate: parentCoordinator))
 
         privacySettings.append(ClearPrivateDataSetting(settings: self, settingsDelegate: parentCoordinator))
+        privacySettings.append(ZapSetting(settings: self, settingsDelegate: parentCoordinator))
 
         if let profile {
             privacySettings.append(

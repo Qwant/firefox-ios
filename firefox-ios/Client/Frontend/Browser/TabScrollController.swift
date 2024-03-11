@@ -54,6 +54,7 @@ class TabScrollController: NSObject,
     weak var bottomContainer: BaseAlphaStackView?
     var overKeyboardContainerConstraint: Constraint?
     var bottomContainerConstraint: Constraint?
+    var onAnimating: (() -> Void)?
 
     weak var zoomPageBar: ZoomPageBar?
     private var observedScrollViews = WeakList<UIScrollView>()
@@ -452,6 +453,8 @@ private extension TabScrollController {
             setToolbarState(state: .collapsed)
         } else if toolbarsShowing {
             setToolbarState(state: .visible)
+        } else {
+            onAnimating?()
         }
     }
 

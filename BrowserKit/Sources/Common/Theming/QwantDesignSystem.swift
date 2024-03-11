@@ -96,5 +96,14 @@ public struct QwantUX {
         public static let bulletHeight: CGFloat = 20
         /// Corner radius is 8
         public static let cornerRadius: CGFloat = 8
+
+        public struct Button {
+            /// Height for a button is  36
+            public static let height: CGFloat = 36
+            /// Corner radius for a button is 18
+            public static let cornerRadius: CGFloat = 18
+            /// Border width for a button is 1
+            public static let borderWidth: CGFloat = 1
+        }
     }
 }

@@ -813,7 +813,10 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
 
     // MARK: Shortcut
 
-    private func getShortcutAction() -> PhotonRowActions {
+    private func getShortcutAction() -> PhotonRowActions? {
+        // Nope.
+        if true { return nil }
+
         return isPinned ? getRemoveShortcutAction().items : getAddShortcutAction().items
     }
 

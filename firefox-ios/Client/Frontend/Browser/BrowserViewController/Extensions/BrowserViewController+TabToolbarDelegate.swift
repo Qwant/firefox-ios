@@ -211,6 +211,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
 
     func tabToolbarDidPressBack(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         didTapOnBack()
+        leaveOverlayModeIfPossible()
     }
 
     func tabToolbarDidLongPressBack(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
@@ -219,6 +220,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
 
     func tabToolbarDidPressForward(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
         didTapOnForward()
+        leaveOverlayModeIfPossible()
     }
 
     func tabToolbarDidLongPressForward(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
@@ -228,11 +230,19 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     private func handleTabToolBarDidLongPressForwardOrBack() {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
+        leaveOverlayModeIfPossible()
         navigationHandler?.showBackForwardList()
     }
 
     func tabToolbarDidPressBookmarks(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        leaveOverlayModeIfPossible()
         showLibrary(panel: .bookmarks)
+    }
+
+    func tabToolbarDidPressZap(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        profile.prefs.setBool(true, forKey: PrefsKeys.QwantHasTappedZap)
+        legacyUrlBar?.leaveOverlayMode(reason: .cancelled, shouldCancelLoading: true)
+        presentZapConfirmationAlert(button)
     }
 
     func tabToolbarDidPressAddNewTab(_ tabToolbar: TabToolbarProtocol, button: UIButton) {

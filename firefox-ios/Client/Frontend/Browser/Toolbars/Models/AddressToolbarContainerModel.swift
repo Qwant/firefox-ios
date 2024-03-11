@@ -139,7 +139,7 @@ final class AddressToolbarContainerModel: Equatable {
             searchURL = url
         }
 
-        guard let query = searchEnginesManager.queryForSearchURL(searchURL) else { return nil }
+        guard let query = searchURL?.qwantSearchTerm ?? searchEnginesManager.queryForSearchURL(searchURL) else { return nil }
         return query
     }
 

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Logo-black.svg",
+      "filename" : "Logo-white.svg",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Logo-white.svg",
+      "filename" : "Logo-black.svg",
       "idiom" : "universal"
     }
   ],
@@ -20,6 +20,6 @@
     "version" : 1
   },
   "properties" : {
-    "template-rendering-intent" : "template"
+    "preserves-vector-representation" : true
   }
 }

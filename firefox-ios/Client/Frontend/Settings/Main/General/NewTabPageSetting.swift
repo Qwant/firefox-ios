@@ -42,4 +42,6 @@ class NewTabPageSetting: Setting {
     override func onClick(_ navigationController: UINavigationController?) {
         settingsDelegate?.pressedNewTab()
     }
+
+    override var hidden: Bool { return true }
 }

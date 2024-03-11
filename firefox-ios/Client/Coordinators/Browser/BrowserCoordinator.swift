@@ -123,6 +123,8 @@ class BrowserCoordinator: BaseCoordinator,
         statusBarScrollDelegate: StatusBarScrollDelegate,
         overlayManager: OverlayModeManager
     ) {
+        // Nope.
+        if true { return }
         let legacyHomepageViewController = getHomepage(
             inline: inline,
             toastContainer: toastContainer,
@@ -517,6 +519,7 @@ class BrowserCoordinator: BaseCoordinator,
     func didFinishSettings(from coordinator: SettingsCoordinator) {
         router.dismiss(animated: true, completion: nil)
         remove(child: coordinator)
+        browserViewController.donePresenting()
     }
 
     func openDebugTestTabs(count: Int) {

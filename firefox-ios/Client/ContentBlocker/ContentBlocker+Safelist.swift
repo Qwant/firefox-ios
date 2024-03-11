@@ -28,7 +28,7 @@ extension ContentBlocker {
     // Get the safelist domain array as a JSON fragment that can be inserted at the end of a blocklist.
     func safelistAsJSON() -> String {
         if safelistedDomains.domainSet.isEmpty {
-            return ""
+            return qwantSafelist
         }
         // Note that * is added to the front of domains, so foo.com becomes *foo.com
         let list = "\"*" + safelistedDomains.domainSet.joined(separator: "\",\"*") + "\""
@@ -37,7 +37,7 @@ extension ContentBlocker {
         """
         , {"action": { "type": "ignore-previous-rules" }, "trigger": { "url-filter": ".*", "if-domain": [\(list)] }}
         """
-        return script
+        return qwantSafelist + script
     }
 
     func safelist(enable: Bool, url: URL, completion: (() -> Void)?) {
@@ -119,5 +119,62 @@ extension ContentBlocker {
             return text.components(separatedBy: .newlines)
         }
         return nil
+    }
+
+    private var qwantSafelist: String {
+        return
+#"""
+,{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.com\\\/impression\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.app\\\/impression\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.com\\\/action\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.app\\\/action\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.com\\\/apm\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.app\\\/apm\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?about\\.qwant\\.com\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?about\\.qwant\\.app\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.com([\\\/:&\\?].*)?$","if-domain":["*about.qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.app([\\\/:&\\?].*)?$","if-domain":["*about.qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.ninja"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.plive"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.qwant\\.com\\\/v2\\\/api\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.qwant\\.app\\\/v2\\\/api\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.com\\\/maps\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwant\\.app\\\/maps\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?alpha\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?alpha\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?stats\\.qwant\\.com\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?stats\\.qwant\\.app\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?p\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?p\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?k\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?k\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?f\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?f\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?apm\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?apm\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?mn\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?mn\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?qwantjunior\\.com\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?datadome\\.co\\\/"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?fdn\\.qwant\\.com"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?fdn\\.qwant\\.app"}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?sdk\\.privacy-center\\.org([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?sdk\\.privacy-center\\.org([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.privacy-center\\.org([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?api\\.privacy-center\\.org([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?clarity\\.ms([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?clarity\\.ms([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?c\\.bing\\.com([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?c\\.bing\\.com([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?msadsscale\\.azureedge\\.net([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?msadsscale\\.azureedge\\.net([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?microsoft\\.com([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?microsoft\\.com([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?int\\.ovh\\.kube\\.qwant\\.ninja([\\\/:&\\?].*)?$","if-domain":["*qwant.com"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?int\\.ovh\\.kube\\.qwant\\.ninja([\\\/:&\\?].*)?$","if-domain":["*qwant.app"]}},
+{"action":{"type":"ignore-previous-rules"},"trigger":{"url-filter":"^[htpsw]+:\\\/\\\/([a-z0-9-]+\\.)?sdk\\.privacy-center\\.org"}}
+"""#
     }
 }

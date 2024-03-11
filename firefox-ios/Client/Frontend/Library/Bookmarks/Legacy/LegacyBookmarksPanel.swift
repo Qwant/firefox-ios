@@ -531,22 +531,22 @@ extension LegacyBookmarksPanel: LibraryPanelContextMenu {
             return nil
         }
 
-        let pinTopSite = SingleActionViewModel(title: .AddToShortcutsActionTitle,
-                                               iconString: StandardImageIdentifiers.Large.pin,
-                                               tapHandler: { _ in
-            self.profile.pinnedSites.addPinnedTopSite(site).uponQueue(.main) { result in
-                if result.isSuccess {
-                    SimpleToast().showAlertWithText(.LegacyAppMenu.AddPinToShortcutsConfirmMessage,
-                                                    bottomContainer: self.view,
-                                                    theme: self.currentTheme())
-                } else {
-                    self.logger.log("Could not add pinned top site",
-                                    level: .debug,
-                                    category: .library)
-                }
-            }
-        }).items
-        actions.append(pinTopSite)
+//        let pinTopSite = SingleActionViewModel(title: .AddToShortcutsActionTitle,
+//                                               iconString: StandardImageIdentifiers.Large.pin,
+//                                               tapHandler: { _ in
+//            self.profile.pinnedSites.addPinnedTopSite(site).uponQueue(.main) { result in
+//                if result.isSuccess {
+//                    SimpleToast().showAlertWithText(.LegacyAppMenu.AddPinToShortcutsConfirmMessage,
+//                                                    bottomContainer: self.view,
+//                                                    theme: self.currentTheme())
+//                } else {
+//                    self.logger.log("Could not add pinned top site",
+//                                    level: .debug,
+//                                    category: .library)
+//                }
+//            }
+//        }).items
+//        actions.append(pinTopSite)
 
         let removeAction = SingleActionViewModel(title: .RemoveBookmarkContextMenuTitle,
                                                  iconString: StandardImageIdentifiers.Large.bookmarkSlash,

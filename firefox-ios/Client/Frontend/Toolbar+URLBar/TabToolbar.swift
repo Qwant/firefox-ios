@@ -17,11 +17,13 @@ class TabToolbar: UIView, SearchBarLocationProvider {
     let forwardButton = ToolbarButton()
     let backButton = ToolbarButton()
     let multiStateButton = ToolbarButton()
-    let actionButtons: [ThemeApplicable & UIButton]
+    let zapButton = ZapButton()
+    let actionButtons: [ThemeApplicable & PrivateModeUI & UIButton]
 
     let privateModeBadge = BadgeWithBackdrop(
-        imageName: StandardImageIdentifiers.Medium.privateModeCircleFillPurple,
-        isPrivateBadge: true)
+        imageName: "qwant_private_badge",
+        backdropCircleColor: .clear,
+        badgePadding: 2)
     private let warningMenuBadge = BadgeWithBackdrop(imageName: StandardImageIdentifiers.Large.warningFill,
                                                      imageMask: ImageIdentifiers.menuWarningMask)
 
@@ -31,7 +33,7 @@ class TabToolbar: UIView, SearchBarLocationProvider {
 
     // MARK: - Initializers
     override private init(frame: CGRect) {
-        actionButtons = [backButton, forwardButton, multiStateButton, tabsButton, appMenuButton]
+        actionButtons = [backButton, forwardButton, zapButton, tabsButton, appMenuButton]
         super.init(frame: frame)
         setupAccessibility()
 
@@ -144,6 +146,9 @@ extension TabToolbar: ThemeApplicable, PrivateModeUI {
     }
 
     func applyUIMode(isPrivate: Bool, theme: Theme) {
+        actionButtons.forEach { $0.applyUIMode(isPrivate: isPrivate, theme: theme) }
+        applyTheme(theme: theme)
+        privateModeBadge.badge.tintImage(color: theme.colors.omnibar_tintColor(isPrivate))
         privateModeBadge(visible: isPrivate)
     }
 }
