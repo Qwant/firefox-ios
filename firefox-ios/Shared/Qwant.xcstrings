@@ -1009,6 +1009,78 @@
         }
       }
     },
+    "Qwant.Tracking.Settings.Subtitle" : {
+      "comment" : "Subtitle for the row in the settings regarding the tracking operated by Qwant",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Dienste zur statistischen Erfassung von Besucherdaten sind für die Funktion der Anwendung erforderlich, um eine ordnungsgemäße Verwaltung zu ermöglichen. Sie haben dennoch die Möglichkeit, der Verwendung Ihrer Daten zu widersprechen, indem Sie auf die Schaltfläche \"Toggle\" klicken."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistical audience measurement services are necessary for the operation of the application as they allow for its proper management. However, you can opt out of their use by clicking the \"Toggle\" button."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los servicios de medición estadística de audiencia son necesarios para el funcionamiento de la aplicación permitiendo su adecuada administración. Sin embargo, tiene la posibilidad de oponerse a su uso haciendo clic en el botón \"Toggle\"."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les services de mesure statistique d'audience sont nécessaires au fonctionnement de l'application en permettant sa bonne administration. Vous avez cependant la possibilité de vous opposer à leur usage en cliquant sur le bouton « Toggle »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I servizi di misurazione statistica dell'audience sono necessari per il funzionamento dell'applicazione permettendone la sua corretta gestione. Tuttavia, l'utente può opporsi al loro utilizzo facendo clic sul pulsante \"Toggle\"."
+          }
+        }
+      }
+    },
+    "Qwant.Tracking.Settings.Title" : {
+      "comment" : "Title for the row in the settings regarding the tracking operated by Qwant",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistische Erfassung von Besucherdaten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistical audience analytics"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medición estadística de audiencias"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesure d'audience statistique"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rilevatore di dati sulle visite al sito"
+          }
+        }
+      }
+    },
     "Qwant.VIP.ConnectionNotSecure" : {
       "comment" : "Header - SSL Cert status when the connection is not secured",
       "extractionState" : "manual",

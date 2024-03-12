@@ -42,6 +42,9 @@ class DependencyHelperMock {
         let downloadQueue = DownloadQueue()
         AppContainer.shared.register(service: downloadQueue)
 
+        let qwantTracking: QwantTracking = MockQwantTracking(prefs: profile.prefs)
+        AppContainer.shared.register(service: qwantTracking)
+
         let windowManager: WindowManager = WindowManagerImplementation()
         AppContainer.shared.register(service: windowManager)
         windowManager.newBrowserWindowConfigured(AppWindowInfo(tabManager: tabManager), uuid: windowUUID)

@@ -14,13 +14,16 @@ class AppLaunchUtil {
     private var adjustHelper: AdjustHelper
     private var profile: Profile
     private let introScreenManager: IntroScreenManager
+    private var qwantTracking: QwantTracking
 
     init(logger: Logger = DefaultLogger.shared,
-         profile: Profile) {
+         profile: Profile,
+         qwantTracking: QwantTracking) {
         self.logger = logger
         self.profile = profile
         self.adjustHelper = AdjustHelper(profile: profile)
         self.introScreenManager = IntroScreenManager(prefs: profile.prefs)
+        self.qwantTracking = qwantTracking
     }
 
     func setUpPreLaunchDependencies() {
@@ -100,6 +103,7 @@ class AppLaunchUtil {
         logger.log("Prefs for migration is \(String(describing: profile.prefs.boolForKey(PrefsKeys.TabMigrationKey)))",
                    level: .debug,
                    category: .tabs)
+        qwantTracking.setup()
         AppEventQueue.signal(event: .preLaunchDependenciesComplete)
     }
 

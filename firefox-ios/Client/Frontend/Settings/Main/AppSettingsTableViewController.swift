@@ -56,7 +56,9 @@ class AppSettingsTableViewController: SettingsTableViewController,
          and tabManager: TabManager,
          delegate: SettingsDelegate? = nil,
          appAuthenticator: AppAuthenticationProtocol = AppAuthenticator(),
-         applicationHelper: ApplicationHelper = DefaultApplicationHelper()) {
+         applicationHelper: ApplicationHelper = DefaultApplicationHelper(),
+         qwantTracking: QwantTracking
+    ) {
         self.appAuthenticator = appAuthenticator
         self.applicationHelper = applicationHelper
 
@@ -64,6 +66,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         self.profile = profile
         self.tabManager = tabManager
         self.settingsDelegate = delegate
+        self.qwantTracking = qwantTracking
         setupNavigationBar()
     }
 
@@ -315,7 +318,12 @@ class AppSettingsTableViewController: SettingsTableViewController,
                                                     settingsDelegate: parentCoordinator))
 
         privacySettings += [
-            PrivacyPolicySetting(theme: themeManager.currentTheme, settingsDelegate: parentCoordinator)
+            PrivacyPolicySetting(theme: themeManager.currentTheme, settingsDelegate: parentCoordinator),
+            SendQwantTrackingSetting(settings: self,
+                                     delegate: settingsDelegate,
+                                     theme: themeManager.currentTheme,
+                                     settingsDelegate: parentCoordinator,
+                                     qwantTracking: qwantTracking)
         ]
 
         return [SettingSection(title: NSAttributedString(string: .AppSettingsPrivacyTitle),

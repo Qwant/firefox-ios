@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var notificationSurfaceManager = NotificationSurfaceManager()
     lazy var tabDataStore = DefaultTabDataStore()
     lazy var windowManager = WindowManagerImplementation()
+    lazy var qwantTracking = QwantTracking(prefs: profile.prefs)
 
     private var shutdownWebServer: DispatchSourceTimer?
     private var webServerUtil: WebServerUtil?
@@ -111,7 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Then setup dependency container as it's needed for everything else
         DependencyHelper().bootstrapDependencies()
 
-        appLaunchUtil = AppLaunchUtil(profile: profile)
+        appLaunchUtil = AppLaunchUtil(profile: profile,
+                                      qwantTracking: qwantTracking)
         appLaunchUtil?.setUpPreLaunchDependencies()
 
         // Handle the dirty bit the same way Glean handles it

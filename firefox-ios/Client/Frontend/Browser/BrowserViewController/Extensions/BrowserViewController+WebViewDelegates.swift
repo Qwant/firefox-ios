@@ -867,6 +867,10 @@ extension BrowserViewController: WKNavigationDelegate {
         searchTelemetry?.trackTabAndTopSiteSAP(tab, webView: webView)
         webviewTelemetry.start()
         tab.url = webView.url
+        if let screenView = webView.url?.titleForTracking {
+            let event = QwantTrackingScreenView(name: screenView)
+            qwantTracking.track(event)
+        }
 
         // Only update search term data with valid search term data
         if metadataManager.shouldUpdateSearchTermData(webViewUrl: webView.url?.absoluteString) {

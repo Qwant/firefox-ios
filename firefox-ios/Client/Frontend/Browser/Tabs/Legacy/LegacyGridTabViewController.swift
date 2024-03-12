@@ -55,6 +55,7 @@ class LegacyGridTabViewController: UIViewController,
     var themeManager: ThemeManager
     var themeObserver: NSObjectProtocol?
     var shownToast: Toast?
+    var qwantTracking: QwantTracking
 
     var toolbarHeight: CGFloat {
         return !shouldUseiPadSetup() ? view.safeAreaInsets.bottom : 0
@@ -101,7 +102,8 @@ class LegacyGridTabViewController: UIViewController,
          tabTrayDelegate: TabTrayDelegate? = nil,
          tabToFocus: Tab? = nil,
          notificationCenter: NotificationProtocol = NotificationCenter.default,
-         themeManager: ThemeManager = AppContainer.shared.resolve()
+         themeManager: ThemeManager = AppContainer.shared.resolve(),
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.tabManager = tabManager
         self.profile = profile
@@ -113,6 +115,7 @@ class LegacyGridTabViewController: UIViewController,
                                                                 with: profile)
         self.contextualHintViewController = ContextualHintViewController(with: contextualViewProvider)
         self.themeManager = themeManager
+        self.qwantTracking = qwantTracking
 
         super.init(nibName: nil, bundle: nil)
         collectionViewSetup()
@@ -592,6 +595,7 @@ extension LegacyGridTabViewController: SwipeAnimatorDelegate {
 // MARK: - TabCellDelegate
 extension LegacyGridTabViewController: LegacyTabCellDelegate {
     func tabCellDidClose(_ cell: LegacyTabCell) {
+        qwantTracking.track(.closeTab(isPrivate: tabDisplayManager.isPrivate))
         if let indexPath = collectionView.indexPath(for: cell),
            let tab = tabDisplayManager.dataStore.at(indexPath.item) {
             closeTabAction(tab: tab, cell: cell)
@@ -698,9 +702,13 @@ extension LegacyGridTabViewController {
         guard !tabDisplayManager.isDragging else { return }
 
         let controller = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        controller.addAction(UIAlertAction(title: .AppMenu.AppMenuCloseAllTabsTitleString,
-                                           style: .destructive,
-                                           handler: { _ in self.closeTabsTrayBackground() }),
+        controller.addAction(UIAlertAction(
+            title: .AppMenu.AppMenuCloseAllTabsTitleString,
+            style: .destructive,
+            handler: { _ in
+                self.qwantTracking.track(.closeAllTabs(isIntention: false, isPrivate: self.tabDisplayManager.isPrivate))
+                self.closeTabsTrayBackground()
+            }),
                              accessibilityIdentifier: AccessibilityIdentifiers.TabTray.deleteCloseAllButton)
         controller.addAction(UIAlertAction(title: .TabTrayCloseAllTabsPromptCancel,
                                            style: .cancel,

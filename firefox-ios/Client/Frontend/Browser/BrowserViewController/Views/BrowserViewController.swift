@@ -88,6 +88,7 @@ class BrowserViewController: UIViewController,
     let ratingPromptManager: QwantRatingPromptManager
     lazy var isTabTrayRefactorEnabled: Bool = TabTrayFlagManager.isRefactorEnabled
     private var browserViewControllerState: BrowserViewControllerState?
+    var qwantTracking: QwantTracking
 
     // Header stack view can contain the top url bar, top reader mode, top ZoomPageBar
     var header: BaseAlphaStackView = .build { _ in }
@@ -217,7 +218,8 @@ class BrowserViewController: UIViewController,
         ratingPromptManager: QwantRatingPromptManager = AppContainer.shared.resolve(),
         downloadQueue: DownloadQueue = AppContainer.shared.resolve(),
         logger: Logger = DefaultLogger.shared,
-        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator()
+        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator(),
+        qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.profile = profile
         self.tabManager = tabManager
@@ -241,6 +243,7 @@ class BrowserViewController: UIViewController,
         )
         self.dataClearanceContextHintVC = ContextualHintViewController(with: dataClearanceViewProvider)
         self.backgroundTabLoader = DefaultBackgroundTabLoader(tabQueue: profile.queue)
+        self.qwantTracking = qwantTracking
         super.init(nibName: nil, bundle: nil)
         didInit()
     }
@@ -2336,7 +2339,7 @@ extension BrowserViewController: LegacyTabDelegate {
             context: nil
         )
         webView.uiDelegate = self
-        webView.setQwantCookies()
+        webView.setQwantCookies(tracking: profile.prefs.boolForKey(AppConstants.prefQwantTracking) ?? true)
 
         let formPostHelper = FormPostHelper(tab: tab)
         tab.addContentScript(formPostHelper, name: FormPostHelper.name())

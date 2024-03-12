@@ -580,6 +580,10 @@
 		688A87012B98B31300FFB4C4 /* QwantVIPStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86FF2B98A9E300FFB4C4 /* QwantVIPStatsTests.swift */; };
 		688A87042B98BA1000FFB4C4 /* standard.json in Resources */ = {isa = PBXBuildFile; fileRef = 688A87022B98BA1000FFB4C4 /* standard.json */; };
 		688A87052B98BA1000FFB4C4 /* strict.json in Resources */ = {isa = PBXBuildFile; fileRef = 688A87032B98BA1000FFB4C4 /* strict.json */; };
+		68F2F4982B9F56B70023A7FE /* PiwikPROSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 68F2F4972B9F56B70023A7FE /* PiwikPROSDK */; };
+		68F2F49A2B9F573A0023A7FE /* QwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F4992B9F573A0023A7FE /* QwantTracking.swift */; };
+		68F2F49C2B9F59B90023A7FE /* SendQwantTrackingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */; };
+		68F2F49F2B9F5BEF0023A7FE /* MockQwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2674,6 +2678,9 @@
 		688A87032B98BA1000FFB4C4 /* strict.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = strict.json; path = Client/ContentBlocker/Lists/strict.json; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
+		68F2F4992B9F573A0023A7FE /* QwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTracking.swift; sourceTree = "<group>"; };
+		68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendQwantTrackingSetting.swift; sourceTree = "<group>"; };
+		68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQwantTracking.swift; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
 		6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegateTests.swift; sourceTree = "<group>"; };
 		6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegate.swift; sourceTree = "<group>"; };
@@ -3878,6 +3885,7 @@
 				0B8E0FF41A932BD500161DC3 /* ImageIO.framework in Frameworks */,
 				435C85F02788F4D00072B526 /* Glean in Frameworks */,
 				433F87CE2788EAB600693368 /* GCDWebServers in Frameworks */,
+				68F2F4982B9F56B70023A7FE /* PiwikPROSDK in Frameworks */,
 				5A06135A29D6052E008F3D38 /* TabDataStore in Frameworks */,
 				216A0D762A40E7AB008077BA /* Redux in Frameworks */,
 				7B8A47F61D01D3B400C07734 /* PassKit.framework in Frameworks */,
@@ -4660,6 +4668,7 @@
 				39A359E31BFCCE94006B9E87 /* UserActivityHandler.swift */,
 				E18259DE29B25E4F00E6BE76 /* UserNotificationCenterProtocol.swift */,
 				688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */,
+				68F2F4992B9F573A0023A7FE /* QwantTracking.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -5271,6 +5280,7 @@
 				8A19ACB72A329128001C2147 /* PrivacyPolicySetting.swift */,
 				8A093D822A4B68940099ABA5 /* PrivacySettingsDelegate.swift */,
 				B26ADF842B339ED000C6E127 /* AddressAutofillSetting.swift */,
+				68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */,
 				687E22512B9EFFBA009D9411 /* ZapSetting.swift */,
 			);
 			path = Privacy;
@@ -6400,6 +6410,7 @@
 				21B41A1B298B1876008BC0A2 /* MockOverlayModeManager.swift */,
 				8A7653C328A2E68B00924ABF /* MockPocketAPI.swift */,
 				281B2BE91ADF4D90002917DC /* MockProfile.swift */,
+				68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */,
 				8A7A26E029D4785900EA76F1 /* MockRouter.swift */,
 				C8C3FE9C29F907B30038E3BA /* MockSearchHandlerRouteCoordinator.swift */,
 				21D884402A79628E00AF144C /* MockSettingsDelegate.swift */,
@@ -8344,6 +8355,7 @@
 				5A06135929D6052E008F3D38 /* TabDataStore */,
 				216A0D752A40E7AB008077BA /* Redux */,
 				8AF2D0FB2A5F272A00C7DD69 /* ComponentLibrary */,
+				68F2F4972B9F56B70023A7FE /* PiwikPROSDK */,
 			);
 			productName = Client;
 			productReference = F84B21BE1A090F8100AAB793 /* Client.app */;
@@ -8570,6 +8582,7 @@
 				43AFC0E027967BFA0039DDF4 /* XCRemoteSwiftPackageReference "Fuzi" */,
 				43C6A47D27A0679300C79856 /* XCRemoteSwiftPackageReference "MappaMundi" */,
 				5A37861729A2C337006B3A34 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */,
 			);
 			productRefGroup = F84B21BF1A090F8100AAB793 /* Products */;
 			projectDirPath = "";
@@ -9762,6 +9775,7 @@
 				5A70EF21295E3E0B00790249 /* UnitTestSceneDelegate.swift in Sources */,
 				2C49854E206173C800893DAE /* photon-colors.swift in Sources */,
 				B2999FF72B194ADE00F0FEC1 /* FormAutofillPayloadType.swift in Sources */,
+				68F2F49C2B9F59B90023A7FE /* SendQwantTrackingSetting.swift in Sources */,
 				8A285B08294A5D4C00149B0F /* HomepageHeroImageViewModel.swift in Sources */,
 				8C92DE8B2A711ED60090BD28 /* FakespotClient.swift in Sources */,
 				8AC1065F28D0CD700013263A /* OpenQLPreviewHelper.swift in Sources */,
@@ -10046,6 +10060,7 @@
 				B2FEA68F2B460D9E0058E616 /* AddressAutofillSettingsViewModel.swift in Sources */,
 				AB03032B2AB47AF300DCD8EF /* FakespotOptInCardView.swift in Sources */,
 				0BA02DB22942605600C92603 /* FormAutofillHelper.swift in Sources */,
+				68F2F49A2B9F573A0023A7FE /* QwantTracking.swift in Sources */,
 				B26ADF852B339ED000C6E127 /* AddressAutofillSetting.swift in Sources */,
 				8A19ACB82A329128001C2147 /* PrivacyPolicySetting.swift in Sources */,
 				E68AEDB01B18F81A00133D99 /* SwipeAnimator.swift in Sources */,
@@ -10408,6 +10423,7 @@
 				8A9E46BD2A6599E5003327D4 /* MockStatusBarScrollDelegate.swift in Sources */,
 				E1463D0629830E4F0074E16E /* MockUserNotificationCenter.swift in Sources */,
 				439B78182A09721600CAAE37 /* CreditCardHelperTests.swift in Sources */,
+				68F2F49F2B9F5BEF0023A7FE /* MockQwantTracking.swift in Sources */,
 				8ADED7F0276A7788009C19E6 /* CumulativeDaysOfUseCounterTests.swift in Sources */,
 				8A7653C528A2E69100924ABF /* MockPocketAPI.swift in Sources */,
 				8A83B74A2A265044002FF9AC /* SettingsCoordinatorTests.swift in Sources */,
@@ -13297,6 +13313,14 @@
 				version = 8.18.0;
 			};
 		};
+		68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PiwikPRO/piwik-pro-sdk-framework-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -13436,6 +13460,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 435C85EE2788F4D00072B526 /* XCRemoteSwiftPackageReference "glean-swift" */;
 			productName = Glean;
+		};
+		68F2F4972B9F56B70023A7FE /* PiwikPROSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */;
+			productName = PiwikPROSDK;
 		};
 		781C19CE2A780BEC0000DF46 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
