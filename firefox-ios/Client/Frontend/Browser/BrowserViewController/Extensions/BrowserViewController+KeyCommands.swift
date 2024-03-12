@@ -202,6 +202,7 @@ extension BrowserViewController {
                                          extras: ["action": "close-tab"])
             guard let currentTab = tabManager.selectedTab else { return }
             tabsPanelTelemetry.tabClosed(mode: currentTab.isPrivate ? .private : .normal)
+            qwantTracking.track(.closeTab(isPrivate: currentTab.isPrivate))
             await tabManager.removeTab(currentTab.tabUUID)
             keyboardPressesHandler().reset()
         }

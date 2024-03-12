@@ -51,6 +51,9 @@ class DependencyHelper {
         appDelegate.gleanUsageReportingMetricsService
         AppContainer.shared.register(service: gleanUsageReportingMetricsService)
 
+        let qwantTracking: QwantTracking = appDelegate.qwantTracking
+        AppContainer.shared.register(service: qwantTracking)
+
         // Tell the container we are done registering
         AppContainer.shared.bootstrap()
     }

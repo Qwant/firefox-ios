@@ -254,6 +254,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     }
 
     func tabToolbarDidPressMenu(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        qwantTracking.track(.tap_settings)
         didTapOnMenu(button: button)
     }
 
@@ -361,6 +362,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
                                      iconType: .Image) { _ in
             if let tab = self.tabManager.selectedTab {
                 self.tabsPanelTelemetry.tabClosed(mode: tab.isPrivate ? .private : .normal)
+                self.qwantTracking.track(.closeTab(isPrivate: tab.isPrivate))
                 self.tabManager.removeTabWithCompletion(tab.tabUUID) {
                     self.updateTabCountUsingTabManager(self.tabManager)
 

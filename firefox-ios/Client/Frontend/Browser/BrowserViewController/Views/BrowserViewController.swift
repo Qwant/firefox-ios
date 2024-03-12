@@ -142,6 +142,7 @@ class BrowserViewController: UIViewController,
     private(set) lazy var addressToolbarContainer: AddressToolbarContainer = .build()
     private(set) lazy var readerModeCache: ReaderModeCache = DiskReaderModeCache.shared
     private(set) lazy var overlayManager: OverlayModeManager = DefaultOverlayModeManager()
+    private(set) var qwantTracking: QwantTracking
 
     // Header stack view can contain the top url bar, top reader mode, top ZoomPageBar
     private(set) lazy var header: BaseAlphaStackView = .build { _ in }
@@ -365,7 +366,8 @@ class BrowserViewController: UIViewController,
         gleanWrapper: GleanWrapper = DefaultGleanWrapper(),
         logger: Logger = DefaultLogger.shared,
         documentLogger: DocumentLogger = AppContainer.shared.resolve(),
-        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator()
+        appAuthenticator: AppAuthenticationProtocol = AppAuthenticator(),
+        qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.profile = profile
         self.tabManager = tabManager
@@ -381,7 +383,7 @@ class BrowserViewController: UIViewController,
         self.bookmarksHandler = profile.places
         self.zoomManager = ZoomPageManager(windowUUID: tabManager.windowUUID)
         self.tabsPanelTelemetry = TabsPanelTelemetry(gleanWrapper: gleanWrapper, logger: logger)
-
+        self.qwantTracking = qwantTracking
         super.init(nibName: nil, bundle: nil)
         didInit()
     }
@@ -3760,7 +3762,7 @@ extension BrowserViewController: LegacyTabDelegate {
         beginObserving(webView: webView)
         self.scrollController.beginObserving(scrollView: webView.scrollView)
         webView.uiDelegate = self
-        webView.setQwantCookies()
+        webView.setQwantCookies(tracking: profile.prefs.boolForKey(AppConstants.prefQwantTracking) ?? true)
 
         let readerMode = ReaderMode(tab: tab)
         readerMode.delegate = self

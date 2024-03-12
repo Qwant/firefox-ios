@@ -103,10 +103,12 @@ class QwantZapSettingsTableViewController: ThemedTableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SectionButton {
+            qwantTracking.track(.zap_settings(isIntention: true))
             let alert = UIAlertController(title: .QwantZap.ZapAlertTitle, message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: .QwantZap.ZapAlertOK, style: .destructive, handler: { [weak self] _ in
                 guard let self = self else { return }
                 let theme = self.themeManager.getCurrentTheme(for: windowUUID)
+                qwantTracking.track(.zap_settings(isIntention: false))
                 let viewController = ZapAnimationController(zap: self.zap)
                 viewController.onFinish = { [weak viewController, theme] in
                     viewController?.willMove(toParent: nil)

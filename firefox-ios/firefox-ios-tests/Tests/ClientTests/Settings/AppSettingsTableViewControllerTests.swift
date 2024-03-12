@@ -15,6 +15,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
     private var mockSettingsDelegate: MockSettingsDelegate!
     private var mockParentCoordinator: MockSettingsFlowDelegate!
     private var mockGleanUsageReportingMetricsService: MockGleanUsageReportingMetricsService!
+    private var qwantTracking: MockQwantTracking!
 
     override func setUp() {
         super.setUp()
@@ -29,6 +30,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
         self.mockSettingsDelegate = MockSettingsDelegate()
         self.mockParentCoordinator = MockSettingsFlowDelegate()
         self.mockGleanUsageReportingMetricsService = MockGleanUsageReportingMetricsService(profile: MockProfile())
+        self.qwantTracking = MockQwantTracking(prefs: profile.prefs)
     }
 
     override func tearDown() {
@@ -39,6 +41,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
         self.appAuthenticator = nil
         self.delegate = nil
         self.applicationHelper = nil
+        self.qwantTracking = nil
     }
 
     func testRouteNotHandled_delegatesArentCalled() {
@@ -141,7 +144,8 @@ class AppSettingsTableViewControllerTests: XCTestCase {
             parentCoordinator: mockParentCoordinator,
             gleanUsageReportingMetricsService: mockGleanUsageReportingMetricsService,
             appAuthenticator: appAuthenticator,
-            applicationHelper: applicationHelper
+            applicationHelper: applicationHelper,
+            qwantTracking: qwantTracking
         )
         trackForMemoryLeaks(subject)
         return subject

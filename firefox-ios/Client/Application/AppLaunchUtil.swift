@@ -16,16 +16,19 @@ class AppLaunchUtil {
     private var profile: Profile
     private let introScreenManager: IntroScreenManager
     private let termsOfServiceManager: TermsOfServiceManager
+    private var qwantTracking: QwantTracking
 
     init(
         logger: Logger = DefaultLogger.shared,
-        profile: Profile
+        profile: Profile,
+        qwantTracking: QwantTracking
     ) {
         self.logger = logger
         self.profile = profile
 //        self.adjustHelper = AdjustHelper(profile: profile)
         self.introScreenManager = IntroScreenManager(prefs: profile.prefs)
         self.termsOfServiceManager = TermsOfServiceManager(prefs: profile.prefs)
+        self.qwantTracking = qwantTracking
     }
 
     func setUpPreLaunchDependencies() {
@@ -127,7 +130,7 @@ class AppLaunchUtil {
         logger.log("App version \(AppInfo.appVersion), Build number \(AppInfo.buildNumber)",
                    level: .debug,
                    category: .setup)
-
+        qwantTracking.setup()
         AppEventQueue.signal(event: .preLaunchDependenciesComplete)
     }
 

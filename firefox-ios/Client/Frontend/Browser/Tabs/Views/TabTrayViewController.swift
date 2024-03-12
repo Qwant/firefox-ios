@@ -251,18 +251,21 @@ class TabTrayViewController: UIViewController,
     }
 
     let windowUUID: WindowUUID
+    private var qwantTracking: QwantTracking
     var currentWindowUUID: UUID? { windowUUID }
 
     init(panelType: TabTrayPanelType,
          themeManager: ThemeManager = AppContainer.shared.resolve(),
          logger: Logger = DefaultLogger.shared,
          windowUUID: WindowUUID,
-         and notificationCenter: NotificationProtocol = NotificationCenter.default) {
+         and notificationCenter: NotificationProtocol = NotificationCenter.default,
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()) {
         self.tabTrayState = TabTrayState(windowUUID: windowUUID, panelType: panelType)
         self.themeManager = themeManager
         self.logger = logger
         self.notificationCenter = notificationCenter
         self.windowUUID = windowUUID
+        self.qwantTracking = qwantTracking
 
         super.init(nibName: nil, bundle: nil)
         themeAnimator.delegate = self
@@ -760,6 +763,9 @@ class TabTrayViewController: UIViewController,
 
     @objc
     private func deleteTabsButtonTapped() {
+        let segment = segmentedControl.selectedSegmentIndex
+        let isPrivate = TabTrayPanelType(rawValue: segment) == .privateTabs
+        qwantTracking.track(.closeAllTabs(isIntention: true, isPrivate: isPrivate))
         let action = TabPanelViewAction(panelType: tabTrayState.selectedPanel,
                                         windowUUID: windowUUID,
                                         actionType: TabPanelViewActionType.closeAllTabs)
@@ -767,6 +773,8 @@ class TabTrayViewController: UIViewController,
     }
 
     private func showCloseAllConfirmation() {
+        let segment = segmentedControl.selectedSegmentIndex
+        let isPrivate = TabTrayPanelType(rawValue: segment) == .privateTabs
         let alert = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         // We only show the potion to delete old tabs with normal tabs tray
@@ -785,6 +793,7 @@ class TabTrayViewController: UIViewController,
         alert.addAction(UIAlertAction(title: .LegacyAppMenu.AppMenuCloseAllTabsTitleString,
                                       style: .destructive,
                                       handler: { _ in
+            self.qwantTracking.track(.closeAllTabs(isIntention: false, isPrivate: isPrivate))
             self.confirmCloseAll()
         }), accessibilityIdentifier: AccessibilityIdentifiers.TabTray.deleteCloseAllButton
         )

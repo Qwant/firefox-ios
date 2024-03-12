@@ -713,6 +713,11 @@
 		688A86C82B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86C72B975EE900FFB4C4 /* QwantDaysAfterInstallCounter.swift */; };
 		688A86CA2B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86C92B975F0500FFB4C4 /* QwantCumulativeDaysOfUseCounter.swift */; };
 		688A86CC2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */; };
+		688A86FE2B98A87600FFB4C4 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A86FD2B98A87600FFB4C4 /* MailHelper.swift */; };
+		68F2F4982B9F56B70023A7FE /* PiwikPROSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 68F2F4972B9F56B70023A7FE /* PiwikPROSDK */; };
+		68F2F49A2B9F573A0023A7FE /* QwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F4992B9F573A0023A7FE /* QwantTracking.swift */; };
+		68F2F49C2B9F59B90023A7FE /* SendQwantTrackingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */; };
+		68F2F49F2B9F5BEF0023A7FE /* MockQwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6ADB651B285C03B100947EA4 /* DownloadHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB651A285C03B100947EA4 /* DownloadHelperTests.swift */; };
 		742A56391D80B54A00BDB803 /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742A56381D80B54A00BDB803 /* PhotonActionSheet.swift */; };
@@ -3240,6 +3245,9 @@
 		688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantRatingPromptManager.swift; sourceTree = "<group>"; };
 		689A4CF494961DA72688CEB0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ClearPrivateData.strings; sourceTree = "<group>"; };
 		68B44DA18DC0230AEB96C03D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LoginManager.strings; sourceTree = "<group>"; };
+		68F2F4992B9F573A0023A7FE /* QwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTracking.swift; sourceTree = "<group>"; };
+		68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendQwantTrackingSetting.swift; sourceTree = "<group>"; };
+		68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQwantTracking.swift; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
 		6ADB651A285C03B100947EA4 /* DownloadHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHelperTests.swift; sourceTree = "<group>"; };
 		6FAC4AC9B5397399E498ECE5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "es.lproj/Default Browser.strings"; sourceTree = "<group>"; };
@@ -4663,6 +4671,7 @@
 				435C85F02788F4D00072B526 /* Glean in Frameworks */,
 				AB2AC6632BCFD0A200022AAB /* X509 in Frameworks */,
 				433F87CE2788EAB600693368 /* GCDWebServers in Frameworks */,
+				68F2F4982B9F56B70023A7FE /* PiwikPROSDK in Frameworks */,
 				5A06135A29D6052E008F3D38 /* TabDataStore in Frameworks */,
 				EDD2A7F82CDACE7C00ED464C /* UnifiedSearchKit in Frameworks */,
 				216A0D762A40E7AB008077BA /* Redux in Frameworks */,
@@ -5577,6 +5586,7 @@
 				39A359E31BFCCE94006B9E87 /* UserActivityHandler.swift */,
 				E18259DE29B25E4F00E6BE76 /* UserNotificationCenterProtocol.swift */,
 				688A86CB2B975F3B00FFB4C4 /* QwantRatingPromptManager.swift */,
+				68F2F4992B9F573A0023A7FE /* QwantTracking.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -6294,6 +6304,7 @@
 				8A19ACB72A329128001C2147 /* PrivacyPolicySetting.swift */,
 				8A093D822A4B68940099ABA5 /* PrivacySettingsDelegate.swift */,
 				B26ADF842B339ED000C6E127 /* AddressAutofillSetting.swift */,
+				68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */,
 				687E22512B9EFFBA009D9411 /* ZapSetting.swift */,
 			);
 			path = Privacy;
@@ -7957,6 +7968,7 @@
 				8A9D315F2D13506100171502 /* MockParentFolderSelector.swift */,
 				8A7653C328A2E68B00924ABF /* MockPocketAPI.swift */,
 				281B2BE91ADF4D90002917DC /* MockProfile.swift */,
+				68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */,
 				8A7A26E029D4785900EA76F1 /* MockRouter.swift */,
 				ED45893F2CC8220A006F2C0B /* MockSearchEngineSelectionCoordinator.swift */,
 				C8C3FE9C29F907B30038E3BA /* MockSearchHandlerRouteCoordinator.swift */,
@@ -9986,6 +9998,7 @@
 				EDD2A7F72CDACE7C00ED464C /* UnifiedSearchKit */,
 				ED6C8DAB2CE6A4BB00D7F7F3 /* Sentry-Dynamic */,
 				0BF802E12CFF0937005633E5 /* Shared */,
+				68F2F4972B9F56B70023A7FE /* PiwikPROSDK */,
 			);
 			productName = Client;
 			productReference = F84B21BE1A090F8100AAB793 /* Client.app */;
@@ -10223,6 +10236,7 @@
 				8AB30EC62B6C038600BD9A9B /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				AB2AC6612BCFD0A200022AAB /* XCRemoteSwiftPackageReference "swift-certificates" */,
 				5A984D322C8A31A0007938C9 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */,
 			);
 			productRefGroup = F84B21BF1A090F8100AAB793 /* Products */;
 			projectDirPath = "";
@@ -11638,6 +11652,7 @@ fi
 				5A70EF21295E3E0B00790249 /* UnitTestSceneDelegate.swift in Sources */,
 				2C49854E206173C800893DAE /* photon-colors.swift in Sources */,
 				B2999FF72B194ADE00F0FEC1 /* FormAutofillPayloadType.swift in Sources */,
+				68F2F49C2B9F59B90023A7FE /* SendQwantTrackingSetting.swift in Sources */,
 				8A285B08294A5D4C00149B0F /* HomepageHeroImageViewModel.swift in Sources */,
 				ED9FD5DB2CEBB5EA00E906A3 /* SentFromFirefoxSetting.swift in Sources */,
 				8AC1065F28D0CD700013263A /* OpenQLPreviewHelper.swift in Sources */,
@@ -11983,6 +11998,7 @@ fi
 				B2FEA6912B4661BE0058E616 /* AddressAutofillToggle.swift in Sources */,
 				B2FEA68F2B460D9E0058E616 /* AddressAutofillSettingsViewModel.swift in Sources */,
 				0BA02DB22942605600C92603 /* FormAutofillHelper.swift in Sources */,
+				68F2F49A2B9F573A0023A7FE /* QwantTracking.swift in Sources */,
 				B26ADF852B339ED000C6E127 /* AddressAutofillSetting.swift in Sources */,
 				8A19ACB82A329128001C2147 /* PrivacyPolicySetting.swift in Sources */,
 				254B760A2B7B44EE00AB8526 /* NimbusFirefoxSuggestFeatureLayer.swift in Sources */,
@@ -12457,6 +12473,7 @@ fi
 				8A5189C92C1B614E00CDB668 /* SearchViewModelTests.swift in Sources */,
 				E1463D0629830E4F0074E16E /* MockUserNotificationCenter.swift in Sources */,
 				439B78182A09721600CAAE37 /* FormAutofillHelperTests.swift in Sources */,
+				68F2F49F2B9F5BEF0023A7FE /* MockQwantTracking.swift in Sources */,
 				8A7653C528A2E69100924ABF /* MockPocketAPI.swift in Sources */,
 				8A83B74A2A265044002FF9AC /* SettingsCoordinatorTests.swift in Sources */,
 				8A6E13982A71BA4E00A88FA8 /* TabWebViewTests.swift in Sources */,
@@ -17186,6 +17203,14 @@ fi
 				version = 1.2.0;
 			};
 		};
+		68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PiwikPRO/piwik-pro-sdk-framework-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -17412,6 +17437,11 @@ fi
 			isa = XCSwiftPackageProductDependency;
 			package = 435C85EE2788F4D00072B526 /* XCRemoteSwiftPackageReference "glean-swift" */;
 			productName = Glean;
+		};
+		68F2F4972B9F56B70023A7FE /* PiwikPROSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68F2F4962B9F56B70023A7FE /* XCRemoteSwiftPackageReference "piwik-pro-sdk-framework-ios" */;
+			productName = PiwikPROSDK;
 		};
 		781C19CE2A780BEC0000DF46 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;

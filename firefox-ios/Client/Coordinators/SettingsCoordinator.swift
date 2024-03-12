@@ -30,6 +30,7 @@ class SettingsCoordinator: BaseCoordinator,
     private let tabManager: TabManager
     private let themeManager: ThemeManager
     private let gleanUsageReportingMetricsService: GleanUsageReportingMetricsService
+    private let qwantTracking: QwantTracking
     weak var parentCoordinator: SettingsCoordinatorDelegate?
     private var windowUUID: WindowUUID { return tabManager.windowUUID }
     private let settingsTelemetry: SettingsTelemetry
@@ -41,7 +42,8 @@ class SettingsCoordinator: BaseCoordinator,
         tabManager: TabManager,
         themeManager: ThemeManager = AppContainer.shared.resolve(),
         gleanUsageReportingMetricsService: GleanUsageReportingMetricsService = AppContainer.shared.resolve(),
-        gleanWrapper: GleanWrapper = DefaultGleanWrapper()
+        gleanWrapper: GleanWrapper = DefaultGleanWrapper(),
+        qwantTracking: QwantTracking = AppContainer.shared.resolve()
     ) {
         self.wallpaperManager = wallpaperManager
         self.profile = profile
@@ -49,6 +51,7 @@ class SettingsCoordinator: BaseCoordinator,
         self.themeManager = themeManager
         self.gleanUsageReportingMetricsService = gleanUsageReportingMetricsService
         self.settingsTelemetry = SettingsTelemetry(gleanWrapper: gleanWrapper)
+        self.qwantTracking = qwantTracking
         super.init(router: router)
 
         // It's important we initialize AppSettingsTableViewController with a settingsDelegate and parentCoordinator
@@ -57,7 +60,8 @@ class SettingsCoordinator: BaseCoordinator,
             and: tabManager,
             settingsDelegate: self,
             parentCoordinator: self,
-            gleanUsageReportingMetricsService: gleanUsageReportingMetricsService
+            gleanUsageReportingMetricsService: gleanUsageReportingMetricsService,
+            qwantTracking: qwantTracking
         )
         self.settingsViewController = settingsViewController
         router.setRootViewController(settingsViewController)

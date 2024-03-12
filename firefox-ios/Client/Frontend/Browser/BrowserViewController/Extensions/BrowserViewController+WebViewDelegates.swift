@@ -1033,6 +1033,10 @@ extension BrowserViewController: WKNavigationDelegate {
         searchTelemetry.trackTabAndTopSiteSAP(tab, webView: webView)
         webviewTelemetry.start()
         tab.url = webView.url
+        if let screenView = webView.url?.titleForTracking {
+            let event = QwantTrackingScreenView(name: screenView)
+            qwantTracking.track(event)
+        }
 
         // When tab url changes after web content starts loading on the page
         // We notify the content blocker change so that content blocker status

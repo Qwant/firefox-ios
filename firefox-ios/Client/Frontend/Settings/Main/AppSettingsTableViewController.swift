@@ -71,7 +71,8 @@ class AppSettingsTableViewController: SettingsTableViewController,
         gleanUsageReportingMetricsService: GleanUsageReportingMetricsService,
         appAuthenticator: AppAuthenticationProtocol = AppAuthenticator(),
         applicationHelper: ApplicationHelper = DefaultApplicationHelper(),
-        logger: Logger = DefaultLogger.shared
+        logger: Logger = DefaultLogger.shared,
+        qwantTracking: QwantTracking
     ) {
         self.appAuthenticator = appAuthenticator
         self.applicationHelper = applicationHelper
@@ -83,6 +84,7 @@ class AppSettingsTableViewController: SettingsTableViewController,
         self.tabManager = tabManager
         self.settingsDelegate = settingsDelegate
         self.parentCoordinator = parentCoordinator
+        self.qwantTracking = qwantTracking
         setupNavigationBar()
         setupDataSettings()
     }
@@ -382,6 +384,15 @@ class AppSettingsTableViewController: SettingsTableViewController,
 
         privacySettings.append(PrivacyPolicySetting(theme: themeManager.getCurrentTheme(for: windowUUID),
                                                     settingsDelegate: parentCoordinator))
+
+        if let profile {
+            privacySettings.append(SendQwantTrackingSetting(profile: profile,
+                                                            settings: self,
+                                                            delegate: settingsDelegate,
+                                                            theme: themeManager.getCurrentTheme(for: windowUUID),
+                                                            settingsDelegate: parentCoordinator,
+                                                            qwantTracking: qwantTracking))
+        }
 
         return [SettingSection(title: NSAttributedString(string: .AppSettingsPrivacyTitle),
                                children: privacySettings)]
