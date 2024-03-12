@@ -41,6 +41,9 @@ class DependencyHelper {
         let windowManager: WindowManager = appDelegate.windowManager
         AppContainer.shared.register(service: windowManager)
 
+        let qwantTracking: QwantTracking = appDelegate.qwantTracking
+        AppContainer.shared.register(service: qwantTracking)
+
         // Tell the container we are done registering
         AppContainer.shared.bootstrap()
     }

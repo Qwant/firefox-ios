@@ -28,6 +28,7 @@ class SettingsCoordinator: BaseCoordinator,
     private let profile: Profile
     private let tabManager: TabManager
     private let themeManager: ThemeManager
+    private let qwantTracking: QwantTracking
     weak var parentCoordinator: SettingsCoordinatorDelegate?
     private var windowUUID: WindowUUID { return tabManager.windowUUID }
 
@@ -35,13 +36,16 @@ class SettingsCoordinator: BaseCoordinator,
          wallpaperManager: WallpaperManagerInterface = WallpaperManager(),
          profile: Profile = AppContainer.shared.resolve(),
          tabManager: TabManager,
-         themeManager: ThemeManager = AppContainer.shared.resolve()) {
+         themeManager: ThemeManager = AppContainer.shared.resolve(),
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()) {
         self.wallpaperManager = wallpaperManager
         self.profile = profile
         self.tabManager = tabManager
         self.themeManager = themeManager
+        self.qwantTracking = qwantTracking
         self.settingsViewController = AppSettingsTableViewController(with: profile,
-                                                                     and: tabManager)
+                                                                     and: tabManager,
+                                                                     qwantTracking: qwantTracking)
         super.init(router: router)
 
         router.setRootViewController(settingsViewController)

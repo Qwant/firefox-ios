@@ -32,6 +32,7 @@ class DismissableNavigationViewController: UINavigationController, OnViewDismiss
 extension BrowserViewController: URLBarDelegate {
     func showTabTray(withFocusOnUnselectedTab tabToFocus: Tab? = nil,
                      focusedSegment: TabTrayPanelType? = nil) {
+        qwantTracking.track(.tap_tabTray)
         updateFindInPageVisibility(visible: false)
 
         guard !isTabTrayRefactorEnabled else {

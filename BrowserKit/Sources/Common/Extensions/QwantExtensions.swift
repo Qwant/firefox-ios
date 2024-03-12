@@ -18,6 +18,16 @@ public extension URL {
         static let SEARCH_KEY = "q"
     }
 
+    var titleForTracking: String {
+        if isQwantHPUrl {
+            return "HP"
+        } else if isQwantSERPUrl {
+            return "SERP"
+        } else {
+            return "Web"
+        }
+    }
+
     var isQwantHPUrl: Bool {
         return isQwantUrl && !isMapsUrl && (qwantSearchTerm == nil || qwantSearchTerm?.isEmptyOrWhitespace() == true)
     }
@@ -175,7 +185,7 @@ public extension WKWebView {
         self.load(URLRequest(url: urlWithContext))
     }
 
-    func setQwantCookies() {
+    func setQwantCookies(tracking: Bool) {
         let omnibarCookie = HTTPCookie(properties: [
             .domain: "www.qwant.com",
             .path: "/",
@@ -185,7 +195,17 @@ public extension WKWebView {
             .expires: NSDate(timeIntervalSinceNow: 31_556_926)
         ])!
 
+        let trackingCookie = HTTPCookie(properties: [
+            .domain: "www.qwant.com",
+            .path: "/",
+            .name: "audience_statistique",
+            .value: tracking ? "true" : "false",
+            .secure: "FALSE",
+            .expires: NSDate(timeIntervalSinceNow: 31_556_926)
+        ])!
+
         configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
+        configuration.websiteDataStore.httpCookieStore.setCookie(trackingCookie)
     }
 }
 

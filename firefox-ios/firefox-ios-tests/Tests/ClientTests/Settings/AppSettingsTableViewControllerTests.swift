@@ -11,6 +11,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
     private var appAuthenticator: MockAppAuthenticator!
     private var delegate: MockSettingsFlowDelegate!
     private var applicationHelper: MockApplicationHelper!
+    private var qwantTracking: MockQwantTracking!
 
     override func setUp() {
         super.setUp()
@@ -21,6 +22,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
         self.appAuthenticator = MockAppAuthenticator()
         self.delegate = MockSettingsFlowDelegate()
         self.applicationHelper = MockApplicationHelper()
+        self.qwantTracking = MockQwantTracking(prefs: profile.prefs)
     }
 
     override func tearDown() {
@@ -31,6 +33,7 @@ class AppSettingsTableViewControllerTests: XCTestCase {
         self.appAuthenticator = nil
         self.delegate = nil
         self.applicationHelper = nil
+        self.qwantTracking = nil
     }
 
     func testRouteNotHandled_delegatesArentCalled() {
@@ -120,7 +123,8 @@ class AppSettingsTableViewControllerTests: XCTestCase {
         let subject = AppSettingsTableViewController(with: profile,
                                                      and: tabManager,
                                                      appAuthenticator: appAuthenticator,
-                                                     applicationHelper: applicationHelper)
+                                                     applicationHelper: applicationHelper,
+                                                     qwantTracking: qwantTracking)
         trackForMemoryLeaks(subject)
         return subject
     }

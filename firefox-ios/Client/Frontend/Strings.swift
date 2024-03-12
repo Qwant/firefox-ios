@@ -6094,6 +6094,11 @@ extension String {
         public static let ZapSettingsQwantVIP = QwantString(key: "Qwant.Zap.Settings.QwantVIP")
         public static let ZapSettingsTabsAndHistory = QwantString(key: "Qwant.Zap.Settings.TabsAndHistory")
     }
+
+    public struct QwantTracking {
+        public static let SettingsTitle = QwantString(key: "Qwant.Tracking.Settings.Title")
+        public static let SettingsSubtitle = QwantString(key: "Qwant.Tracking.Settings.Subtitle")
+    }
 }
 
 // swiftlint:enable line_length
