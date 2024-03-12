@@ -53,6 +53,25 @@ class QwantTracking {
                                                  path: nil)
     }
 
+    func track(_ brandSuggest: QwantSuggest) {
+        guard let body = brandSuggest.toRequestBody(
+            locale: Locale.current.identifier,
+            abTestGroup: Int(prefs.intForKey(PrefsKeys.QwantABTestGroup) ?? 0))
+        else { return }
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        var request = URLRequest(url: URL(string: "https://www.qwant.com/action/suggest")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+
+        makeURLSession(userAgent: UserAgent.getUserAgent(domain: "qwant.com"), configuration: .ephemeral)
+            .dataTaskWith(request: request, completionHandler: { _, _, _ in
+                print("[QWANT TRACKING] Brand suggest")
+            })
+            .resume()
+    }
+
     private func scheduleScreenViewEvent(_ screenView: QwantTrackingScreenView) {
         timer?.cancel()
         let newTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())

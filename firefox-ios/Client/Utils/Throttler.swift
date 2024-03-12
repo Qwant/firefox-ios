@@ -31,3 +31,30 @@ class Throttler: ThrottleProtocol {
         queue.async(execute: completion)
     }
 }
+
+class QwantDebouncer {
+    private let defaultDelay = 0.35
+
+    private let threshold: Double
+    private weak var timer: Timer?
+    var callback: (() -> Void)?
+
+    init(seconds delay: Double? = nil) {
+        self.threshold = delay ?? defaultDelay
+    }
+
+    func debounce() {
+        timer?.invalidate()
+        let nextTimer = Timer.scheduledTimer(timeInterval: threshold,
+                                             target: self,
+                                             selector: #selector(fireNow),
+                                             userInfo: nil,
+                                             repeats: false)
+        timer = nextTimer
+    }
+
+    @objc
+    private func fireNow() {
+        self.callback?()
+    }
+}

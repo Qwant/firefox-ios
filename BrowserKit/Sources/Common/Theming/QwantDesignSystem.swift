@@ -105,5 +105,14 @@ public struct QwantUX {
             /// Border width for a button is 1
             public static let borderWidth: CGFloat = 1
         }
+
+        public struct Favicon {
+            /// Height for a favicon image is 28
+            public static let height: CGFloat = 28
+            /// Corner radius for a favicon image is 5
+            public static let cornerRadius: CGFloat = 5
+            /// Border width for a favicon image is .5
+            public static let borderWidth: CGFloat = 0.5
+        }
     }
 }
