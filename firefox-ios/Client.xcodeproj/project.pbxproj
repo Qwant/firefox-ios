@@ -584,6 +584,8 @@
 		68F2F49A2B9F573A0023A7FE /* QwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F4992B9F573A0023A7FE /* QwantTracking.swift */; };
 		68F2F49C2B9F59B90023A7FE /* SendQwantTrackingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */; };
 		68F2F49F2B9F5BEF0023A7FE /* MockQwantTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */; };
+		68F2F4A12BA06A670023A7FE /* QwantBrandSuggestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F4A02BA06A670023A7FE /* QwantBrandSuggestClient.swift */; };
+		68F2F4A32BA06BD30023A7FE /* QwantBrandSuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F4A22BA06BD30023A7FE /* QwantBrandSuggestCell.swift */; };
 		6A3E5D8A283831D1001E706E /* DownloadQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */; };
 		6A5F591D28627C0100FABA92 /* TabManagerNavDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */; };
 		6ACB550C28633860007A6ABD /* TabManagerNavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */; };
@@ -2681,6 +2683,8 @@
 		68F2F4992B9F573A0023A7FE /* QwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantTracking.swift; sourceTree = "<group>"; };
 		68F2F49B2B9F59B90023A7FE /* SendQwantTrackingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendQwantTrackingSetting.swift; sourceTree = "<group>"; };
 		68F2F49D2B9F5A790023A7FE /* MockQwantTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQwantTracking.swift; sourceTree = "<group>"; };
+		68F2F4A02BA06A670023A7FE /* QwantBrandSuggestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantBrandSuggestClient.swift; sourceTree = "<group>"; };
+		68F2F4A22BA06BD30023A7FE /* QwantBrandSuggestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwantBrandSuggestCell.swift; sourceTree = "<group>"; };
 		6A3E5D89283831D0001E706E /* DownloadQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueTests.swift; sourceTree = "<group>"; };
 		6A5F591C28627C0100FABA92 /* TabManagerNavDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegateTests.swift; sourceTree = "<group>"; };
 		6ACB550B28633860007A6ABD /* TabManagerNavDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManagerNavDelegate.swift; sourceTree = "<group>"; };
@@ -6763,6 +6767,7 @@
 				D863C8E31F68BFC20058D95F /* GradientProgressBar.swift */,
 				0BF1B7E21AC60DEA00A7B407 /* InsetButton.swift */,
 				D0152244229855A8009DE753 /* OneLineTableViewCell.swift */,
+				68F2F4A22BA06BD30023A7FE /* QwantBrandSuggestCell.swift */,
 				687E22572B9F128A009D9411 /* QwantSearchTableViewHeader.swift */,
 				D38A1BEC1A9FA2CA00F6A386 /* SiteTableViewController.swift */,
 				E16E1C9728C25F1D00EE2EF5 /* SiteTableViewHeader.swift */,
@@ -6873,6 +6878,7 @@
 				D34510871ACF415700EC27F0 /* SearchLoader.swift */,
 				D31A0FC61A65D6D000DC8C7E /* SearchSuggestClient.swift */,
 				23D57E6D25ED6F2700883FAD /* SearchViewController.swift */,
+				68F2F4A02BA06A670023A7FE /* QwantBrandSuggestClient.swift */,
 				687E22402B9B26B7009D9411 /* QwantSearchViewController.swift */,
 				3BF56D261CDBBE1F00AC4D75 /* SimpleToast.swift */,
 				E68AEDAF1B18F81A00133D99 /* SwipeAnimator.swift */,
@@ -9526,6 +9532,7 @@
 				8AD40FCF27BADC6B00672675 /* URLTextField.swift in Sources */,
 				31ADB5DA1E58CEC300E87909 /* ClipboardBarDisplayHandler.swift in Sources */,
 				8AD1980F27BEB3F100D64B0E /* PhotonActionSheetViewModel.swift in Sources */,
+				68F2F4A32BA06BD30023A7FE /* QwantBrandSuggestCell.swift in Sources */,
 				EB9A179D20E69A7F00B12184 /* LegacyTheme.swift in Sources */,
 				2128E2802934FBB400FB91BE /* CopyLinkActivity.swift in Sources */,
 				E17BE4C42A94BA6900C5124E /* FakespotHighlightGroupView.swift in Sources */,
@@ -9602,6 +9609,7 @@
 				8AF99B4F29EF1BA700108DEC /* BrowserDelegate.swift in Sources */,
 				C87D8B802818333F00A6307D /* NimbusManager.swift in Sources */,
 				8A4AC0EB28C929D700439F83 /* URLSessionDataTaskProtocol.swift in Sources */,
+				68F2F4A12BA06A670023A7FE /* QwantBrandSuggestClient.swift in Sources */,
 				C45F44691D087DB600CB7EF0 /* TopTabsViewController.swift in Sources */,
 				8A0727462B4890B50071BB9F /* WebviewTelemetry.swift in Sources */,
 				8ADC2A212A3399DC00543DAA /* YourRightsSetting.swift in Sources */,

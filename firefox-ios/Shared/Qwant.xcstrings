@@ -1,6 +1,78 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Qwant.BrandSuggest.Advertisement" : {
+      "comment" : "Litteral value of the word \"Ad\", to express the fact that we're showing an ad.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuncio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annonce"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserzione"
+          }
+        }
+      }
+    },
+    "Qwant.BrandSuggest.Information" : {
+      "comment" : "Text that appears in a popup after the user taps the information button next to a branded suggestion in the search screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Suchvorschlag ist eine Werbung für %@. Sie werden auf die Seite des Werbebetreibenden weitergeleitet: %@."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This search suggestion is an advertisement for %@. You will be redirected to the advertiser's website: %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta sugerencia de búsqueda es un anuncio de%@. Usted será redirigido al sitio web del anunciante: %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette suggestion de recherche est une publicité pour %@, vous serez redirigé.e à vers le site de l’annonceur : %@."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo suggerimento di ricerca è una pubblicità di %@. Che ti reindirizzerà verso il sito dell'inserzionista: %@."
+          }
+        }
+      }
+    },
     "Qwant.DefaultBrowserOnboarding.ButtonIgnore" : {
       "comment" : "Button string to ignore the default browser capability.",
       "extractionState" : "manual",

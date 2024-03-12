@@ -207,6 +207,21 @@ public extension WKWebView {
         configuration.websiteDataStore.httpCookieStore.setCookie(omnibarCookie)
         configuration.websiteDataStore.httpCookieStore.setCookie(trackingCookie)
     }
+
+    func abTestGroupLookup(_ completion: @escaping (Int?) -> Void) {
+        configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+            guard let value = cookies
+                .filter({ $0.domain.contains("qwant.com") })
+                .first(where: { $0.name == "ab_test_group" })?
+                .value
+            else {
+                completion(nil)
+                return
+            }
+
+            completion(Int(value))
+        }
+    }
 }
 
 public extension String {
