@@ -40,22 +40,26 @@ class QwantSearchViewController: UIViewController,
                                  UITableViewDelegate,
                                  UITableViewDataSource,
                                  Themeable,
-                                 Notifiable {
+                                 Notifiable,
+                                 BrandSuggestCellDelegate {
     var searchDelegate: QwantSearchViewControllerDelegate?
     private let viewModel: SearchViewModel
 
     private var openedTabs = [Tab]()
     private var bookmarks = [Site]()
     private var history = [Site]()
-    private var suggest = [String]()
+    private var suggest = [QwantSuggest]()
 
     private let profile: Profile
     private var tabManager: TabManager
-    private lazy var suggestClient: SearchSuggestClient = {
+    private let qwantTracking: QwantTracking
+    private lazy var openSearchSuggestClient: SearchSuggestClient = {
         return SearchSuggestClient(
             searchEngine: profile.searchEngines.defaultEngine!,
             userAgent: UserAgent.getUserAgent())
     }()
+    private lazy var brandSuggestClient = QwantBrandSuggestClient()
+    private lazy var throttler = Throttler()
 
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
@@ -68,6 +72,8 @@ class QwantSearchViewController: UIViewController,
                        forCellReuseIdentifier: QwantOneLineTableViewCell.cellIdentifier)
         table.register(QwantSearchTableViewHeader.self,
                        forHeaderFooterViewReuseIdentifier: QwantSearchTableViewHeader.cellIdentifier)
+        table.register(QwantBrandSuggestCell.self,
+                       forCellReuseIdentifier: QwantBrandSuggestCell.cellIdentifier)
         table.keyboardDismissMode = .onDrag
         table.accessibilityIdentifier = "SiteTable"
         table.estimatedRowHeight = 44
@@ -115,12 +121,15 @@ class QwantSearchViewController: UIViewController,
          viewModel: SearchViewModel,
          tabManager: TabManager,
          notificationCenter: NotificationProtocol = NotificationCenter.default,
-         themeManager: ThemeManager = AppContainer.shared.resolve()) {
+         themeManager: ThemeManager = AppContainer.shared.resolve(),
+         qwantTracking: QwantTracking = AppContainer.shared.resolve()
+    ) {
         self.profile = profile
         self.viewModel = viewModel
         self.tabManager = tabManager
         self.notificationCenter = notificationCenter
         self.themeManager = themeManager
+        self.qwantTracking = qwantTracking
 
         super.init(nibName: nil, bundle: nil)
         listenForThemeChange(view)
@@ -192,18 +201,22 @@ class QwantSearchViewController: UIViewController,
     }
 
     private func fetchSuggest() {
-        self.suggest = [searchQuery]
+        self.suggest = [QwantSuggest(title: searchQuery)]
         self.savedQuery = self.searchQuery
         self.tableView.reloadData()
 
-        SuggestFetcher(
-            profile: profile,
-            maxCount: 6,
-            client: suggestClient)
-        .fetch(for: searchQuery) { suggest in
-            self.suggest = suggest
-            self.savedQuery = self.searchQuery
-            self.tableView.reloadData()
+        throttler.throttle { [weak self] in
+            guard let self else { return }
+            SuggestFetcher(
+                profile: self.profile,
+                maxCount: 6,
+                brandClient: self.brandSuggestClient,
+                openSearchClient: self.openSearchSuggestClient)
+            .fetch(for: searchQuery) { suggest in
+                self.suggest = suggest
+                self.savedQuery = self.searchQuery
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -258,8 +271,11 @@ class QwantSearchViewController: UIViewController,
             withIdentifier: TwoLineImageOverlayCell.cellIdentifier, for: indexPath) as! TwoLineImageOverlayCell
         let oneLineTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: QwantOneLineTableViewCell.cellIdentifier, for: indexPath) as! QwantOneLineTableViewCell
+        let qwantBrandSuggestCell = tableView.dequeueReusableCell(
+            withIdentifier: QwantBrandSuggestCell.cellIdentifier, for: indexPath) as! QwantBrandSuggestCell
         let cell = getCellForSection(twoLineImageOverlayCell,
                                      oneLineCell: oneLineTableViewCell,
+                                     brandCell: qwantBrandSuggestCell,
                                      for: sectionType(for: indexPath.section)!,
                                      indexPath)
         cell.backgroundColor = themeManager.currentTheme.colors.omnibar_tableViewCellBackground(viewModel.isPrivate)
@@ -273,8 +289,11 @@ class QwantSearchViewController: UIViewController,
             // Assume that only the default search engine can provide search suggestions.
             let engine = profile.searchEngines.defaultEngine!
             guard let suggestion = suggest[safe: indexPath.row] else { return }
-            if let url = engine.searchURLForQuery(suggestion) {
-                searchDelegate?.qwantSearchViewController(self, didSelectURL: url, searchTerm: suggestion)
+            if let url = suggestion.url ?? engine.searchURLForQuery(suggestion.title) {
+                searchDelegate?.qwantSearchViewController(self, didSelectURL: url, searchTerm: suggestion.title)
+            }
+            if suggestion.isBrand {
+                qwantTracking.track(suggestion)
             }
         case .openedTabsAndBookmarks:
             let tabsAndBookmarks: [Any] = openedTabs + bookmarks
@@ -324,7 +343,7 @@ class QwantSearchViewController: UIViewController,
         case .suggest:
             // Assume that only the default search engine can provide search suggestions.
             guard let suggestion = suggest[safe: indexPath.row] else { return }
-            searchDelegate?.qwantSearchViewController(self, didHighlightText: suggestion, search: false)
+            searchDelegate?.qwantSearchViewController(self, didHighlightText: suggestion.title, search: false)
         case .openedTabsAndBookmarks:
             let tabsAndBookmarks: [Any] = openedTabs + bookmarks
             guard let tabOrBookmark = tabsAndBookmarks[safe: indexPath.row] else { return }
@@ -362,7 +381,7 @@ class QwantSearchViewController: UIViewController,
     func getAttributedBoldSearchSuggestions(searchPhrase: String, query: String) -> NSAttributedString? {
         // the search term (query) stays normal weight
         // everything past the search term (query) will be bold
-        let range = searchPhrase.range(of: query)
+        let range = searchPhrase.range(of: query, options: .caseInsensitive)
         guard searchPhrase != query, let upperBound = range?.upperBound else { return nil }
 
         let boldString = String(searchPhrase[upperBound..<searchPhrase.endIndex])
@@ -379,28 +398,50 @@ class QwantSearchViewController: UIViewController,
 
     private func getCellForSection(_ twoLineCell: TwoLineImageOverlayCell,
                                    oneLineCell: QwantOneLineTableViewCell,
+                                   brandCell: QwantBrandSuggestCell,
                                    for section: SearchListSection,
                                    _ indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         switch section {
         case .suggest:
             let site = suggest[indexPath.row]
-            oneLineCell.titleLabel.text = site
-            if let attributedString = getAttributedBoldSearchSuggestions(searchPhrase: site, query: savedQuery) {
-                oneLineCell.titleLabel.attributedText = attributedString
+            if site.url == nil {
+                oneLineCell.titleLabel.text = site.title
+                if let attributedString = getAttributedBoldSearchSuggestions(searchPhrase: site.title, query: savedQuery) {
+                    oneLineCell.titleLabel.attributedText = attributedString
+                }
+                oneLineCell.leftImageView.contentMode = .center
+                oneLineCell.leftImageView.layer.borderWidth = 0
+                oneLineCell.leftImageView.layer.cornerRadius = 14
+                oneLineCell.leftImageView.image = UIImage(named: "qwant_search")?.withRenderingMode(.alwaysTemplate)
+                oneLineCell.leftImageView.tintColor = themeManager.currentTheme.colors.omnibar_tintColor(viewModel.isPrivate)
+                oneLineCell.leftImageView.backgroundColor = nil
+                let appendButton = UIButton(type: .roundedRect)
+                appendButton.setImage(searchAppendImage?.withRenderingMode(.alwaysTemplate), for: .normal)
+                appendButton.addTarget(self, action: #selector(append(_ :)), for: .touchUpInside)
+                appendButton.sizeToFit()
+                oneLineCell.accessoryView = indexPath.row > 0 ? appendButton : nil
+                cell = oneLineCell
+            } else {
+                brandCell.titleLabel.text = site.title
+                if let attributedString = getAttributedBoldSearchSuggestions(searchPhrase: site.title, query: savedQuery) {
+                    brandCell.titleLabel.attributedText = attributedString
+                }
+                brandCell.adLabel.text = .QwantBrandSuggest.AdvertisementLabel
+                brandCell.leftImageView.layer.borderColor = UIColor(white: 0, alpha: 0.1).cgColor
+                brandCell.leftImageView.layer.borderWidth = 0.5
+                let urlString = site.faviconUrl?.absoluteString ?? ""
+                brandCell.leftImageView.setFavicon(
+                    FaviconImageViewModel(
+                        siteURLString: urlString,
+                        faviconURL: site.faviconUrl
+                    )
+                )
+                brandCell.accessoryView = nil
+                brandCell.delegate = self
+                brandCell.suggest = site
+                cell = brandCell
             }
-            oneLineCell.leftImageView.contentMode = .center
-            oneLineCell.leftImageView.layer.borderWidth = 0
-            oneLineCell.leftImageView.layer.cornerRadius = 14
-            oneLineCell.leftImageView.image = UIImage(named: "qwant_search")?.withRenderingMode(.alwaysTemplate)
-            oneLineCell.leftImageView.tintColor = themeManager.currentTheme.colors.omnibar_tintColor(viewModel.isPrivate)
-            oneLineCell.leftImageView.backgroundColor = nil
-            let appendButton = UIButton(type: .roundedRect)
-            appendButton.setImage(searchAppendImage?.withRenderingMode(.alwaysTemplate), for: .normal)
-            appendButton.addTarget(self, action: #selector(append(_ :)), for: .touchUpInside)
-            appendButton.sizeToFit()
-            oneLineCell.accessoryView = indexPath.row > 0 ? appendButton : nil
-            cell = oneLineCell
         case .openedTabsAndBookmarks:
             let tabsAndBookmarks: [Any] = openedTabs + bookmarks
             if let openedTab = tabsAndBookmarks[indexPath.row] as? Tab {
@@ -490,6 +531,12 @@ class QwantSearchViewController: UIViewController,
         twoLineCell.descriptionLabel.textColor = theme.colors.omnibar_tableViewCellSecondaryText(viewModel.isPrivate)
         twoLineCell.selectedBackgroundView?.backgroundColor =
             theme.colors.omnibar_tableViewSelectedCellBackground(viewModel.isPrivate)
+        brandCell.applyTheme(theme: theme)
+        brandCell.titleLabel.textColor = theme.colors.omnibar_tableViewCellPrimaryText(viewModel.isPrivate)
+        brandCell.adLabel.textColor = theme.colors.omnibar_tableViewCellSecondaryText(viewModel.isPrivate)
+        brandCell.informationIcon.tintColor = theme.colors.omnibar_tableViewCellSecondaryText(viewModel.isPrivate)
+        brandCell.selectedBackgroundView?.backgroundColor =
+            theme.colors.omnibar_tableViewSelectedCellBackground(viewModel.isPrivate)
         return cell
     }
 
@@ -500,7 +547,7 @@ class QwantSearchViewController: UIViewController,
             let section = sectionType(for: indexPath.section)
             var newQuery = ""
             if section == .suggest, let suggest = suggest[safe: indexPath.row] {
-                newQuery = suggest
+                newQuery = suggest.title
             } else if section == .history,
                       let history = history[safe: indexPath.row],
                       let url = URL(string: history.url),
@@ -539,6 +586,15 @@ class QwantSearchViewController: UIViewController,
     func dynamicFontChanged(_ notification: Notification) {
         guard notification.name == .DynamicFontChanged else { return }
         reloadData()
+    }
+
+    // MARK: - BrandSuggestCellDelegate
+    func brandSuggestCellDidTapInfo(_ suggest: QwantSuggest?) {
+        guard let suggest else { return }
+        let message = String(format: .QwantBrandSuggest.InformationDescription, suggest.brand, suggest.domain)
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: .OKString, style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 }
 

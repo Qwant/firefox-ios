@@ -6099,6 +6099,11 @@ extension String {
         public static let SettingsTitle = QwantString(key: "Qwant.Tracking.Settings.Title")
         public static let SettingsSubtitle = QwantString(key: "Qwant.Tracking.Settings.Subtitle")
     }
+
+    public struct QwantBrandSuggest {
+        public static let InformationDescription = QwantString(key: "Qwant.BrandSuggest.Information")
+        public static let AdvertisementLabel = QwantString(key: "Qwant.BrandSuggest.Advertisement")
+    }
 }
 
 // swiftlint:enable line_length
