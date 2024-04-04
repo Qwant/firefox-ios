@@ -2,6 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+const lazy = {};
+ChromeUtils.defineESModuleGetters(lazy, {
+  FormAutofillUtils: "resource://gre/modules/shared/FormAutofillUtils.sys.mjs",
+});
+
 /**
  * Represents the detailed information about a form field, including
  * the inferred field name, the approach used for inferring, and additional metadata.
@@ -32,6 +37,7 @@ export class FieldDetail {
   section = "";
   addressType = "";
   contactType = "";
+  credentialType = "";
 
   // When a field is split into N fields, we use part to record which field it is
   // For example, a credit card number field is split into 4 fields, the value of
@@ -56,6 +62,7 @@ export class FieldDetail {
       this.section = autocompleteInfo.section;
       this.addressType = autocompleteInfo.addressType;
       this.contactType = autocompleteInfo.contactType;
+      this.credentialType = autocompleteInfo.credentialType;
     } else if (confidence) {
       this.reason = "fathom";
       this.confidence = confidence;
@@ -70,6 +77,14 @@ export class FieldDetail {
 
   get sectionName() {
     return this.section || this.addressType;
+  }
+
+  #isVisible = null;
+  get isVisible() {
+    if (this.#isVisible == null) {
+      this.#isVisible = lazy.FormAutofillUtils.isFieldVisible(this.element);
+    }
+    return this.#isVisible;
   }
 }
 

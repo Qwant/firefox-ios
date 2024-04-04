@@ -4,6 +4,7 @@
 
 import { FormAutofill } from "resource://autofill/FormAutofill.sys.mjs";
 import { XPCOMUtils } from "resource://gre/modules/XPCOMUtils.sys.mjs";
+import { AppConstants } from "resource://gre/modules/AppConstants.sys.mjs";
 
 const lazy = {};
 ChromeUtils.defineESModuleGetters(lazy, {
@@ -11,18 +12,26 @@ ChromeUtils.defineESModuleGetters(lazy, {
   FormAutofillNameUtils:
     "resource://gre/modules/shared/FormAutofillNameUtils.sys.mjs",
   OSKeyStore: "resource://gre/modules/OSKeyStore.sys.mjs",
+  AddressMetaDataLoader:
+    "resource://gre/modules/shared/AddressMetaDataLoader.sys.mjs",
 });
 
-export let FormAutofillUtils;
+ChromeUtils.defineLazyGetter(
+  lazy,
+  "l10n",
+  () =>
+    new Localization(
+      ["toolkit/formautofill/formAutofill.ftl", "branding/brand.ftl"],
+      true
+    )
+);
 
-const ADDRESS_METADATA_PATH = "resource://autofill/addressmetadata/";
-const ADDRESS_REFERENCES = "addressReferences.js";
-const ADDRESS_REFERENCES_EXT = "addressReferencesExt.js";
+export let FormAutofillUtils;
 
 const ADDRESSES_COLLECTION_NAME = "addresses";
 const CREDITCARDS_COLLECTION_NAME = "creditCards";
 const MANAGE_ADDRESSES_L10N_IDS = [
-  "autofill-add-new-address-title",
+  "autofill-add-address-title",
   "autofill-manage-addresses-title",
 ];
 const EDIT_ADDRESS_L10N_IDS = [
@@ -41,8 +50,8 @@ const EDIT_ADDRESS_L10N_IDS = [
   "autofill-address-tel",
 ];
 const MANAGE_CREDITCARDS_L10N_IDS = [
-  "autofill-add-new-card-title",
-  "autofill-manage-credit-cards-title",
+  "autofill-add-card-title",
+  "autofill-manage-payment-methods-title",
 ];
 const EDIT_CREDITCARD_L10N_IDS = [
   "autofill-card-number",
@@ -56,155 +65,18 @@ const FIELD_STATES = {
   AUTO_FILLED: "AUTO_FILLED",
   PREVIEW: "PREVIEW",
 };
+const FORM_SUBMISSION_REASON = {
+  FORM_SUBMIT_EVENT: "form-submit-event",
+  FORM_REMOVAL_AFTER_FETCH: "form-removal-after-fetch",
+  IFRAME_PAGEHIDE: "iframe-pagehide",
+  PAGE_NAVIGATION: "page-navigation",
+};
 
 const ELIGIBLE_INPUT_TYPES = ["text", "email", "tel", "number", "month"];
 
 // The maximum length of data to be saved in a single field for preventing DoS
 // attacks that fill the user's hard drive(s).
 const MAX_FIELD_VALUE_LENGTH = 200;
-
-export let AddressDataLoader = {
-  // Status of address data loading. We'll load all the countries with basic level 1
-  // information while requesting conutry information, and set country to true.
-  // Level 1 Set is for recording which country's level 1/level 2 data is loaded,
-  // since we only load this when getCountryAddressData called with level 1 parameter.
-  _dataLoaded: {
-    country: false,
-    level1: new Set(),
-  },
-
-  /**
-   * Load address data and extension script into a sandbox from different paths.
-   *
-   * @param   {string} path
-   *          The path for address data and extension script. It could be root of the address
-   *          metadata folder(addressmetadata/) or under specific country(addressmetadata/TW/).
-   * @returns {object}
-   *          A sandbox that contains address data object with properties from extension.
-   */
-  _loadScripts(path) {
-    let sandbox = {};
-    let extSandbox = {};
-
-    try {
-      sandbox = FormAutofillUtils.loadDataFromScript(path + ADDRESS_REFERENCES);
-      extSandbox = FormAutofillUtils.loadDataFromScript(
-        path + ADDRESS_REFERENCES_EXT
-      );
-    } catch (e) {
-      // Will return only address references if extension loading failed or empty sandbox if
-      // address references loading failed.
-      return sandbox;
-    }
-
-    if (extSandbox.addressDataExt) {
-      for (let key in extSandbox.addressDataExt) {
-        let addressDataForKey = sandbox.addressData[key];
-        if (!addressDataForKey) {
-          addressDataForKey = sandbox.addressData[key] = {};
-        }
-
-        Object.assign(addressDataForKey, extSandbox.addressDataExt[key]);
-      }
-    }
-    return sandbox;
-  },
-
-  /**
-   * Convert certain properties' string value into array. We should make sure
-   * the cached data is parsed.
-   *
-   * @param   {object} data Original metadata from addressReferences.
-   * @returns {object} parsed metadata with property value that converts to array.
-   */
-  _parse(data) {
-    if (!data) {
-      return null;
-    }
-
-    const properties = [
-      "languages",
-      "sub_keys",
-      "sub_isoids",
-      "sub_names",
-      "sub_lnames",
-    ];
-    for (let key of properties) {
-      if (!data[key]) {
-        continue;
-      }
-      // No need to normalize data if the value is array already.
-      if (Array.isArray(data[key])) {
-        return data;
-      }
-
-      data[key] = data[key].split("~");
-    }
-    return data;
-  },
-
-  /**
-   * We'll cache addressData in the loader once the data loaded from scripts.
-   * It'll become the example below after loading addressReferences with extension:
-   * addressData: {
-   *               "data/US": {"lang": ["en"], ...// Data defined in libaddressinput metadata
-   *                           "alternative_names": ... // Data defined in extension }
-   *               "data/CA": {} // Other supported country metadata
-   *               "data/TW": {} // Other supported country metadata
-   *               "data/TW/台北市": {} // Other supported country level 1 metadata
-   *              }
-   *
-   * @param   {string} country
-   * @param   {string?} level1
-   * @returns {object} Default locale metadata
-   */
-  _loadData(country, level1 = null) {
-    // Load the addressData if needed
-    if (!this._dataLoaded.country) {
-      this._addressData = this._loadScripts(ADDRESS_METADATA_PATH).addressData;
-      this._dataLoaded.country = true;
-    }
-    if (!level1) {
-      return this._parse(this._addressData[`data/${country}`]);
-    }
-    // If level1 is set, load addressReferences under country folder with specific
-    // country/level 1 for level 2 information.
-    if (!this._dataLoaded.level1.has(country)) {
-      Object.assign(
-        this._addressData,
-        this._loadScripts(`${ADDRESS_METADATA_PATH}${country}/`).addressData
-      );
-      this._dataLoaded.level1.add(country);
-    }
-    return this._parse(this._addressData[`data/${country}/${level1}`]);
-  },
-
-  /**
-   * Return the region metadata with default locale and other locales (if exists).
-   *
-   * @param   {string} country
-   * @param   {string?} level1
-   * @returns {object} Return default locale and other locales metadata.
-   */
-  getData(country, level1 = null) {
-    let defaultLocale = this._loadData(country, level1);
-    if (!defaultLocale) {
-      return null;
-    }
-
-    let countryData = this._parse(this._addressData[`data/${country}`]);
-    let locales = [];
-    // TODO: Should be able to support multi-locale level 1/ level 2 metadata query
-    //      in Bug 1421886
-    if (countryData.languages) {
-      let list = countryData.languages.filter(key => key !== countryData.lang);
-      locales = list.map(key =>
-        this._parse(this._addressData[`${defaultLocale.id}--${key}`])
-      );
-    }
-    return { defaultLocale, locales };
-  },
-};
 
 FormAutofillUtils = {
   get AUTOFILL_FIELDS_THRESHOLD() {
@@ -219,6 +91,7 @@ FormAutofillUtils = {
   EDIT_CREDITCARD_L10N_IDS,
   MAX_FIELD_VALUE_LENGTH,
   FIELD_STATES,
+  FORM_SUBMISSION_REASON,
 
   _fieldNameInfo: {
     name: "name",
@@ -303,6 +176,12 @@ FormAutofillUtils = {
     return Array.from(categories);
   },
 
+  getCollectionNameFromFieldName(fieldName) {
+    return this.isCreditCardField(fieldName)
+      ? CREDITCARDS_COLLECTION_NAME
+      : ADDRESSES_COLLECTION_NAME;
+  },
+
   getAddressSeparator() {
     // The separator should be based on the L10N address format, and using a
     // white space is a temporary solution.
@@ -319,7 +198,7 @@ FormAutofillUtils = {
   getAddressLabel(address) {
     // TODO: Implement a smarter way for deciding what to display
     //       as option text. Possibly improve the algorithm in
-    //       ProfileAutoCompleteResult.jsm and reuse it here.
+    //       ProfileAutoCompleteResult.sys.mjs and reuse it here.
     let fieldOrder = [
       "name",
       "-moz-street-address-one-line", // Street address
@@ -438,7 +317,11 @@ FormAutofillUtils = {
    * @returns {boolean} true if the element is visible
    */
   isFieldVisible(element, visibilityCheck = true) {
-    if (visibilityCheck && element.checkVisibility) {
+    if (
+      visibilityCheck &&
+      element.checkVisibility &&
+      !FormAutofillUtils.ignoreVisibilityCheck
+    ) {
       return element.checkVisibility({
         checkOpacity: true,
         checkVisibilityCSS: true,
@@ -446,23 +329,6 @@ FormAutofillUtils = {
     }
 
     return !element.hidden && element.style.display != "none";
-  },
-
-  /**
-   * Determines if an element is focusable
-   * and accessible via keyboard navigation or not.
-   *
-   * @param {HTMLElement} element
-   *
-   * @returns {bool} true if the element is focusable and accessible
-   */
-  isFieldFocusable(element) {
-    return (
-      // The Services.focus.elementIsFocusable API considers elements with
-      // tabIndex="-1" set as focusable. But since they are not accessible
-      // via keyboard navigation we treat them as non-interactive
-      Services.focus.elementIsFocusable(element, 0) && element.tabIndex != "-1"
-    );
   },
 
   /**
@@ -491,7 +357,7 @@ FormAutofillUtils = {
 
   /**
    * Get country address data and fallback to US if not found.
-   * See AddressDataLoader._loadData for more details of addressData structure.
+   * See AddressMetaDataLoader.#loadData for more details of addressData structure.
    *
    * @param {string} [country=FormAutofill.DEFAULT_REGION]
    *        The country code for requesting specific country's metadata. It'll be
@@ -507,21 +373,23 @@ FormAutofillUtils = {
     country = FormAutofill.DEFAULT_REGION,
     level1 = null
   ) {
-    let metadata = AddressDataLoader.getData(country, level1);
+    let metadata = lazy.AddressMetaDataLoader.getData(country, level1);
     if (!metadata) {
       if (level1) {
         return null;
       }
       // Fallback to default region if we couldn't get data from given country.
       if (country != FormAutofill.DEFAULT_REGION) {
-        metadata = AddressDataLoader.getData(FormAutofill.DEFAULT_REGION);
+        metadata = lazy.AddressMetaDataLoader.getData(
+          FormAutofill.DEFAULT_REGION
+        );
       }
     }
 
     // TODO: Now we fallback to US if we couldn't get data from default region,
     //       but it could be removed in bug 1423464 if it's not necessary.
     if (!metadata) {
-      metadata = AddressDataLoader.getData("US");
+      metadata = lazy.AddressMetaDataLoader.getData("US");
     }
     return metadata;
   },
@@ -709,7 +577,7 @@ FormAutofillUtils = {
       return null;
     }
 
-    if (AddressDataLoader.getData(countryName)) {
+    if (lazy.AddressMetaDataLoader.getData(countryName)) {
       return countryName;
     }
 
@@ -935,6 +803,42 @@ FormAutofillUtils = {
     }
 
     return null;
+  },
+
+  /**
+   * Find the option element from xul menu popups, as used in address capture
+   * doorhanger.
+   *
+   * This is a proxy to `findAddressSelectOption`, which expects HTML select
+   * DOM nodes and operates on options instead of xul menuitems.
+   *
+   * NOTE: This is a temporary solution until Bug 1886949 is landed. This
+   * method will then be removed `findAddressSelectOption` will be used
+   * directly.
+   *
+   * @param   {XULPopupElement} menupopup
+   * @param   {object} address
+   * @param   {string} fieldName
+   * @returns {XULElement}
+   */
+  findAddressSelectOptionWithMenuPopup(menupopup, address, fieldName) {
+    class MenuitemProxy {
+      constructor(menuitem) {
+        this.menuitem = menuitem;
+      }
+      get text() {
+        return this.menuitem.label;
+      }
+      get value() {
+        return this.menuitem.value;
+      }
+    }
+    const selectEl = {
+      options: Array.from(menupopup.childNodes).map(
+        menuitem => new MenuitemProxy(menuitem)
+      ),
+    };
+    return this.findAddressSelectOption(selectEl, address, fieldName)?.menuitem;
   },
 
   findCreditCardSelectOption(selectEl, creditCard, fieldName) {
@@ -1181,6 +1085,35 @@ FormAutofillUtils = {
     };
     return MAP[key];
   },
+  /**
+   * Generates the localized os dialog message that
+   * prompts the user to reauthenticate
+   *
+   * @param {string} msgMac fluent message id for macos clients
+   * @param {string} msgWin fluent message id for windows clients
+   * @param {string} msgOther fluent message id for other clients
+   * @param {string} msgLin (optional) fluent message id for linux clients
+   * @returns {string} localized os prompt message
+   */
+  reauthOSPromptMessage(msgMac, msgWin, msgOther, msgLin = null) {
+    const platform = AppConstants.platform;
+    let messageID;
+
+    switch (platform) {
+      case "win":
+        messageID = msgWin;
+        break;
+      case "macosx":
+        messageID = msgMac;
+        break;
+      case "linux":
+        messageID = msgLin ?? msgOther;
+        break;
+      default:
+        messageID = msgOther;
+    }
+    return lazy.l10n.formatValueSync(messageID);
+  },
 };
 
 ChromeUtils.defineLazyGetter(FormAutofillUtils, "stringBundle", function () {
@@ -1236,24 +1169,18 @@ XPCOMUtils.defineLazyPreferenceGetter(
   pref => parseFloat(pref)
 );
 
-XPCOMUtils.defineLazyPreferenceGetter(
-  FormAutofillUtils,
-  "visibilityCheckThreshold",
-  "extensions.formautofill.heuristics.visibilityCheckThreshold",
-  200
-);
-
-XPCOMUtils.defineLazyPreferenceGetter(
-  FormAutofillUtils,
-  "interactivityCheckMode",
-  "extensions.formautofill.heuristics.interactivityCheckMode",
-  "focusability"
-);
-
 // This is only used in iOS
 XPCOMUtils.defineLazyPreferenceGetter(
   FormAutofillUtils,
   "focusOnAutofill",
   "extensions.formautofill.focusOnAutofill",
   true
+);
+
+// This is only used for testing
+XPCOMUtils.defineLazyPreferenceGetter(
+  FormAutofillUtils,
+  "ignoreVisibilityCheck",
+  "extensions.formautofill.test.ignoreVisibilityCheck",
+  false
 );
