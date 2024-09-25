@@ -7888,6 +7888,27 @@ extension String {
         public static let Login = QwantString(key: "Qwant.Menu.Login")
         public static let Account = QwantString(key: "Qwant.Menu.Account")
     }
+
+    public struct QwantAppIntents {
+        public static let RegularTab = QwantString(key: "Qwant.AppIntent.RegularTab")
+        public static let PrivateTab = QwantString(key: "Qwant.AppIntent.PrivateTab")
+        public static let NewRegularTab = QwantString(key: "Qwant.AppIntent.NewRegularTab")
+        public static let NewPrivateTab = QwantString(key: "Qwant.AppIntent.NewPrivateTab")
+        public static let CloseTabsTitle = QwantString(key: "Qwant.AppIntent.CloseTabs.Title")
+        public static let CloseTabsDescription = QwantString(key: "Qwant.AppIntent.CloseTabs.Description")
+        public static let CreateTabTitle = QwantString(key: "Qwant.AppIntent.CreateTab.Title")
+        public static let CreateTabDescription = QwantString(key: "Qwant.AppIntent.CreateTab.Description")
+        public static let OpenURLTitle = QwantString(key: "Qwant.AppIntent.OpenURLInTab.Title")
+        public static let OpenURLDescription = QwantString(key: "Qwant.AppIntent.OpenURLInTab.Description")
+        public static let SearchTitle = QwantString(key: "Qwant.AppIntent.Search.Title")
+        public static let SearchDescription = QwantString(key: "Qwant.AppIntent.Search.Description")
+        public static let DeleteBookmarksTitle = QwantString(key: "Qwant.AppIntent.DeleteBookmarks.Title")
+        public static let DeleteBookmarksDescription = QwantString(key: "Qwant.AppIntent.DeleteBookmarks.Description")
+        public static let BookmarkURLTitle = QwantString(key: "Qwant.AppIntent.BookmarkURL.Title")
+        public static let BookmarkURLDescription = QwantString(key: "Qwant.AppIntent.BookmarkURL.Description")
+        public static let OpenBookmarkTitle = QwantString(key: "Qwant.AppIntent.OpenBookmark.Title")
+        public static let OpenBookmarkDescription = QwantString(key: "Qwant.AppIntent.OpenBookmark.Description")
+    }
 }
 
 // swiftlint:enable line_length

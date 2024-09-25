@@ -10,6 +10,8 @@ import Glean
 import TabDataStore
 
 import class MozillaAppServices.Viaduct
+import MozillaAppServices
+import AppIntents
 
 class AppDelegate: UIResponder, UIApplicationDelegate, FeatureFlaggable {
     let logger = DefaultLogger.shared
@@ -235,6 +237,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FeatureFlaggable {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         logger.log("applicationDidEnterBackground start", level: .info, category: .lifecycle)
+
+//        // Index bookmarks entities
+//        if #available(iOS 18.0, *) {
+//            print("[APP INTENT] START INDEXING")
+//            profile.places.getBookmarksTree(
+//                rootGUID: BookmarkRoots.MobileFolderGUID,
+//                recursive: false
+//            ).uponQueue(.main) { result in
+//                Task {
+//                    let folder = result.successValue as? BookmarkFolderData
+//                    let childs = folder?.children as? [BookmarkItemData] ?? []
+//                    try? await CSSearchableIndex.default().deleteAppEntities(ofType: BookmarkEntity.self)
+//                    try? await CSSearchableIndex.default().indexAppEntities(childs.map(\.entity))
+//                    print("[APP INTENT] INDEXED \(childs.count) entities")
+//                }
+//            }
+//        }
 
         TelemetryWrapper.recordEvent(category: .action, method: .background, object: .app)
 

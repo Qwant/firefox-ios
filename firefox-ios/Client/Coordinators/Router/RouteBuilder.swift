@@ -61,6 +61,8 @@ final class RouteBuilder: FeatureFlaggable {
                     return .defaultBrowser(section: subPath)
                 } else if path == .action, let subPath = Route.AppAction(rawValue: subPath) {
                     return .action(action: subPath)
+                } else if path == .findInPage {
+                    return .findInPage(searchString: subPath)
                 } else {
                     return nil
                 }

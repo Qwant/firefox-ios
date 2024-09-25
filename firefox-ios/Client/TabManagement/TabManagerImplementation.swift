@@ -20,7 +20,7 @@ struct BackupCloseTab {
     var isSelected: Bool
 }
 
-class TabManagerImplementation: NSObject, TabManager, FeatureFlaggable {
+class TabManagerImplementation: NSObject, TabManager, FeatureFlaggable, @unchecked Sendable {
     let windowUUID: WindowUUID
     let delaySelectingNewPopupTab: TimeInterval = 0.1
 

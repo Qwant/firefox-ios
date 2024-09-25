@@ -66,6 +66,7 @@ enum DeeplinkInput {
         case homepanel = "homepanel"
         case defaultBrowser = "default-browser"
         case action
+        case findInPage = "find-in-page"
     }
 
     enum Shortcut: String {

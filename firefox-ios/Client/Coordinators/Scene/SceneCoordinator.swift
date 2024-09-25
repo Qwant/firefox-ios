@@ -4,6 +4,8 @@
 
 import Common
 import UIKit
+import Storage
+import AppIntents
 
 /// Each scene has it's own scene coordinator, which is the root coordinator for a scene.
 class SceneCoordinator: BaseCoordinator,
@@ -153,6 +155,13 @@ class SceneCoordinator: BaseCoordinator,
                   !AppEventQueue.hasSignalled(.recordStartupTimeOpenDeeplinkComplete),
                   !AppEventQueue.hasSignalled(.recordStartupTimeOpenDeeplinkCancelled) else { return }
             AppEventQueue.signal(event: .recordStartupTimeOpenDeeplinkComplete)
+        }
+
+        if #available(iOS 18.0, *) {
+//            let asyncDependency: () async -> (TabManagerImplementation) = { @MainActor in
+//                return tabManager
+//            }
+            AppDependencyManager.shared.add(key: "TabManager", dependency: tabManager)
         }
     }
 

@@ -2885,6 +2885,17 @@ class BrowserViewController: UIViewController,
         }
     }
 
+    func handle(searchString: String, isPrivate: Bool = false) {
+        if isToolbarRefactorEnabled {
+            cancelEditMode()
+        } else {
+            leaveOverlayModeIfPossible()
+        }
+        popToBVC()
+        updateFindInPageVisibility(isVisible: true, withSearchText: searchString)
+        findInPageBar?.text = searchString
+    }
+
     func handleQRCode() {
         cancelEditMode()
         openBlankNewTab(focusLocationField: false, isPrivate: false)

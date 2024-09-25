@@ -311,7 +311,7 @@ class BrowserCoordinator: BaseCoordinator,
         }
 
         switch route {
-        case .searchQuery, .search, .searchURL, .glean, .homepanel, .action, .fxaSignIn, .defaultBrowser, .sharesheet:
+        case .searchQuery, .search, .searchURL, .glean, .homepanel, .action, .fxaSignIn, .defaultBrowser, .sharesheet, .findInPage:
             return true
         case let .settings(section):
             return canHandleSettings(with: section)
@@ -371,6 +371,9 @@ class BrowserCoordinator: BaseCoordinator,
             case .tutorial:
                 startLaunch(with: .defaultBrowser)
             }
+
+        case let .findInPage(searchString):
+            handle(searchString: searchString)
         }
     }
 
@@ -429,6 +432,10 @@ class BrowserCoordinator: BaseCoordinator,
 
     private func handle(fxaParams: FxALaunchParams) {
         browserViewController.presentSignInViewController(fxaParams)
+    }
+
+    private func handle(searchString: String) {
+        browserViewController.handle(searchString: searchString)
     }
 
     /// Starts the share sheet coordinator for the deep link `.sharesheet` route (share content via Nimbus Messaging).

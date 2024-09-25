@@ -73,6 +73,8 @@ enum Route: Equatable {
     ///   - shareMessage: An optional plain text share message to be shared.
     case sharesheet(shareType: ShareType, shareMessage: ShareMessage?)
 
+    case findInPage(searchString: String)
+
     /// An enumeration representing different sections of the home panel.
     enum HomepanelSection: String, CaseIterable, Equatable {
         case bookmarks
