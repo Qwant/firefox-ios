@@ -2986,6 +2986,14 @@ class BrowserViewController: UIViewController,
         openBlankNewTab(focusLocationField: focusLocationField, isPrivate: isPrivate)
     }
 
+    func switchToTab(_ url: URL?) -> Bool {
+        if let url = url, let tab = tabManager.getTabFor(approxUrl: url) {
+            tabManager.selectTab(tab)
+            return true
+        }
+        return false
+    }
+
     func openBlankNewTab(
         focusLocationField: Bool,
         isPrivate: Bool = false,
@@ -3750,6 +3758,8 @@ extension BrowserViewController: LegacyTabDelegate {
     func tab(_ tab: Tab, didFinishLoading webView: WKWebView) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             if tab.url?.isQwantHPUrl == true &&
+                tab.url?.showsQwantDrawer == false &&
+                tab.url?.isAccountUrl == false &&
                 (self.presentedViewController == nil || self.presentedViewController?.isBeingDismissed == true) &&
                 tab === self.tabManager.selectedTab {
                 self.enterOverlayModeIfPossible()

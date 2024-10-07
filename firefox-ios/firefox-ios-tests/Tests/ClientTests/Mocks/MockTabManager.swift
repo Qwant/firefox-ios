@@ -130,6 +130,10 @@ class MockTabManager: TabManager {
         return nil
     }
 
+    func getTabFor(approxUrl url: URL) -> Tab? {
+        return nil
+    }
+
     func expireLoginAlerts() {}
 
     func switchPrivacyMode() -> SwitchPrivacyModeResult {

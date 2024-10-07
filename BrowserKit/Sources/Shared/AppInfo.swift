@@ -56,6 +56,10 @@ extension AppInfo {
         return Locale.current.identifier == "zh_CN"
     }()
 
+    public static var isFrance: Bool = {
+        return Locale.current.identifier == "fr_FR"
+    }()
+
     // The App Store page identifier for the Firefox iOS application
     public static var appStoreId = "id989804926"
 

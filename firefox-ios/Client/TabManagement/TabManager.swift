@@ -95,6 +95,7 @@ protocol TabManager: AnyObject {
     // MARK: Get Tab
     func getTabForUUID(uuid: TabUUID) -> Tab?
     func getTabForURL(_ url: URL) -> Tab?
+    func getTabFor(approxUrl url: URL) -> Tab?
     func getMostRecentHomepageTab() -> Tab?
 
     // MARK: Other Tab Actions

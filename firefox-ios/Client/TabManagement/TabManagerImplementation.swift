@@ -436,6 +436,10 @@ class TabManagerImplementation: NSObject, TabManager, FeatureFlaggable {
         return tabs.first(where: { $0.webView?.url == url })
     }
 
+    func getTabFor(approxUrl url: URL) -> Tab? {
+        return tabs.first(where: { $0.webView?.url?.absoluteString.starts(with: url.absoluteString) == true })
+    }
+
     func getMostRecentHomepageTab() -> Tab? {
         let tabsToFilter = selectedTab?.isPrivate ?? false ? privateTabs : normalTabs
         let homePageTabs = tabsToFilter.filter { $0.isFxHomeTab }

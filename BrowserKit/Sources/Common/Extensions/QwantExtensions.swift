@@ -11,11 +11,13 @@ public extension URL {
         static let QWANT_JUNIOR_DOMAIN = "qwantjunior.com"
         static let QWANT_HELP_DOMAIN = "help.qwant.com"
         static let QWANT_ANTISCRAP_PATH = "/antiscrap"
+        static let QWANT_ACCOUNT_PATH = "/account"
         static let CLIENT_CONTEXT_KEY = "client"
         static let CLIENT_CONTEXT_BROWSER = "qwantbrowser"
         static let CLIENT_CONTEXT_WIDGET = "qwantwidget"
         static let CL_CONTEXT_KEY = "cl"
         static let SEARCH_KEY = "q"
+        static let DRAWER_KEY = "drawer"
         static let TAB_KEY = "t"
         static let TAB_DEFAULT_VALUE = "web"
     }
@@ -44,6 +46,10 @@ public extension URL {
 
     var isAntiscrapUrl: Bool {
         return self.isQwantUrl && self.path.starts(with: Constants.QWANT_ANTISCRAP_PATH)
+    }
+
+    var isAccountUrl: Bool {
+        return self.isQwantUrl && self.path.starts(with: Constants.QWANT_ACCOUNT_PATH)
     }
 
     var isQwantJuniorUrl: Bool {
@@ -99,6 +105,15 @@ public extension URL {
         let needsClContext = !clPrefsValue.isEmpty && clDiffersFromPrefs
 
         return needsClientContext || needsWidgetContext || needsClContext
+    }
+
+    var showsQwantDrawer: Bool {
+        guard self.isQwantUrl && !self.isAntiscrapUrl else { return false }
+
+        return URLComponents(url: self, resolvingAgainstBaseURL: false)?
+            .percentEncodedQueryItems?
+            .contains(where: { $0.name == Constants.DRAWER_KEY })
+        != false
     }
 
     var qwantSearchTerm: String? {
@@ -258,6 +273,16 @@ public extension WKWebView {
             }
 
             completion(Int(value))
+        }
+    }
+
+    func isConnected(_ completion: @escaping (Bool) -> Void) {
+        configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+            completion(cookies
+                .filter({ $0.domain.contains("qwant.com") })
+                .first(where: { $0.name == "ory_kratos_session" })?
+                .value != nil
+            )
         }
     }
 }

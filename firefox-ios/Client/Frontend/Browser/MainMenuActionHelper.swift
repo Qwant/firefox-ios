@@ -30,6 +30,7 @@ protocol ToolBarActionMenuDelegate: AnyObject {
     func showFilePicker(fileURL: URL)
     func showEditBookmark()
     func showTrackingProtection()
+    func switchToTab(_ url: URL?) -> Bool
 }
 
 extension ToolBarActionMenuDelegate {
@@ -127,11 +128,12 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
             updateData(dataLoadingCompletion: {
                 actions.append(contentsOf: [
                     self.getNewTabSection(),
+                    self.getQwantSection(),
                     self.getLibrarySection(),
                     firstMiscSection,
                     self.getSecondMiscSection(),
                     self.getLastSection()
-                ])
+                ].compactMap { $0 })
 
                 DispatchQueue.main.async {
                     completion(actions)
@@ -146,6 +148,7 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     private var isInReadingList = false
     private var isBookmarked = false
     private var isPinned = false
+    private var isConnected = false
 
     /// Update data to show the proper menus related to the page
     /// - Parameter dataLoadingCompletion: Complete when the loading of data from the profile is done
@@ -167,11 +170,20 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
         getIsBookmarked(url: url, group: group)
         getIsPinned(url: url, group: group)
         getIsInReadingList(url: url, group: group)
+        getIsConnected(group: group)
 
         let dataQueue = DispatchQueue.global()
         group.notify(queue: dataQueue) {
             dataLoadingCompletion?()
         }
+    }
+
+    private func getIsConnected(group: DispatchGroup) {
+        group.enter()
+        selectedTab?.webView?.isConnected({ value in
+            self.isConnected = value
+            group.leave()
+        })
     }
 
     private func getIsInReadingList(url: String, group: DispatchGroup) {
@@ -199,6 +211,15 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     }
 
     // MARK: - Sections
+
+    private func getQwantSection() -> [PhotonRowActions]? {
+        guard AppInfo.isFrance else { return nil }
+        var section = [PhotonRowActions]()
+        append(to: &section, action: getAccountPageAction())
+        append(to: &section, action: getRetributionPageAction())
+
+        return section
+    }
 
     private func getNewTabSection() -> [PhotonRowActions] {
         var section = [PhotonRowActions]()
@@ -318,6 +339,30 @@ class MainMenuActionHelper: PhotonActionSheetProtocol,
     }
 
     // MARK: - Actions
+
+    private func getAccountPageAction() -> PhotonRowActions? {
+        let accountUrl = URL(string: "https://www.qwant.com/account/profile")!
+        let loginUrl = URL(string: "https://auth.qwant.com/ui/kratos/login")!
+        let url = isConnected ? accountUrl : loginUrl
+        return SingleActionViewModel(title: isConnected ? .QwantMenu.Account : .QwantMenu.Login,
+                                     iconString: "qwant_account") { _ in
+            let isPrivate = self.selectedTab?.isPrivate ?? false
+            if self.delegate?.switchToTab(url) == false {
+                self.delegate?.openURLInNewTab(url, isPrivate: isPrivate)
+            }
+        }.items
+    }
+
+    private func getRetributionPageAction() -> PhotonRowActions? {
+        return SingleActionViewModel(title: .QwantMenu.LoyaltyProgram,
+                                     iconString: "qwant_coin") { _ in
+            let url = URL(string: "https://www.qwant.com/?drawer=reward-promo")
+            let isPrivate = self.selectedTab?.isPrivate ?? false
+            if self.delegate?.switchToTab(url) == false {
+                self.delegate?.openURLInNewTab(url, isPrivate: isPrivate)
+            }
+        }.items
+    }
 
     private func getNewTabAction() -> PhotonRowActions? {
         guard let tab = selectedTab else { return nil }

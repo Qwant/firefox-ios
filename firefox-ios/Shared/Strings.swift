@@ -7882,6 +7882,12 @@ extension String {
         public static let InformationDescription = QwantString(key: "Qwant.BrandSuggest.Information")
         public static let AdvertisementLabel = QwantString(key: "Qwant.BrandSuggest.Advertisement")
     }
+
+    public struct QwantMenu {
+        public static let LoyaltyProgram = QwantString(key: "Qwant.Menu.LoyaltyProgram")
+        public static let Login = QwantString(key: "Qwant.Menu.Login")
+        public static let Account = QwantString(key: "Qwant.Menu.Account")
+    }
 }
 
 // swiftlint:enable line_length
