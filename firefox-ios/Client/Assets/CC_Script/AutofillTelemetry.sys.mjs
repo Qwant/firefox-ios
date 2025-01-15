@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { FormAutofillUtils } from "resource://gre/modules/shared/FormAutofillUtils.sys.mjs";
-import { FormAutofillCreditCardSection } from "resource://gre/modules/shared/FormAutofillSection.sys.mjs";
 
 const { FIELD_STATES } = FormAutofillUtils;
 
@@ -12,9 +11,6 @@ class AutofillTelemetryBase {
 
   EVENT_CATEGORY = null;
   EVENT_OBJECT_FORM_INTERACTION = null;
-
-  SCALAR_DETECTED_SECTION_COUNT = null;
-  SCALAR_SUBMITTED_SECTION_COUNT = null;
 
   HISTOGRAM_NUM_USES = null;
   HISTOGRAM_PROFILE_NUM_USES = null;
@@ -41,7 +37,7 @@ class AutofillTelemetryBase {
    * or `address_form` event and the Glean event `cc_form`, and `address_form`.
    * It indicates the detected credit card or address fields and which method (autocomplete property, regular expression heuristics or fathom) identified them.
    *
-   * @param {object} section Using section.fieldDetails to extract which fields were identified and how
+   * @param {Array<object>} fieldDetails fieldDetails to extract which fields were identified and how
    * @param {string} undetected Default value when a field is not detected: 'undetected' (Glean) and 'false' in (Legacy)
    * @param {string} autocomplete Value when a field is identified with autocomplete property: 'autocomplete' (Glean), 'true' (Legacy)
    * @param {string} regexp Value when a field is identified with regex expression heuristics: 'regexp' (Glean), '0' (Legacy)
@@ -49,7 +45,7 @@ class AutofillTelemetryBase {
    * @returns {object} Extra keys to include in the form event
    */
   #buildFormDetectedEventExtra(
-    section,
+    fieldDetails,
     undetected,
     autocomplete,
     regexp,
@@ -58,7 +54,7 @@ class AutofillTelemetryBase {
     let extra = this.#initFormEventExtra(undetected);
 
     let identified = new Set();
-    section.fieldDetails.forEach(detail => {
+    fieldDetails.forEach(detail => {
       identified.add(detail.fieldName);
 
       if (detail.reason == "autocomplete") {
@@ -86,160 +82,152 @@ class AutofillTelemetryBase {
     return extra;
   }
 
-  recordFormDetected(section) {
+  recordFormDetected(flowId, fieldDetails) {
     this.recordFormEvent(
       "detected",
-      section.flowId,
-      this.#buildFormDetectedEventExtra(section, "false", "true", "0", false)
+      flowId,
+      this.#buildFormDetectedEventExtra(
+        fieldDetails,
+        "false",
+        "true",
+        "0",
+        false
+      )
     );
 
     this.recordGleanFormEvent(
       "formDetected",
-      section.flowId,
+      flowId,
       this.#buildFormDetectedEventExtra(
-        section,
+        fieldDetails,
         "undetected",
         "autocomplete",
         "regexp",
         true
       )
     );
+
+    try {
+      this.recordIframeLayoutDetection(flowId, fieldDetails);
+    } catch {}
   }
 
-  recordPopupShown(section, fieldName) {
-    const extra = { field_name: fieldName };
-    this.recordFormEvent("popup_shown", section.flowId, extra);
-    this.recordGleanFormEvent("formPopupShown", section.flowId, extra);
+  recordPopupShown(flowId, fieldDetails) {
+    const extra = { field_name: fieldDetails[0].fieldName };
+    this.recordFormEvent("popup_shown", flowId, extra);
+    this.recordGleanFormEvent("formPopupShown", flowId, extra);
   }
 
-  recordFormFilled(section, profile) {
+  recordFormFilled(flowId, fieldDetails, data) {
     // Calculate values for telemetry
-    let extra = this.#initFormEventExtra("unavailable");
+    const extra = this.#initFormEventExtra("unavailable");
 
-    for (let fieldDetail of section.fieldDetails) {
-      let element = fieldDetail.element;
-      let state = profile[fieldDetail.fieldName] ? "filled" : "not_filled";
-      if (
-        section.handler.getFilledStateByElement(element) ==
-          FIELD_STATES.NORMAL &&
-        (HTMLSelectElement.isInstance(element) ||
-          (HTMLInputElement.isInstance(element) && element.value.length))
-      ) {
-        state = "user_filled";
+    for (const fieldDetail of fieldDetails) {
+      // It is possible that we don't autofill a field because it is cross-origin.
+      // When that happens, the data will not include that element.
+      let { filledState, filledValue } = data.get(fieldDetail.elementId) ?? {};
+      switch (filledState) {
+        case FIELD_STATES.AUTO_FILLED:
+          filledState = "filled";
+          break;
+        case FIELD_STATES.NORMAL:
+        default:
+          filledState =
+            fieldDetail.localName == "select" || filledValue?.length
+              ? "user_filled"
+              : "not_filled";
+          break;
       }
-      this.#setFormEventExtra(extra, fieldDetail.fieldName, state);
+      this.#setFormEventExtra(extra, fieldDetail.fieldName, filledState);
     }
 
-    this.recordFormEvent("filled", section.flowId, extra);
-    this.recordGleanFormEvent("formFilled", section.flowId, extra);
+    this.recordFormEvent("filled", flowId, extra);
+    this.recordGleanFormEvent("formFilled", flowId, extra);
   }
 
-  recordFilledModified(section, fieldName) {
-    const extra = { field_name: fieldName };
-    this.recordFormEvent("filled_modified", section.flowId, extra);
-    this.recordGleanFormEvent("formFilledModified", section.flowId, extra);
+  recordFilledModified(flowId, fieldDetails) {
+    const extra = { field_name: fieldDetails[0].fieldName };
+    this.recordFormEvent("filled_modified", flowId, extra);
+    this.recordGleanFormEvent("formFilledModified", flowId, extra);
   }
 
-  recordFormSubmitted(section, record, _form) {
-    let extra = this.#initFormEventExtra("unavailable");
+  recordFormSubmitted(flowId, fieldDetails, data) {
+    const extra = this.#initFormEventExtra("unavailable");
 
-    if (record.guid !== null) {
-      // If the `guid` is not null, it means we're editing an existing record.
-      // In that case, all fields in the record are autofilled, and fields in
-      // `untouchedFields` are unmodified.
-      for (const [fieldName, value] of Object.entries(record.record)) {
-        if (record.untouchedFields?.includes(fieldName)) {
-          this.#setFormEventExtra(extra, fieldName, "autofilled");
-        } else if (value) {
-          this.#setFormEventExtra(extra, fieldName, "user_filled");
-        } else {
-          this.#setFormEventExtra(extra, fieldName, "not_filled");
-        }
+    for (const fieldDetail of fieldDetails) {
+      let { filledState, filledValue } = data.get(fieldDetail.elementId) ?? {};
+      switch (filledState) {
+        case FIELD_STATES.AUTO_FILLED:
+          filledState = "autofilled";
+          break;
+        case FIELD_STATES.NORMAL:
+        default:
+          filledState =
+            fieldDetail.localName == "select" || filledValue?.length
+              ? "user_filled"
+              : "not_filled";
+          break;
       }
-    } else {
-      Object.keys(record.record).forEach(fieldName =>
-        this.#setFormEventExtra(extra, fieldName, "user_filled")
-      );
+      this.#setFormEventExtra(extra, fieldDetail.fieldName, filledState);
     }
 
-    this.recordFormEvent("submitted", section.flowId, extra);
-    this.recordGleanFormEvent("formSubmitted", section.flowId, extra);
+    this.recordFormEvent("submitted", flowId, extra);
+    this.recordGleanFormEvent("formSubmitted", flowId, extra);
   }
 
-  recordFormCleared(section, fieldName) {
-    const extra = { field_name: fieldName };
+  recordFormCleared(flowId, fieldDetails) {
+    const extra = { field_name: fieldDetails[0].fieldName };
 
     // Note that when a form is cleared, we also record `filled_modified` events
     // for all the fields that have been cleared.
-    this.recordFormEvent("cleared", section.flowId, extra);
-    this.recordGleanFormEvent("formCleared", section.flowId, extra);
+    this.recordFormEvent("cleared", flowId, extra);
+    this.recordGleanFormEvent("formCleared", flowId, extra);
   }
 
-  recordFormEvent(method, flowId, extra) {
-    Services.telemetry.recordEvent(
-      this.EVENT_CATEGORY,
-      method,
-      this.EVENT_OBJECT_FORM_INTERACTION,
-      flowId,
-      extra
-    );
+  recordFormEvent(_method, _flowId, _extra) {
+    throw new Error("Not implemented.");
   }
 
   recordGleanFormEvent(_eventName, _flowId, _extra) {
     throw new Error("Not implemented.");
   }
 
-  recordFormInteractionEvent(
-    method,
-    section,
-    { fieldName, profile, record, form } = {}
-  ) {
+  recordFormInteractionEvent(method, flowId, fieldDetails, data) {
     if (!this.EVENT_OBJECT_FORM_INTERACTION) {
       return undefined;
     }
     switch (method) {
       case "detected":
-        return this.recordFormDetected(section);
+        return this.recordFormDetected(flowId, fieldDetails);
       case "popup_shown":
-        return this.recordPopupShown(section, fieldName);
+        return this.recordPopupShown(flowId, fieldDetails);
       case "filled":
-        return this.recordFormFilled(section, profile);
+        return this.recordFormFilled(flowId, fieldDetails, data);
       case "filled_modified":
-        return this.recordFilledModified(section, fieldName);
+        return this.recordFilledModified(flowId, fieldDetails);
       case "submitted":
-        return this.recordFormSubmitted(section, record, form);
+        return this.recordFormSubmitted(flowId, fieldDetails, data);
       case "cleared":
-        return this.recordFormCleared(section, fieldName);
+        return this.recordFormCleared(flowId, fieldDetails);
     }
     return undefined;
   }
 
   recordDoorhangerEvent(method, object, flowId) {
-    Services.telemetry.recordEvent(this.EVENT_CATEGORY, method, object, flowId);
+    const eventName = `${method}_${object}`.replace(/(_[a-z])/g, c =>
+      c[1].toUpperCase()
+    );
+    Glean[this.EVENT_CATEGORY][eventName]?.record({ value: flowId });
   }
 
   recordManageEvent(method) {
-    Services.telemetry.recordEvent(this.EVENT_CATEGORY, method, "manage");
+    const eventName =
+      method.replace(/(_[a-z])/g, c => c[1].toUpperCase()) + "Manage";
+    Glean[this.EVENT_CATEGORY][eventName]?.record();
   }
 
   recordAutofillProfileCount(_count) {
     throw new Error("Not implemented.");
-  }
-
-  recordDetectedSectionCount() {
-    if (!this.SCALAR_DETECTED_SECTION_COUNT) {
-      return;
-    }
-
-    Services.telemetry.scalarAdd(this.SCALAR_DETECTED_SECTION_COUNT, 1);
-  }
-
-  recordSubmittedSectionCount(count) {
-    if (!this.SCALAR_SUBMITTED_SECTION_COUNT || !count) {
-      return;
-    }
-
-    Services.telemetry.scalarAdd(this.SCALAR_SUBMITTED_SECTION_COUNT, count);
   }
 
   recordNumberOfUse(records) {
@@ -252,19 +240,50 @@ class AutofillTelemetryBase {
       histogram.add(this.HISTOGRAM_PROFILE_NUM_USES_KEY, record.timesUsed);
     }
   }
+
+  recordIframeLayoutDetection(flowId, fieldDetails) {
+    const fieldsInMainFrame = [];
+    const fieldsInIframe = [];
+    const fieldsInSandboxedIframe = [];
+    const fieldsInCrossOrignIframe = [];
+
+    const iframes = new Set();
+    for (const fieldDetail of fieldDetails) {
+      const bc = BrowsingContext.get(fieldDetail.browsingContextId);
+      if (bc.top == bc) {
+        fieldsInMainFrame.push(fieldDetail);
+        continue;
+      }
+
+      iframes.add(bc);
+      fieldsInIframe.push(fieldDetail);
+      if (bc.sandboxFlags != 0) {
+        fieldsInSandboxedIframe.push(fieldDetail);
+      }
+
+      if (!FormAutofillUtils.isBCSameOriginWithTop(bc)) {
+        fieldsInCrossOrignIframe.push(fieldDetail);
+      }
+    }
+
+    const extra = {
+      category: this.EVENT_CATEGORY,
+      flow_id: flowId,
+      iframe_count: iframes.size,
+      main_frame: fieldsInMainFrame.map(f => f.fieldName).toString(),
+      iframe: fieldsInIframe.map(f => f.fieldName).toString(),
+      cross_origin: fieldsInCrossOrignIframe.map(f => f.fieldName).toString(),
+      sandboxed: fieldsInSandboxedIframe.map(f => f.fieldName).toString(),
+    };
+
+    Glean.formautofill.iframeLayoutDetection.record(extra);
+  }
 }
 
 export class AddressTelemetry extends AutofillTelemetryBase {
   EVENT_CATEGORY = "address";
-  EVENT_OBJECT_FORM_INTERACTION = "address_form";
-  EVENT_OBJECT_FORM_INTERACTION_EXT = "address_form_ext";
-
-  SCALAR_DETECTED_SECTION_COUNT =
-    "formautofill.addresses.detected_sections_count";
-  SCALAR_SUBMITTED_SECTION_COUNT =
-    "formautofill.addresses.submitted_sections_count";
-  SCALAR_AUTOFILL_PROFILE_COUNT =
-    "formautofill.addresses.autofill_profiles_count";
+  EVENT_OBJECT_FORM_INTERACTION = "AddressForm";
+  EVENT_OBJECT_FORM_INTERACTION_EXT = "AddressFormExt";
 
   HISTOGRAM_PROFILE_NUM_USES = "AUTOFILL_PROFILE_NUM_USES";
   HISTOGRAM_PROFILE_NUM_USES_KEY = "address";
@@ -326,38 +345,27 @@ export class AddressTelemetry extends AutofillTelemetryBase {
       }
     }
 
-    Services.telemetry.recordEvent(
-      this.EVENT_CATEGORY,
-      method,
-      this.EVENT_OBJECT_FORM_INTERACTION,
-      flowId,
-      extra
-    );
+    const eventMethod = method.replace(/(_[a-z])/g, c => c[1].toUpperCase());
+    Glean.address[eventMethod + this.EVENT_OBJECT_FORM_INTERACTION]?.record({
+      value: flowId,
+      ...extra,
+    });
 
     if (Object.keys(extExtra).length) {
-      Services.telemetry.recordEvent(
-        this.EVENT_CATEGORY,
-        method,
-        this.EVENT_OBJECT_FORM_INTERACTION_EXT,
-        flowId,
-        extExtra
-      );
+      Glean.address[
+        eventMethod + this.EVENT_OBJECT_FORM_INTERACTION_EXT
+      ]?.record({ value: flowId, ...extExtra });
     }
   }
 
   recordAutofillProfileCount(count) {
-    Services.telemetry.scalarSet(this.SCALAR_AUTOFILL_PROFILE_COUNT, count);
+    Glean.formautofillAddresses.autofillProfilesCount.set(count);
   }
 }
 
 class CreditCardTelemetry extends AutofillTelemetryBase {
   EVENT_CATEGORY = "creditcard";
-  EVENT_OBJECT_FORM_INTERACTION = "cc_form_v2";
-
-  SCALAR_DETECTED_SECTION_COUNT =
-    "formautofill.creditCards.detected_sections_count";
-  SCALAR_SUBMITTED_SECTION_COUNT =
-    "formautofill.creditCards.submitted_sections_count";
+  EVENT_OBJECT_FORM_INTERACTION = "CcFormV2";
 
   HISTOGRAM_NUM_USES = "CREDITCARD_NUM_USES";
   HISTOGRAM_PROFILE_NUM_USES = "AUTOFILL_PROFILE_NUM_USES";
@@ -374,126 +382,18 @@ class CreditCardTelemetry extends AutofillTelemetryBase {
     "cc-exp-year": "cc_exp_year",
   };
 
-  recordLegacyFormEvent(method, flowId, extra = null) {
-    Services.telemetry.recordEvent(
-      this.EVENT_CATEGORY,
-      method,
-      "cc_form",
-      flowId,
-      extra
-    );
-  }
-
   recordGleanFormEvent(eventName, flowId, extra) {
     extra.flow_id = flowId;
     Glean.formautofillCreditcards[eventName].record(extra);
   }
 
-  recordFormDetected(section) {
-    super.recordFormDetected(section);
-
-    let identified = new Set();
-    section.fieldDetails.forEach(detail => {
-      identified.add(detail.fieldName);
-    });
-    let extra = {
-      cc_name_found: identified.has("cc-name") ? "true" : "false",
-      cc_number_found: identified.has("cc-number") ? "true" : "false",
-      cc_exp_found:
-        identified.has("cc-exp") ||
-        (identified.has("cc-exp-month") && identified.has("cc-exp-year"))
-          ? "true"
-          : "false",
-    };
-
-    this.recordLegacyFormEvent("detected", section.flowId, extra);
-  }
-
-  recordPopupShown(section, fieldName) {
-    super.recordPopupShown(section, fieldName);
-
-    this.recordLegacyFormEvent("popup_shown", section.flowId);
-  }
-
-  recordFormFilled(section, profile) {
-    super.recordFormFilled(section, profile);
-    // Calculate values for telemetry
-    let extra = {
-      cc_name: "unavailable",
-      cc_number: "unavailable",
-      cc_exp: "unavailable",
-    };
-
-    for (let fieldDetail of section.fieldDetails) {
-      let element = fieldDetail.element;
-      let state = profile[fieldDetail.fieldName] ? "filled" : "not_filled";
-      if (
-        section.handler.getFilledStateByElement(element) ==
-          FIELD_STATES.NORMAL &&
-        (HTMLSelectElement.isInstance(element) ||
-          (HTMLInputElement.isInstance(element) && element.value.length))
-      ) {
-        state = "user_filled";
-      }
-      switch (fieldDetail.fieldName) {
-        case "cc-name":
-          extra.cc_name = state;
-          break;
-        case "cc-number":
-          extra.cc_number = state;
-          break;
-        case "cc-exp":
-        case "cc-exp-month":
-        case "cc-exp-year":
-          extra.cc_exp = state;
-          break;
-      }
-    }
-
-    this.recordLegacyFormEvent("filled", section.flowId, extra);
-  }
-
-  recordFilledModified(section, fieldName) {
-    super.recordFilledModified(section, fieldName);
-
-    let extra = { field_name: fieldName };
-    this.recordLegacyFormEvent("filled_modified", section.flowId, extra);
-  }
-
-  /**
-   * Called when a credit card form is submitted
-   *
-   * @param {object} section Section that produces this record
-   * @param {object} record Credit card record filled in the form.
-   * @param {Array<HTMLForm>} form Form that contains the section
-   */
-  recordFormSubmitted(section, record, form) {
-    super.recordFormSubmitted(section, record, form);
-
-    // For legacy cc_form event telemetry
-    let extra = {
-      fields_not_auto: "0",
-      fields_auto: "0",
-      fields_modified: "0",
-    };
-
-    if (record.guid !== null) {
-      let totalCount = form.elements.length;
-      let autofilledCount = Object.keys(record.record).length;
-      let unmodifiedCount = record.untouchedFields.length;
-
-      extra.fields_not_auto = (totalCount - autofilledCount).toString();
-      extra.fields_auto = autofilledCount.toString();
-      extra.fields_modified = (autofilledCount - unmodifiedCount).toString();
-    } else {
-      // If the `guid` is null, we're filling a new form.
-      // In that case, all not-null fields are manually filled.
-      extra.fields_not_auto = Array.from(form.elements)
-        .filter(element => !!element.value?.trim().length)
-        .length.toString();
-    }
-
-    this.recordLegacyFormEvent("submitted", section.flowId, extra);
+  recordFormEvent(method, flowId, aExtra) {
+    // Don't modify the passed-in aExtra as it's reused.
+    const extra = Object.assign({ value: flowId }, aExtra);
+    const eventMethod = method.replace(/(_[a-z])/g, c => c[1].toUpperCase());
+    Glean.creditcard[eventMethod + this.EVENT_OBJECT_FORM_INTERACTION]?.record(
+      extra
+    );
   }
 
   recordNumberOfUse(records) {
@@ -526,10 +426,10 @@ export class AutofillTelemetry {
   static ADDRESS = "address";
   static CREDIT_CARD = "creditcard";
 
-  static #getTelemetryBySection(section) {
-    return section instanceof FormAutofillCreditCardSection
-      ? this.#creditCardTelemetry
-      : this.#addressTelemetry;
+  static #getTelemetryByFieldDetail(fieldDetail) {
+    return FormAutofillUtils.isAddressField(fieldDetail.fieldName)
+      ? this.#addressTelemetry
+      : this.#creditCardTelemetry;
   }
 
   static #getTelemetryByType(type) {
@@ -572,37 +472,12 @@ export class AutofillTelemetry {
    * Utility functions for form event (defined in Events.yaml)
    *
    * Category: address or creditcard
-   * Event name: cc_form, cc_form_v2, or address_form
+   * Event name: cc_form_v2, or address_form
    */
 
-  static recordFormInteractionEvent(
-    method,
-    section,
-    { fieldName, profile, record, form } = {}
-  ) {
-    const telemetry = this.#getTelemetryBySection(section);
-    telemetry.recordFormInteractionEvent(method, section, {
-      fieldName,
-      profile,
-      record,
-      form,
-    });
-  }
-
-  /**
-   * Utility functions for submitted section count scalar (defined in Scalars.yaml)
-   *
-   * Category: formautofill.creditCards or formautofill.addresses
-   * Scalar name: submitted_sections_count
-   */
-  static recordDetectedSectionCount(section) {
-    const telemetry = this.#getTelemetryBySection(section);
-    telemetry.recordDetectedSectionCount();
-  }
-
-  static recordSubmittedSectionCount(type, count) {
-    const telemetry = this.#getTelemetryByType(type);
-    telemetry.recordSubmittedSectionCount(count);
+  static recordFormInteractionEvent(method, flowId, fieldDetails, data) {
+    const telemetry = this.#getTelemetryByFieldDetail(fieldDetails[0]);
+    telemetry.recordFormInteractionEvent(method, flowId, fieldDetails, data);
   }
 
   static recordManageEvent(type, method) {
