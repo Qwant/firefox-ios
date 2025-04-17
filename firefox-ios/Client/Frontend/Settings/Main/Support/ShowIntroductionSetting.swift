@@ -30,4 +30,6 @@ class ShowIntroductionSetting: Setting {
 
         settingsDelegate?.pressedShowTour()
     }
+
+    override var hidden: Bool { return true }
 }

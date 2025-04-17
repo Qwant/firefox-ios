@@ -9,7 +9,7 @@ struct IntroScreenManager {
     var prefs: Prefs
 
     var shouldShowIntroScreen: Bool {
-        prefs.intForKey(PrefsKeys.IntroSeen) == nil
+        prefs.intForKey(PrefsKeys.IntroSeen) == nil && false
     }
 
     func didSeeIntroScreen() {

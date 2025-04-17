@@ -84,6 +84,6 @@ class DefaultBrowserOnboardingViewModel {
             UserDefaults.standard.set(true, forKey: PrefsKeys.KeyDidShowDefaultBrowserOnboarding)
         }
 
-        return shouldShow
+        return shouldShow && false
     }
 }
